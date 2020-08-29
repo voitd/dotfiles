@@ -62,6 +62,7 @@ function s:add_terminal_mappings()
   endif
 endfunction
 
+
 " Make sure the terminal buffer has no numbers and no sign column
 " Always open on insert mode
 augroup term
