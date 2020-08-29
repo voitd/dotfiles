@@ -102,7 +102,6 @@ let g:which_key_map.c = {
       \ 'e' : [':CocList extensions'                 , 'extensions list'],
       \ 'd' : [':CocList diagnostics'                , 'diagnostics'],
       \ 'n' : ['<Plug>(coc-diagnostic-next-error)'   , 'next error'],
-      \ 'o' : [':OR'                                 , 'Organize imports'],
       \ 'p' : ['<Plug>(coc-diagnostic-prev-error)'   , 'prev error'],
       \ 'f' : ['<Plug>(coc-fix-current)'             , 'quickfix'],
       \ 'r' : ['<Plug>(coc-rename)'                  , 'rename'],
@@ -179,11 +178,13 @@ let g:which_key_map.J = {
 
 let g:which_key_map.w = {
 			\ 'name' : '+Window' ,
-			\ 'v' : ['<C-u>split<CR>'            , 'Vertical split'],
-			\ 'h' : ['<C-u>vsplit<CR>'           , 'Horizontal split'],
-			\ 'd' : ['<C-W>='                     , 'Balance windows'],
-			\ '+' : [':exe "vertical resize " . (winheight(0) * 3/2)<CR>', 'Resize +'],  
+			\ '|' : ['<C-u>split<CR>'            , 'Vertical split'],
+			\ '_' : ['<C-u>vsplit<CR>'           , 'Horizontal split'],
+			\ 'b' : ['<C-W>='                    , 'Balance windows'],
+			\ '+' : [':(winheight(0) * 3/2)<CR>', 'Resize +'],  
 			\ '-' : [':exe "vertical resize " . (winheight(0) * 2/3)<CR>', 'Resize -'], 
+      \ 'h' : ['<c-w>_'                    , 'max height'],
+    	\ 'w' : ['<c-w>|'                    , 'max width'],
       \ }
 
 let g:which_key_map.S = {
@@ -192,6 +193,14 @@ let g:which_key_map.S = {
 			\ 'l' : [':SLoad'           , 'Load Session'],
 			\ 'd' : [':SDelete'         , 'Delete Session'],
 			\ 'c' : [':SClose'          , 'Close Session'],
+      \ }
+
+let g:which_key_map.i = {
+			\ 'name' : '+Import Fixes' ,
+			\ 'f' : [':ImportJSFix'     , 'Fix all imports'],
+			\ 'w' : [':ImportJSWord'    , 'Add imports under the cursor.'],
+			\ 'g' : [':ImportJSGoto'         , 'Go to the module under the cursor'],
+      \ 'o' : [':OR'              , 'Organize imports'],
       \ }
 
 let g:which_key_map.m = {

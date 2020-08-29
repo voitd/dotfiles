@@ -11,22 +11,10 @@
 
 ### My Setup
 
-- Main bash: I'm using Kitty + Fish.
-- Second bash as quake console like: ![iTerm2+Tmux](https://user-images.githubusercontent.com/60138143/91640529-e7647a00-ea26-11ea-9744-bd3847975495.png)
+- Main bash: <details><summary>Kitty + Fish</summary><img width="1593" alt="startufy" src="https://user-images.githubusercontent.com/60138143/91604073-b3ca1700-e976-11ea-87b3-547c04f70f29.png"><img width="1593" alt="html" src="https://user-images.githubusercontent.com/60138143/91604089-baf12500-e976-11ea-85d2-885bd0172493.png"><img width="1593" alt="main" src="https://user-images.githubusercontent.com/60138143/91604098-bd537f00-e976-11ea-978e-aa07c09fd1f1.png"></details>
+- Second bash as quake console like: <details> <summary>iTerm2+Tmux</summary><img width="1600" alt="iterm2 tmux" src="https://user-images.githubusercontent.com/60138143/91640529-e7647a00-ea26-11ea-9744-bd3847975495.png"</details>
 - Fonts: JetBrainsMono Nerd.
-
 - Windows manager: [Moom](https://manytricks.com/moom/).
-
-<details>
-  <summary>Screenshots</summary>
-
-<img width="1593" alt="startufy" src="https://user-images.githubusercontent.com/60138143/91604073-b3ca1700-e976-11ea-87b3-547c04f70f29.png">
-
-<img width="1593" alt="html" src="https://user-images.githubusercontent.com/60138143/91604089-baf12500-e976-11ea-85d2-885bd0172493.png">
-
-<img width="1593" alt="main" src="https://user-images.githubusercontent.com/60138143/91604098-bd537f00-e976-11ea-978e-aa07c09fd1f1.png">
-
-</details>
 
 ### Setting Up a New Machine
 
