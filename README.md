@@ -1,4 +1,21 @@
-# Dotfiles
+```bash
+
+               ██████╗  ██████╗ ████████╗███████╗██╗██╗     ███████╗███████╗
+               ██╔══██╗██╔═══██╗╚══██╔══╝██╔════╝██║██║     ██╔════╝██╔════╝
+               ██║  ██║██║   ██║   ██║   █████╗  ██║██║     █████╗  ███████╗
+               ██║  ██║██║   ██║   ██║   ██╔══╝  ██║██║     ██╔══╝  ╚════██║
+            ██╗██████╔╝╚██████╔╝   ██║   ██║     ██║███████╗███████╗███████║
+            ╚═╝╚═════╝  ╚═════╝    ╚═╝   ╚═╝     ╚═╝╚══════╝╚══════╝╚══════╝
+
+```
+
+### My Setup
+
+- Main bash: I'm using Kitty + Fish.
+- Second bash as quake console like: ![iTerm2+Tmux](https://user-images.githubusercontent.com/60138143/91640529-e7647a00-ea26-11ea-9744-bd3847975495.png)
+- Fonts: JetBrainsMono Nerd.
+
+- Windows manager: [Moom](https://manytricks.com/moom/).
 
 <details>
   <summary>Screenshots</summary>
