@@ -68,7 +68,7 @@ augroup term
   autocmd!
   autocmd TermOpen * :setlocal signcolumn=no nonumber norelativenumber
   autocmd TermOpen term://* startinsert
-  autocmd TermEnter,BufEnter term://* call s:add_terminal_mappings()
+  autocmd TermOpen,BufEnter term://* call s:add_terminal_mappings()
   autocmd BufLeave term://* stopinsert
 augroup end
 
