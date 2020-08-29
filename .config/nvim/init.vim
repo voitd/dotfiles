@@ -129,6 +129,10 @@ Plug 'Rigellute/rigel'
 Plug 'gruvbox-community/gruvbox'
 Plug 'sainnhe/gruvbox-material'
 
+Plug 'franbach/miramare'
+
+Plug 'arcticicestudio/nord-vim'
+
 call plug#end()
 
 "*****************************************************************************
@@ -449,3 +453,4 @@ nnoremap <silent> <F6> :call <SID>run_this_script(1)<cr>
 
 " Quick fold and unfold
 nnoremap <silent>zz :normal!za<cr>
+
