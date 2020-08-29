@@ -11,10 +11,10 @@
 
 ### My Setup
 
-- Main bash: <details><summary>Kitty + Fish</summary><img width="1593" alt="startufy" src="https://user-images.githubusercontent.com/60138143/91604073-b3ca1700-e976-11ea-87b3-547c04f70f29.png"><img width="1593" alt="html" src="https://user-images.githubusercontent.com/60138143/91604089-baf12500-e976-11ea-85d2-885bd0172493.png"><img width="1593" alt="main" src="https://user-images.githubusercontent.com/60138143/91604098-bd537f00-e976-11ea-978e-aa07c09fd1f1.png"></details>
-- Second bash as quake console like: <details> <summary>iTerm2+Tmux</summary><img width="1600" alt="iterm2 tmux" src="https://user-images.githubusercontent.com/60138143/91640529-e7647a00-ea26-11ea-9744-bd3847975495.png"</details>
-- Fonts: JetBrainsMono Nerd.
-- Windows manager: [Moom](https://manytricks.com/moom/).
+Main terminal: <details><summary>Kitty+Fish</summary><img width="1593" alt="startufy" src="https://user-images.githubusercontent.com/60138143/91604073-b3ca1700-e976-11ea-87b3-547c04f70f29.png"><img width="1593" alt="html" src="https://user-images.githubusercontent.com/60138143/91604089-baf12500-e976-11ea-85d2-885bd0172493.png"><img width="1593" alt="main" src="https://user-images.githubusercontent.com/60138143/91604098-bd537f00-e976-11ea-978e-aa07c09fd1f1.png"></details>
+Second as quake console like: <details><summary>iTerm2+Tmux</summary><img width="3001" alt="iterm2 tmux" src="https://user-images.githubusercontent.com/60138143/91641434-12ea6300-ea2d-11ea-8e75-4b3d2afaaf6e.png"</details>
+Fonts: JetBrainsMono Nerd.
+Windows manager: [Moom](https://manytricks.com/moom/).
 
 ### Setting Up a New Machine
 
