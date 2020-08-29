@@ -1,13 +1,24 @@
+                                                
+                                                
+"        ██╗███╗   ██╗██╗████████╗██╗   ██╗██╗███╗   ███╗
+"        ██║████╗  ██║██║╚══██╔══╝██║   ██║██║████╗ ████║
+"        ██║██╔██╗ ██║██║   ██║   ██║   ██║██║██╔████╔██║
+"        ██║██║╚██╗██║██║   ██║   ╚██╗ ██╔╝██║██║╚██╔╝██║
+"        ██║██║ ╚████║██║   ██║██╗ ╚████╔╝ ██║██║ ╚═╝ ██║
+"        ╚═╝╚═╝  ╚═══╝╚═╝   ╚═╝╚═╝  ╚═══╝  ╚═╝╚═╝     ╚═╝
+                                                
+
 source ~/.config/nvim/plug-config/sneak.vim
 source ~/.config/nvim/plug-config/hooks.vim
 source ~/.config/nvim/plug-config/themer.vim
 source ~/.config/nvim/plug-config/conflict-marker.vim
-" source ~/.config/nvim/tabline2.vim
-" source ~/.config/nvim/rigel-line.vim
+source ~/.config/nvim/plug-config/statusline/rigel-line.vim
 
-"------- Plugins ----------------------------------------------------------
+"*****************************************************************************
+"" Plugins
+"*****************************************************************************
+
 call plug#begin()
-" Plug 'dstein64/vim-startuptime'
 
 " Intellisense
 Plug 'neoclide/coc.nvim', {'branch': 'release'}  
@@ -86,16 +97,22 @@ Plug 'justinmk/vim-sneak'
 " Smooth scroll
 Plug 'yuttie/comfortable-motion.vim'
 
-" Status line
-" Plug 'pacha/vem-tabline' 
-" Plug 'Akin909/nvim-bufferline.lua'
 " Snippets
 Plug 'dominikduda/vim_es7_javascript_react_snippets'
 " Plug 'mlaursen/vim-react-snippet'
 " Plug 'jsit/vim-vscode-react-snippets'
 
+" ImportJS helps you import JavaScript dependencies. Hit a keyboard shortcut to automatically 
+" add import x from 'y' statements at the top of the file.
+Plug 'Galooshi/vim-import-js'
+
+" How long vim starts
+"Plug 'dstein64/vim-startuptime'
+
 " Better Syntax Support
 Plug 'sheerun/vim-polyglot'
+
+Plug 'Galooshi/vim-import-js'
 
 " Markdown Preview
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }
@@ -122,16 +139,16 @@ call plug#end()
 
 " colorscheme gruvbox-material   
 
-colorscheme gruvbox
-let g:gruvbox_contrast_dark = "hard"
-let g:gruvbox_sign_column = "bg0"
-let g:gruvbox_invert_selection='0'
+" colorscheme gruvbox
+" let g:gruvbox_contrast_dark = "hard"
+" let g:gruvbox_sign_column = "bg0"
+" let g:gruvbox_invert_selection='0'
 " set background=light
 
-" colorscheme rigel
-" let g:rigel_italic=1
-" let g:rigel_bold=1
-" let g:javascript_plugin_flow = 1
+colorscheme rigel
+let g:rigel_italic=1
+let g:rigel_bold=1
+let g:javascript_plugin_flow = 1
 
 " Colors and styling
 hi link xmlEndTag xmlTag
@@ -142,14 +159,14 @@ hi htmlArg cterm=italic
 hi Comment cterm=italic
 hi Type cterm=italic
 
-let g:time = strftime("%H")  
-if  g:time > 08 && g:time < 18
-  set background=light
-  source ~/.config/nvim/gruvbox-light.vim
-else
-  set background=dark
-  source ~/.config/nvim/gruvbox-dark-line.vim
-endif
+" let g:time = strftime("%H")  
+" if  g:time > 08 && g:time < 18
+"   set background=light
+"   source ~/.config/nvim/plug-config/statusline/gruvbox-light.vim
+" else
+"   set background=dark
+"   source ~/.config/nvim/plug-config/statusline/gruvbox-dark-line.vim
+" endif
  
 " Color Settings as transparent
 " set background=dark cursorline termguicolors
@@ -280,6 +297,7 @@ let g:undotree_SplitWidth = 45
 let g:undotree_DiffpanelHeight = 20
 let g:undotree_SetFocusWhenToggle = 1
 
+let g:importjs_disable_default_mappings = 1
 "---------Map key--------------------------------------------------------------
 
 
@@ -352,12 +370,12 @@ inoremap <C-e> <C-o>$
 " xmap s <Nop>
 
 " Vmap for maintain Visual Mode after shifting > and <
-" vmap < <gv
-" vmap > >gv
+vmap < <gv
+vmap > >gv
 
 " Normal mode indent with only one keypress
-" nmap > >>
-" nmap < <<
+nmap > >>
+nmap < <<
 
 " j/k will move virtual lines (lines that wrap)
 noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
@@ -392,8 +410,11 @@ noremap <Left> <Nop>
 
 " Search mappings: These will make it so that going to the next one in a
 " search will center on the line it's found in.
-nnoremap n nzzzv
-nnoremap N Nzzzv
+" nnoremap n nzzzv
+" nnoremap N Nzzzv
+
+nnoremap n :<BS>nzzzv
+nnoremap N :<BS>Nzzzv
 
 nmap uu u
 imap jj <Esc>
@@ -428,4 +449,3 @@ nnoremap <silent> <F6> :call <SID>run_this_script(1)<cr>
 
 " Quick fold and unfold
 nnoremap <silent>zz :normal!za<cr>
-
