@@ -20,8 +20,15 @@ let g:ascii = [
   \'                                                                  ',                                                             
 \]
 
+
+" let g:startify_custom_header_time = startify#pad([
+"       \ '>>> Happy coding @' . $USER . '!',
+"       \])
 let g:startify_custom_header =
-          \ 'startify#center(g:ascii )'
+          \ 'startify#center(g:ascii)'
+
+" let g:startify_custom_footer =
+"           \ 'startify#pad(g:loaded)'
 
 let g:startify_skiplist = [
       \ 'COMMIT_EDITMSG',
@@ -38,6 +45,15 @@ let g:startify_skiplist = [
     return map(commits, '{"line": matchstr(v:val, "\\s\\zs.*"), "cmd": "'. git .' show ". matchstr(v:val, "^\\x\\+") }')
   endfunction
 
+ function s:pluginInfo()
+    return [
+          \ { 'line': 'Install Plugins', 'cmd': ':PlugInstall'},
+          \ { 'line': 'Upgrade Plugins', 'cmd': ':PlugUpdate' },
+          \ { 'line': 'Clean Plugins'  , 'cmd': ':PlugClean' },
+          \ { 'line': 'Status Plugins' , 'cmd': ':PlugStatus' },
+          \ ]
+  endfunction
+
   let g:startify_lists = [
         \ { 'type': 'sessions',                    'header': ["      \ue62e Sessions"]           },
         \ { 'type': 'files',                       'header': ["      \ufa1e Files"]              },
@@ -45,9 +61,23 @@ let g:startify_skiplist = [
         \ { 'type': function('s:list_commits'),    'header': ["       Commits "]                },
         \ { 'type': 'bookmarks',                   'header': ["      \uf5c2 Bookmarks"]          },
         \ { 'type': 'commands',                    'header': ["      \ufb32 Commands"]           },
+        \ { 'type': function('s:pluginInfo'),      'header': ["      漣Plugin loaded " .len(get(g:, 'plugs', 0)).' '], 'indices': ['I','U','C','S'] },
         \ ]
 
+   let g:startify_commands = [
+        \ {'h': ['Check health'       , ':checkhealth']},
+        \ {'u': ['Update CoC Plugin'  , ':CocUpdate']},
+        \ {'m': ['Marketplace'        , ':CocList marketplace']},
+        \ ]
 
+let g:startify_bookmarks = [
+           \ {'v': '~/.config/nvim/init.vim'},
+           \ {'t': '.tmux.conf'},
+           \ {'k': '~/.config/kitty/kitty.conf'},
+           \ {'f': '~/.config/fish/config.fish'},
+           \ {'d': '~/dotfiles' },
+           \ {'c': '~/CodeHub'}
+           \ ]
 
 let g:startify_session_autoload = 1
 let g:startify_session_delete_buffers = 1
@@ -57,37 +87,20 @@ let g:startify_padding_left = 5
 let g:webdevicons_enable_startify = 1
 let g:startify_enable_special = 1
 let g:startify_files_number = 5
+let g:startify_update_oldfiles = 1
+let g:startify_change_to_dir = 1
+" let g:startify_enable_unsafe = 0
 
-hi! link StartifyHeader Normal
+hi! link StartifyHeader Function 
 hi! link StartifyFile Directory
 hi! link StartifyPath LineNr
 hi! link StartifySlash StartifyPath
 hi! link StartifyBracket StartifyPath
-hi! link StartifyNumber Title
+hi! link StartifyNumber StartifyPath
 
 autocmd User Startified setlocal cursorline
 
 function! StartifyEntryFormat()
   return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
 endfunction
-
-
- let g:startify_commands = [
-        \ {'h': ['Check health',':checkhealth']},
-        \ {'i': ['Install Plugin', ':PlugInstall']},
-        \ {'c': ['Unistall Plugin', ':PlugClean']},
-        \ {'u': ['Update Plugin', ':PlugUpdate | PlugUpgrade | CocUpdate']},
-        \ {'s': ['Plugins status', ':PlugStatus']},
-        \ {'m': ['Marketplace', ':CocList marketplace']},
-        \ ]
-
-let g:startify_bookmarks = [
-            \ { 'v': '~/.config/nvim/init.vim' },
-            \ { 'd': '~/.dotfiles' },
-            \ { 't': '~/.tmux.conf'},
-            \ '~/.config/nvim/plug-config',
-            \ '~/.config/kitty/',
-            \ '~/CodeHub',
-            \ ]
-
 

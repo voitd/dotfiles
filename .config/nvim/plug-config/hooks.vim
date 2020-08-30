@@ -69,7 +69,7 @@ augroup term
   autocmd!
   autocmd TermOpen * :setlocal signcolumn=no nonumber norelativenumber
   autocmd TermOpen term://* startinsert
-  autocmd TermOpen,BufEnter term://* call s:add_terminal_mappings()
+  " autocmd TermOpen,BufEnter term://* call s:add_terminal_mappings()
   autocmd BufLeave term://* stopinsert
 augroup end
 
@@ -189,9 +189,6 @@ command! -nargs=0 Reload so %
 
 " :redraw!
 command! -nargs=0 Redraw redraw!
-
-" General
-command! -nargs=1 H exec ":vert h " . <f-args> . "\<cr>"
 
 " Add a debug statement
 " Takes a variable name as an arg and will output a debug log

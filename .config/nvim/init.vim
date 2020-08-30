@@ -12,7 +12,6 @@ source ~/.config/nvim/plug-config/sneak.vim
 source ~/.config/nvim/plug-config/hooks.vim
 source ~/.config/nvim/plug-config/themer.vim
 source ~/.config/nvim/plug-config/conflict-marker.vim
-source ~/.config/nvim/plug-config/statusline/rigel-line.vim
 
 "*****************************************************************************
 "" Plugins
@@ -129,6 +128,10 @@ Plug 'Rigellute/rigel'
 Plug 'gruvbox-community/gruvbox'
 Plug 'sainnhe/gruvbox-material'
 
+Plug 'franbach/miramare'
+
+Plug 'arcticicestudio/nord-vim'
+
 call plug#end()
 
 "*****************************************************************************
@@ -149,6 +152,8 @@ colorscheme rigel
 let g:rigel_italic=1
 let g:rigel_bold=1
 let g:javascript_plugin_flow = 1
+source ~/.config/nvim/plug-config/statusline/rigel-line.vim
+
 
 " Colors and styling
 hi link xmlEndTag xmlTag
@@ -449,3 +454,4 @@ nnoremap <silent> <F6> :call <SID>run_this_script(1)<cr>
 
 " Quick fold and unfold
 nnoremap <silent>zz :normal!za<cr>
+
