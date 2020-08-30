@@ -1,3 +1,6 @@
+if !PluginLoaded('conflict-marker.vim')
+  finish
+endif
 
 " disable the default highlight group
 let g:conflict_marker_highlight_group = ''

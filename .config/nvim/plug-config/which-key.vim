@@ -129,6 +129,22 @@ let g:which_key_map.j = {
       \ 'n' : ['<Plug>(coc-diagnostic-next)'         , 'Next diagnostic'],
       \ }
 
+" l is for language server protocol
+let g:which_key_map.l = {
+      \ 'name' : '+lsp' ,
+      \ 'd' : [':Definition'                         , 'definition'],
+      \ 'D' : [':Declaration'                        , 'declaration'],
+      \ 'F' : [':Format'                             , 'format'],
+      \ 'h' : [':Hover'                              , 'hover'],
+      \ 'i' : [':Implementation'                     , 'implementation'],
+      \ 'l' : [':NextDiagnostic'                     , 'next diagnostic'],
+      \ 'L' : [':PrevDiagnostic'                     , 'prev diagnostic'],
+      \ 'I' : [':OpenDiagnostic'                     , 'diagnostics'],
+      \ 'r' : [':References'                         , 'references'],
+      \ 's' : [':DocumentSymbol'                     , 'document symbols'],
+      \ 'S' : [':WorkspaceSymbol'                    , 'workspace symbols'],
+      \ 't' : [':TypeDefinition'                     , 'type definition'],
+      \ }
 " s is for search
 let g:which_key_map.s = {
       \ 'name' : '+Search' ,

@@ -1,4 +1,4 @@
-let g:vimColorScheme = 'Gruvbox Mix Dark'
+" let g:vimColorScheme = 'Gruvbox Mix Dark'
 let g:colorSchemeList = {}
 let g:colorSchemeList['Gruvbox Material Dark'] = [
       \   'set background=dark',
@@ -38,7 +38,25 @@ let g:colorSchemeList['Rigel'] = [
       \   "let g:rigel_bold=1",
       \   'source ~/.config/nvim/plug-config/statusline/rigel-line.vim',
       \   ]
-
+let g:colorSchemeList['Miramare'] = [
+      \   'set termguicolors',
+      \   'colorscheme miramare',
+      \   "let g:miramare_enable_italic=1",
+      \   'source ~/.config/nvim/plug-config/statusline/gruvbox-dark-line.vim',
+      \   ]
+let g:colorSchemeList['Nord'] = [
+      \   'colorscheme nord',
+      \   "let g:nord_italic=1",
+      \   "let g:nord_underline=1",
+      \   'source ~/.config/nvim/plug-config/statusline/rigel-line.vim',
+      \   ]
+let g:colorSchemeList['Gruvbox'] = [
+      \   'colorscheme gruvbox',
+      \   "let g:gruvbox_contrast_dark ='hard'",
+      \   "let g:gruvbox_sign_column ='bg0'",
+      \   "let g:gruvbox_invert_selection =0",
+      \   'source ~/.config/nvim/plug-config/statusline/gruvbox-dark-line.vim',
+      \   ]
 
       " \    'execute "silent ! kitty @ --to=tcp:localhost:12345 set-colors --all ~/.config/kitty/colors/rigel.conf"'
       " \    'execute "silent ! tmux source-file ~/.tmux/rigel.tmux"'
@@ -54,7 +72,7 @@ function! s:Color(a, l, p)
 endfunction
 
 command! -bar -nargs=? -complete=customlist,<sid>Color SwitchColors call SwitchColorScheme(<f-args>)
-" call SwitchColorScheme(g:vimColorScheme)
+" call SwitchColorScheme('Rigel')
 
 " Functions
 " function SwitchLightlineColorScheme(lightlineName) abort

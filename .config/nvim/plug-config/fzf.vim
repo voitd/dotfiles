@@ -134,3 +134,24 @@ command! BD call fzf#run(fzf#wrap({
   \ 'options': [ '--multi', '--prompt=BD> ', '--reverse', '--bind', 'ctrl-a:select-all+accept', '--preview', 'echo {} | awk -F "\"" "{gsub(/^[ \t]+line/,\":\", \$3); \$1=\"\"; gsub(/[ ]:[ ]/, \":\", \$0); print \$0}" | xargs -I __ "$XDG_DATA_HOME/nvim/plugged/fzf.vim/bin/preview.sh" __' ]
 \ }))
 
+
+" Open fzf in a floating window
+" let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.5 } }
+
+nnoremap <silent> <C-f> :call <SID>open_fzf()<CR>
+
+function! s:open_fzf()
+  let l:choices = [
+        \ ['[f]iles', 'Files'], ['[o]pen buffers', 'Buffers'], ['[l]ines', 'BLines'], ['[r]g', 'Rg'],
+        \ ['[c]ommands', 'Commands'], ['git [s]tatus', 'GFiles?'], ['[g]it checkout', 'GBranches'],
+        \ ['[h]istory', 'History'], ['history[:]', 'History:'], ['history[/]', 'History/'],
+        \]
+  let l:options = map(copy(l:choices), 'v:val[0]')
+  echo 'Fzf ' . join(l:options, ', ') . ': '
+  let l:key = nr2char(getchar())
+  let l:match = match(l:options, '\[' . l:key . '\]')
+  redraw | echo
+  if l:match >= 0
+    execute ':' . l:choices[l:match][1]
+  endif
+endfunction

@@ -7,13 +7,6 @@
 "        ██║██║ ╚████║██║   ██║██╗ ╚████╔╝ ██║██║ ╚═╝ ██║
 "        ╚═╝╚═╝  ╚═══╝╚═╝   ╚═╝╚═╝  ╚═══╝  ╚═╝╚═╝     ╚═╝
                                                 
-
-source ~/.config/nvim/plug-config/sneak.vim
-source ~/.config/nvim/plug-config/hooks.vim
-source ~/.config/nvim/plug-config/themer.vim
-source ~/.config/nvim/plug-config/conflict-marker.vim
-source ~/.config/nvim/plug-config/statusline/rigel-line.vim
-
 "*****************************************************************************
 "" Plugins
 "*****************************************************************************
@@ -21,11 +14,11 @@ source ~/.config/nvim/plug-config/statusline/rigel-line.vim
 call plug#begin()
 
 " Intellisense
-Plug 'neoclide/coc.nvim', {'branch': 'release'}  
-source ~/.config/nvim/plug-config/coc.vim
-let g:coc_global_extensions = [
-  \ 'coc-tsserver'
-  \ ]
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}  
+" source ~/.config/nvim/plug-config/coc.vim
+" let g:coc_global_extensions = [
+"   \ 'coc-tsserver'
+"   \ ]
 
 " FZF
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } 
@@ -33,6 +26,10 @@ Plug 'junegunn/fzf.vim'
 Plug 'antoinemadec/coc-fzf'
 source ~/.config/nvim/plug-config/fzf.vim
 
+Plug 'neovim/nvim-lsp'  "  Nvim LSP client configurations
+Plug 'nvim-lua/diagnostic-nvim'  "  A wrapper for neovim built in LSP diagnosis config 
+Plug 'nvim-lua/completion-nvim'
+Plug 'kyazdani42/nvim-tree.lua'
 
 " Pretty start screen
 Plug 'mhinz/vim-startify'
@@ -108,9 +105,10 @@ Plug 'Galooshi/vim-import-js'
 
 " How long vim starts
 "Plug 'dstein64/vim-startuptime'
-
+" Plug 'SirVer/ultisnips'  " The ultimate snippet solution for Vim
 " Better Syntax Support
 Plug 'sheerun/vim-polyglot'
+" Plug 'nvim-treesitter/nvim-treesitter'
 
 Plug 'Galooshi/vim-import-js'
 
@@ -119,6 +117,9 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }
 
 " Cool Icons
 Plug 'ryanoasis/vim-devicons' 
+Plug 'kyazdani42/nvim-web-devicons' " Recommended (for coloured icons)
+
+Plug 'Akin909/nvim-bufferline.lua'
 
 " Highlight colors in buffer
 Plug 'norcalli/nvim-colorizer.lua'
@@ -138,6 +139,29 @@ call plug#end()
 "*****************************************************************************
 "" Visual Settings
 "*****************************************************************************
+" set termguicolors
+" SOURCE: https://github.com/junegunn/vim-plug/pull/875
+" Check if the files is in the plugs map but also IMPORTANTLY
+" that it is in the runtime path
+function PluginLoaded(plugin_name) abort
+  return has_key(g:plugs, a:plugin_name) && stridx(&rtp, g:plugs[a:plugin_name].dir)
+endfunction
+
+if PluginLoaded('nvim-lsp')
+  luafile ~/.config/nvim/lua/lsp.lua
+endif
+
+source ~/.config/nvim/plug-config/sneak.vim
+source ~/.config/nvim/plug-config/hooks.vim
+source ~/.config/nvim/plug-config/themer.vim
+source ~/.config/nvim/plug-config/conflict-marker.vim
+source ~/.config/nvim/plug-config/statusline/rigel-line.vim
+
+
+lua require'bufferline'.setup()
+set completeopt=menuone,noinsert
+autocmd BufEnter * lua require'completion'.on_attach()
+let g:python3_host_prog = '/usr/local/bin/python3' 
 
 " colorscheme my
 
@@ -176,7 +200,6 @@ hi Type cterm=italic
 " set background=dark cursorline termguicolors
 " hi! Normal ctermbg=NONE guibg=#001a24 
 " hi! NonText ctermbg=NONE guibg=#001a24 guifg=NONE ctermfg=NONE 
-
 "*****************************************************************************
 "" Basic Setup
 "*****************************************************************************"
@@ -220,7 +243,6 @@ set cursorline
 if !exists('g:syntax_on')
     syntax enable
 endif
-
 
 set hidden                     " allow hidden window
 set nowrap                     " disable wrap and wrap when typing
@@ -279,11 +301,25 @@ set matchtime=1
 " Remove tildas on end of buffer
 let &fcs='eob: ' 
 " Removes pipes | that act as seperators on splits
+if has('nvim-0.5')
+  set fillchars+=foldopen:▾,foldsep:│,foldclose:▸
+  set diffopt+=vertical,iwhite,hiddenoff,foldcolumn:0,context:4
+endif
 set fillchars+=vert:\ 
 set fillchars+=fold:\ 
 set fillchars+=diff: "alternatives: ⣿ ░
 
-
+set foldtext=folds#render()
+set foldopen+=search
+" This is overwritten in lsp-fold compatible files by Coc
+set foldmethod=syntax
+set foldlevelstart=10
+" The fold open and close markers are visually distracting
+" and if the code is too nested it starts rendering fold depth
+set foldcolumn=0
+" if has('nvim-0.5')
+"  set foldcolumn=auto:8
+" endif
 
 " vim autoclose tag config
 " Update closetag to also work on js and html files, don't want ts since <> is used for type args
@@ -454,3 +490,39 @@ nnoremap <silent> <F6> :call <SID>run_this_script(1)<cr>
 " Quick fold and unfold
 nnoremap <silent>zz :normal!za<cr>
 
+
+"" diagnostic-nvim
+let g:diagnostic_enable_virtual_text = 1
+
+"" completion-nvim
+let g:completion_enable_snippet = 'UltiSnips'
+nnoremap <leader>e :LuaTreeToggle<CR>
+
+"" language servers are installed with nix-darwin
+:lua << EOF
+require'nvim_lsp'.tsserver.setup{}
+require'nvim_lsp'.pyls.setup{on_attach=require'diagnostic'.on_attach}
+require'nvim_lsp'.html.setup{on_attach=require'diagnostic'.on_attach}
+require'nvim_lsp'.elmls.setup{on_attach=require'diagnostic'.on_attach}
+require'nvim_lsp'.dockerls.setup{on_attach=require'diagnostic'.on_attach}
+require'nvim_lsp'.cssls.setup{on_attach=require'diagnostic'.on_attach}
+require'nvim_lsp'.diagnosticls.setup{on_attach=require'diagnostic'.on_attach}
+require'nvim_lsp'.bashls.setup{on_attach=require'diagnostic'.on_attach}
+require'nvim_lsp'.yamlls.setup{on_attach=require'diagnostic'.on_attach}
+require'nvim_lsp'.jsonls.setup{on_attach=require'diagnostic'.on_attach}
+require'nvim_lsp'.vimls.setup{on_attach=require'diagnostic'.on_attach}
+EOF
+
+command Declaration :lua vim.lsp.buf.declaration()
+command Definition :lua vim.lsp.buf.definition()
+command Hover :lua vim.lsp.buf.hover()
+command Implementation :lua vim.lsp.buf.implementation()
+command SignatureHelp :lua vim.lsp.buf.signature_help()
+command TypeDefinition :lua vim.lsp.buf.type_definition()
+command References :lua vim.lsp.buf.references()
+command DocumentSymbol :lua vim.lsp.buf.document_symbol()
+command WorkspaceSymbol :lua vim.lsp.buf.workspace_symbol()
+command Format :lua vim.lsp.buf.formatting_sync(nil, 1000)
+
+nnoremap <silent> K     <cmd>Hover<CR>
+"""</Language server and auto completion>"""

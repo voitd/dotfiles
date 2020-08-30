@@ -69,7 +69,8 @@ augroup term
   autocmd!
   autocmd TermOpen * :setlocal signcolumn=no nonumber norelativenumber
   autocmd TermOpen term://* startinsert
-  autocmd TermOpen,BufEnter term://* call s:add_terminal_mappings()
+  autocmd TermEnter,BufEnter term://* call s:add_terminal_mappings()
+  " autocmd TermOpen,BufEnter term://* call s:add_terminal_mappings()
   autocmd BufLeave term://* stopinsert
 augroup end
 
@@ -166,6 +167,13 @@ elseif exists('$DISPLAY') && executable('xclip')
 	\ }
 endif
 
+if has('nvim-0.5')
+  augroup TextYankHighlight
+    autocmd!
+    " don't execute silently in case of errors
+    autocmd TextYankPost * lua require'vim.highlight'.on_yank({ timeout = 500, on_visual = false })
+  augroup END
+endif
 " function! s:SourceFilesFromDirectory(directory_name) abort
 "   for file_path in split(glob('~/.vim/' . a:directory_name . '/*.vim'), '\n')
 "     execute 'source ' . file_path
@@ -189,9 +197,6 @@ command! -nargs=0 Reload so %
 
 " :redraw!
 command! -nargs=0 Redraw redraw!
-
-" General
-command! -nargs=1 H exec ":vert h " . <f-args> . "\<cr>"
 
 " Add a debug statement
 " Takes a variable name as an arg and will output a debug log
