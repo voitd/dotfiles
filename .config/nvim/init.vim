@@ -68,6 +68,7 @@ Plug 'AndrewRadev/tagalong.vim'
 " Git
 " Plug 'airblade/vim-gitgutter'
 Plug 'stsewd/fzf-checkout.vim'
+" https://gist.github.com/voitd/60f606b02724dbb863ed09e7f5679b43
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 
@@ -163,7 +164,9 @@ hi Type gui=italic
 hi htmlArg cterm=italic
 hi Comment cterm=italic
 hi Type cterm=italic
-
+hi GitGutterAdd    guifg=#009900 guibg=#232526 ctermfg=2 ctermbg=236
+hi GitGutterChange guifg=#bbbb00 guibg=#232526 ctermfg=3 ctermbg=236
+hi GitGutterDelete guifg=#ff2222 guibg=#232526 ctermfg=1 ctermbg=236
 " let g:time = strftime("%H")  
 " if  g:time > 08 && g:time < 18
 "   set background=light
@@ -209,14 +212,20 @@ try
 catch
 endtry
 
+" Allow use of `gf` for relative imports in JS.
+" set suffixesadd+=.js
+
 " set 256 color
 set t_Co=256
+
 " set terminal gui colors
 if (has("termguicolors"))
  set termguicolors
 endif
+
 " Highlight cursor line
 set cursorline
+
 " syntax highlighting
 if !exists('g:syntax_on')
     syntax enable
@@ -265,6 +274,7 @@ set formatoptions-=t
   
 " Better display for messages
 set shortmess+=c
+set shortmess+=FatIO
 set shortmess-=S
 set cmdheight=2
 
@@ -273,6 +283,33 @@ set timeoutlen=400
 set ttimeoutlen=0
 set matchtime=1
 
+" Wild menu
+setlocal foldmethod=marker
+set nofoldenable
+" Wildmenu completion {{{
+" set wildmenu
+" set wildmode=longest:full,full
+" set wildoptions=pum
+" set pumblend=30
+" set wildignore=*.o,*.obj,*~,*.exe,*.a,*.pdb,*.lib
+" set wildignore+=__pycache__,.stversions,*.spl,*.out,%*
+" set wildignore+=*.so,*.dll,*.swp,*.egg,*.jar,*.class,*.pyc,*.pyo,*.bin,*.dex
+" set wildignore+=*.zip,*.7z,*.rar,*.gz,*.tar,*.gzip,*.bz2,*.tgz,*.xz
+" set wildignore+=*DS_Store*,*.ipch
+" set wildignore+=*.gem
+" set wildignore+=*.png,*.jpg,*.gif,*.bmp,*.tga,*.pcx,*.ppm,*.img,*.iso
+" set wildignore+=*.so,*.swp,*.zip,*/.Trash/**,*.pdf,*.dmg,*/.rbenv/**
+" set wildignore+=*/.nx/**,*.app,*.git,.git
+" set wildignore+=*.wav,*.mp3,*.ogg,*.pcm
+" set wildignore+=*.mht,*.suo,*.sdf,*.jnlp
+" set wildignore+=*.chm,*.epub,*.pdf,*.mobi,*.ttf
+" set wildignore+=*.mp4,*.avi,*.flv,*.mov,*.mkv,*.swf,*.swc
+" set wildignore+=*.ppt,*.pptx,*.docx,*.xlt,*.xls,*.xlsx,*.odt,*.wps
+" set wildignore+=*.msi,*.crx,*.deb,*.vfd,*.apk,*.ipa,*.bin,*.msu
+" set wildignore+=*.gba,*.sfc,*.078,*.nds,*.smd,*.smc
+" set wildignore+=*.linux2,*.win32,*.darwin,*.freebsd,*.linux,*.android
+
+" }}}
 "*****************************************************************************
 "" Custom configs
 "*****************************************************************************
@@ -280,9 +317,9 @@ set matchtime=1
 " Remove tildas on end of buffer
 let &fcs='eob: ' 
 " Removes pipes | that act as seperators on splits
-set fillchars+=vert:\ 
+" set fillchars+=vert:\ 
 set fillchars+=fold:\ 
-set fillchars+=diff: "alternatives: ⣿ ░
+set fillchars+=diff:⣿ "alternatives: ⣿ ░
 
 
 
@@ -340,8 +377,9 @@ nnoremap <silent><S-Tab> :b#<CR>
 " nnoremap <silent><leader>bo :w <bar> %bd <bar> e# <bar> bd# <CR> " Only one buffer  
 " list buffers
 set wildcharm=<C-s>
-nnoremap <leader>bl :buffer <C-s><S-Tab>
-nnoremap <leader>bL :sbuffer <C-s><S-Tab>
+" nnoremap <leader><Tab> :buffer <C-s><S-Tab>
+nnoremap <Tab><Tab> :buffer <C-s><S-Tab>
+" nnoremap <leader>bL :sbuffer <C-s><S-Tab>
 
 " fzf.vim mappings
 nnoremap <silent><C-p> :Files<CR>
@@ -392,6 +430,7 @@ vnoremap K :m '<-2<CR>gv=gv
 
 " Clear search highlighting with Escape key
 nnoremap <silent><esc> :noh<return><esc>
+" nnoremap <Esc> :noh<CR>:redraw!<CR><Esc>
 
 " paste over a selection, keep the unnamed register untouched and jump to the end of the pasted text
 xnoremap <expr> p 'pgv"' . v:register . 'y`]'
@@ -421,6 +460,14 @@ noremap <Left> <Nop>
 nnoremap n :<BS>nzzzv
 nnoremap N :<BS>Nzzzv
 
+" Center screen after common jumps.
+" Warning: This might make you mad, but makes my happy. I'm so selfish.
+nnoremap } }zz
+nnoremap { {zz
+nnoremap zj zjzz
+nnoremap zk zkzz
+
+
 nmap uu u
 imap jj <Esc>
 
@@ -431,7 +478,7 @@ nnoremap <A-/> :Commentary<CR>
   
 
 tnoremap <leader>tt  <C-\><C-n>:FloatermToggle<CR>
-tnoremap <Esc><Esc>  <C-\><C-n>:FloatermHide<CR>
+tnoremap <Esc><Esc>  <C-\><C-n>:FloatermHide<CRe
 
 nnoremap <leader>cl :Consolate<cr>
 nnoremap <leader>ap :TurboConsoleLog<cr>
@@ -449,9 +496,8 @@ nmap <silent> <leader>aa :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<
 nnoremap <silent> <F5> :call <SID>run_this_script(0)<cr>
 nnoremap <silent> <F6> :call <SID>run_this_script(1)<cr>
 
-" Visual star
-" vnoremap * "sy/<c-r>s<CR>
-
 " Quick fold and unfold
 nnoremap <silent>zz :normal!za<cr>
 
+
+nnoremap <leader>] :call JumpToCSS()

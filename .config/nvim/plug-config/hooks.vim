@@ -85,6 +85,7 @@ autocmd BufReadPost *
      \ if line("'\"") > 0 && line("'\"") <= line("$") |
      \   exe "normal! g`\"" |
      \ endif
+
 " Update filetype on save if empty
 autocmd BufWritePost * nested
      \ if &l:filetype ==# '' || exists('b:ftdetect')
@@ -95,7 +96,6 @@ autocmd BufWritePost * nested
 
 " Autosave buffer
 autocmd BufLeave,FocusLost,InsertLeave,TextChanged,FocusLost * :wa
-
     let g:python_host_prog  = expand('/usr/bin/python' )
     let g:python3_host_prog = expand('/usr/local/bin/python3.8')
     let g:loaded_python3_provider = 1
@@ -118,7 +118,7 @@ autocmd BufLeave,FocusLost,InsertLeave,TextChanged,FocusLost * :wa
 augroup CursorLine
     au!
     au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-    au WinLeave * setlocal nocursorline
+    au WinLeave * setlocal nocursorline 
 augroup END
 
 " Automatic rename of tmux window
@@ -130,12 +130,15 @@ augroup vimrc
 augroup END
 
 " Force a syntax sync after I enter a buffer.
-augroup vimrc-sync-fromstart
+augroup SyncFromStart
   autocmd!
   autocmd BufEnter * :syntax sync maxlines=200
 augroup END
 
-" autocmd BufEnter,InsertLeave * :syntax sync fromstart
+" augroup AutochdirFix
+"   autocmd!
+"   autocmd BufReadPost * silent! lcd %:p:h
+" augroup END
 
 " Set internal g:clipboard to save some startup time.
 if has('mac') && executable('pbpaste')
@@ -166,15 +169,12 @@ elseif exists('$DISPLAY') && executable('xclip')
 	\ }
 endif
 
-" function! s:SourceFilesFromDirectory(directory_name) abort
-"   for file_path in split(glob('~/.vim/' . a:directory_name . '/*.vim'), '\n')
-"     execute 'source ' . file_path
-"   endfor
-" endfunction
 
-" call s:SourceFilesFromDirectory('plugin_config')
+"if exists("*fugitive#statusline")
+"  set statusline+=%{fugitive#statusline()}
+"endif
 
-"*****************************************************************************
+""*****************************************************************************
 "" Commands
 "*****************************************************************************
 
@@ -183,12 +183,6 @@ command! FixWhitespace :%s/\s\+$//e
 
 " Shruggie
 command! -nargs=0 Shrug exec "normal! a¯\\_(ツ)_/¯\<Esc>"
-
-" Source
-command! -nargs=0 Reload so %
-
-" :redraw!
-command! -nargs=0 Redraw redraw!
 
 " Add a debug statement
 " Takes a variable name as an arg and will output a debug log
@@ -202,51 +196,6 @@ command! VSCode :call system('nohup "code" '.expand('%:p').'> /dev/null 2>&1 < /
 "*****************************************************************************
 "" Functions
 "*****************************************************************************
-
-"*****************************************************************************
-"" <F5> / <F6> | Run script
-"*****************************************************************************
-
-function! s:run_this_script(output)
-  let head   = getline(1)
-  let pos    = stridx(head, '#!')
-  let file   = expand('%:p')
-  let ofile  = tempname()
-  let rdr    = " 2>&1 | tee ".ofile
-  let win    = winnr()
-  let prefix = a:output ? 'silent !' : '!'
-  " Shebang found
-  if pos != -1
-    execute prefix.strpart(head, pos + 2).' '.file.rdr
-  " Shebang not found but executable
-  elseif executable(file)
-    execute prefix.file.rdr
-  elseif &filetype == 'javascript'
-    execute prefix.'node '.file.rdr
-  " elseif &filetype == 'go'
-    " execute prefix.'go run '.file.rdr
-  else
-    return
-  end
-
-  redraw!
-  if !a:output | return | endif
-
-  " Scratch buffer
-  if bufwinnr('vim-exec-output') > 0
-    silent!  bdelete vim-exec-output
-  endif
-
-  silent!  vertical botright split new
-  silent!  file vim-exec-output
-  setlocal buftype=nofile bufhidden=wipe noswapfile
-  execute 'silent! read' ofile
-  normal! gg"_dd
-  execute win.'wincmd w'
-endfunction
-
-" nnoremap <silent> <F5> :call <SID>run_this_script(0)<cr>
-" nnoremap <silent> <F6> :call <SID>run_this_script(1)<cr>
 
 function! s:console_log(...)
   let token = a:0 ? a:1 : expand('<cword>')
@@ -279,25 +228,12 @@ endfunction
 command! -nargs=0 ConsoleFromBuff :call ConsoleFromBuff()
 
 " Better marks
-function! Marks()
+function! NativeMarks()
     marks abcdefghijklmnopqrstuvwxyz.
     echo 'Jump to mark: '
     let mark=nr2char(getchar())
     redraw
     execute 'normal! `'.mark
 endfunction
-command! Marks call Marks()
-nnoremap <silent>_ :call Marks()<cr>
-
-" Search for css defenittion
-function! s:CSSSearchForClassDef()
-  setlocal iskeyword+=-
-  let word = expand('<cword>')
-  setlocal iskeyword-=-
-  execute ':Find .' . word
-endfunction
-command! CSSSearchForClassDef :call s:CSSSearchForClassDef()
-
-
-
+command! NativeMarks call NativeMarks()
 

@@ -50,8 +50,8 @@ let g:which_key_map.a = {
       \ 'r' : [':set norelativenumber!'         , 'Relative line nums'],
       \ 'z' : [':set wrap!'                     , 'Word wrap'],      
       \ 'f' : ['<Plug>(coc-fix-current)'        , 'Fix line'],      
-      \ 'q' : [':call QuickFix_toggle()<CR>'    , 'QuickFix Menu'],      
-      \ 't' : [':SwitchColors '                  , 'Theme switch']
+      \ 'w' : [':FixWhitespace'                 , 'QuickFix whitespaces '],      
+      \ 't' : [':SwitchColors '                 , 'Theme switch']
       \ }
 
 " b is for buffer
@@ -61,30 +61,36 @@ let g:which_key_map.b = {
       \ 'n' : ['bnext'                                 , 'Next buffer'    ],
       \ 'p' : ['bprevious'                             , 'Previous buffer'],
       \ 'b' : ['Buffers'                               , 'Buffers'   ],
-      \ 'l' : [''                                      , 'List buffers'   ],
       \ 'o' : [':w <bar> %bd <bar> e# <bar> bd# <CR>'  , 'Only one buffer'],
       \ }
+
 " g is for git
 let g:which_key_map.g = {
       \ 'name' : '+Git' ,
       \ 'A' : [':Git add .'                        , 'Add All'],
       \ 'a' : [':Git add %'                        , 'Add Current'],
-      \ 'm' : [':Git amend'                        , 'Ammend commit'],
       \ 's' : [':Gstatus'                          , 'Status'],
       \ 'c' : [':Gcommit'                          , 'Commit'],
       \ 'b' : [':GCheckout'                        , 'Checkout'],
       \ 'p' : [':Git push'                         , 'Push'],
       \ 'f' : [':Git pull'                         , 'Pull/Fetch'],
       \ 'd' : [':Gdiffsplit!'                      , 'Diff Split conflict'],
-      \ 'B' : [':Git blame'                        , 'Blame'],
       \ 'l' : [':GV'                               , 'Commits Log'],
       \ 'o' : [':GBrowse'                          , 'Open in Browser'],
-      \ '>' : [':diffget //2'                      , 'Left diffs'],
-      \ '<' : [':diffget //3'                      , 'Right diffs'],
+      \ '.' : [':diffget //2'                      , 'Left diffs'],
+      \ ',' : [':diffget //3'                      , 'Right diffs'],
       \ 'w' : [':Gwrite'                           , 'Save diffs'],
-      \ 'W' : [':FloatermSend gwip'                , 'Commit a work-in-progress branch'],
-      \ 'U' : [':FloatermSend gunwip'              , 'Uncommit a work-in-progress branch'],
       \ 'V' : [':GV!'                              , 'View Buffer Commits'],     
+      \ }
+
+let g:which_key_map.g.c = {
+      \ 'name' : '+GitCustoms' ,
+      \ 'm' : [':Git respond'                      , 'Ammend commit'],
+      \ 'S' : [':Git save'                         , 'SAVEPOINT commit'],
+      \ 'W' : [':Git wipe'                         , 'Wipe SAVEPOINT commit'],
+      \ 'b' : [':Git blame'                        , 'Blame'],
+      \ 'w' : [':FloatermSend gwip'                , 'Commit a work-in-progress(WIP) branch'],
+      \ 'u' : [':FloatermSend gunwip'              , 'Uncommit a work-in-progress(WIP) branch'],
       \ 't' : [':CocCommand git.toggleGutters'     , 'Toggle Gutters'],     
       \ }
 
@@ -176,15 +182,41 @@ let g:which_key_map.J = {
       \ 'i' : [':JestInit'                             , 'Init Jest'],
       \ }
 
+" let g:which_key_map.w = {
+" 			\ 'name' : '+Window' ,
+" 			\ '|' : ['<C-u>split<CR>'            , 'Vertical split'],
+" 			\ '_' : ['<C-u>vsplit<CR>'           , 'Horizontal split'],
+" 			\ 'b' : ['<C-W>='                    , 'Balance windows'],
+" 			\ '+' : ['resize +5', 'Resize +'],  
+" 			\ '-' : ['resize -5', 'Resize -'], 
+"       \ 'h' : ['<c-w>_'                    , 'max height'],
+"     	\ 'w' : ['<c-w>|'                    , 'max width'],
+"       \ }
+
 let g:which_key_map.w = {
-			\ 'name' : '+Window' ,
-			\ '|' : ['<C-u>split<CR>'            , 'Vertical split'],
-			\ '_' : ['<C-u>vsplit<CR>'           , 'Horizontal split'],
-			\ 'b' : ['<C-W>='                    , 'Balance windows'],
-			\ '+' : [':(winheight(0) * 3/2)<CR>', 'Resize +'],  
-			\ '-' : [':exe "vertical resize " . (winheight(0) * 2/3)<CR>', 'Resize -'], 
-      \ 'h' : ['<c-w>_'                    , 'max height'],
-    	\ 'w' : ['<c-w>|'                    , 'max width'],
+      \ 'name' : '+Windows'      ,
+      \ 'w'    : ['<C-w>w'       , 'Other-window']          ,
+      \ 'q'    : ['<C-w>q'       , 'Quit window']           ,
+      \ 'c'    : ['<C-w>q'       , 'Quit window']           ,
+      \ 'd'    : [':bdelete'     , 'Close buffer']          ,
+      \ '-'    : ['<C-w>s'       , 'Split window below']    ,
+      \ '|'    : ['<C-w>v'       , 'Split window right']    ,
+      \ '2'    : ['<C-w>v'       , 'Layout double columns'] ,
+      \ 'h'    : ['<C-w>h'       , 'Window left']           ,
+      \ 'j'    : ['<C-w>j'       , 'Window below']          ,
+      \ 'l'    : ['<C-w>l'       , 'Window right']          ,
+      \ 'k'    : ['<C-w>k'       , 'Window up']             ,
+      \ 'H'    : ['<C-w>5<'      , 'Expand window left']    ,
+      \ 'J'    : ['resize -5'    , 'Expand window below']   ,
+      \ 'L'    : ['<C-w>5>'      , 'Expand window right']   ,
+      \ 'K'    : ['resize +5'    , 'Expand window up']      ,
+      \ '='    : ['<C-w>='       , 'Balance window']        ,
+      \ 's'    : ['<C-w>s'       , 'Split window below']    ,
+      \ 'v'    : ['<C-w>v'       , 'Split window aside']    ,
+      \ 'x'    : ['<C-w>x'       , 'Flip windows']          ,
+      \ 'th'   : ['<C-w>t<C-w>H' , 'Flip horiz-to-vert']    ,
+      \ 'tk'   : ['<C-w>t<C-w>K' , 'Flip vert-to-horiz']    ,
+      \ 'W'    : ['Windows'      , 'Fzf window']            ,
       \ }
 
 let g:which_key_map.S = {
@@ -199,7 +231,7 @@ let g:which_key_map.i = {
 			\ 'name' : '+Import Fixes' ,
 			\ 'f' : [':ImportJSFix'     , 'Fix all imports'],
 			\ 'w' : [':ImportJSWord'    , 'Add imports under the cursor.'],
-			\ 'g' : [':ImportJSGoto'         , 'Go to the module under the cursor'],
+			\ 'g' : [':ImportJSGoto'    , 'Go to the module under the cursor'],
       \ 'o' : [':OR'              , 'Organize imports'],
       \ }
 
@@ -209,7 +241,8 @@ let g:which_key_map.m = {
 			\ 'a' : [':CocCommand bookmark.annotate'             , 'Named mark'],
 			\ 'n' : [':CocCommand bookmark.next'                 , 'Next'],
 			\ 'p' : [':CocCommand bookmark.prev'                 , 'Prev'],
-      \ 'l' : [':CocList bookmark<CR>'                     , 'List marks'],
+      \ 'l' : [':CocList bookmark'                         , 'List CoC marks'],
+      \ 'L' : [':NativeMarks<CR>'                              , 'List native marks'],
 			\ 'd' : [':delmarks!<CR>:delmarks A-Z0-9<CR>'        , 'Del native marks'],
 			\ 'c' : [':CocCommand bookmark.clearForCurrentFile'  , 'Clear buffer marks'],
 			\ 'C' : [':CocCommand bookmark.clearForAllFile'      , 'Clear all buffer marks'],

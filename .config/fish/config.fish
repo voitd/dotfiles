@@ -22,12 +22,13 @@ export MANPAGER="/bin/sh -c \"col -b | vim --not-a-term -c 'set ft=man ts=8 nomo
 starship init fish | source
 
 ## get top process eating memory
-alias psmem='ps aux | sort -nr -k 4'
-alias psmem10='ps aux | sort -nr -k 4 | head -10'
+alias psmem='ps aux | sort -nr -k 4 | head -10'
 
 ## get top process eating cpu ##
-alias pscpu='ps aux | sort -nr -k 3'
-alias pscpu10='ps aux | sort -nr -k 3 | head -10'
+alias pscpu2='ps aux | sort -nr -k 3 | head -10'
+alias pscpu='ps -er -o pid,pcpu,comm | head -10'
+
+alias stats='top -l 1 | grep -E "^CPU|^Phys"'
 
 
 # confirm before overwriting something
