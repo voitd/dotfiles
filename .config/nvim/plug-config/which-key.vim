@@ -18,7 +18,7 @@ highlight default link WhichKeyGroup     Identifier
 highlight default link WhichKeyDesc      Function
 
 " Hide status line
-autocmd! FileType which_key
+autocmd! FileType which_key 
 autocmd  FileType which_key set laststatus=0 noshowmode noruler
   \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
 
@@ -32,7 +32,7 @@ let g:which_key_map['x'] = [ ':source $MYVIMRC'           , 'Reload init.vim' ]
 let g:which_key_map['e'] = [ ':CocCommand explorer'       , 'Explorer' ]
 let g:which_key_map['z'] = [ ':Goyo'                      , 'Focus mode']
 let g:which_key_map['u'] = [ ':UndotreeToggle'            , 'Undo tree' ]
-let g:which_key_map['T'] = [ ':Todos'                     , 'Todo' ]
+let g:which_key_map['T'] = [ ':Todos'                     , 'Show TODO marks' ]
 " Group mappings
 
 " a is for actions
@@ -81,18 +81,27 @@ let g:which_key_map.g = {
       \ ',' : [':diffget //3'                      , 'Right diffs'],
       \ 'w' : [':Gwrite'                           , 'Save diffs'],
       \ 'V' : [':GV!'                              , 'View Buffer Commits'],     
+      \ 'k' : {
+          \ 'name' : '+GitCommands' ,
+          \ 'm' : [':Git respond'                      , 'Ammend commit'],
+          \ 'S' : [':Git save'                         , 'SAVEPOINT commit'],
+          \ 'W' : [':Git wipe'                         , 'Wipe SAVEPOINT commit'],
+          \ 'b' : [':Git blame'                        , 'Blame'],
+          \ 'w' : [':FloatermSend gwip'                , 'Commit a work-in-progress(WIP) branch'],
+          \ 'u' : [':FloatermSend gunwip'              , 'Uncommit a work-in-progress(WIP) branch'],
+          \ 't' : [':CocCommand git.toggleGutters'     , 'Toggle Gutters'],     
+          \ },
+      \ 'h' : {
+          \ 'name' : '+GitHunks' ,
+          \ 't' : [':GitGutterLineHighlightsToggle'    , 'Toggle highlight hunks'],
+          \ 'h' : ['<Plug>(GitGutterPreviewHunk)'      , 'Preview hunk'],
+          \ 'n' : ['<Plug>(GitGutterNextHunk)'         , 'Next hunk'],
+          \ 'p' : ['<Plug>(GitGutterPrevHunk)'         , 'Prev hunk'],
+          \ 's' : ['<Plug>(GitGutterStageHunk)'        , 'Stage hunk'],
+          \ 'u' : ['<Plug>(GitGutterUndoHunk)'         , 'Undo hunk'],
+          \ }
       \ }
 
-let g:which_key_map.g.c = {
-      \ 'name' : '+GitCustoms' ,
-      \ 'm' : [':Git respond'                      , 'Ammend commit'],
-      \ 'S' : [':Git save'                         , 'SAVEPOINT commit'],
-      \ 'W' : [':Git wipe'                         , 'Wipe SAVEPOINT commit'],
-      \ 'b' : [':Git blame'                        , 'Blame'],
-      \ 'w' : [':FloatermSend gwip'                , 'Commit a work-in-progress(WIP) branch'],
-      \ 'u' : [':FloatermSend gunwip'              , 'Uncommit a work-in-progress(WIP) branch'],
-      \ 't' : [':CocCommand git.toggleGutters'     , 'Toggle Gutters'],     
-      \ }
 
       " \ 'po': [':normal! :FloaterSend git push origin $(git branch | grep "\*" | sed s:^..::g )<cr>'     , 'Push into origin'],     
 " c is for lsp
@@ -228,7 +237,7 @@ let g:which_key_map.S = {
       \ }
 
 let g:which_key_map.i = {
-			\ 'name' : '+Import Fixes' ,
+			\ 'name' : '+ImportFixes' ,
 			\ 'f' : [':ImportJSFix'     , 'Fix all imports'],
 			\ 'w' : [':ImportJSWord'    , 'Add imports under the cursor.'],
 			\ 'g' : [':ImportJSGoto'    , 'Go to the module under the cursor'],

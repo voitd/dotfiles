@@ -1,6 +1,9 @@
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/60138143/91989761-8fd15180-ed39-11ea-8a83-645f92507c2d.png" title="My dotfiles">
+  <img src="https://user-images.githubusercontent.com/60138143/91989761-8fd15180-ed39-11ea-8a83-645f92507c2d.png" width="320" title="My dotfiles">
+  <br>
 </p>
+
+![main-min](https://user-images.githubusercontent.com/60138143/92127561-1a818180-ee0a-11ea-9550-d46a104bc056.png)
 
 ### 🖥 Screenshots
 
@@ -16,7 +19,7 @@
   <img width="3001" alt="iterm2 tmux" src="https://user-images.githubusercontent.com/60138143/91641434-12ea6300-ea2d-11ea-8e75-4b3d2afaaf6e.png">
 </details>
 
-###  Configuration
+### Configuration
 
 - OS : macOS (11.0) Big Sur
 - Editor: [NeoVim](https://neovim.io)

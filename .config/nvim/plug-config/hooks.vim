@@ -135,6 +135,21 @@ augroup SyncFromStart
   autocmd BufEnter * :syntax sync maxlines=200
 augroup END
 
+augroup coc-explorer
+  autocmd!
+  autocmd FileType coc-explorer setlocal statusline=%{substitute(getcwd(),$HOME,'~','')}
+  autocmd FileType coc-explorer hi statusline guibg=NONE guifg=NONE
+augroup END
+ 
+" Cleanup Start Page
+  augroup Startpage
+    " When Entering Startify
+    au User StartifyReady set laststatus=0 showtabline=0 noruler
+    
+    " When Exiting Startify
+    au User StartifyBufferOpened set laststatus=2 showtabline=0 noruler
+  augroup end
+
 " augroup AutochdirFix
 "   autocmd!
 "   autocmd BufReadPost * silent! lcd %:p:h
@@ -173,7 +188,6 @@ endif
 "if exists("*fugitive#statusline")
 "  set statusline+=%{fugitive#statusline()}
 "endif
-
 ""*****************************************************************************
 "" Commands
 "*****************************************************************************
@@ -236,4 +250,3 @@ function! NativeMarks()
     execute 'normal! `'.mark
 endfunction
 command! NativeMarks call NativeMarks()
-

@@ -240,6 +240,7 @@ set history=1000               " increase the history limit of
 " set showtabline=2            " show buffer line
 set noshowmode                 " disable mode display since lightline display
 set noshowcmd
+
 set backspace=indent,eol,start " Fixes common backspace problems
 set number                     " line numbers
 set relativenumber
@@ -276,7 +277,7 @@ set formatoptions-=t
 set shortmess+=c
 set shortmess+=FatIO
 set shortmess-=S
-set cmdheight=2
+set cmdheight=1
 
 " By default timeoutlen is 1000 ms
 set timeoutlen=400
@@ -284,7 +285,7 @@ set ttimeoutlen=0
 set matchtime=1
 
 " Wild menu
-setlocal foldmethod=marker
+" setlocal foldmethod=marker
 set nofoldenable
 " Wildmenu completion {{{
 " set wildmenu
@@ -317,9 +318,9 @@ set nofoldenable
 " Remove tildas on end of buffer
 let &fcs='eob: ' 
 " Removes pipes | that act as seperators on splits
-" set fillchars+=vert:\ 
+set fillchars+=vert:\ 
 set fillchars+=fold:\ 
-set fillchars+=diff:⣿ "alternatives: ⣿ ░
+set fillchars+=diff:░ "alternatives: ⣿ ░
 
 
 
@@ -499,5 +500,4 @@ nnoremap <silent> <F6> :call <SID>run_this_script(1)<cr>
 " Quick fold and unfold
 nnoremap <silent>zz :normal!za<cr>
 
-
-nnoremap <leader>] :call JumpToCSS()
+" vim: fdm=marker

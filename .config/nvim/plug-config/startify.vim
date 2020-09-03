@@ -65,16 +65,16 @@ let g:startify_skiplist = [
         \ ]
 
    let g:startify_commands = [
-        \ {'h': ['Check health'       , ':checkhealth']},
+        \ {'h': ['Check Vim health'       , ':checkhealth']},
         \ {'u': ['Update CoC Plugin'  , ':CocUpdate']},
-        \ {'m': ['Marketplace'        , ':CocList marketplace']},
+        \ {'m': ['CoC Marketplace'        , ':CocList marketplace']},
         \ ]
 
 let g:startify_bookmarks = [
            \ {'v': '~/.config/nvim/init.vim'},
-           \ {'t': '.tmux.conf'},
            \ {'k': '~/.config/kitty/kitty.conf'},
            \ {'f': '~/.config/fish/config.fish'},
+           \ {'t': '.tmux.conf'},
            \ {'d': '~/dotfiles' },
            \ {'c': '~/CodeHub'}
            \ ]
@@ -98,7 +98,11 @@ hi! link StartifySlash StartifyPath
 hi! link StartifyBracket StartifyPath
 hi! link StartifyNumber StartifyPath
 
-autocmd User Startified setlocal cursorline
+
+" Hide status line
+" autocmd! FileType startify
+" autocmd  FileType startify set laststatus=0 noshowmode noruler
+"   \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
 
 function! StartifyEntryFormat()
   return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'

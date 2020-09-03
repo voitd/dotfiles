@@ -140,6 +140,7 @@ function! GitBranch() abort
   endif
 endfunction
 
+
 " Statusbar items
 " ====================================================================
 
