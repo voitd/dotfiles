@@ -26,11 +26,11 @@ autocmd! User vim-which-key call which_key#register('<Space>', 'g:which_key_map'
 
 "{{{ Main mapinng
 
-" let g:which_key_display_names = {' ': '', '<CR>': '↵', '<C-H>': '', '<C-I>': 'ﲑ', '<TAB>': '⇆'}
+let g:which_key_display_names = {' ': '', '<CR>': '↵', '<C-H>': '', '<C-I>': 'ﲑ', '<TAB>': '⇆'}
 " Single mappings
 let g:which_key_map[' '] = [ ':WhichKey'                  , 'Toggle Which Key' ]
 let g:which_key_map[','] = [ 'Startify'                   , 'Startify' ]
-let g:which_key_map['d'] = [ ':lcd %:p:h<CR>:pwd<CR>'     , 'Directory current buffer' ]
+let g:which_key_map['d'] = [ ':lcd %:p:h<CR>:pwd<CR>'     , 'Toggle root dir' ]
 let g:which_key_map['.'] = [ ':tabnew $MYVIMRC'           , 'Open init.vim' ]
 let g:which_key_map['x'] = [ ':source $MYVIMRC'           , 'Reload init.vim' ]
 let g:which_key_map['e'] = [ ':CocCommand explorer'       , 'Explorer' ]

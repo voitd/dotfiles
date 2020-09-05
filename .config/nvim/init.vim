@@ -470,8 +470,8 @@ noremap <expr> G &wrap ? "G$g0" : "G"
 noremap <expr> 0 &wrap ? 'g0' : '0'
 noremap <expr> $ &wrap ? "g$" : "$"
 " j/k will move virtual lines (lines that wrap)
-" noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
-" noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
+noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
+noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 
 " Move visual block 
 vnoremap J :m '>+1<CR>gv=gv

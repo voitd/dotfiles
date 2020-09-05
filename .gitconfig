@@ -13,6 +13,11 @@
 	whitespace = fix
 
 [alias]
+  a = add
+  aa = add .
+  # push 
+  p = push
+  pf = push -ff
   # rebase
   rc = rebase --continue            # continue rebase
   rs = rebase --skip                # skip rebase
@@ -39,14 +44,13 @@
   # commit
    # commit all with an message (which need not be quoted)
   cm = "!f() { git commit -a -m \"$*\" ; }; f"
-  co = commit
-  com = commit -m
+  c = commit
 	amend = commit --amend --reuse-message=HEAD
   undo = reset HEAD~1 --mixed
   save = "!git add -A && git commit -m 'SAVEPOINT'"
   wipe = "!git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard"
   # fix your branch when it's missing upstream
-  upstream = branch --set-upstream-to=origin/$(git rev-parse --abbrev-ref HEAD) $(git rev-parse --abbrev-ref HEAD)
+  upstream = "!git branch --set-upstream-to=origin/$(git rev-parse --abbrev-ref HEAD) $(git rev-parse --abbrev-ref HEAD)"
 
 [url "git@github.com:"]
   insteadOf = git://github.com/

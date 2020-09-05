@@ -60,6 +60,8 @@ alias ta="t a -t"
 alias tl="t ls"
 alias tn="t new -t"
 alias tk="t kill-server"
+alias tf="ta fullscreen"
+alias tq="ta guake"
 
 # Replace legacy tools with new ones
 alias ls='exa -G  --color auto --icons -a -s type'

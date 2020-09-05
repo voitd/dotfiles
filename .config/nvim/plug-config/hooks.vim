@@ -248,3 +248,7 @@ function! NativeMarks()
     execute 'normal! `'.mark
 endfunction
 command! NativeMarks call NativeMarks()
+
+
+
+
