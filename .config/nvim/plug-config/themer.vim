@@ -50,12 +50,21 @@ let g:colorSchemeList['Nord'] = [
       \   "let g:nord_underline=1",
       \   'source ~/.config/nvim/plug-config/statusline/rigel-line.vim',
       \   ]
-let g:colorSchemeList['Gruvbox'] = [
+let g:colorSchemeList['Gruvbox Dark'] = [
       \   'colorscheme gruvbox',
+      \   'set background=dark',
       \   "let g:gruvbox_contrast_dark ='hard'",
       \   "let g:gruvbox_sign_column ='bg0'",
       \   "let g:gruvbox_invert_selection =0",
       \   'source ~/.config/nvim/plug-config/statusline/gruvbox-dark-line.vim',
+      \   ]
+let g:colorSchemeList['Gruvbox Light'] = [
+      \   'colorscheme gruvbox',
+      \   'set background=light',
+      \   "let g:gruvbox_contrast_light ='hard'",
+      \   "let g:gruvbox_sign_column ='bg0'",
+      \   "let g:gruvbox_invert_selection =0",
+      \   'source ~/.config/nvim/plug-config/statusline/gruvbox-light.vim',
       \   ]
 
       " \    'execute "silent ! kitty @ --to=tcp:localhost:12345 set-colors --all ~/.config/kitty/colors/rigel.conf"'

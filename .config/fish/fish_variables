@@ -6,6 +6,7 @@ SETUVAR __git_plugin_abbreviations:g\x1ega\x1egaa\x1egapa\x1egap\x1egb\x1egba\x1
 SETUVAR __git_plugin_initialized:Sun\x20Jun\x2028\x2017\x3a19\x3a12\x20EEST\x202020
 SETUVAR _fish_abbr_Dl:cd\x20\x7e/Downloads/
 SETUVAR _fish_abbr_con:cd\x20\x7e/\x2econfig/
+SETUVAR _fish_abbr_d:dots
 SETUVAR _fish_abbr_dot:cd\x20\x7e/\x2edotfiles/\x20
 SETUVAR _fish_abbr_dtf:cd\x20\x7e/\x2edotfiles/\x20
 SETUVAR _fish_abbr_dtfl:cd\x20\x7e/\x2edotfiles/\x20

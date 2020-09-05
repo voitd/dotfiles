@@ -8,20 +8,28 @@
 "        ╚═╝╚═╝  ╚═══╝╚═╝   ╚═╝╚═╝  ╚═══╝  ╚═╝╚═╝     ╚═╝
                                                 
 
-source ~/.config/nvim/plug-config/sneak.vim
+" Main
 source ~/.config/nvim/plug-config/hooks.vim
 source ~/.config/nvim/plug-config/themer.vim
+
+" Plagins
+source ~/.config/nvim/plug-config/coc.vim
+source ~/.config/nvim/plug-config/startify.vim
+source ~/.config/nvim/plug-config/which-key.vim
+source ~/.config/nvim/plug-config/floaterm.vim
+source ~/.config/nvim/plug-config/goyo.vim
+source ~/.config/nvim/plug-config/fzf.vim
+source ~/.config/nvim/plug-config/sneak.vim
 source ~/.config/nvim/plug-config/conflict-marker.vim
 
 "*****************************************************************************
-"" Plugins
+""{{{  Plugin
 "*****************************************************************************
 
 call plug#begin()
 
 " Intellisense
 Plug 'neoclide/coc.nvim', {'branch': 'release'}  
-source ~/.config/nvim/plug-config/coc.vim
 let g:coc_global_extensions = [
   \ 'coc-tsserver'
   \ ]
@@ -30,25 +38,20 @@ let g:coc_global_extensions = [
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } 
 Plug 'junegunn/fzf.vim'
 Plug 'antoinemadec/coc-fzf'
-source ~/.config/nvim/plug-config/fzf.vim
 
 
 " Pretty start screen
 Plug 'mhinz/vim-startify'
-source ~/.config/nvim/plug-config/startify.vim
 
 " See what keys do like in emacs
 Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] } 
-source ~/.config/nvim/plug-config/which-key.vim
 
 " Terminal
 Plug 'voldikss/vim-floaterm'
-source ~/.config/nvim/plug-config/floaterm.vim
 
 " Zen mode
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
-source ~/.config/nvim/plug-config/goyo.vim
 
 " Closetags
 Plug 'alvan/vim-closetag' 
@@ -72,6 +75,9 @@ Plug 'stsewd/fzf-checkout.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 
+" Git commit browser.
+Plug 'junegunn/gv.vim' 
+
 " Highlight conflict markers.[x and ]x
 " command ct for themselves, co for ourselves, cn for none and cb for both
 Plug 'rhysd/conflict-marker.vim'
@@ -79,8 +85,6 @@ Plug 'rhysd/conflict-marker.vim'
 "Yank something that you want to console.log into your register and then run :Consolate
 Plug 'agarrharr/consolation-vim' 
 
-" Git commit browser.
-Plug 'junegunn/gv.vim' 
 
 " Emmet snippets
 Plug 'mattn/emmet-vim'
@@ -107,12 +111,10 @@ Plug 'dominikduda/vim_es7_javascript_react_snippets'
 Plug 'Galooshi/vim-import-js'
 
 " How long vim starts
-"Plug 'dstein64/vim-startuptime'
+Plug 'dstein64/vim-startuptime'
 
 " Better Syntax Support
 Plug 'sheerun/vim-polyglot'
-
-Plug 'Galooshi/vim-import-js'
 
 " Markdown Preview
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }
@@ -135,25 +137,26 @@ Plug 'arcticicestudio/nord-vim'
 
 call plug#end()
 
-"*****************************************************************************
-"" Visual Settings
+"}}}
 "*****************************************************************************
 
-" colorscheme my
+"*****************************************************************************
+""{{{  Visual Settings
+"*****************************************************************************
+
+" colorscheme low-contrast
 
 " colorscheme gruvbox-material   
 
-" colorscheme gruvbox
-" let g:gruvbox_contrast_dark = "hard"
-" let g:gruvbox_sign_column = "bg0"
-" let g:gruvbox_invert_selection='0'
+" set termguicolors
+" colorscheme yui
 " set background=light
 
-colorscheme rigel
-let g:rigel_italic=1
-let g:rigel_bold=1
-let g:javascript_plugin_flow = 1
-source ~/.config/nvim/plug-config/statusline/rigel-line.vim
+" colorscheme gruvbox
+" let g:gruvbox_sign_column = "bg0"
+" let g:gruvbox_invert_selection='0'
+" " set background=light
+
 
 
 " Colors and styling
@@ -167,22 +170,39 @@ hi Type cterm=italic
 hi GitGutterAdd    guifg=#009900 guibg=#232526 ctermfg=2 ctermbg=236
 hi GitGutterChange guifg=#bbbb00 guibg=#232526 ctermfg=3 ctermbg=236
 hi GitGutterDelete guifg=#ff2222 guibg=#232526 ctermfg=1 ctermbg=236
-" let g:time = strftime("%H")  
-" if  g:time > 08 && g:time < 18
-"   set background=light
-"   source ~/.config/nvim/plug-config/statusline/gruvbox-light.vim
-" else
-"   set background=dark
-"   source ~/.config/nvim/plug-config/statusline/gruvbox-dark-line.vim
-" endif
+hi VertSplit guibg=bg guifg=bg
+hi statusline guibg=NONE guifg=NONE
+hi statuslinenc guibg=NONE guifg=NONE
+
+let g:time = strftime("%H")  
+if  g:time > 08 && g:time < 18
+  colorscheme gruvbox
+  let g:gruvbox_sign_column = "bg0"
+  let g:gruvbox_invert_selection='0'
+  set background=light
+  let g:gruvbox_contrast_light = "hard"
+  source ~/.config/nvim/plug-config/statusline/gruvbox-light.vim
+else
+  " set background=dark
+  " let g:gruvbox_contrast_dark = "hard"
+  " source ~/.config/nvim/plug-config/statusline/gruvbox-dark-line.vim
+  colorscheme rigel
+  let g:rigel_italic=1
+  let g:rigel_bold=1
+  let g:javascript_plugin_flow = 1
+  source ~/.config/nvim/plug-config/statusline/rigel-line.vim
+endif
  
 " Color Settings as transparent
 " set background=dark cursorline termguicolors
 " hi! Normal ctermbg=NONE guibg=#001a24 
 " hi! NonText ctermbg=NONE guibg=#001a24 guifg=NONE ctermfg=NONE 
 
+"}}}
 "*****************************************************************************
-"" Basic Setup
+
+"*****************************************************************************
+""{{{  Basic Setup
 "*****************************************************************************"
 set noswapfile
 set nobackup
@@ -274,8 +294,16 @@ set textwidth=0
 set formatoptions-=t
   
 " Better display for messages
+set shortmess+=A        " ignore annoying swapfile messages"
+set shortmess+=I        " no splash screen"
+set shortmess+=O        " file-read message overwrites previous"
+set shortmess+=T        " truncate non-file messages in middle"
+set shortmess+=W        " don't echo "[w]"/"[written]" when writing"
+set shortmess+=a        " use abbreviations in messages eg. `[RO]` instead of `[readonly]`"
+set shortmess+=o        " overwrite file-written messages"
+set shortmess+=t        " truncate file messages at start"
 set shortmess+=c
-set shortmess+=FatIO
+set shortmess+=F
 set shortmess-=S
 set cmdheight=1
 
@@ -286,7 +314,8 @@ set matchtime=1
 
 " Wild menu
 " setlocal foldmethod=marker
-set nofoldenable
+" set nofoldenable
+
 " Wildmenu completion {{{
 " set wildmenu
 " set wildmode=longest:full,full
@@ -310,19 +339,27 @@ set nofoldenable
 " set wildignore+=*.gba,*.sfc,*.078,*.nds,*.smd,*.smc
 " set wildignore+=*.linux2,*.win32,*.darwin,*.freebsd,*.linux,*.android
 
-" }}}
+ "}}}
+
+"}}}
 "*****************************************************************************
-"" Custom configs
+
+"*****************************************************************************
+""{{{ Custom configs
 "*****************************************************************************
 
 " Remove tildas on end of buffer
 let &fcs='eob: ' 
 " Removes pipes | that act as seperators on splits
-set fillchars+=vert:\ 
+" set fillchars+=vert:\ 
 set fillchars+=fold:\ 
 set fillchars+=diff:░ "alternatives: ⣿ ░
 
 
+
+let g:python_host_prog  = expand('/usr/bin/python' )
+let g:python3_host_prog = expand('/usr/local/bin/python3.8')
+let g:loaded_python3_provider = 1
 
 " vim autoclose tag config
 " Update closetag to also work on js and html files, don't want ts since <> is used for type args
@@ -341,11 +378,12 @@ let g:undotree_DiffpanelHeight = 20
 let g:undotree_SetFocusWhenToggle = 1
 
 let g:importjs_disable_default_mappings = 1
-"---------Map key--------------------------------------------------------------
 
+"}}}
+"*****************************************************************************
 
 "*****************************************************************************
-"" Abbreviations
+""{{{ Abbreviations
 "*****************************************************************************
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
@@ -357,9 +395,12 @@ cnoreabbrev WQ wq
 cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev Qall qall
+ 
+"}}}
+"*****************************************************************************
 
 "*****************************************************************************
-"" Mappings
+"" {{{ Mappings
 "*****************************************************************************
 " let mapleader = ","
 " let localleader=" "
@@ -421,9 +462,16 @@ vmap > >gv
 nmap > >>
 nmap < <<
 
+" Fixed I/A for visual
+xnoremap <expr> I mode() ==# 'v' ? "\<c-v>I" : mode() ==# 'V' ? "\<c-v>^o^I" : "I"
+xnoremap <expr> A mode() ==# 'v' ? "\<c-v>A" : mode() ==# 'V' ? "\<c-v>Oo$A" : "A
+" make movement and operations behave “as you would expect”, or just generally more useful.
+noremap <expr> G &wrap ? "G$g0" : "G"
+noremap <expr> 0 &wrap ? 'g0' : '0'
+noremap <expr> $ &wrap ? "g$" : "$"
 " j/k will move virtual lines (lines that wrap)
-noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
-noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
+" noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
+" noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 
 " Move visual block 
 vnoremap J :m '>+1<CR>gv=gv
@@ -436,18 +484,14 @@ nnoremap <silent><esc> :noh<return><esc>
 " paste over a selection, keep the unnamed register untouched and jump to the end of the pasted text
 xnoremap <expr> p 'pgv"' . v:register . 'y`]'
 
+" Don't copy single letter deletes
+nnoremap x "_x
+
+" non-saving delete
+noremap X "_d
 " Repeat command for each line in selection
 vnoremap . :normal .<CR>
 
-" auto close
-" inoremap " ""<left>
-" inoremap ' ''<left>
-" inoremap ` `` <left>
-" inoremap ( ()<left>
-" inoremap [ []<left>
-" inoremap { {}<left>
-" inoremap {<CR> {<CR>}<ESC>O
- 
 noremap <Up> <Nop>
 noremap <Down> <Nop>
 noremap <Right> <Nop>
@@ -499,5 +543,8 @@ nnoremap <silent> <F6> :call <SID>run_this_script(1)<cr>
 
 " Quick fold and unfold
 nnoremap <silent>zz :normal!za<cr>
+
+"}}}
+"*****************************************************************************
 
 " vim: fdm=marker

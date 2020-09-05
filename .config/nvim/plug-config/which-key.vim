@@ -22,20 +22,26 @@ autocmd! FileType which_key
 autocmd  FileType which_key set laststatus=0 noshowmode noruler
   \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
 
+autocmd! User vim-which-key call which_key#register('<Space>', 'g:which_key_map')
+
+"{{{ Main mapinng
+
 " let g:which_key_display_names = {' ': '', '<CR>': '↵', '<C-H>': '', '<C-I>': 'ﲑ', '<TAB>': '⇆'}
 " Single mappings
 let g:which_key_map[' '] = [ ':WhichKey'                  , 'Toggle Which Key' ]
 let g:which_key_map[','] = [ 'Startify'                   , 'Startify' ]
-let g:which_key_map['o'] = [ ':e<Space>**/'               , 'Open file' ]
-let g:which_key_map['.'] = [ ':e $MYVIMRC'                , 'Open init.vim' ]
+let g:which_key_map['d'] = [ ':lcd %:p:h<CR>:pwd<CR>'     , 'Directory current buffer' ]
+let g:which_key_map['.'] = [ ':tabnew $MYVIMRC'           , 'Open init.vim' ]
 let g:which_key_map['x'] = [ ':source $MYVIMRC'           , 'Reload init.vim' ]
 let g:which_key_map['e'] = [ ':CocCommand explorer'       , 'Explorer' ]
 let g:which_key_map['z'] = [ ':Goyo'                      , 'Focus mode']
 let g:which_key_map['u'] = [ ':UndotreeToggle'            , 'Undo tree' ]
 let g:which_key_map['T'] = [ ':Todos'                     , 'Show TODO marks' ]
-" Group mappings
+let g:which_key_map[']'] = [ ':tabnew'                    , 'New tab' ]
 
-" a is for actions
+"}}}
+
+"{{{ Actions
 let g:which_key_map.a = {
       \ 'name' : '+Actions' ,
       \ 'A' : [':norm ggVG'                     , 'Select All'],
@@ -53,8 +59,9 @@ let g:which_key_map.a = {
       \ 'w' : [':FixWhitespace'                 , 'QuickFix whitespaces '],      
       \ 't' : [':SwitchColors '                 , 'Theme switch']
       \ }
+"}}}
 
-" b is for buffer
+" {{{ Buffers
 let g:which_key_map.b = {
       \ 'name' : '+Buffer' ,
       \ 'd' : ['bd'                                    , 'Delete buffer'  ],
@@ -64,7 +71,9 @@ let g:which_key_map.b = {
       \ 'o' : [':w <bar> %bd <bar> e# <bar> bd# <CR>'  , 'Only one buffer'],
       \ }
 
-" g is for git
+"}}}
+
+" {{{ Git
 let g:which_key_map.g = {
       \ 'name' : '+Git' ,
       \ 'A' : [':Git add .'                        , 'Add All'],
@@ -74,12 +83,9 @@ let g:which_key_map.g = {
       \ 'b' : [':GCheckout'                        , 'Checkout'],
       \ 'p' : [':Git push'                         , 'Push'],
       \ 'f' : [':Git pull'                         , 'Pull/Fetch'],
-      \ 'd' : [':Gdiffsplit!'                      , 'Diff Split conflict'],
       \ 'l' : [':GV'                               , 'Commits Log'],
       \ 'o' : [':GBrowse'                          , 'Open in Browser'],
-      \ '.' : [':diffget //2'                      , 'Left diffs'],
-      \ ',' : [':diffget //3'                      , 'Right diffs'],
-      \ 'w' : [':Gwrite'                           , 'Save diffs'],
+      \ 'w' : [':Gwrite'                           , 'Save'],
       \ 'V' : [':GV!'                              , 'View Buffer Commits'],     
       \ 'k' : {
           \ 'name' : '+GitCommands' ,
@@ -87,24 +93,32 @@ let g:which_key_map.g = {
           \ 'S' : [':Git save'                         , 'SAVEPOINT commit'],
           \ 'W' : [':Git wipe'                         , 'Wipe SAVEPOINT commit'],
           \ 'b' : [':Git blame'                        , 'Blame'],
-          \ 'w' : [':FloatermSend gwip'                , 'Commit a work-in-progress(WIP) branch'],
-          \ 'u' : [':FloatermSend gunwip'              , 'Uncommit a work-in-progress(WIP) branch'],
+          \ 'w' : [':Git gwip'                , 'Commit a work-in-progress(WIP) branch'],
+          \ 'u' : [':Git gunwip'              , 'Uncommit a work-in-progress(WIP) branch'],
           \ 't' : [':CocCommand git.toggleGutters'     , 'Toggle Gutters'],     
           \ },
       \ 'h' : {
-          \ 'name' : '+GitHunks' ,
+          \ 'name' : '+GitGutterHunks' ,
           \ 't' : [':GitGutterLineHighlightsToggle'    , 'Toggle highlight hunks'],
           \ 'h' : ['<Plug>(GitGutterPreviewHunk)'      , 'Preview hunk'],
           \ 'n' : ['<Plug>(GitGutterNextHunk)'         , 'Next hunk'],
           \ 'p' : ['<Plug>(GitGutterPrevHunk)'         , 'Prev hunk'],
           \ 's' : ['<Plug>(GitGutterStageHunk)'        , 'Stage hunk'],
           \ 'u' : ['<Plug>(GitGutterUndoHunk)'         , 'Undo hunk'],
+          \ },
+      \ 'd' : {
+          \ 'name' : '+GitDiffs' ,
+          \ 's' : [':Gdiffsplit!'                      , 'Diff Split conflict'],
+          \ 'h' : [':diffget //2'                      , 'Left diffs'],
+          \ 'l' : [':diffget //3'                      , 'Right diffs'],
+          \ 'n' : [']c'                                , 'Next hunks'],
+          \ 'p' : ['[c'                                , 'Prev hunks'],
           \ }
       \ }
 
+"}}}
 
-      " \ 'po': [':normal! :FloaterSend git push origin $(git branch | grep "\*" | sed s:^..::g )<cr>'     , 'Push into origin'],     
-" c is for lsp
+" {{{ CoC
 let g:which_key_map.c = {
 			\ 'name' : '+Coc-Commands' ,
       \ '.' : [':CocConfig'                          , 'config'],
@@ -131,7 +145,9 @@ let g:which_key_map.c = {
       \ 'Y' : [':CocCommand yank.clean'              , 'Clear Yank List'],
       \ }
 
-" j is for jumps
+"}}}
+
+" {{{ Jumps
 let g:which_key_map.j = {
       \ 'name' : '+JumpTo' ,
       \ 'd' : ['<Plug>(coc-definition)'              , 'Definition'],
@@ -144,7 +160,9 @@ let g:which_key_map.j = {
       \ 'n' : ['<Plug>(coc-diagnostic-next)'         , 'Next diagnostic'],
       \ }
 
-" s is for search
+"}}}
+
+" {{{ Search
 let g:which_key_map.s = {
       \ 'name' : '+Search' ,
       \ '/' : [':History/'              , 'History'],
@@ -168,7 +186,9 @@ let g:which_key_map.s = {
       \ 's' : [':Colors'                , 'Color schemes'],
       \ 't' : [':Rg'                    , 'Text Rg'],
       \ }
+"}}}
 
+" {{{ Terminal  
 let g:which_key_map.t = {
       \ 'name' : '+Terminal' ,
       \ 'j' : [':FloatermNew --wintype=popup --height=10'       , 'Terminal in Bottom'],
@@ -183,6 +203,9 @@ let g:which_key_map.t = {
       \ 'l' : [':FloatermList'                                  , 'Show List Terminals'],
       \ }
 
+"}}}
+
+" {{{ Jest 
 let g:which_key_map.J = {
       \ 'name' : '+Jest' ,
       \ 'c' : [':JestNearest'                          , 'Test nearest to the cursor'],
@@ -191,17 +214,9 @@ let g:which_key_map.J = {
       \ 'i' : [':JestInit'                             , 'Init Jest'],
       \ }
 
-" let g:which_key_map.w = {
-" 			\ 'name' : '+Window' ,
-" 			\ '|' : ['<C-u>split<CR>'            , 'Vertical split'],
-" 			\ '_' : ['<C-u>vsplit<CR>'           , 'Horizontal split'],
-" 			\ 'b' : ['<C-W>='                    , 'Balance windows'],
-" 			\ '+' : ['resize +5', 'Resize +'],  
-" 			\ '-' : ['resize -5', 'Resize -'], 
-"       \ 'h' : ['<c-w>_'                    , 'max height'],
-"     	\ 'w' : ['<c-w>|'                    , 'max width'],
-"       \ }
+"}}}
 
+" {{{ Windows
 let g:which_key_map.w = {
       \ 'name' : '+Windows'      ,
       \ 'w'    : ['<C-w>w'       , 'Other-window']          ,
@@ -228,6 +243,9 @@ let g:which_key_map.w = {
       \ 'W'    : ['Windows'      , 'Fzf window']            ,
       \ }
 
+"}}}
+
+" {{{ Sesions
 let g:which_key_map.S = {
 			\ 'name' : '+Session' ,
 			\ 's' : [':SSave'           , 'Save Session'],
@@ -236,6 +254,9 @@ let g:which_key_map.S = {
 			\ 'c' : [':SClose'          , 'Close Session'],
       \ }
 
+"}}}
+
+" {{{ Imports
 let g:which_key_map.i = {
 			\ 'name' : '+ImportFixes' ,
 			\ 'f' : [':ImportJSFix'     , 'Fix all imports'],
@@ -244,9 +265,12 @@ let g:which_key_map.i = {
       \ 'o' : [':OR'              , 'Organize imports'],
       \ }
 
+"}}}
+
+" {{{  Marks
 let g:which_key_map.m = {
 			\ 'name' : '+Mark' ,
-			\ 't' : [':CocCommand bookmark.toggle'               , 'Toggle'],
+			\ 'm' : [':CocCommand bookmark.toggle'               , 'New/Toggle mark'],
 			\ 'a' : [':CocCommand bookmark.annotate'             , 'Named mark'],
 			\ 'n' : [':CocCommand bookmark.next'                 , 'Next'],
 			\ 'p' : [':CocCommand bookmark.prev'                 , 'Prev'],
@@ -256,6 +280,24 @@ let g:which_key_map.m = {
 			\ 'c' : [':CocCommand bookmark.clearForCurrentFile'  , 'Clear buffer marks'],
 			\ 'C' : [':CocCommand bookmark.clearForAllFile'      , 'Clear all buffer marks'],
       \ }
+"}}}
+
+" {{{  Graveyard
+
+
+      " \ 'po': [':normal! :FloaterSend git push origin $(git branch | grep "\*" | sed s:^..::g )<cr>'     , 'Push into origin'],     
+
+" let g:which_key_map.w = {
+" 			\ 'name' : '+Window' ,
+" 			\ '|' : ['<C-u>split<CR>'            , 'Vertical split'],
+" 			\ '_' : ['<C-u>vsplit<CR>'           , 'Horizontal split'],
+" 			\ 'b' : ['<C-W>='                    , 'Balance windows'],
+" 			\ '+' : ['resize +5', 'Resize +'],  
+" 			\ '-' : ['resize -5', 'Resize -'], 
+"       \ 'h' : ['<c-w>_'                    , 'max height'],
+"     	\ 'w' : ['<c-w>|'                    , 'max width'],
+"       \ }
+
 
 " let g:which_key_map.w = {
 " 			\ 'name' : '+Workspace' ,
@@ -297,5 +339,7 @@ let g:which_key_map.m = {
 "       \ 'W' : [':help vimwiki'                                  , 'Help'],
 "       \ }
 
-autocmd! User vim-which-key call which_key#register('<Space>', 'g:which_key_map')
+"}}}
 
+
+" vim: fdm=marker

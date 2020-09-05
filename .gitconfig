@@ -1,0 +1,56 @@
+[user]
+	name = Dimytr Voitenko
+	email = dimytr.voitenko@gmail.com
+[commit]
+	template = /Users/void/comtemp
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+[apply]
+	# Detect whitespace errors when applying a patch
+	whitespace = fix
+
+[alias]
+  # rebase
+  rc = rebase --continue            # continue rebase
+  rs = rebase --skip                # skip rebase
+  # respond to PR feedback
+  respond ="!git commit --amend --reuse-message=HEAD --no-edit && git push  --force"
+	# View the current working tree status using the short format
+  st = status --short --branch
+  # interactive sync your current branch with master
+  sync = "!git fetch origin && git rebase --interactive origin/master"
+  # Pull in remote changes for the current repository and all its submodules
+  up = "!git pull --rebase --prune $@ && git submodule update --init --recursive"
+	# Switch to a branch, creating it if necessary
+	sw = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
+  unpushed = "log --branches --not --remotes --no-walk --decorate --oneline";
+  # nice logs
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative -n 10
+  lgf = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	# Show verbose output about tags, branches or remotes
+	tags = tag -l
+	branches = branch -a
+	remotes = remote -v
+	# List aliases
+	aliases = config --get-regexp alias
+  # commit
+   # commit all with an message (which need not be quoted)
+  cm = "!f() { git commit -a -m \"$*\" ; }; f"
+  co = commit
+  com = commit -m
+	amend = commit --amend --reuse-message=HEAD
+  undo = reset HEAD~1 --mixed
+  save = "!git add -A && git commit -m 'SAVEPOINT'"
+  wipe = "!git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard"
+  # fix your branch when it's missing upstream
+  upstream = branch --set-upstream-to=origin/$(git rev-parse --abbrev-ref HEAD) $(git rev-parse --abbrev-ref HEAD)
+
+[url "git@github.com:"]
+  insteadOf = git://github.com/
+  insteadOf = gh:
+  insteadOf = github:
+[push]
+	default = current

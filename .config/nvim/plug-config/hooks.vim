@@ -95,10 +95,8 @@ autocmd BufWritePost * nested
      \ | endif
 
 " Autosave buffer
-autocmd BufLeave,FocusLost,InsertLeave,TextChanged,FocusLost * :wa
-    let g:python_host_prog  = expand('/usr/bin/python' )
-    let g:python3_host_prog = expand('/usr/local/bin/python3.8')
-    let g:loaded_python3_provider = 1
+autocmd BufLeave,FocusLost,InsertLeave,TextChanged,FocusLost * :wa!
+
 " " python setup
 " if has('nvim')
 "   let platform=system('uname -s')
@@ -117,9 +115,13 @@ autocmd BufLeave,FocusLost,InsertLeave,TextChanged,FocusLost * :wa
 " Only show the cursor line in the active buffer.
 augroup CursorLine
     au!
-    au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-    au WinLeave * setlocal nocursorline 
+    au VimEnter,WinEnter,BufWinEnter * setlocal cursorline 
+    au WinLeave * setlocal nocursorline
+    au WinLeave * hi statusline guifg=NONE guibg=NONE
+    au WinLeave * hi statuslinenc guifg=NONE guibg=NONE
 augroup END
+
+
 
 " Automatic rename of tmux window
 augroup vimrc
@@ -139,13 +141,13 @@ augroup coc-explorer
   autocmd!
   autocmd FileType coc-explorer setlocal statusline=%{substitute(getcwd(),$HOME,'~','')}
   autocmd FileType coc-explorer hi statusline guibg=NONE guifg=NONE
+  autocmd FileType coc-explorer hi statuslinenc guibg=NONE guifg=NONE
 augroup END
  
 " Cleanup Start Page
   augroup Startpage
     " When Entering Startify
     au User StartifyReady set laststatus=0 showtabline=0 noruler
-    
     " When Exiting Startify
     au User StartifyBufferOpened set laststatus=2 showtabline=0 noruler
   augroup end
@@ -184,10 +186,6 @@ elseif exists('$DISPLAY') && executable('xclip')
 	\ }
 endif
 
-
-"if exists("*fugitive#statusline")
-"  set statusline+=%{fugitive#statusline()}
-"endif
 ""*****************************************************************************
 "" Commands
 "*****************************************************************************
