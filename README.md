@@ -1,22 +1,22 @@
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/60138143/91989761-8fd15180-ed39-11ea-8a83-645f92507c2d.png" width="320" title="My dotfiles">
+  <img src="https://user-images.githubusercontent.com/60138143/91989761-8fd15180-ed39-11ea-8a83-645f92507c2d.png" width="120" title="My dotfiles">
   <br>
 </p>
 
-![main-min](https://user-images.githubusercontent.com/60138143/92127561-1a818180-ee0a-11ea-9550-d46a104bc056.png)
+![header-min](https://user-images.githubusercontent.com/60138143/92312584-cffb3300-efca-11ea-9e0c-5a0dffc3955c.png)
 
 ### 🖥 Screenshots
 
 <details>
- <summary>Nvim+Startify+Which-keys</summary>
-   <img width="1593" alt="startufy" src="https://user-images.githubusercontent.com/60138143/91604073-b3ca1700-e976-11ea-87b3-547c04f70f29.png">
-   <img width="1593" alt="html" src="https://user-images.githubusercontent.com/60138143/91604089-baf12500-e976-11ea-85d2-885bd0172493.png">
-   <img width="1593" alt="main" src="https://user-images.githubusercontent.com/60138143/91604098-bd537f00-e976-11ea-978e-aa07c09fd1f1.png">
+ <summary>Nvim Startify Which-keys</summary>
+   <img width="1593" alt="fullscreen" src="https://user-images.githubusercontent.com/60138143/92312171-046cf000-efc7-11ea-9ee0-b594f7eb255d.png">
+   <img width="1593" alt="startify" src="https://user-images.githubusercontent.com/60138143/92312169-046cf000-efc7-11ea-8e21-046a6ea90067.png">
+   <img width="1593" alt="html" src="https://user-images.githubusercontent.com/60138143/92312166-02a32c80-efc7-11ea-913d-b1551e220649.png">
 </details>
-
+<br>
 <details>
- <summary>iTerm2+Tmux</summary>
-  <img width="3001" alt="iterm2 tmux" src="https://user-images.githubusercontent.com/60138143/91641434-12ea6300-ea2d-11ea-8e75-4b3d2afaaf6e.png">
+ <summary>iTerm2 Tmux</summary>
+  <img width="1593" alt="iterm2 tmux" src="https://user-images.githubusercontent.com/60138143/91641434-12ea6300-ea2d-11ea-8e75-4b3d2afaaf6e.png">
 </details>
 
 ### Configuration
