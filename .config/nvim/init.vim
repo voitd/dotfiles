@@ -442,18 +442,6 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-noremap B ^
-noremap E $
-noremap <C-a> ^
-noremap <C-e> $
-
-"Move to beginning of a line in insert mode
-inoremap <C-a> <C-o>^
-inoremap <C-e> <C-o>$
-
-" nmap s <Nop>
-" xmap s <Nop>
-
 " Vmap for maintain Visual Mode after shifting > and <
 vmap < <gv
 vmap > >gv
@@ -528,18 +516,8 @@ tnoremap <Esc><Esc>  <C-\><C-n>:FloatermHide<CRe
 nnoremap <leader>cl :Consolate<cr>
 nnoremap <leader>ap :TurboConsoleLog<cr>
 
-
 xmap <silent> <leader>aa :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
 nmap <silent> <leader>aa :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
-
-
-" Multiple cursor
-" xmap <silent> <C-c> y/\V<C-r>=escape(@",'/\')<CR><CR>gN<Plug>(coc-cursors-range)gn
-" nmap <expr> <silent> <C-c> <SID>select_current_word()
-
-" Run code
-nnoremap <silent> <F5> :call <SID>run_this_script(0)<cr>
-nnoremap <silent> <F6> :call <SID>run_this_script(1)<cr>
 
 " Quick fold and unfold
 nnoremap <silent>zz :normal!za<cr>

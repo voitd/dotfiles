@@ -13,13 +13,13 @@
    <img width="1593" alt="startify" src="https://user-images.githubusercontent.com/60138143/92312169-046cf000-efc7-11ea-8e21-046a6ea90067.png">
    <img width="1593" alt="html" src="https://user-images.githubusercontent.com/60138143/92312166-02a32c80-efc7-11ea-913d-b1551e220649.png">
 </details>
-<br>
+
 <details>
  <summary>iTerm2 Tmux</summary>
   <img width="1593" alt="iterm2 tmux" src="https://user-images.githubusercontent.com/60138143/91641434-12ea6300-ea2d-11ea-8e75-4b3d2afaaf6e.png">
 </details>
 
-### Configuration
+### ⚙️  Configuration
 
 - OS : macOS (11.0) Big Sur
 - Editor: [NeoVim](https://neovim.io)
