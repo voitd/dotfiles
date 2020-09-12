@@ -8,7 +8,7 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   "autocmd VimEnter * PlugInstall
-  autocmd VimEnter * PlugInstall | source $MYVIMRC
+  au VimEnter * PlugInstall | source $MYVIMRC
 endif
 
 if !exists('*SetupPlug')
@@ -23,8 +23,8 @@ if !exists('*SetupPlug')
 endif
 
 augroup vimplug
-  autocmd!
-  autocmd VimEnter *
+  au!
+  au VimEnter *
     \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
     \|   call SetupPlug()
     \| endif
@@ -33,61 +33,39 @@ augroup end
 " Auto Source init.vim When Saved
 " autocmd! BufWritePost $MYVIMRC source $MYVIMRC | echom "Reloaded $NVIMRC"
 augroup UpdateVim
-  autocmd!
+  au!
   " NOTE: This takes ${VIM_STARTUP_TIME} duration to run
-  autocmd BufWritePost ~/.config/nvim/plug-config/*.vim,$MYVIMRC ++nested
+  au BufWritePost ~/.config/nvim/plug-config/*.vim,$MYVIMRC ++nested
         \  source $MYVIMRC | echom "Reloaded $NVIMRC" | redraw | silent doautocmd ColorScheme |
-  autocmd FocusLost * silent! wall
-augroup END
-
-" Terminal settings
-function s:add_terminal_mappings()
-  if &filetype ==# '' || &filetype ==# 'toggleterm'
-    if has('nvim')
-      "Add neovim terminal escape with ESC mapping
-      tnoremap <buffer><esc> <C-\><C-n>
-      tnoremap <buffer><C-h> <C-\><C-n><C-W>h
-      tnoremap <buffer><C-j> <C-\><C-n><C-W>j
-      tnoremap <buffer><C-k> <C-\><C-n><C-W>k
-      tnoremap <buffer><C-l> <C-\><C-n><C-W>l
-      tnoremap <buffer><silent><S-Tab> <C-\><C-n>:bprev<CR>
-      tnoremap <buffer><C-c> <C-\><C-n>:close \| :bnext<cr>
-    else
-      tmap <C-h> <C-W>h
-      tmap <C-j> <C-W>j
-      tmap <C-k> <C-W>k
-      tmap <C-l> <C-W>l
-      tmap <C-x> <C-W><silent>q!<CR>
-    endif
-  endif
-endfunction
-
+  au FocusLost * silent! wall
+augroup end
 
 " Make sure the terminal buffer has no numbers and no sign column
 " Always open on insert mode
 augroup term
-  autocmd!
-  autocmd TermOpen * :setlocal signcolumn=no nonumber norelativenumber
-  autocmd TermOpen term://* startinsert
-  " autocmd TermOpen,BufEnter term://* call s:add_terminal_mappings()
-  autocmd BufLeave term://* stopinsert
+  au!
+  tnoremap <Esc> <C-\><C-n>
+  au TermOpen * :setlocal signcolumn=no nonumber norelativenumber
+  au TermOpen term://* startinsert
+  au TermOpen * setlocal statusline=%{b:term_title}
+  au BufLeave term://* stopinsert
 augroup end
 
 " Disable vim stupid format issue with comment
 augroup FormatFile
-  autocmd!
-  autocmd BufEnter * set fo-=c fo-=r fo-=o
+  au!
+  au BufEnter * set fo-=c fo-=r fo-=o
 augroup end
 
 
 " Return to last edit position (You want this!) *N*
-autocmd BufReadPost *
+au BufReadPost *
      \ if line("'\"") > 0 && line("'\"") <= line("$") |
      \   exe "normal! g`\"" |
      \ endif
 
 " Update filetype on save if empty
-autocmd BufWritePost * nested
+au BufWritePost * nested
      \ if &l:filetype ==# '' || exists('b:ftdetect')
      \ |   unlet! b:ftdetect
      \ |   filetype detect
@@ -95,32 +73,32 @@ autocmd BufWritePost * nested
      \ | endif
 
 " Autosave buffer
-autocmd BufLeave,FocusLost,InsertLeave,TextChanged,FocusLost * :wa!
+au BufLeave,FocusLost,InsertLeave,TextChanged,FocusLost * :wa!
 
-" " python setup
-" if has('nvim')
-"   let platform=system('uname -s')
-"   if (match(platform, "darwin") == 0)
-"     let g:python_host_prog  = expand('/usr/bin/python' )
-"     let g:python3_host_prog = expand('/usr/local/bin/python3.8')
-"     let g:loaded_python3_provider = 1
-"   else
-"     let g:python_host_prog  = '/usr/bin/python2'
-"     let g:python3_host_prog = '/usr/bin/python3'
-"   endif
-" endif
-
-
-" autocmd CursorHold * echo
 " Only show the cursor line in the active buffer.
-augroup CursorLine
-    au!
-    au VimEnter,WinEnter,BufWinEnter * setlocal cursorline 
-    au WinLeave * setlocal nocursorline
-    au WinLeave * hi statusline guifg=NONE guibg=NONE
-    au WinLeave * hi statuslinenc guifg=NONE guibg=NONE
-augroup END
+augroup ActiveLine
+  au!
+  au VimEnter,WinEnter,BufWinEnter,BufEnter * setlocal cursorline statusline=%!ActiveLine() 
+  au WinLeave,BufLeave * setlocal nocursorline statusline=%!InactiveLine()
+  au WinLeave * hi statusline guifg=NONE 
+  au WinLeave * hi statuslinenc guifg=NONE
+augroup end
 
+
+" Every time you open a git object using fugitive it creates a new buffer.
+" This means that your buffer listing can quickly become swamped with
+" fugitive buffers. This prevents this from becomming an issue:
+au BufReadPost fugitive://* set bufhidden=delete
+
+" When opening a markdown or txt, set the textwidth to 80 and enable spell check
+au BufRead,BufNewFile *.md setlocal textwidth=80
+au BufRead,BufNewFile *.md setlocal spell
+au BufRead,BufNewFile *.txt setlocal textwidth=80
+au BufRead,BufNewFile *.txt setlocal spell
+au FileType ruby setlocal ts=2 sts=2 sw=2 noexpandtab
+au FileType javascript setlocal ts=2 sts=2 sw=2 noexpandtab
+au FileType typescript setlocal ts=2 sts=2 sw=2 noexpandtab
+au FileType css,scss set iskeyword=@,48-57,_,-,?,!,192-255
 
 
 " Automatic rename of tmux window
@@ -129,33 +107,28 @@ augroup vimrc
     au BufEnter * if empty(&buftype) | call system('tmux rename-window '.expand('%:t:S')) | endif
     au VimLeave * call system('tmux set-window automatic-rename on')
   endif
-augroup END
+augroup end
 
 " Force a syntax sync after I enter a buffer.
 augroup SyncFromStart
-  autocmd!
-  autocmd BufEnter * :syntax sync maxlines=200
-augroup END
+  au!
+  au BufEnter * :syntax sync maxlines=200
+augroup end
 
 augroup coc-explorer
-  autocmd!
-  autocmd FileType coc-explorer setlocal statusline=%{substitute(getcwd(),$HOME,'~','')}
-  autocmd FileType coc-explorer hi statusline guibg=NONE guifg=NONE
-  autocmd FileType coc-explorer hi statuslinenc guibg=NONE guifg=NONE
-augroup END
- 
-" Cleanup Start Page
-  augroup Startpage
-    " When Entering Startify
-    au User StartifyReady set laststatus=0 showtabline=0 noruler
-    " When Exiting Startify
-    au User StartifyBufferOpened set laststatus=2 showtabline=0 noruler
-  augroup end
+  au!
+  au FileType coc-explorer setlocal statusline=%#StatusLineNC#%{substitute(getcwd(),$HOME,'~','')}
+augroup end
 
-" augroup AutochdirFix
-"   autocmd!
-"   autocmd BufReadPost * silent! lcd %:p:h
-" augroup END
+" Cleanup Start Page
+augroup Startpage
+  au User StartifyReady set laststatus=0 showtabline=0 noruler
+  au User StartifyBufferOpened set laststatus=2 showtabline=0 noruler
+augroup end
+
+" hide tmux status bar when vim starts, show when vim extts
+" autocmd VimEnter * silent !tmux set status off
+" autocmd VimLeave * silent !tmux set status on
 
 " Set internal g:clipboard to save some startup time.
 if has('mac') && executable('pbpaste')
@@ -190,6 +163,7 @@ endif
 "" Commands
 "*****************************************************************************
 
+
 " Remove trailing whitespaces
 command! FixWhitespace :%s/\s\+$//e
 
@@ -208,6 +182,42 @@ command! VSCode :call system('nohup "code" '.expand('%:p').'> /dev/null 2>&1 < /
 "*****************************************************************************
 "" Functions
 "*****************************************************************************
+function! SourceThis()
+	exec "source %"
+	sleep 100m
+endfunction
+
+command! SourceThis silent! call SourceThis()
+
+" This will flash cols and rows to locate the cursor
+function! Flash()
+	set cursorline cursorcolumn
+	redraw
+	sleep 200m
+	set nocursorline nocursorcolumn
+endfunction
+command! Flash silent! call Flash()
+
+if executable('ctags')
+	command! MakeTags !ctags -R --fields=+iaS --extra=+q --exclude=.git .
+endif
+
+" This will toggle spell check.
+function! ToggleSpell()
+	if &spell
+		set nospell
+		echom "Spell Check OFF"
+	else
+		set spell
+		echom "Spell Check ON"
+	endif
+endfunction
+command! ToggleSpell silent! call ToggleSpell()
+
+function! SpellFix()
+	normal! mp[s1z=`p
+endfunction
+command! SpellFix silent! call SpellFix()
 
 function! s:console_log(...)
   let token = a:0 ? a:1 : expand('<cword>')
@@ -250,5 +260,58 @@ endfunction
 command! NativeMarks call NativeMarks()
 
 
+function! GetSyntaxID(transparent)
+  let synid = synID(line("."), col("."), 1)
+  if a:transparent
+    return synIDtrans(synid)
+  else
+    return synid
+  endif
+endfunction
 
+function! GetSyntaxAttr(synid)
+  let name = synIDattr(a:synid, "name")
+  let ctermfg = synIDattr(a:synid, "fg", "cterm")
+  let ctermbg = synIDattr(a:synid, "bg", "cterm")
+  let guifg = synIDattr(a:synid, "fg", "gui")
+  let guibg = synIDattr(a:synid, "bg", "gui")
+  return {
+        \ "name": name,
+        \ "ctermfg": ctermfg,
+        \ "ctermbg": ctermbg,
+        \ "guifg": guifg,
+        \ "guibg": guibg}
+endfunction
+
+function! GetSyntaxInfo()
+  let baseSyn = GetSyntaxAttr(GetSyntaxID(0))
+  echo "name: " . baseSyn.name .
+        \ " ctermfg: " . baseSyn.ctermfg .
+        \ " ctermbg: " . baseSyn.ctermbg .
+        \ " guifg: " . baseSyn.guifg .
+        \ " guibg: " . baseSyn.guibg
+  let linkedSyn = GetSyntaxAttr(GetSyntaxID(1))
+  echo "link to"
+  echo "name: " . linkedSyn.name .
+        \ " ctermfg: " . linkedSyn.ctermfg .
+        \ " ctermbg: " . linkedSyn.ctermbg .
+        \ " guifg: " . linkedSyn.guifg .
+        \ " guibg: " . linkedSyn.guibg
+endfunction
+
+command! SyntaxInfo call GetSyntaxInfo()
+
+function! SuperRuler(count)
+  let cnt = (a:count == 0) ? '' : a:count
+  redir => ruler_out
+    silent execute 'silent normal! ' . cnt . "\<C-g>"
+  redir END
+  let super_ruler = ruler_out[2:] . "    | " . &fileformat . " | " . &fileencoding . " | " . &filetype . " | " . VCSRepoInfo()
+  echo super_ruler
+endfunction
+
+function! VCSRepoInfo() abort
+  return fugitive#statusline()[1:]
+endfunction
+nnoremap <C-G> :<C-u>call SuperRuler(v:count)<CR>
 

@@ -30,9 +30,10 @@ let g:which_key_display_names = {' ': '', '<CR>': '↵', '<C-H>': '', '<C-
 " Single mappings
 let g:which_key_map[' '] = [ ':WhichKey'                  , 'Toggle Which Key' ]
 let g:which_key_map[','] = [ 'Startify'                   , 'Startify' ]
+" let g:which_key_map['r'] = [ ':SourceThis'                , 'Source file' ]
 let g:which_key_map['d'] = [ ':lcd %:p:h<CR>:pwd<CR>'     , 'Toggle root dir' ]
-let g:which_key_map['.'] = [ ':tabnew $MYVIMRC'           , 'Open init.vim' ]
-let g:which_key_map['x'] = [ ':source $MYVIMRC'           , 'Reload init.vim' ]
+let g:which_key_map['.'] = [ ':e $MYVIMRC'                , 'Open init.vim' ]
+let g:which_key_map['x'] = [ ':source $MYVIMRC | echom "Reloaded $NVIMRC" | redraw! | silent doautocmd ColorScheme |' , 'Reload init.vim' ]
 let g:which_key_map['e'] = [ ':CocCommand explorer'       , 'Explorer' ]
 let g:which_key_map['z'] = [ ':Goyo'                      , 'Focus mode']
 let g:which_key_map['u'] = [ ':UndotreeToggle'            , 'Undo tree' ]
@@ -163,6 +164,7 @@ let g:which_key_map.j = {
 "}}}
 
 " {{{ Search
+
 let g:which_key_map.s = {
       \ 'name' : '+Search' ,
       \ '/' : [':History/'              , 'History'],
@@ -187,7 +189,6 @@ let g:which_key_map.s = {
       \ 't' : [':Rg'                    , 'Text Rg'],
       \ }
 "}}}
-
 " {{{ Terminal  
 let g:which_key_map.t = {
       \ 'name' : '+Terminal' ,
@@ -218,29 +219,28 @@ let g:which_key_map.J = {
 
 " {{{ Windows
 let g:which_key_map.w = {
-      \ 'name' : '+Windows'      ,
-      \ 'w'    : ['<C-w>w'       , 'Other-window']          ,
-      \ 'q'    : ['<C-w>q'       , 'Quit window']           ,
-      \ 'c'    : ['<C-w>q'       , 'Quit window']           ,
-      \ 'd'    : [':bdelete'     , 'Close buffer']          ,
-      \ '-'    : ['<C-w>s'       , 'Split window below']    ,
-      \ '|'    : ['<C-w>v'       , 'Split window right']    ,
-      \ '2'    : ['<C-w>v'       , 'Layout double columns'] ,
-      \ 'h'    : ['<C-w>h'       , 'Window left']           ,
-      \ 'j'    : ['<C-w>j'       , 'Window below']          ,
-      \ 'l'    : ['<C-w>l'       , 'Window right']          ,
-      \ 'k'    : ['<C-w>k'       , 'Window up']             ,
-      \ 'H'    : ['<C-w>5<'      , 'Expand window left']    ,
-      \ 'J'    : ['resize -5'    , 'Expand window below']   ,
-      \ 'L'    : ['<C-w>5>'      , 'Expand window right']   ,
-      \ 'K'    : ['resize +5'    , 'Expand window up']      ,
-      \ '='    : ['<C-w>='       , 'Balance window']        ,
-      \ 's'    : ['<C-w>s'       , 'Split window below']    ,
-      \ 'v'    : ['<C-w>v'       , 'Split window aside']    ,
-      \ 'x'    : ['<C-w>x'       , 'Flip windows']          ,
-      \ 'th'   : ['<C-w>t<C-w>H' , 'Flip horiz-to-vert']    ,
-      \ 'tk'   : ['<C-w>t<C-w>K' , 'Flip vert-to-horiz']    ,
-      \ 'W'    : ['Windows'      , 'Fzf window']            ,
+      \ 'name' : '+Windows'                        ,
+      \ 'w'    : ['<C-w>w'                         , 'Next window']           ,
+      \ 'q'    : ['<C-w>q'                         , 'Quit window']           ,
+      \ 'd'    : [':bdelete'                       , 'Close buffer']          ,
+      \ '-'    : ['<C-w>s'                         , 'Split horizotal']       ,
+      \ '|'    : ['<C-w>v'                         , 'Split vertical']        ,
+      \ '2'    : ['<C-w>v'                         , 'Duplicate in splits']   ,
+      \ 'h'    : ['<C-w>h'                         , 'Window left']           ,
+      \ 'j'    : ['<C-w>j'                         , 'Window below']          ,
+      \ 'l'    : ['<C-w>l'                         , 'Window right']          ,
+      \ 'k'    : ['<C-w>k'                         , 'Window up']             ,
+      \ 'H'    : ['<C-w>5<'                        , 'Resize left']           ,
+      \ 'J'    : ['resize -5'                      , 'Resize below']          ,
+      \ 'L'    : ['<C-w>5>'                        , 'Resize right']          ,
+      \ 'K'    : ['resize +5'                      , 'Resize up']             ,
+      \ '='    : ['<C-w>='                         , 'Balance window']        ,
+      \ 'x'    : ['<C-w>x'                         , 'Flip windows']          ,
+      \ 'z'    : [''    , 'Zoom window']           ,
+      \ 'Z'    : [''                  , 'Unzoom window']         ,
+      \ 'f'    : ['<C-w>t<C-w>H'                   , 'Flip horiz-to-vert']    ,
+      \ 'F'    : ['<C-w>t<C-w>K'                   , 'Flip vert-to-horiz']    ,
+      \ 'W'    : ['Windows'                        , 'Fzf window']            ,
       \ }
 
 "}}}

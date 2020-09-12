@@ -1,0 +1,201 @@
+
+alias reload="source ~/.config/fish/config.fish | echo "Reloaded!" "
+
+## get top process eating memory
+alias psmem='ps aux | sort -nr -k 4 | head -10'
+
+## get top process eating cpu ##
+alias pscpu='ps -er -o pid,pcpu,comm | head -10'
+
+alias stats='top -l 1 | grep -E "^CPU|^Phys"'
+
+alias als='alias | grep'
+
+# confirm before overwriting something
+alias mkdir="mkdir -p"
+alias cp="cp -i"
+alias mv='mv -i'
+alias rm='rm -i'
+alias df='df -h'                          # human-readable sizes
+
+
+# apps
+alias v="nvim"
+alias v!='nvim -u NONE'
+alias wt="webtorrent"
+alias r="ranger"
+alias a="aria2c"
+alias wlp="unsplash-wallpaper -r --width 2880 --height 1800"
+alias ytdl="youtube-dl -f bestvideo "
+alias yt2m4="youtube-dl --extract-audio --audio-format m4a "
+alias yt2mp3='youtube-dl -l -x --audio-format=mp3 -w -c '
+
+# tmux
+alias t="tmux"
+alias ta="t a -t"
+alias tl="t ls"
+alias tn="t new -t"
+alias tk="t kill-server"
+alias tf="ta fullscreen"
+alias tq="ta guake"
+
+# Replace legacy tools with new ones
+alias ls='exa -G  --color auto --icons -a -s type'
+alias ll='exa -l --color always --icons -a -s type'
+alias rls="cd && cd - && ls -G"
+
+# Colorized cat.
+alias cat='bat -pp --theme="Nord"'
+
+# Common quality of life aliases
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias cc="clear"
+alias brewup 'brew update && brew upgrade && brew cask upgrade'
+alias ht="htop"
+alias htu="htop -t -u void"
+
+# brew
+alias bri="brew install"
+alias bri="brew uninstall"
+alias brs="brew search"
+alias brsl="brew services list"
+alias brsp="brew services stop"
+alias brsr="brew services restart"
+alias brss="brew services start"
+alias brci="brew cask install"
+alias brcu="brew cask install"
+alias brcs="brew cask search"
+
+# docker
+alias dk="docker"
+alias dkc="docker-compose"
+alias dke="docker exec -it"
+alias dkm="docker-machine"
+
+# Python
+alias pi="pip install"
+alias pu="pip install --upgrade pip"
+alias pe="pyenv"
+alias pev="pyenv versions"
+alias pei="pyenv install"
+alias pel="pyenv local"
+alias peu="pyenv local"
+alias peg="pyenv global"
+alias per="pyenv rehash" # run this after installing executable
+alias peh="pyenv help"
+
+# Redis
+alias start_redis="brew services start redis"
+alias stop_redis="brew services stop redis"
+alias rcli="redis-cli"
+
+# Redis
+alias start_redis="brew services start redis"
+alias stop_redis="brew services stop redis"
+alias rcli="redis-cli"
+
+# Ruby and friends (bundle/rails/rbenv)
+alias bcg="bundle config --global"
+alias bcl="bundle config --local"
+alias bcd="bundle config --delete"
+alias be="bundle exec"
+alias berc="bundle exec rails c"
+alias berk="bundle exec rake"
+alias bersp="bundle exec rspec"
+alias bers="bundle exec rails s"
+alias bersop="bundle_rails_server_on_port"
+alias bi="bundle install"
+alias bo="bundle open"
+alias bu="bundle update"
+alias gi="gem install"
+alias r="rails"
+alias rc="rails console"
+alias rcdev="RAILS_ENV'development'; rails console"
+alias rdbd="rake db:drop"
+alias rdbm="rake db:migrate"
+alias rdbr="rake db:reset"
+alias rdbsd="rake db:seed"
+alias rdbsu="rake db:setup"
+alias rdbrb="rake db:rollback"
+alias rdbms="rake db:migrate:status"
+alias rs="rails server"
+alias tbersp="time bundle exec rspec"
+alias rbenv_new_versions="brew update; brew upgrade ruby-build"
+alias rnv="rbenv_new_versions"
+
+# server
+alias pys="python -m SimpleHTTPServer"
+alias rbsp="ruby -run -e httpd . -p"
+alias rbs="ruby -run -e httpd ."
+
+# SQL (MySQL/PostgreSQL)
+alias bpgst="brew services start postgresql@9.4"
+alias bpgsp="brew services stop postgresql@9.4"
+alias msst="mysql.server start"
+alias mssp="mysql.server stop"
+alias msr="mysql.server restart"
+alias restart_psql="brew services stop postgresql@9.4; rm /usr/local/var/postgresql@9.4/postmaster.pid; brew services start postgresql@9.4"
+alias rspsql="restart_psql"
+alias start_pg="brew services start postgresql@9.4"
+alias stop_pg="brew services stop postgresql@9.4"
+
+# git
+alias	gil="git log --graph --abbrev-commit --decorate --date=relative \
+  --format=format:'%C(red)%h%C(r) —— %C(bold blue)%an%C(r): %C(white)%s%C(r) \
+  %C(dim white) %C(bold green)(%ar)%C(r) %C(bold yellow)%d%C(r)' --all"
+alias upd="git pull origin develop:develop --rebase --ff-only"
+alias upm="git pull origin master:master --rebase --ff-only"
+alias gct='cat ~/dotfiles/commit-types'
+alias commit="/Users/void/validate-commit.py"
+
+alias fzf='fzf --color=light'
+alias findF="ps -ef | grep -v grep | grep "
+
+alias speedtest="curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python -"
+
+# Get External IP / Internet Speed
+alias myip="curl https://ipinfo.io/json" # or /ip for plain-text ip
+# Get macOS Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
+alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; npm install npm -g; npm update -g;'
+# Recursively delete `.DS_Store` files
+alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
+# Kill all the tabs in Chrome to free up memory
+# [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
+alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
+# Lock the screen (when going AFK)
+alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+alias webdev="./bin/webpack-dev-server --watch --colors --progress"
+
+alias rebuild_open_with_index="/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -r -domain local -domain user; killall Finder"
+alias rebuild_spotlight_index="sudo mdutil -i on /"
+alias rebuild_indices="rebuild_open_with_index && rebuild_spotlight_index"
+alias rbi="rebuild_indices"
+
+
+abbr record "ffmpeg -f x11grab -s 1440x900 -i :0.0 -r 30 -vcodec libx264 recording.mkv"
+
+alias kd 'kitty @ set-colors -a "~/.config/kitty/colors/gruvbox-dark.conf"'
+alias kl 'kitty @ set-colors -a "~/.config/kitty/colors/gruvbox-light.conf"'
+alias kpl 'kitty @ set-colors -a "~/.config/kitty/colors/PencilLight.conf"'
+alias kpd 'kitty @ set-colors -a "~/.config/kitty/colors/PencilDark.conf"'
+
+abbr Dl  "cd ~/Downloads/"
+abbr g 'git'
+abbr d 'dots'
+
+
+# alias tobash="sudo chsh $USER -s /bin/bash && echo 'Now log out.'"
+# alias tozsh="sudo chsh $USER -s /bin/zsh && echo 'Now log out.'"
+# alias tofish="sudo chsh $USER -s /bin/fish && echo 'Now log out.'"
+
+
+# bare git repo alias for dotfiles
+alias dots="/usr/local/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME"
+alias dotfiles="/usr/local/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME"
+# alias dotsall="dots add commit-types .tmux.conf .gitconfig .config/fish/config.fish
+# .config/nvim/init.vim .config/nvim/coc-settings.json .config/nvim/plug-config .config/kitty/"
+
+
+# vim: foldmethod=marker:sw=2:foldlevel=10

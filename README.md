@@ -19,7 +19,7 @@
   <img width="1593" alt="iterm2 tmux" src="https://user-images.githubusercontent.com/60138143/91641434-12ea6300-ea2d-11ea-8e75-4b3d2afaaf6e.png">
 </details>
 
-### ⚙️  Configuration
+### ⚙️ Configuration
 
 - OS : macOS (11.0) Big Sur
 - Editor: [NeoVim](https://neovim.io)

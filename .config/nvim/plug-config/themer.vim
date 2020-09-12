@@ -32,6 +32,7 @@ let g:colorSchemeList['Gruvbox Material Light'] = [
       \   'source ~/.config/nvim/plug-config/statusline/gruvbox-light.vim',
       \   ]
 let g:colorSchemeList['Rigel'] = [
+      \   'set termguicolors',
       \   'colorscheme rigel',
       \   'set background=dark',
       \   "let g:rigel_italic=1",
@@ -66,7 +67,6 @@ let g:colorSchemeList['Gruvbox Light'] = [
       \   "let g:gruvbox_invert_selection =0",
       \   'source ~/.config/nvim/plug-config/statusline/gruvbox-light.vim',
       \   ]
-
       " \    'execute "silent ! kitty @ --to=tcp:localhost:12345 set-colors --all ~/.config/kitty/colors/rigel.conf"'
       " \    'execute "silent ! tmux source-file ~/.tmux/rigel.tmux"'
 
@@ -81,7 +81,7 @@ function! s:Color(a, l, p)
 endfunction
 
 command! -bar -nargs=? -complete=customlist,<sid>Color SwitchColors call SwitchColorScheme(<f-args>)
-" call SwitchColorScheme('Rigel')
+" call SwitchColorScheme('Gruvbox Dark')
 
 " Functions
 " function SwitchLightlineColorScheme(lightlineName) abort

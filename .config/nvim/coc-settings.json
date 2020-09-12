@@ -9,7 +9,6 @@
   "explorer.file.column.git.icon.renamed": "≫",
   "explorer.file.column.git.icon.unmerged": "≠",
   "explorer.icon.enableNerdfont": true,
-  //"explorer.icon.enableVimDevicons": true,
   "explorer.previewAction.onHover": false,
   "explorer.quitOnOpen": true,
   "explorer.openAction.for.directory": "expandOrCollapse",
@@ -17,12 +16,12 @@
     "<cr>": ["expandable?", "expand", "open"],
     "v": "open:vsplit"
   },
-  //CocList
+
   "list.source.files.defaultOptions": ["--auto-preview"],
   "list.source.outline.defaultOptions": ["--auto-preview"],
   "list.indicator": "❯",
   "list.selectedSignText": " ",
-  // siggestions
+
   "suggest.triggerAfterInsertEnter": false,
   "suggest.timeout": 500,
   "suggest.noselect": false,
@@ -58,6 +57,7 @@
     "typeParameter": "\uf728",
     "default": "\uf29c"
   },
+
   // eslint
   //  "eslint.options": {
   //   "configFile": "/Users/void/.eslintrc.yml"
@@ -69,20 +69,20 @@
     "javascriptreact",
     "typescript.tsx"
   ],
-  //"eslint.autoFix": true,
-  //"eslint.autoFixOnSave": true,
-  //diagnostic
+  "eslint.autoFix": true,
+  "eslint.autoFixOnSave": true,
+
   "diagnostic.signOffset": 9999999,
   "diagnostic.highlightOffset": 9999999,
   "diagnostic.messageDelay": 500,
-  //"diagnostic.errorSign": " ",
   "diagnostic.errorSign": " ",
   "diagnostic.warningSign": " ",
   "diagnostic.infoSign": "",
   "diagnostic.hintSign": " ",
-  "diagnostic.checkCurrentLine": true,
+  //"diagnostic.checkCurrentLine": true,
   "diagnostic.refreshOnInsertMode": true,
-  // preferences
+
+  "coc.preferences.colorSupport": true,
   "coc.preferences.snippetStatusText": "Ⓢ ",
   "coc.preferences.formatOnType": true,
   "coc.preferences.extensionUpdateCheck": "daily",
@@ -98,7 +98,18 @@
     "scss",
     "yaml"
   ],
-  //git
+  "coc.preferences.formatOnTypeFiletypes": [
+    "javascript",
+    "typescript",
+    "javascriptreact",
+    "typescriptreact",
+    "typescript.tsx",
+    "html",
+    "json",
+    "Markdown",
+    "css",
+    "svelte"
+  ],
   //  "git.addGBlameToBufferVar": true,
   //  "git.addGBlameToVirtualText": true,
   //  "git.virtualTextPrefix": " ❯❯❯ ",
@@ -112,66 +123,26 @@
   "git.removedSign.text": "▋",
   "git.topRemovedSign.text": "▔",
   "git.changeRemovedSign.text": "▋",
-  "javascript.suggest.autoImports": true,
+  "git.enableGutters": false,
+
   "tsserver.formatOnType": true,
   "typescript.showUnused": false,
   "javascript.showUnused": false,
+  "javascript.suggest.autoImports": true,
   "scss.validate": true,
-  // prettier
+
   "prettier.statusItemText": "ⓟ ",
   "prettier.singleQuote": true,
   "prettier.jsxSingleQuote": true,
   "prettier.disableSuccessMessage": true,
   "prettier.eslintIntegration": true,
-  // coc-snippet
+
   "snippets.extends": { "javascriptreact": ["javascript"] },
   "snippets.snipmate.enable": false,
   "snippets.loadFromExtensions": false,
   "snippets.enableStatusItem": false,
-  // coc-actions
+
   "coc-actions.hideCursor": false,
   "yank.highlight.duration": 800,
-  "yank.enableCompletion": false,
-  "git.enableGutters": false
+  "yank.enableCompletion": false
 }
-
-//    "keyword": "пЗЮ",
-//    "variable": "",
-//    "value": "",
-//    "operator": "Ψ",
-//    "function": "ƒ",
-//    "reference": "渚",
-//    "constant": "",
-//    "method": "",
-//    "struct": "פּ",
-//    "class": "",
-//    "interface": "",
-//    "text": "",
-//    "enum": "",
-//    "enumMember": "",
-//    "module": "",
-//    "color": "",
-//    "property": "",
-//    "field": "料",
-//    "unit": "",
-//    "event": "鬒",
-//    "file": "",
-//    "folder": "",
-//    "snippet": "",
-//    "typeParameter": "",
-//    "default": ""
-//  },
-//"keyword": "",
-//"variable": "硫",
-//    "value": "",
-//    "operator": "Ψ",
-//    "function": "пВЪ",
-//    "reference": "齃",
-//    "constant": "",
-//    "method": "",
-//    "struct": "פּ",
-//    "class": "",
-//    "interface":
-//    "text":
-//    "property": "",
-//    "snippet": "",

@@ -21,36 +21,74 @@
   # rebase
   rc = rebase --continue            # continue rebase
   rs = rebase --skip                # skip rebase
+
+  # Interactive rebase with the given number of latest commits
+	reb = "!r() { git rebase -i HEAD~$1; }; r"
+
   # respond to PR feedback
   respond ="!git commit --amend --reuse-message=HEAD --no-edit && git push  --force"
+
 	# View the current working tree status using the short format
   st = status --short --branch
+
   # interactive sync your current branch with master
   sync = "!git fetch origin && git rebase --interactive origin/master"
+
   # Pull in remote changes for the current repository and all its submodules
   up = "!git pull --rebase --prune $@ && git submodule update --init --recursive"
+
 	# Switch to a branch, creating it if necessary
 	sw = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
+
+  # Checkout a pull request from origin (of a github repository)
+  pr = !"pr() { git fetch origin pull/$1/head:pr-$1; git checkout pr-$1; }; pr"
+
   unpushed = "log --branches --not --remotes --no-walk --decorate --oneline";
+
   # nice logs
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative -n 10
   lgf = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+
 	# Show verbose output about tags, branches or remotes
 	tags = tag -l
 	branches = branch -a
 	remotes = remote -v
+
 	# List aliases
 	aliases = config --get-regexp alias
-  # commit
-   # commit all with an message (which need not be quoted)
+
+  # commit all with an message (which need not be quoted)
   cm = "!f() { git commit -a -m \"$*\" ; }; f"
   c = commit
 	amend = commit --amend --reuse-message=HEAD
   undo = reset HEAD~1 --mixed
   save = "!git add -A && git commit -m 'SAVEPOINT'"
   wipe = "!git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard"
+  # NEW.
+	new = "!f() { git commit -m \"NEW: $@\"; }; f"
+	# IMPROVE.
+	imp = "!f() { git commit -m \"IMPROVE: $@\"; }; f"
+	# FIX.
+	fix = "!f() { git commit -m \"FIX: $@\"; }; f"
+	# RELEASE.
+	rel = "!f() { git commit -m \"RELEASE: $@\"; }; f"
+	# DOC.
+	doc = "!f() { git commit -m \"DOC: $@\"; }; f"
+	# TEST.
+	tes = "!f() { git commit -m \"TEST: $@\"; }; f"
+	# Cleanup.
+	cle = "!f() { git commit -m \"CLEANUP: $@\"; }; f"
+	# Incomplete.
+	inc = "!f() { git commit -m \"INCOMPLETE: $@\"; }; f"
+	# SOLVE.
+	sol = "!f() { git commit -m \"SOLVE: $@\"; }; f"
+	# UPDATE.
+	upd = "!f() { git commit -m \"UPDATE: $@\"; }; f"
+	# Add.
+	ad = "!f() { git commit -m \"ADD: $@\"; }; f"
   # fix your branch when it's missing upstream
   upstream = "!git branch --set-upstream-to=origin/$(git rev-parse --abbrev-ref HEAD) $(git rev-parse --abbrev-ref HEAD)"
+	clone = clone --template=/Users/void/.git-templates
 
 [url "git@github.com:"]
   insteadOf = git://github.com/
@@ -58,3 +96,11 @@
   insteadOf = github:
 [push]
 	default = current
+[core]
+	excludesfile = /Users/void/.gitignore_global
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true

@@ -19,12 +19,17 @@ let g:fzf_buffers_jump = 1
 " nnoremap <leader>t :Tags<CR>
 " nnoremap <leader>m :Marks<CR>
 
-
+let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+let g:fzf_preview_window='right:65%'
 let g:fzf_tags_command = 'ctags -R'
 " Border color
 let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp' } }
+" let g:fzf_layout = { "window": "silent botright 16split enew" }
 
-let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info'
+" let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
+
+" let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info'
+let $FZF_DEFAULT_OPTS="--bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all --ansi --layout reverse --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
 let $FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git/**'"
 "-g '!{node_modules,.git}'
 
@@ -55,7 +60,7 @@ command! -bang -nargs=? -complete=dir Files
 "   \   "rg --column --line-number --no-heading --color=always --smart-case --glob '!.git/**' ".shellescape(<q-args>), 1,
 
  " Make Ripgrep ONLY search file contents and not filenames
-command! -bang -nargs=* Rg
+command! -bang -nargs=* RG
   \ call fzf#vim#grep(
   \   'rg --column --line-number --hidden --smart-case --no-heading --color=always '.shellescape(<q-args>), 1,
   \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
@@ -71,10 +76,18 @@ function! RipgrepFzf(query, fullscreen)
   call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
 endfunction
 
-command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
 
 " Git grep
 command! -bang -nargs=* GGrep
   \ call fzf#vim#grep(
   \   'git grep --line-number '.shellescape(<q-args>), 0,
   \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
+
+" dotbare edit
+command! Dots call fzf#run(fzf#wrap({
+  \ 'source': 'dots ls-files --full-name --directory "${DOTBARE_DIR}" | awk -v home="${DOTBARE_DER}/" "{print home \$0}"',
+  \ 'sink': 'e',
+  \ 'options': [ '--multi', '--prompt=Dots> ', '--preview', 'cat {}' ]
+  \ }))
+

@@ -1,1 +1,2 @@
 --listen-on=tcp:localhost:12345
+--listen-on unix:/tmp/mykitty
