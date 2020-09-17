@@ -22,8 +22,20 @@
   rc = rebase --continue            # continue rebase
   rs = rebase --skip                # skip rebase
 
+  # Get the current branch name (not so useful in itself, but used in
+  # other aliases)
+  branch-name = "!git rev-parse --abbrev-ref HEAD"
+  # Push the current branch to the remote "origin", and set it to track
+  # the upstream branch
+  publish = "!git push -u origin $(git branch-name)"
+	# Delete the remote version of the current branch
+  unpublish = "!git push origin :$(git branch-name)"
+	# Delete a branch and recreate it from master — useful if you have, say,
+  # a development branch and a master branch and they could conceivably go
+  # out of sync
+  recreate = "!f() { [[ -n $@ ]] && git checkout \"$@\" && git unpublish && git checkout master && git branch -D \"$@\" && git checkout -b \"$@\" && git publish; }; f"
   # Interactive rebase with the given number of latest commits
-	reb = "!r() { git rebase -i HEAD~$1; }; r"
+	rebase-branch = "!r() { git rebase -i HEAD~$1; }; r"
 
   # respond to PR feedback
   respond ="!git commit --amend --reuse-message=HEAD --no-edit && git push  --force"
@@ -43,7 +55,7 @@
   # Checkout a pull request from origin (of a github repository)
   pr = !"pr() { git fetch origin pull/$1/head:pr-$1; git checkout pr-$1; }; pr"
 
-  unpushed = "log --branches --not --remotes --no-walk --decorate --oneline";
+  unpushed = log --branches --not --remotes --no-walk --decorate --oneline
 
   # nice logs
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative -n 10
