@@ -69,7 +69,7 @@ let g:which_key_map.b = {
       \ 'n' : ['bnext'                                 , 'Next buffer'    ],
       \ 'p' : ['bprevious'                             , 'Previous buffer'],
       \ 'b' : ['Buffers'                               , 'Buffers'   ],
-      \ 'o' : [':w <bar> %bd <bar> e# <bar> bd# <CR>'  , 'Only one buffer'],
+      \ 'o' : [''                                      , 'Only one buffer'],
       \ }
 
 "}}}
@@ -189,6 +189,7 @@ let g:which_key_map.s = {
       \ 't' : [':Rg'                    , 'Text Rg'],
       \ }
 "}}}
+
 " {{{ Terminal  
 let g:which_key_map.t = {
       \ 'name' : '+Terminal' ,

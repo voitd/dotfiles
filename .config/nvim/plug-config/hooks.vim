@@ -44,7 +44,7 @@ augroup end
 " Always open on insert mode
 augroup term
   au!
-  tnoremap <Esc> <C-\><C-n>
+  " tnoremap <Esc> <C-\><C-n>
   au TermOpen * :setlocal signcolumn=no nonumber norelativenumber
   au TermOpen term://* startinsert
   au TermOpen * setlocal statusline=%{b:term_title}
@@ -130,34 +130,6 @@ augroup end
 " autocmd VimEnter * silent !tmux set status off
 " autocmd VimLeave * silent !tmux set status on
 
-" Set internal g:clipboard to save some startup time.
-if has('mac') && executable('pbpaste')
-	let g:clipboard = {
-		\ 'name': 'pbcopy',
-		\ 'cache_enabled': v:false,
-		\ 'copy': {
-		\ '+': 'pbcopy',
-		\ '*': 'pbcopy'
-		\ },
-		\ 'paste': {
-		\ '+': 'pbpaste',
-		\ '*': 'pbpaste'
-		\ }
-	\ }
-elseif exists('$DISPLAY') && executable('xclip')
-	let g:clipboard = {
-		\ 'name': 'xclip',
-		\ 'cache_enabled': v:false,
-		\ 'copy': {
-		\ '+': 'xclip -quiet -i -selection clipboard',
-		\ '*': 'xclip -quiet -i -selection primary'
-		\ },
-		\ 'paste': {
-		\ '+': 'xclip -o -selection clipboard',
-	  \ '*': 'xclip -o -selection primary'
-		\ }
-	\ }
-endif
 
 ""*****************************************************************************
 "" Commands
@@ -182,6 +154,52 @@ command! VSCode :call system('nohup "code" '.expand('%:p').'> /dev/null 2>&1 < /
 "*****************************************************************************
 "" Functions
 "*****************************************************************************
+"*****************************************************************************
+ "" <F5> / <F6> | Run script
+ "*****************************************************************************
+
+  function! s:run_this_script(output)
+   let head   = getline(1)
+   let pos    = stridx(head, '#!')
+   let file   = expand('%:p')
+   let ofile  = tempname()
+   let rdr    = " 2>&1 | tee ".ofile
+   let win    = winnr()
+   let prefix = a:output ? 'silent !' : '!'
+   " Shebang found
+   if pos != -1
+     execute prefix.strpart(head, pos + 2).' '.file.rdr
+   " Shebang not found but executable
+   elseif executable(file)
+     execute prefix.file.rdr
+   elseif &filetype == 'javascript'
+     execute prefix.'node '.file.rdr
+   " elseif &filetype == 'go'
+     " execute prefix.'go run '.file.rdr
+   else
+     return
+   end
+
+    redraw!
+   if !a:output | return | endif
+
+    " Scratch buffer
+   if bufwinnr('vim-exec-output') > 0
+     silent!  bdelete vim-exec-output
+   endif
+
+   silent!  split new
+   silent!  resize 10
+   silent!  file vim-exec-output
+   setlocal buftype=nofile bufhidden=wipe noswapfile nonumber
+   execute 'silent! read' ofile
+   normal! gg"_dd
+   execute win.'wincmd w'
+ endfunction
+
+ nnoremap <silent> <F5> :call <SID>run_this_script(0)<cr>
+ nnoremap <silent> <F6> :call <SID>run_this_script(1)<cr>
+
 function! SourceThis()
 	exec "source %"
 	sleep 100m

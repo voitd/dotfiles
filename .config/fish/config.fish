@@ -1,6 +1,8 @@
 set -g theme_powerline_fonts yes
 set -g theme_nerd_fonts yes
 
+set -x LC_ALL en_US.UTF-8
+
 export TERM=xterm-256color
 export TERMINAL="kitty"
 export EDITOR="nvim"

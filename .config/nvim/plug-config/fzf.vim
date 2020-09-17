@@ -28,8 +28,8 @@ let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffse
 
 " let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
 
-" let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info'
-let $FZF_DEFAULT_OPTS="--bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all --ansi --layout reverse --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
+let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info'
+" let $FZF_DEFAULT_OPTS="--bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all --ansi --layout reverse --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
 let $FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git/**'"
 "-g '!{node_modules,.git}'
 

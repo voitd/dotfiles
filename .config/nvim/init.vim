@@ -139,12 +139,11 @@ Plug 'franbach/miramare'
 
 Plug 'arcticicestudio/nord-vim'
 
-Plug 'AhmedAbdulrahman/vim-aylin'
-
-" Plug '986299679/space-vim-theme'
-Plug 'liuchengxu/space-vim-theme'
-
+" Plug 'liuchengxu/space-vim-theme'
 Plug 'drewtempelmeyer/palenight.vim'
+
+Plug 'cormacrelf/vim-colors-github'
+Plug 'romgrk/github-light.vim'
 
 call plug#end()
 
@@ -180,7 +179,7 @@ call plug#end()
 
 " Colors and styling
 hi link xmlEndTag xmlTag
-hi htmlArg gui=italic cterm=italic
+hi! htmlArg gui=italic cterm=italic
 hi Comment gui=italic cterm=italic
 hi Type gui=italic cterm=italic
 hi GitGutterAdd    guifg=#009900 guibg=#232526 ctermfg=2 ctermbg=236
@@ -190,15 +189,17 @@ hi VertSplit guibg=NONE guifg=NONE
 hi jsObjectKey guibg=red guifg=NONE
 
 let g:time = strftime("%H")
-if  g:time > 08 && g:time < 18
+if  g:time > 08 && g:time < 19
   colorscheme space_vim_theme
-  set background=light
+  set background=light    
+  " colorscheme github
+  " let g:github_colors_soft = 1
   " let g:gruvbox_contrast_light = "hard"
   " source ~/.config/nvim/plug-config/statusline/gruvbox-light.vim
 else
   colorscheme palenight
   set background=dark
-  let g:palenight_terminal_italics=1
+  " let g:palenight_terminal_italics=1
   " let g:gruvbox_contrast_dark = "hard"
   " source ~/.config/nvim/plug-config/statusline/gruvbox-dark-line.vim
 endif
@@ -223,7 +224,7 @@ set nowritebackup
 set updatetime=300
 
 " Use system clipboard
-set clipboard+=unnamedplus " use system clipboard
+set clipboard+=unnamed " use system clipboard
 
 " Enable persistent undo so that undo history persists across vim sessions
 set undofile
@@ -235,6 +236,7 @@ set mouse=a
 set mousemodel=popup
 
 set encoding=UTF-8
+scriptencoding utf-8
 " hack to work around vim-plug auto install harmless error
 " due to `source $MYVIMRC | q` in SetupPlug()
 " 'Cannot make changes, 'modifiable' is off: fileencoding=utf-8'
@@ -244,7 +246,7 @@ catch
 endtry
 
 " Allow use of `gf` for relative imports in JS.
-" set suffixesadd+=.js
+set suffixesadd+=.js
 
 " set 256 color
 set t_Co=256
@@ -328,27 +330,27 @@ set matchtime=1
 " set nofoldenable
 
 " Wildmenu completion {{{
-" set wildmenu
-" set wildmode=longest:full,full
-" set wildoptions=pum
-" set pumblend=30
-" set wildignore=*.o,*.obj,*~,*.exe,*.a,*.pdb,*.lib
-" set wildignore+=__pycache__,.stversions,*.spl,*.out,%*
-" set wildignore+=*.so,*.dll,*.swp,*.egg,*.jar,*.class,*.pyc,*.pyo,*.bin,*.dex
-" set wildignore+=*.zip,*.7z,*.rar,*.gz,*.tar,*.gzip,*.bz2,*.tgz,*.xz
-" set wildignore+=*DS_Store*,*.ipch
-" set wildignore+=*.gem
-" set wildignore+=*.png,*.jpg,*.gif,*.bmp,*.tga,*.pcx,*.ppm,*.img,*.iso
-" set wildignore+=*.so,*.swp,*.zip,*/.Trash/**,*.pdf,*.dmg,*/.rbenv/**
-" set wildignore+=*/.nx/**,*.app,*.git,.git
-" set wildignore+=*.wav,*.mp3,*.ogg,*.pcm
-" set wildignore+=*.mht,*.suo,*.sdf,*.jnlp
-" set wildignore+=*.chm,*.epub,*.pdf,*.mobi,*.ttf
-" set wildignore+=*.mp4,*.avi,*.flv,*.mov,*.mkv,*.swf,*.swc
-" set wildignore+=*.ppt,*.pptx,*.docx,*.xlt,*.xls,*.xlsx,*.odt,*.wps
-" set wildignore+=*.msi,*.crx,*.deb,*.vfd,*.apk,*.ipa,*.bin,*.msu
-" set wildignore+=*.gba,*.sfc,*.078,*.nds,*.smd,*.smc
-" set wildignore+=*.linux2,*.win32,*.darwin,*.freebsd,*.linux,*.android
+set wildmenu
+set wildmode=longest:full,full
+set wildoptions=pum
+set pumblend=30
+set wildignore=*.o,*.obj,*~,*.exe,*.a,*.pdb,*.lib
+set wildignore+=__pycache__,.stversions,*.spl,*.out,%*
+set wildignore+=*.so,*.dll,*.swp,*.egg,*.jar,*.class,*.pyc,*.pyo,*.bin,*.dex
+set wildignore+=*.zip,*.7z,*.rar,*.gz,*.tar,*.gzip,*.bz2,*.tgz,*.xz
+set wildignore+=*DS_Store*,*.ipch
+set wildignore+=*.gem
+set wildignore+=*.png,*.jpg,*.gif,*.bmp,*.tga,*.pcx,*.ppm,*.img,*.iso
+set wildignore+=*.so,*.swp,*.zip,*/.Trash/**,*.pdf,*.dmg,*/.rbenv/**
+set wildignore+=*/.nx/**,*.app,*.git,.git
+set wildignore+=*.wav,*.mp3,*.ogg,*.pcm
+set wildignore+=*.mht,*.suo,*.sdf,*.jnlp
+set wildignore+=*.chm,*.epub,*.pdf,*.mobi,*.ttf
+set wildignore+=*.mp4,*.avi,*.flv,*.mov,*.mkv,*.swf,*.swc
+set wildignore+=*.ppt,*.pptx,*.docx,*.xlt,*.xls,*.xlsx,*.odt,*.wps
+set wildignore+=*.msi,*.crx,*.deb,*.vfd,*.apk,*.ipa,*.bin,*.msu
+set wildignore+=*.gba,*.sfc,*.078,*.nds,*.smd,*.smc
+set wildignore+=*.linux2,*.win32,*.darwin,*.freebsd,*.linux,*.android
 
  "}}}
 
@@ -366,7 +368,34 @@ set fillchars+=vert:\
 set fillchars+=fold:\ 
 set fillchars+=diff:░ "alternatives: ⣿ ░
 
-
+" Set internal g:clipboard to save some startup time.
+if has('mac') && executable('pbpaste')
+	let g:clipboard = {
+		\ 'name': 'pbcopy',
+		\ 'cache_enabled': v:false,
+		\ 'copy': {
+		\ '+': 'pbcopy',
+		\ '*': 'pbcopy'
+		\ },
+		\ 'paste': {
+		\ '+': 'pbpaste',
+		\ '*': 'pbpaste'
+		\ }
+	\ }
+elseif exists('$DISPLAY') && executable('xclip')
+	let g:clipboard = {
+		\ 'name': 'xclip',
+		\ 'cache_enabled': v:false,
+		\ 'copy': {
+		\ '+': 'xclip -quiet -i -selection clipboard',
+		\ '*': 'xclip -quiet -i -selection primary'
+		\ },
+		\ 'paste': {
+		\ '+': 'xclip -o -selection clipboard',
+	  \ '*': 'xclip -o -selection primary'
+		\ }
+	\ }
+endif
 
 let g:python_host_prog  = expand('/usr/bin/python' )
 let g:python3_host_prog = expand('/usr/local/bin/python3.8')
@@ -435,13 +464,11 @@ vnoremap <silent><leader> :silent <c-u> :silent WhichKeyVisual '<Space>'<CR>
 nnoremap <silent><S-right> :bn<CR>
 nnoremap <silent><S-left> :bp<CR>
 nnoremap <silent><S-Tab> :b#<CR>
-" nnoremap <silent><leader>bo :w <bar> %bd <bar> e# <bar> bd# <CR> " Only one buffer
+nnoremap <silent><leader>bo :w <bar> %bd <bar> e# <bar> bd# <CR> "Only one buffer
 
 " list buffers
 set wildcharm=<C-s>
-" nnoremap <leader><Tab> :buffer <C-s><S-Tab>
 nnoremap <Tab><Tab> :buffer <C-s><S-Tab>
-" nnoremap <leader>bL :sbuffer <C-s><S-Tab>
 
 " fzf.vim mappings
 nnoremap <silent><C-p> :Files<CR>
@@ -454,7 +481,6 @@ noremap <silent> <ScrollWheelDown> :call comfortable_motion#flick(40)<CR>
 noremap <silent> <ScrollWheelUp>   :call comfortable_motion#flick(-40)<CR>
 
 nmap <silent><F2> <Plug>(coc-rename)
-nmap <F1> :SwitchColors <C-s><S-Tab>
 
 " Better window navigation
 nnoremap <C-h> <C-w>h
@@ -485,26 +511,6 @@ xnoremap <expr> j (v:count == 0 && mode() !=# 'V') ? 'gj' : 'j'
 nnoremap <expr> k v:count == 0 ? 'gk' : 'k'
 xnoremap <expr> k (v:count == 0 && mode() !=# 'V') ? 'gk' : 'k'
 
-" Move visual block
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
-
-" Clear search highlighting with Escape key
-nnoremap <silent><esc> :noh<return><esc>
-" nnoremap <Esc> :noh<CR>:redraw!<CR><Esc>
-
-" paste over a selection, keep the unnamed register untouched and jump to the end of the pasted text
-xnoremap <expr> p 'pgv"' . v:register . 'y`]'
-
-" Don't copy single letter deletes
-nnoremap x "_x
-
-" non-saving delete
-noremap X "_d
-
-" Repeat command for each line in selection
-vnoremap . :normal .<CR>
-
 " Stops regression to arrow keys, encourages learning of advanced motion keys
 nnoremap <Left> :echo "Use [h] for left"<CR>
 nnoremap <Right> :echo "Use [l] for right"<CR>
@@ -521,12 +527,38 @@ vnoremap <Right> <Esc>:echo "Use [l] for right"<CR>
 vnoremap <Up> <Esc>:echo "Use [k] for up"<CR>
 vnoremap <Down> <Esc>:echo "Use [j] for down"<CR>
 
+" Navigate the complete menu items like CTRL+n / CTRL+p would.
+inoremap <expr> <Down> pumvisible() ? "<C-n>" :"<Down>"
+inoremap <expr> <Up> pumvisible() ? "<C-p>" : "<Up>"
+
+" Select the complete menu item like CTRL+y would.
+inoremap <expr> <Right> pumvisible() ? "<C-y>" : "<Right>"
+inoremap <expr> <CR> pumvisible() ? "<C-y>" :"<CR>"
+
+" Cancel the complete menu item like CTRL+e would.
+inoremap <expr> <Left> pumvisible() ? "<C-e>" : "<Left>"
+
+" Move visual block
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
+" Clear search highlighting with Escape key
+nnoremap <silent><Esc> :noh<CR>:redraw!<CR><Esc>
+
+" paste over a selection, keep the unnamed register untouched and jump to the end of the pasted text
+xnoremap <expr> p 'pgv"' . v:register . 'y`]'
+
+" Don't copy single letter deletes
+nnoremap x "_x
+
+" non-saving delete
+noremap X "_d
+
+" Repeat command for each line in selection
+vnoremap . :normal .<CR>
 
 " Search mappings: These will make it so that going to the next one in a
 " search will center on the line it's found in.
-" nnoremap n nzzzv
-" nnoremap N Nzzzv
-
 nnoremap n :<BS>nzzzv
 nnoremap N :<BS>Nzzzv
 
@@ -540,6 +572,8 @@ nnoremap zk zkzz
 
 nmap uu u
 imap jj <Esc>
+inoremap <Esc> <Esc>`^
+
 
 " ¯\_(ツ)_/¯
 map <silent> q: :q<Cr>
@@ -551,7 +585,7 @@ vnoremap <A-/> :Commentary<CR>
 nnoremap <A-/> :Commentary<CR>
 
 
-tnoremap <leader>tt  <C-\><C-n>:FloatermToggle<CR>
+" tnoremap <leader>tt  <C-\><C-n>:FloatermToggle<CR>
 tnoremap <Esc><Esc>  <C-\><C-n>:FloatermHide<CR>
 
 nnoremap <leader>cl :Consolate<cr>
@@ -566,18 +600,12 @@ nnoremap <silent>zz :normal!za<cr>
 " Fold code open/close with click
 nmap <expr> <2-LeftMouse> 'zz'
 
-" replace the word under cursor
-nmap R :%s/\<<C-r><C-w>\>//g<Left><Left>
-
 " Use CTRL-S for selections ranges.
 " Requires 'textDocument/selectionRange' support of LS, ex: coc-tsserver
 nmap <silent> <C-s> <Plug>(coc-range-select)
 xmap <silent> <C-s> <Plug>(coc-range-select)
 
-" zoom a vim pane like in tmux
-nnoremap <leader>wz :wincmd _<cr>:wincmd \|<cr>
-
-
+nmap <F1> :SwitchColors <C-s><S-Tab>
 nnoremap <F3> :SyntaxInfo
 
 "}}}
