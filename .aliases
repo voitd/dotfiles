@@ -1,5 +1,5 @@
 
-alias reload="source ~/.config/fish/config.fish | echo "Reloaded!" "
+alias reload "source ~/.config/fish/config.fish | echo "Reloaded!" "
 
 ## get top process eating memory
 alias psmem='ps aux | sort -nr -k 4 | head -10'
@@ -21,12 +21,14 @@ alias df='df -h'
 
 # apps
 alias v="nvim"
+alias vi="vim"
+alias vim="nvim"
 alias v!='nvim -u NONE'
 alias wt="webtorrent"
 alias r="ranger"
 alias a="aria2c"
 alias wlp="unsplash-wallpaper -r --width 2880 --height 1800"
-alias ytdl="youtube-dl -f bestvideo "
+alias ytdl="youtube-dl "
 alias yt2m4="youtube-dl --extract-audio --audio-format m4a "
 alias yt2mp3='youtube-dl -l -x --audio-format=mp3 -w -c '
 

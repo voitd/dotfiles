@@ -74,7 +74,9 @@ let g:startify_bookmarks = [
            \ {'v': '~/.config/nvim/init.vim'},
            \ {'k': '~/.config/kitty/kitty.conf'},
            \ {'f': '~/.config/fish/config.fish'},
-           \ {'t': '.tmux.conf'},
+           \ {'g': '~/.gitconfig'},
+           \ {'a': '~/.aliases'},
+           \ {'t': '~/.tmux.conf'},
            \ {'d': '~/dotfiles' },
            \ {'c': '~/CodeHub'}
            \ ]

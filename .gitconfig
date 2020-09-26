@@ -1,6 +1,9 @@
 [user]
 	name = Dimytr Voitenko
 	email = dimytr.voitenko@gmail.com
+[core]
+  editor = nvim
+  excludesfile = ~/.global_gitignore
 [commit]
 	template = /Users/void/comtemp
 [filter "lfs"]
@@ -15,33 +18,42 @@
 [alias]
   a = add
   aa = add .
+	c = commit
+	amend = commit --amend --reuse-message=HEAD
+	undo = reset HEAD~1 --mixed
+	clone = clone --template=/Users/void/.git-templates
   # push 
   p = push
-  pf = push -ff
+  pf = push --force-with-lease
   # rebase
   rc = rebase --continue            # continue rebase
   rs = rebase --skip                # skip rebase
 
+	# View the current working tree status using the short format
+  st = status --short --branch
+
+  changelog = "!_() { t=$(git describe --abbrev=0 --tags); git log ${t}..HEAD --no-merges --pretty=format:'* %s'; }; _"
   # Get the current branch name (not so useful in itself, but used in
   # other aliases)
   branch-name = "!git rev-parse --abbrev-ref HEAD"
+
   # Push the current branch to the remote "origin", and set it to track
   # the upstream branch
   publish = "!git push -u origin $(git branch-name)"
+
 	# Delete the remote version of the current branch
   unpublish = "!git push origin :$(git branch-name)"
+
 	# Delete a branch and recreate it from master — useful if you have, say,
   # a development branch and a master branch and they could conceivably go
   # out of sync
   recreate = "!f() { [[ -n $@ ]] && git checkout \"$@\" && git unpublish && git checkout master && git branch -D \"$@\" && git checkout -b \"$@\" && git publish; }; f"
+
   # Interactive rebase with the given number of latest commits
 	rebase-branch = "!r() { git rebase -i HEAD~$1; }; r"
 
   # respond to PR feedback
   respond ="!git commit --amend --reuse-message=HEAD --no-edit && git push  --force"
-
-	# View the current working tree status using the short format
-  st = status --short --branch
 
   # interactive sync your current branch with master
   sync = "!git fetch origin && git rebase --interactive origin/master"
@@ -50,13 +62,15 @@
   up = "!git pull --rebase --prune $@ && git submodule update --init --recursive"
 
 	# Switch to a branch, creating it if necessary
-	sw = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
+	go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
 
   # Checkout a pull request from origin (of a github repository)
   pr = !"pr() { git fetch origin pull/$1/head:pr-$1; git checkout pr-$1; }; pr"
 
   unpushed = log --branches --not --remotes --no-walk --decorate --oneline
 
+  conflicts = diff --name-only --diff-filter=U
+wtf = "! git log --pretty=tformat:\"%C(auto,yellow)%h%C(auto)%d%C(auto,reset) by %C(auto,blue)%cn%C(auto,reset), %C(auto,cyan)%ar%C(auto,reset)%n %s%n\" --stat"
   # nice logs
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative -n 10
   lgf = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
@@ -66,14 +80,20 @@
 	branches = branch -a
 	remotes = remote -v
 
-	# List aliases
-	aliases = config --get-regexp alias
+  fshow = "!f() { \
+		git log --graph --color=always \
+			--format=\"%C(auto)%h%d %s %C(black)%C(bold)%cr\" \"$@\" | \
+		fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
+			--bind \"ctrl-m:execute: \
+				echo {} | grep -o '[a-f0-9]\\{7\\}' | head -1 | \
+                xargs -I % sh -c 'git show --color=always % | less -R' \"; \
+	}; f"
 
+  # requires FZF
+	autofixup = "!f() { COMMIT=$(git log --pretty=oneline | fzf | awk '{print $1}'); git commit --fixup $COMMIT; GIT_SEQUENCE_EDITOR=: git rebase --autostash --autosquash -i $COMMIT^; }; f"
+  
   # commit all with an message (which need not be quoted)
   cm = "!f() { git commit -a -m \"$*\" ; }; f"
-  c = commit
-	amend = commit --amend --reuse-message=HEAD
-  undo = reset HEAD~1 --mixed
   save = "!git add -A && git commit -m 'SAVEPOINT'"
   wipe = "!git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard"
   # NEW.
@@ -100,7 +120,9 @@
 	ad = "!f() { git commit -m \"ADD: $@\"; }; f"
   # fix your branch when it's missing upstream
   upstream = "!git branch --set-upstream-to=origin/$(git rev-parse --abbrev-ref HEAD) $(git rev-parse --abbrev-ref HEAD)"
-	clone = clone --template=/Users/void/.git-templates
+
+	# List aliases
+	aliases = config --get-regexp alias
 
 [url "git@github.com:"]
   insteadOf = git://github.com/

@@ -1,9 +1,14 @@
 " -- Fzf -----------------------------------------------------------------------
 
+" let g:fzfSwitchProjectProjects = [ "~/dotfiles" ]
+" let g:fzfSwitchProjectWorkspaces = [
+"       \ "~/CodeHub/playgrounds/",
+"       \ ]
+
 " This is the default extra key bindings
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
+  \ 'ctrl-h': 'split',
   \ 'ctrl-v': 'vsplit' }
 
 " Enable per-command history.
@@ -13,20 +18,14 @@ let g:fzf_action = {
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 let g:fzf_buffers_jump = 1
 
-" map <C-f> :Files<CR>
-" map <leader>b :Buffers<CR>
-" nnoremap <leader>g :Rg<CR>
-" nnoremap <leader>t :Tags<CR>
-" nnoremap <leader>m :Marks<CR>
-
 let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
 let g:fzf_preview_window='right:65%'
 let g:fzf_tags_command = 'ctags -R'
 " Border color
-let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp' } }
-" let g:fzf_layout = { "window": "silent botright 16split enew" }
+let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.9, 'height': 0.5,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', } }
+" let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp' } }
+" let g:fzf_layout = { 'down': '~30%' }
 
-" let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
 
 let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info'
 " let $FZF_DEFAULT_OPTS="--bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all --ansi --layout reverse --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
@@ -39,7 +38,7 @@ let g:fzf_colors =
   \ 'bg':      ['bg', 'Normal'],
   \ 'hl':      ['fg', 'Comment'],
   \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ "bg+":     ["bg", "ColorColumn", "CursorLine", "CursorColumn", "Normal"],
   \ 'hl+':     ['fg', 'Statement'],
   \ 'info':    ['fg', 'PreProc'],
   \ 'border':  ['fg', 'Ignore'],
@@ -51,7 +50,7 @@ let g:fzf_colors =
 
 "Get Files
 command! -bang -nargs=? -complete=dir Files
-    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--inline-info']}), <bang>0)
+\ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--inline-info']}), <bang>0)
 
 
 " Get text in files with Rg
@@ -83,11 +82,3 @@ command! -bang -nargs=* GGrep
   \ call fzf#vim#grep(
   \   'git grep --line-number '.shellescape(<q-args>), 0,
   \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
-
-" dotbare edit
-command! Dots call fzf#run(fzf#wrap({
-  \ 'source': 'dots ls-files --full-name --directory "${DOTBARE_DIR}" | awk -v home="${DOTBARE_DER}/" "{print home \$0}"',
-  \ 'sink': 'e',
-  \ 'options': [ '--multi', '--prompt=Dots> ', '--preview', 'cat {}' ]
-  \ }))
-

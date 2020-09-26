@@ -73,13 +73,13 @@ au BufWritePost * nested
      \ | endif
 
 " Autosave buffer
-au BufLeave,FocusLost,InsertLeave,TextChanged,FocusLost * :wa!
+au BufLeave,WinLeave,FocusLost,InsertLeave,TextChanged,FocusLost * :wall!
 
 " Only show the cursor line in the active buffer.
 augroup ActiveLine
   au!
-  au VimEnter,WinEnter,BufWinEnter,BufEnter * setlocal cursorline statusline=%!ActiveLine() 
-  au WinLeave,BufLeave * setlocal nocursorline statusline=%!InactiveLine()
+  au VimEnter,WinEnter,BufWinEnter,BufEnter * setlocal cursorline  statusline=%!ActiveLine() 
+  au WinLeave,BufLeave * setlocal nocursorline  statusline=%!InactiveLine()
   au WinLeave * hi statusline guifg=NONE 
   au WinLeave * hi statuslinenc guifg=NONE
 augroup end
@@ -130,6 +130,7 @@ augroup end
 " autocmd VimEnter * silent !tmux set status off
 " autocmd VimLeave * silent !tmux set status on
 
+" au ColorScheme * hi htmlArg gui=italic | hi Type gui=italic | hi! link jsObjectKey jsString 
 
 ""*****************************************************************************
 "" Commands
@@ -155,8 +156,8 @@ command! VSCode :call system('nohup "code" '.expand('%:p').'> /dev/null 2>&1 < /
 "" Functions
 "*****************************************************************************
 "*****************************************************************************
- "" <F5> / <F6> | Run script
- "*****************************************************************************
+"" <F5> / <F6> | Run script
+"*****************************************************************************
 
   function! s:run_this_script(output)
    let head   = getline(1)
@@ -204,7 +205,6 @@ function! SourceThis()
 	exec "source %"
 	sleep 100m
 endfunction
-
 command! SourceThis silent! call SourceThis()
 
 " This will flash cols and rows to locate the cursor
@@ -278,6 +278,9 @@ endfunction
 command! NativeMarks call NativeMarks()
 
 
+"*****************************************************************************
+"" Check syntax
+"*****************************************************************************
 function! GetSyntaxID(transparent)
   let synid = synID(line("."), col("."), 1)
   if a:transparent
@@ -316,20 +319,15 @@ function! GetSyntaxInfo()
         \ " guifg: " . linkedSyn.guifg .
         \ " guibg: " . linkedSyn.guibg
 endfunction
-
 command! SyntaxInfo call GetSyntaxInfo()
 
-function! SuperRuler(count)
-  let cnt = (a:count == 0) ? '' : a:count
-  redir => ruler_out
-    silent execute 'silent normal! ' . cnt . "\<C-g>"
-  redir END
-  let super_ruler = ruler_out[2:] . "    | " . &fileformat . " | " . &fileencoding . " | " . &filetype . " | " . VCSRepoInfo()
-  echo super_ruler
+"*****************************************************************************
+" replace in all opened buffers http://vim.wikia.com/wiki/VimTip382
+"*****************************************************************************
+function! Replace()
+  let s:word = input("Replace " . expand('<cword>') . " with:")
+  exe 'bufdo! %s/\<' . expand('<cword>') . '\>/' . s:word . '/gce'
+  unlet! s:word
 endfunction
-
-function! VCSRepoInfo() abort
-  return fugitive#statusline()[1:]
-endfunction
-nnoremap <C-G> :<C-u>call SuperRuler(v:count)<CR>
+map <Leader>R :call Replace()<CR>
 

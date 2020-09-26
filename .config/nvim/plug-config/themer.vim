@@ -1,5 +1,13 @@
 " let g:vimColorScheme = 'Gruvbox Mix Dark'
 let g:colorSchemeList = {}
+let g:colorSchemeList['Rigel'] = [
+      \   'set background=dark',
+      \   "let g:rigel_italic=1",
+      \   "let g:rigel_bold=1",
+      \   'colorscheme rigel',
+      \   'source ~/.config/nvim/plug-config/statusline/rigel-line.vim',
+      \   ]
+
 let g:colorSchemeList['Gruvbox Material Dark'] = [
       \   'set background=dark',
       \   "let g:gruvbox_material_background = 'medium'",
@@ -10,16 +18,7 @@ let g:colorSchemeList['Gruvbox Material Dark'] = [
       \   'colorscheme gruvbox-material',
       \   'source ~/.config/nvim/plug-config/statusline/gruvbox-dark-line.vim',
       \   ]
-let g:colorSchemeList['Gruvbox Mix Dark'] = [
-      \   'set background=dark',
-      \   "let g:gruvbox_material_background = 'medium'",
-      \   "let g:gruvbox_material_palette = 'mix'",
-      \   "let g:gruvbox_material_visual = 'grey background'",
-      \   "let g:gruvbox_material_cursor = 'green'",
-      \   "let g:gruvbox_material_sign_column_background = 'none'",
-      \   'colorscheme gruvbox-material',
-      \   'source ~/.config/nvim/plug-config/statusline/gruvbox-dark-line.vim',
-      \   ]
+
 let g:colorSchemeList['Gruvbox Material Light'] = [
       \   'set background=light',
       \   "let g:gruvbox_material_background = 'hard'",
@@ -31,26 +30,7 @@ let g:colorSchemeList['Gruvbox Material Light'] = [
       \   'colorscheme gruvbox-material',
       \   'source ~/.config/nvim/plug-config/statusline/gruvbox-light.vim',
       \   ]
-let g:colorSchemeList['Rigel'] = [
-      \   'set termguicolors',
-      \   'colorscheme rigel',
-      \   'set background=dark',
-      \   "let g:rigel_italic=1",
-      \   "let g:rigel_bold=1",
-      \   'source ~/.config/nvim/plug-config/statusline/rigel-line.vim',
-      \   ]
-let g:colorSchemeList['Miramare'] = [
-      \   'set termguicolors',
-      \   'colorscheme miramare',
-      \   "let g:miramare_enable_italic=1",
-      \   'source ~/.config/nvim/plug-config/statusline/gruvbox-dark-line.vim',
-      \   ]
-let g:colorSchemeList['Nord'] = [
-      \   'colorscheme nord',
-      \   "let g:nord_italic=1",
-      \   "let g:nord_underline=1",
-      \   'source ~/.config/nvim/plug-config/statusline/rigel-line.vim',
-      \   ]
+
 let g:colorSchemeList['Gruvbox Dark'] = [
       \   'colorscheme gruvbox',
       \   'set background=dark',
@@ -59,6 +39,7 @@ let g:colorSchemeList['Gruvbox Dark'] = [
       \   "let g:gruvbox_invert_selection =0",
       \   'source ~/.config/nvim/plug-config/statusline/gruvbox-dark-line.vim',
       \   ]
+
 let g:colorSchemeList['Gruvbox Light'] = [
       \   'colorscheme gruvbox',
       \   'set background=light',
@@ -67,6 +48,7 @@ let g:colorSchemeList['Gruvbox Light'] = [
       \   "let g:gruvbox_invert_selection =0",
       \   'source ~/.config/nvim/plug-config/statusline/gruvbox-light.vim',
       \   ]
+
       " \    'execute "silent ! kitty @ --to=tcp:localhost:12345 set-colors --all ~/.config/kitty/colors/rigel.conf"'
       " \    'execute "silent ! tmux source-file ~/.tmux/rigel.tmux"'
 

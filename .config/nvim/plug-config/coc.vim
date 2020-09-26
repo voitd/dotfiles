@@ -65,7 +65,26 @@ command! -nargs=0 JestNearest :call CocAction('runCommand', 'jest.singleTest')<C
 command! JestInit :call CocAction('runCommand', 'jest.init')
 
 let g:coc_global_extensions = [
-  \ 'coc-tsserver'
+  \ 'coc-tsserver',
+  \ 'coc-snippets',
+  \ 'coc-prettier', 
+  \ 'coc-jest',
+  \ 'coc-git', 
+  \ 'coc-eslint',
+  \ 'coc-emoji',
+  \ 'coc-yaml',
+  \ 'coc-json',
+  \ 'coc-stylelint',
+  \ 'coc-css',
+  \ 'coc-emmet',
+  \ 'coc-html',
+  \ 'coc-webpack',
+  \ 'coc-markdownlint',
+  \ 'coc-spell-checker',
+  \ 'coc-scssmodules',
+  \ 'coc-sh',
+  \ 'coc-react-refactor',
+  \ 'coc-explorer',
   \ ]
 
 if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
@@ -75,7 +94,6 @@ endif
 if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
   let g:coc_global_extensions += ['coc-eslint']
 endif
-
 
 " " Fancy Hover:
 " function! ShowDocIfNoDiagnostic(timer_id)

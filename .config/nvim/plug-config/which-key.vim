@@ -129,6 +129,7 @@ let g:which_key_map.c = {
       \ 'b' : [':CocNext'                            , 'next action'],
       \ 'B' : [':CocPrev'                            , 'prev action'],
       \ 'c' : [':CocList commands'                   , 'commands'],
+      \ 'L' : [':CocFzfList'                         , 'List Fzf commands'],
       \ 'e' : [':CocList extensions'                 , 'extensions list'],
       \ 'd' : [':CocList diagnostics'                , 'diagnostics'],
       \ 'n' : ['<Plug>(coc-diagnostic-next-error)'   , 'next error'],

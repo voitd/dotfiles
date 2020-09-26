@@ -24,9 +24,8 @@
 
   "suggest.triggerAfterInsertEnter": false,
   "suggest.timeout": 2000,
-  // "suggest.noselect": false,
-  "suggest.noselect": true,
-  "suggest.enablePreselect": false,
+  "suggest.noselect": false,
+  //"suggest.enablePreselect": false,
   "suggest.minTriggerInputLength": 2,
   // "suggest.snippetIndicator": "👾",
   "suggest.triggerCompletionWait": 100,
@@ -75,6 +74,7 @@
   "eslint.autoFix": true,
   "eslint.autoFixOnSave": true,
 
+  "diagnostic.refreshAfterSave": true,
   "diagnostic.refreshOnInsertMode": true,
   "diagnostic.signOffset": 9999999,
   "diagnostic.highlightOffset": 9999999,
@@ -138,7 +138,7 @@
   "git.removedSign.text": "▋",
   "git.topRemovedSign.text": "▔",
   "git.changeRemovedSign.text": "▋",
-  "git.enableGutters": true,
+  "git.enableGutters": false,
 
   "tsserver.formatOnType": true,
   "typescript.showUnused": false,

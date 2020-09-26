@@ -9,6 +9,8 @@
 
 
 " Main
+" source ~/.config/nvim/s3.vim
+" source ~/.config/nvim/st2.vim
 source ~/.config/nvim/statusline.vim
 source ~/.config/nvim/plug-config/hooks.vim
 source ~/.config/nvim/plug-config/themer.vim
@@ -29,17 +31,46 @@ source ~/.config/nvim/plug-config/conflict-marker.vim
 
 call plug#begin()
 
-" Intellisense
+" JavaScript {{{
+    " Plug 'pangloss/vim-javascript', { 'for':  'javascript' }
+    " if executable('npm')
+    "     Plug 'prettier/vim-prettier', {
+    "                 \ 'do': 'npm install',
+    "                 \ 'for': [
+    "                 \ 'javascript',
+    "                 \ 'html',
+    "                 \ 'typescript',
+    "                 \ 'css',
+    "                 \ 'less',
+    "                 \ 'scss',
+    "                 \ 'json',
+    "                 \ 'graphql',
+    "                 \ 'markdown',
+    "                 \ 'vue',
+    "                 \ 'yaml'
+    "                 \ ] }
+    " endif
+    " Plug 'heavenshell/vim-jsdoc', { 'for': ['javascript', 'typescript'] }
+    " Plug 'jparise/vim-graphql'
+" }}}
+
+" JSX {{{
+    Plug 'MaxMEllon/vim-jsx-pretty', { 'for': ['javascript', 'typescript', 'typescriptreact'] }
+" }}}
+
+" Intellisense {{{
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 let g:coc_global_extensions = [
   \ 'coc-tsserver'
   \ ]
+"}}}
 
-" FZF
+" FZF {{{
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'antoinemadec/coc-fzf'
-
+" Plug 'benwainwright/fzf-switch-project'
+"}}}
 
 " Pretty start screen
 Plug 'mhinz/vim-startify'
@@ -135,16 +166,11 @@ Plug 'Rigellute/rigel'
 Plug 'gruvbox-community/gruvbox'
 Plug 'sainnhe/gruvbox-material'
 
-Plug 'franbach/miramare'
-
-Plug 'arcticicestudio/nord-vim'
-
 " Plug 'liuchengxu/space-vim-theme'
 Plug 'drewtempelmeyer/palenight.vim'
-
+Plug 'arzg/vim-colors-xcode'
 Plug 'cormacrelf/vim-colors-github'
-Plug 'romgrk/github-light.vim'
-
+Plug 'vincowl/doom-theme'
 call plug#end()
 
 "}}}
@@ -154,51 +180,46 @@ call plug#end()
 ""{{{  Visual Settings
 "*****************************************************************************
 
-
-" echo statusline
+" colorscheme github
+" set background=light    
 
 " colorscheme low-contrast
 
-
 " colorscheme gruvbox-material
 
+syntax on
+set termguicolors
 " colorscheme gruvbox
 " let g:gruvbox_sign_column = "bg0"
 " let g:gruvbox_invert_selection='0'
+" let g:xcodelight_emph_funcs = 1
+" let g:xcodedark_emph_funcs = 1
+" let g:github_colors_soft = 1
+" let g:github_colors_extra_functions = 0
 
-" colorscheme rigel
-" let g:rigel_italic=1
-" let g:rigel_bold=1
-" source ~/.config/nvim/plug-config/statusline/rigel-line.vim
-
-
-" colorscheme space_vim_theme
-" Recommand comment color, but i don't want change the original comment color.
-" hi Comment guifg=#5C637f ctermfg=248
-
+colorscheme rigel
+let g:rigel_italic=1
+let g:rigel_bold=1
+source ~/.config/nvim/plug-config/statusline/rigel-line.vim
 
 " Colors and styling
-hi link xmlEndTag xmlTag
-hi! htmlArg gui=italic cterm=italic
-hi Comment gui=italic cterm=italic
-hi Type gui=italic cterm=italic
-hi GitGutterAdd    guifg=#009900 guibg=#232526 ctermfg=2 ctermbg=236
-hi GitGutterChange guifg=#bbbb00 guibg=#232526 ctermfg=3 ctermbg=236
-hi GitGutterDelete guifg=#ff2222 guibg=#232526 ctermfg=1 ctermbg=236
+hi! Comment gui=italic
+hi! link SignColumn LineNr
 hi VertSplit guibg=NONE guifg=NONE
-hi jsObjectKey guibg=red guifg=NONE
+
 
 let g:time = strftime("%H")
-if  g:time > 08 && g:time < 19
+if  g:time > 08 && g:time < 18
   colorscheme space_vim_theme
+  " colorscheme xcodelight
   set background=light    
-  " colorscheme github
-  " let g:github_colors_soft = 1
   " let g:gruvbox_contrast_light = "hard"
   " source ~/.config/nvim/plug-config/statusline/gruvbox-light.vim
 else
-  colorscheme palenight
-  set background=dark
+  " colorscheme doom-one
+  " colorscheme xcodedark
+  " set background=dark
+  " colorscheme palenight
   " let g:palenight_terminal_italics=1
   " let g:gruvbox_contrast_dark = "hard"
   " source ~/.config/nvim/plug-config/statusline/gruvbox-dark-line.vim
@@ -208,6 +229,15 @@ endif
 " set background=dark cursorline termguicolors
 " hi! Normal ctermbg=NONE guibg=#001a24
 " hi! NonText ctermbg=NONE guibg=#001a24 guifg=NONE ctermfg=NONE
+
+
+if $TERMINAL == 'kitty'
+  let g:normal_fg = synIDattr(hlID('Normal'), 'fg')
+  let g:normal_bg = synIDattr(hlID('Normal'), 'bg')
+
+  silent call system('kitty @ set-colors  background=' . g:normal_bg . ' foreground=' . g:normal_fg . ' &')
+endif  
+
 
 "}}}
 "*****************************************************************************
@@ -236,12 +266,11 @@ set mouse=a
 set mousemodel=popup
 
 set encoding=UTF-8
-scriptencoding utf-8
 " hack to work around vim-plug auto install harmless error
 " due to `source $MYVIMRC | q` in SetupPlug()
 " 'Cannot make changes, 'modifiable' is off: fileencoding=utf-8'
 try
-  set fileencoding=utf-8
+  set fileencoding=utf-8 scriptencoding utf-8
 catch
 endtry
 
@@ -331,7 +360,7 @@ set matchtime=1
 
 " Wildmenu completion {{{
 set wildmenu
-set wildmode=longest:full,full
+set wildmode=longest:full,full "zsh-like autocomplete
 set wildoptions=pum
 set pumblend=30
 set wildignore=*.o,*.obj,*~,*.exe,*.a,*.pdb,*.lib
@@ -351,6 +380,7 @@ set wildignore+=*.ppt,*.pptx,*.docx,*.xlt,*.xls,*.xlsx,*.odt,*.wps
 set wildignore+=*.msi,*.crx,*.deb,*.vfd,*.apk,*.ipa,*.bin,*.msu
 set wildignore+=*.gba,*.sfc,*.078,*.nds,*.smd,*.smc
 set wildignore+=*.linux2,*.win32,*.darwin,*.freebsd,*.linux,*.android
+set wildignore+=*/node_modules/*,*/vendor/*
 
  "}}}
 
@@ -363,7 +393,9 @@ set wildignore+=*.linux2,*.win32,*.darwin,*.freebsd,*.linux,*.android
 
 " Remove tildas on end of buffer
 let &fcs='eob: '
+let &t_ut=''
 " Removes pipes | that act as seperators on splits
+" set fillchars+=vert:|
 set fillchars+=vert:\ 
 set fillchars+=fold:\ 
 set fillchars+=diff:░ "alternatives: ⣿ ░
@@ -444,6 +476,94 @@ cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev Qall qall
 
+" remap cyrrilic symbols {{{
+"set langmap=ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>
+map ё `
+map й q
+map ц w
+map у e
+map к r
+map е t
+map н y
+map г u
+map ш i
+map щ o
+map з p
+map х [
+map ъ ]
+
+map ф a
+map ы s
+map в d
+map а f
+map п g
+map р h
+map о j
+map л k
+map д l
+map ж ;
+map э '
+
+map я z
+map ч x
+map с c
+map м v
+map и b
+map т n
+map ь m
+map б ,
+map ю .
+
+map Ё ~
+map Й Q
+map Ц W
+map У E
+map К R
+map Е T
+map Н Y
+map Г U
+map Ш I
+map Щ O
+map З P
+map Х {
+map Ъ }
+
+map Ф A
+map Ы S
+map В D
+map А F
+map П G
+map Р H
+map О J
+map Л K
+map Д L
+map Ж :
+map Э "
+
+map Я Z
+map Ч X
+map С C
+map М V
+map И B
+map Т N
+map Ь M
+map Б <
+map Ю >
+"}}}
+
+cabbrev qa qa!
+cabbrev q q!
+
+cabbrev E e
+
+cabbrev ц w
+cabbrev й q!
+cabbrev й!! q!
+cabbrev цй wq
+
+cabbrev Ц w
+cabbrev Й q!
+
 "}}}
 "*****************************************************************************
 
@@ -472,6 +592,8 @@ nnoremap <Tab><Tab> :buffer <C-s><S-Tab>
 
 " fzf.vim mappings
 nnoremap <silent><C-p> :Files<CR>
+" nnoremap <C-f> :FzfChooseProjectFile<CR>
+" nnoremap <leader><Tab> :FzfSwitchProject<CR>
 
 " Smooth Scrolling
 nnoremap <silent> <C-d> :call comfortable_motion#flick(125)<CR>
@@ -521,22 +643,28 @@ inoremap <Left> <C-o>:echo "Use [h] for left in NORMAL mode"<CR>
 inoremap <Right> <C-o>:echo "Use [l] for right in NORMAL mode"<CR>
 inoremap <Up> <C-o>:echo "Use [k] for up in NORMAL mode"<CR>
 inoremap <Down> <C-o>:echo "Use [j] for down in NORMAL mode"<CR>
+inoremap <Esc> <Nop>
+inoremap <esc> <nop>
 
 vnoremap <Left> <Esc>:echo "Use [h] for left"<CR>
 vnoremap <Right> <Esc>:echo "Use [l] for right"<CR>
 vnoremap <Up> <Esc>:echo "Use [k] for up"<CR>
 vnoremap <Down> <Esc>:echo "Use [j] for down"<CR>
 
-" Navigate the complete menu items like CTRL+n / CTRL+p would.
-inoremap <expr> <Down> pumvisible() ? "<C-n>" :"<Down>"
-inoremap <expr> <Up> pumvisible() ? "<C-p>" : "<Up>"
+" " Navigate the complete menu items like CTRL+n / CTRL+p would.
+" inoremap <expr> <Down> pumvisible() ? "<C-n>" :"<Down>"
+" inoremap <expr> <Up> pumvisible() ? "<C-p>" : "<Up>"
 
-" Select the complete menu item like CTRL+y would.
-inoremap <expr> <Right> pumvisible() ? "<C-y>" : "<Right>"
-inoremap <expr> <CR> pumvisible() ? "<C-y>" :"<CR>"
+" " Select the complete menu item like CTRL+y would.
+" inoremap <expr> <Right> pumvisible() ? "<C-y>" : "<Right>"
+" inoremap <expr> <CR> pumvisible() ? "<C-y>" :"<CR>"
 
-" Cancel the complete menu item like CTRL+e would.
-inoremap <expr> <Left> pumvisible() ? "<C-e>" : "<Left>"
+" " Cancel the complete menu item like CTRL+e would.
+" inoremap <expr> <Left> pumvisible() ? "<C-e>" : "<Left>"
+
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
 
 " Move visual block
 vnoremap J :m '>+1<CR>gv=gv
@@ -571,8 +699,16 @@ nnoremap zk zkzz
 
 
 nmap uu u
-imap jj <Esc>
-inoremap <Esc> <Esc>`^
+imap jj <Esc>`^
+imap jk <Esc>`^
+imap kj <Esc>`^
+" inoremap <Esc> <Esc>`^
+
+" an empty split relative to current
+nmap <Leader><left>  :leftabove  vnew<CR>
+nmap <Leader><right> :rightbelow vnew<CR>
+nmap <Leader><up>    :leftabove  new<CR>
+nmap <Leader><down>  :rightbelow new<CR>
 
 
 " ¯\_(ツ)_/¯
@@ -607,6 +743,7 @@ xmap <silent> <C-s> <Plug>(coc-range-select)
 
 nmap <F1> :SwitchColors <C-s><S-Tab>
 nnoremap <F3> :SyntaxInfo
+nnoremap <silent><F4> :SourceThis<CR>
 
 "}}}
 "*****************************************************************************
