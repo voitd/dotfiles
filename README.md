@@ -54,14 +54,14 @@ There you go. No symlink mess.
 The aliases will just print out the contents of the commit types file into my terminal.
 
 ```bash
-alias commit-types='cat ~/dotfiles/commit-types'
-alias ct='cat ~/dotfiles/commit-types'
+alias commit-types='cat ~/dotfiles/.gitmessage'
+alias ct='cat ~/dotfiles/.gitmessage'
 ```
 
 Then just set globally on your git to use above file as template for all your commit with the command:
 
 ```bash
-git config --global commit.template ~/commit-types
+git config --global commit.template ~/.gitmessage
 ```
 
 And voilà....any time you send commit message on your repo git will pick up that file and you will never forgot about your commit types!
