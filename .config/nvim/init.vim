@@ -13,7 +13,7 @@
 " source ~/.config/nvim/st2.vim
 source ~/.config/nvim/statusline.vim
 source ~/.config/nvim/plug-config/hooks.vim
-source ~/.config/nvim/plug-config/themer.vim
+" source ~/.config/nvim/plug-config/themer.vim
 
 " Plagins
 source ~/.config/nvim/plug-config/coc.vim
@@ -30,6 +30,16 @@ source ~/.config/nvim/plug-config/conflict-marker.vim
 "*****************************************************************************
 
 call plug#begin()
+
+" {{{Themes
+Plug 'Rigellute/rigel'
+" Plug 'liuchengxu/space-vim-theme'
+Plug 'cormacrelf/vim-colors-github'
+Plug 'arcticicestudio/nord-vim'
+Plug 'equt/paper.vim'
+
+
+" }}}
 
 " JavaScript {{{
     " Plug 'pangloss/vim-javascript', { 'for':  'javascript' }
@@ -72,6 +82,23 @@ Plug 'antoinemadec/coc-fzf'
 " Plug 'benwainwright/fzf-switch-project'
 "}}}
 
+" {{{ Git
+" Plug 'airblade/vim-gitgutter'
+Plug 'stsewd/fzf-checkout.vim'
+" https://gist.github.com/voitd/60f606b02724dbb863ed09e7f5679b43
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
+" Git commit browser.
+Plug 'junegunn/gv.vim'
+
+" }}} 
+
+"{{{ Zen mode
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+
+" }}} 
+
 " Pretty start screen
 Plug 'mhinz/vim-startify'
 
@@ -81,9 +108,6 @@ Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 " Terminal
 Plug 'voldikss/vim-floaterm'
 
-" Zen mode
-Plug 'junegunn/goyo.vim'
-Plug 'junegunn/limelight.vim'
 
 " Closetags
 Plug 'alvan/vim-closetag'
@@ -100,15 +124,7 @@ Plug 'tpope/vim-commentary'
 " Auto change html tags
 Plug 'AndrewRadev/tagalong.vim'
 
-" Git
-" Plug 'airblade/vim-gitgutter'
-Plug 'stsewd/fzf-checkout.vim'
-" https://gist.github.com/voitd/60f606b02724dbb863ed09e7f5679b43
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
 
-" Git commit browser.
-Plug 'junegunn/gv.vim'
 
 " Highlight conflict markers.[x and ]x
 " command ct for themselves, co for ourselves, cn for none and cb for both
@@ -138,8 +154,6 @@ Plug 'yuttie/comfortable-motion.vim'
 
 " Snippets
 Plug 'dominikduda/vim_es7_javascript_react_snippets'
-" Plug 'mlaursen/vim-react-snippet'
-" Plug 'jsit/vim-vscode-react-snippets'
 
 " ImportJS helps you import JavaScript dependencies. Hit a keyboard shortcut to automatically
 " add import x from 'y' statements at the top of the file.
@@ -160,19 +174,13 @@ Plug 'ryanoasis/vim-devicons'
 " Highlight colors in buffer
 Plug 'norcalli/nvim-colorizer.lua'
 
-" Themes
-Plug 'Rigellute/rigel'
+" displaying thin vertical lines at each indentation level for code indented with spaces
+Plug 'Yggdroot/indentLine'
 
-Plug 'gruvbox-community/gruvbox'
-Plug 'sainnhe/gruvbox-material'
+" Rainbow Parentheses Improved
+Plug 'frazrepo/vim-rainbow'
 
-" Plug 'liuchengxu/space-vim-theme'
-Plug 'drewtempelmeyer/palenight.vim'
-Plug 'arzg/vim-colors-xcode'
-Plug 'cormacrelf/vim-colors-github'
-Plug 'vincowl/doom-theme'
 call plug#end()
-
 "}}}
 "*****************************************************************************
 
@@ -180,49 +188,51 @@ call plug#end()
 ""{{{  Visual Settings
 "*****************************************************************************
 
-" colorscheme github
-" set background=light    
+syntax on
+set termguicolors
+  " colorscheme paper
+
+" colorscheme nord
+" let g:nord_cursor_line_number_background = 1
+" let g:nord_bold = 1
+" let g:nord_italic = 1
+" let g:nord_italic_comments = 1
+" let g:nord_underline = 1
+
+ " colorscheme space_vim_theme
+ " let g:space_vim_italic = 1
+ " let g:space_vim_italicize_strings = 1
+ " let g:space_vim_plugin_hi_groups = 1
+ " let g:space_vim_filetype_hi_groups = 1
+ " let g:space_vim_dark_background = 233
 
 " colorscheme low-contrast
 
-" colorscheme gruvbox-material
-
-syntax on
-set termguicolors
-" colorscheme gruvbox
-" let g:gruvbox_sign_column = "bg0"
-" let g:gruvbox_invert_selection='0'
-" let g:xcodelight_emph_funcs = 1
-" let g:xcodedark_emph_funcs = 1
+" colorscheme github
+" set background=light    
 " let g:github_colors_soft = 1
 " let g:github_colors_extra_functions = 0
 
-colorscheme rigel
-let g:rigel_italic=1
-let g:rigel_bold=1
-source ~/.config/nvim/plug-config/statusline/rigel-line.vim
+
+" colorscheme rigel
+" let g:rigel_italic=1
+" let g:rigel_bold=1
+" source ~/.config/nvim/plug-config/statusline/rigel-line.vim
 
 " Colors and styling
-hi! Comment gui=italic
-hi! link SignColumn LineNr
+" hi! Comment gui=italic
+" hi! link SignColumn LineNr
 hi VertSplit guibg=NONE guifg=NONE
+hi StatusLine guibg=NONE
 
 
 let g:time = strftime("%H")
 if  g:time > 08 && g:time < 18
-  colorscheme space_vim_theme
-  " colorscheme xcodelight
-  set background=light    
-  " let g:gruvbox_contrast_light = "hard"
-  " source ~/.config/nvim/plug-config/statusline/gruvbox-light.vim
+    colorscheme paper
+    set background=light    
 else
-  " colorscheme doom-one
-  " colorscheme xcodedark
-  " set background=dark
-  " colorscheme palenight
-  " let g:palenight_terminal_italics=1
-  " let g:gruvbox_contrast_dark = "hard"
-  " source ~/.config/nvim/plug-config/statusline/gruvbox-dark-line.vim
+    set background=dark    
+  " hi Comment guifg=#5C6370
 endif
 
 " Color Settings as transparent
@@ -238,6 +248,7 @@ if $TERMINAL == 'kitty'
   silent call system('kitty @ set-colors  background=' . g:normal_bg . ' foreground=' . g:normal_fg . ' &')
 endif  
 
+let javaScript_fold=1 "activate folding by JS syntax
 
 "}}}
 "*****************************************************************************
@@ -286,7 +297,7 @@ if (has("termguicolors"))
 endif
 
 " Highlight cursor line
-set cursorline
+set nocursorline
 
 " syntax highlighting
 " if !exists('g:syntax_on')
@@ -354,7 +365,14 @@ set timeoutlen=400
 set ttimeoutlen=0
 set matchtime=1
 
+" show hidden charactors
+set list
+set listchars=tab:▸\ ,nbsp:∘,extends:❯,precedes:❮
+
 " Wild menu
+" show hidden charactors
+set list
+set listchars=tab:▸\ ,nbsp:∘,extends:❯,precedes:❮
 " setlocal foldmethod=marker
 " set nofoldenable
 
@@ -362,7 +380,7 @@ set matchtime=1
 set wildmenu
 set wildmode=longest:full,full "zsh-like autocomplete
 set wildoptions=pum
-set pumblend=30
+" set pumblend=30
 set wildignore=*.o,*.obj,*~,*.exe,*.a,*.pdb,*.lib
 set wildignore+=__pycache__,.stversions,*.spl,*.out,%*
 set wildignore+=*.so,*.dll,*.swp,*.egg,*.jar,*.class,*.pyc,*.pyo,*.bin,*.dex
@@ -393,7 +411,14 @@ set wildignore+=*/node_modules/*,*/vendor/*
 
 " Remove tildas on end of buffer
 let &fcs='eob: '
-let &t_ut=''
+
+" vim hardcodes background color erase even if the terminfo file does
+" not contain bce (not to mention that libvte based terminals
+" incorrectly contain bce in their terminfo files). This causes
+" incorrect background rendering when using a color theme with a
+" background color.
+let &t_ut=' '
+
 " Removes pipes | that act as seperators on splits
 " set fillchars+=vert:|
 set fillchars+=vert:\ 
@@ -426,7 +451,7 @@ elseif exists('$DISPLAY') && executable('xclip')
 		\ '+': 'xclip -o -selection clipboard',
 	  \ '*': 'xclip -o -selection primary'
 		\ }
-	\ }
+  \ }
 endif
 
 let g:python_host_prog  = expand('/usr/bin/python' )
@@ -459,6 +484,21 @@ let g:rooter_patterns = ['.git/', 'package.json', 'composer.json']
 let g:rooter_resolve_links = 1
 let g:rooter_silent_chdir  = 1
 
+" Indentline
+let g:indentLine_enabled = 0
+let g:indentLine_leadingSpaceChar = '·'
+let g:indentLine_char = '|'
+let g:indentLine_fileTypeExclude = [ 'startify' ]
+
+" rainbow parentheses
+let g:rainbow_active = 0
+let g:rainbow_load_separately = [
+    \ [ '*' , [['(', ')'], ['\[', '\]'], ['{', '}']] ],
+    \ [ '*.{html,htm,jsx}' , [['(', ')'], ['\[', '\]'], ['{', '}'], ['<\a[^>]*>', '</[^>]*>']] ],
+    \ ]
+
+let g:rainbow_guifgs = ['RoyalBlue3', 'DarkOrange3', 'DarkOrchid3', 'FireBrick']
+let g:rainbow_ctermfgs = ['lightblue', 'lightgreen', 'yellow', 'red', 'magenta']
 "}}}
 "*****************************************************************************
 
@@ -590,10 +630,11 @@ nnoremap <silent><leader>bo :w <bar> %bd <bar> e# <bar> bd# <CR> "Only one buffe
 set wildcharm=<C-s>
 nnoremap <Tab><Tab> :buffer <C-s><S-Tab>
 
+
+nnoremap <silent><leader><leader> :CocCommand explorer<CR>
 " fzf.vim mappings
-nnoremap <silent><C-p> :Files<CR>
-" nnoremap <C-f> :FzfChooseProjectFile<CR>
-" nnoremap <leader><Tab> :FzfSwitchProject<CR>
+" nnoremap <silent><C-p> :Files<CR>
+nnoremap <silent><C-p> :call FzfOmniFiles()<CR>
 
 " Smooth Scrolling
 nnoremap <silent> <C-d> :call comfortable_motion#flick(125)<CR>
@@ -643,8 +684,6 @@ inoremap <Left> <C-o>:echo "Use [h] for left in NORMAL mode"<CR>
 inoremap <Right> <C-o>:echo "Use [l] for right in NORMAL mode"<CR>
 inoremap <Up> <C-o>:echo "Use [k] for up in NORMAL mode"<CR>
 inoremap <Down> <C-o>:echo "Use [j] for down in NORMAL mode"<CR>
-inoremap <Esc> <Nop>
-inoremap <esc> <nop>
 
 vnoremap <Left> <Esc>:echo "Use [h] for left"<CR>
 vnoremap <Right> <Esc>:echo "Use [l] for right"<CR>
@@ -670,8 +709,17 @@ inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
+" keep the cursor in place while joining lines
+nnoremap J mZJ`ZmZ
+" split lines: inverse of J
+nnoremap <silent> K ylpr<Enter>
+
 " Clear search highlighting with Escape key
 nnoremap <silent><Esc> :noh<CR>:redraw!<CR><Esc>
+
+" auto escaping
+cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
+cnoremap <expr> ? getcmdtype() == '?' ? '\?' : '?'
 
 " paste over a selection, keep the unnamed register untouched and jump to the end of the pasted text
 xnoremap <expr> p 'pgv"' . v:register . 'y`]'
@@ -700,15 +748,16 @@ nnoremap zk zkzz
 
 nmap uu u
 imap jj <Esc>`^
+imap kk <Esc>`^
 imap jk <Esc>`^
 imap kj <Esc>`^
 " inoremap <Esc> <Esc>`^
 
 " an empty split relative to current
-nmap <Leader><left>  :leftabove  vnew<CR>
-nmap <Leader><right> :rightbelow vnew<CR>
-nmap <Leader><up>    :leftabove  new<CR>
-nmap <Leader><down>  :rightbelow new<CR>
+" nmap <Leader><left>  :leftabove  vnew<CR>
+" nmap <Leader><right> :rightbelow vnew<CR>
+" nmap <Leader><up>    :leftabove  new<CR>
+" nmap <Leader><down>  :rightbelow new<CR>
 
 
 " ¯\_(ツ)_/¯
@@ -717,11 +766,7 @@ map <silent> Q: :q<Cr>
 
 map  gc  <Plug>Commentary
 nmap gcc <Plug>CommentaryLine
-vnoremap <A-/> :Commentary<CR>
-nnoremap <A-/> :Commentary<CR>
 
-
-" tnoremap <leader>tt  <C-\><C-n>:FloatermToggle<CR>
 tnoremap <Esc><Esc>  <C-\><C-n>:FloatermHide<CR>
 
 nnoremap <leader>cl :Consolate<cr>
@@ -744,6 +789,7 @@ xmap <silent> <C-s> <Plug>(coc-range-select)
 nmap <F1> :SwitchColors <C-s><S-Tab>
 nnoremap <F3> :SyntaxInfo
 nnoremap <silent><F4> :SourceThis<CR>
+
 
 "}}}
 "*****************************************************************************

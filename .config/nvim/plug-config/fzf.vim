@@ -11,6 +11,11 @@ let g:fzf_action = {
   \ 'ctrl-h': 'split',
   \ 'ctrl-v': 'vsplit' }
 
+let g:fzf_checkout_merge_settings= v:true
+let g:fzf_branch_actions = {
+      \ 'merge': {'keymap': 'ctrl-m'},
+      \}
+
 " Enable per-command history.
 " CTRL-N and CTRL-P will be automatically bound to next-history and
 " previous-history instead of down and up. If you don't like the change,
@@ -82,3 +87,11 @@ command! -bang -nargs=* GGrep
   \ call fzf#vim#grep(
   \   'git grep --line-number '.shellescape(<q-args>), 0,
   \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
+
+function! FzfOmniFiles()
+  if fugitive#head() != ''
+    :GitFiles
+  else
+    :Files
+  endif
+endfunction

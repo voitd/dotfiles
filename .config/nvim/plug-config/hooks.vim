@@ -1,8 +1,17 @@
 
-"---- Hooks -------------------------------------------------------
 "*****************************************************************************
 "" Autocmd Rules
 "*****************************************************************************
+
+" Startuptime
+if has('vim_starting') && has('reltime')
+  let s:startuptime = reltime()
+  augroup vimrc-startuptime
+    autocmd!
+    autocmd VimEnter * echomsg 'startuptime:' . reltimestr(reltime(s:startuptime))
+  augroup END
+endif
+
 " Auto-install vim-plug
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
@@ -42,14 +51,14 @@ augroup end
 
 " Make sure the terminal buffer has no numbers and no sign column
 " Always open on insert mode
-augroup term
-  au!
-  " tnoremap <Esc> <C-\><C-n>
-  au TermOpen * :setlocal signcolumn=no nonumber norelativenumber
-  au TermOpen term://* startinsert
-  au TermOpen * setlocal statusline=%{b:term_title}
-  au BufLeave term://* stopinsert
-augroup end
+" augroup term
+"   au!
+"   " tnoremap <Esc> <C-\><C-n>
+"   au TermOpen * :setlocal signcolumn=no nonumber norelativenumber
+"   au TermOpen term://* startinsert
+"   au TermOpen * setlocal statusline=%{b:term_title}
+"   au BufLeave term://* stopinsert
+" augroup end
 
 " Disable vim stupid format issue with comment
 augroup FormatFile
@@ -65,12 +74,12 @@ au BufReadPost *
      \ endif
 
 " Update filetype on save if empty
-au BufWritePost * nested
-     \ if &l:filetype ==# '' || exists('b:ftdetect')
-     \ |   unlet! b:ftdetect
-     \ |   filetype detect
-     \ |   echom 'Filetype set to ' . &ft
-     \ | endif
+" au BufWritePost * nested
+"      \ if &l:filetype ==# '' || exists('b:ftdetect')
+"      \ |   unlet! b:ftdetect
+"      \ |   filetype detect
+"      \ |   echom 'Filetype set to ' . &ft
+"      \ | endif
 
 " Autosave buffer
 au BufLeave,WinLeave,FocusLost,InsertLeave,TextChanged,FocusLost * :wall!
@@ -78,8 +87,8 @@ au BufLeave,WinLeave,FocusLost,InsertLeave,TextChanged,FocusLost * :wall!
 " Only show the cursor line in the active buffer.
 augroup ActiveLine
   au!
-  au VimEnter,WinEnter,BufWinEnter,BufEnter * setlocal cursorline  statusline=%!ActiveLine() 
-  au WinLeave,BufLeave * setlocal nocursorline  statusline=%!InactiveLine()
+  au VimEnter,WinEnter,BufWinEnter,BufEnter * setlocal nocursorline statusline=%!ActiveLine() 
+  au WinLeave,BufLeave * setlocal nocursorline statusline=%!InactiveLine()
   au WinLeave * hi statusline guifg=NONE 
   au WinLeave * hi statuslinenc guifg=NONE
 augroup end
@@ -88,16 +97,9 @@ augroup end
 " Every time you open a git object using fugitive it creates a new buffer.
 " This means that your buffer listing can quickly become swamped with
 " fugitive buffers. This prevents this from becomming an issue:
-au BufReadPost fugitive://* set bufhidden=delete
+au BufReadPost fugitive:///* set bufhidden=delete
 
 " When opening a markdown or txt, set the textwidth to 80 and enable spell check
-au BufRead,BufNewFile *.md setlocal textwidth=80
-au BufRead,BufNewFile *.md setlocal spell
-au BufRead,BufNewFile *.txt setlocal textwidth=80
-au BufRead,BufNewFile *.txt setlocal spell
-au FileType ruby setlocal ts=2 sts=2 sw=2 noexpandtab
-au FileType javascript setlocal ts=2 sts=2 sw=2 noexpandtab
-au FileType typescript setlocal ts=2 sts=2 sw=2 noexpandtab
 au FileType css,scss set iskeyword=@,48-57,_,-,?,!,192-255
 
 
@@ -110,21 +112,21 @@ augroup vimrc
 augroup end
 
 " Force a syntax sync after I enter a buffer.
-augroup SyncFromStart
-  au!
-  au BufEnter * :syntax sync maxlines=200
-augroup end
+" augroup SyncFromStart
+"   au!
+"   au BufEnter * :syntax sync maxlines=200
+" augroup end
 
-augroup coc-explorer
-  au!
-  au FileType coc-explorer setlocal statusline=%#StatusLineNC#%{substitute(getcwd(),$HOME,'~','')}
-augroup end
+" augroup coc-explorer
+"   au!
+"   au FileType coc-explorer setlocal statusline=%#StatusLineNC#%{substitute(getcwd(),$HOME,'~','')}
+" augroup end
 
 " Cleanup Start Page
-augroup Startpage
-  au User StartifyReady set laststatus=0 showtabline=0 noruler
-  au User StartifyBufferOpened set laststatus=2 showtabline=0 noruler
-augroup end
+" augroup Startpage
+"   au User StartifyReady set laststatus=0 showtabline=0 noruler
+"   au User StartifyBufferOpened set laststatus=2 showtabline=0 noruler
+" augroup end
 
 " hide tmux status bar when vim starts, show when vim extts
 " autocmd VimEnter * silent !tmux set status off
@@ -143,11 +145,6 @@ command! FixWhitespace :%s/\s\+$//e
 " Shruggie
 command! -nargs=0 Shrug exec "normal! a¯\\_(ツ)_/¯\<Esc>"
 
-" Add a debug statement
-" Takes a variable name as an arg and will output a debug log
-" statement dependent on the language
-" With no argument will use the word under the cursor
-command! -nargs=? TurboConsoleLog call <SID>console_log(<f-args>)
 
 " Open file in VSCode
 command! VSCode :call system('nohup "code" '.expand('%:p').'> /dev/null 2>&1 < /dev/null &')<cr>
@@ -155,51 +152,14 @@ command! VSCode :call system('nohup "code" '.expand('%:p').'> /dev/null 2>&1 < /
 "*****************************************************************************
 "" Functions
 "*****************************************************************************
-"*****************************************************************************
-"" <F5> / <F6> | Run script
-"*****************************************************************************
-
-  function! s:run_this_script(output)
-   let head   = getline(1)
-   let pos    = stridx(head, '#!')
-   let file   = expand('%:p')
-   let ofile  = tempname()
-   let rdr    = " 2>&1 | tee ".ofile
-   let win    = winnr()
-   let prefix = a:output ? 'silent !' : '!'
-   " Shebang found
-   if pos != -1
-     execute prefix.strpart(head, pos + 2).' '.file.rdr
-   " Shebang not found but executable
-   elseif executable(file)
-     execute prefix.file.rdr
-   elseif &filetype == 'javascript'
-     execute prefix.'node '.file.rdr
-   " elseif &filetype == 'go'
-     " execute prefix.'go run '.file.rdr
-   else
-     return
-   end
-
-    redraw!
-   if !a:output | return | endif
-
-    " Scratch buffer
-   if bufwinnr('vim-exec-output') > 0
-     silent!  bdelete vim-exec-output
-   endif
-
-   silent!  split new
-   silent!  resize 10
-   silent!  file vim-exec-output
-   setlocal buftype=nofile bufhidden=wipe noswapfile nonumber
-   execute 'silent! read' ofile
-   normal! gg"_dd
-   execute win.'wincmd w'
- endfunction
-
- nnoremap <silent> <F5> :call <SID>run_this_script(0)<cr>
- nnoremap <silent> <F6> :call <SID>run_this_script(1)<cr>
+" Switch case of the character under the cursor, but DON'T move to the right.
+function! SwitchCase()
+    normal! ~
+    if strlen(getline('.')) != virtcol('.')
+        normal! h
+    endif
+endfunction
+nnoremap ~ :call SwitchCase()<CR>
 
 function! SourceThis()
 	exec "source %"
@@ -208,13 +168,13 @@ endfunction
 command! SourceThis silent! call SourceThis()
 
 " This will flash cols and rows to locate the cursor
-function! Flash()
+function! PingCursor()
 	set cursorline cursorcolumn
 	redraw
 	sleep 200m
 	set nocursorline nocursorcolumn
 endfunction
-command! Flash silent! call Flash()
+command! PingCursor silent! call PingCursor()
 
 if executable('ctags')
 	command! MakeTags !ctags -R --fields=+iaS --extra=+q --exclude=.git .
@@ -255,17 +215,23 @@ function! s:console_log(...)
   let @z = z
 endfunction
 " nnoremap gI :TurboConsoleLog<cr>
+" Add a debug statement
+" Takes a variable name as an arg and will output a debug log
+" statement dependent on the language
+" With no argument will use the word under the cursor
+command! -nargs=? TurboConsoleLog call <SID>console_log(<f-args>)
+
 
 " Remap for do codeAction of selected region
 function! s:cocActionsOpenFromSelected(type) abort
   execute 'CocCommand actions.open ' . a:type
 endfunction
 
-function! ConsoleFromBuff()
+function! ConsoleFromReg()
 	:execute "normal! Oconsole.log();\<esc>hP"
 	:execute "normal! =="
 endfunction
-command! -nargs=0 ConsoleFromBuff :call ConsoleFromBuff()
+command! -nargs=0 ConsoleFromReg :call ConsoleFromReg()
 
 " Better marks
 function! NativeMarks()

@@ -81,6 +81,8 @@ let g:startify_bookmarks = [
            \ {'c': '~/CodeHub'}
            \ ]
 
+let g:startify_session_sort = 1 " sort sessions by alphabet or modification time
+let g:startify_change_to_dir = 1 " when opening a file or bookmark, change to its directory
 let g:startify_session_autoload = 1
 let g:startify_session_delete_buffers = 1
 let g:startify_session_persistence = 1

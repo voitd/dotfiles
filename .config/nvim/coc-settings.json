@@ -1,5 +1,5 @@
 {
-  "explorer.width": 30,
+  "explorer.width": 40,
   "explorer.icon.expanded": "▾",
   "explorer.icon.collapsed": "▸",
   "explorer.file.column.git.icon.modified": "•",
@@ -85,10 +85,6 @@
   "diagnostic.infoSign": "",
   "diagnostic.hintSign": " ",
   //"diagnostic.messageTarget": "echo",
-  //"diagnostic.warningSign": "",
-  //"diagnostic.errorSign": "",
-  //"diagnostic.hintSign": "",
-  //"diagnostic.infoSign": "",
   //"diagnostic.checkCurrentLine": true,
   //"diagnostic.virtualText": true,
   //"diagnostic.virtualTextPrefix": " ❯ ",
@@ -142,11 +138,17 @@
 
   "tsserver.formatOnType": true,
   "typescript.showUnused": false,
+
   "javascript.showUnused": false,
   "javascript.suggest.autoImports": true,
+
   "scss.validate": true,
+
   "html.suggest.html5": true,
   "html.validate.styles": true,
+  "html.autoClosingTags": true,
+  "html.suggest.ionic": true,
+
   "yaml.format.enable": true,
   "yaml.schemas": {
     "http://json.schemastore.org/swagger-2.0": ["*swagger.yaml", "*swagger.yml"]
@@ -157,7 +159,7 @@
   "prettier.jsxSingleQuote": true,
   "prettier.disableSuccessMessage": true,
   "prettier.eslintIntegration": true,
-  "prettier.stylelintIntegration": true,
+  //"prettier.stylelintIntegration": true,
 
   "snippets.extends": { "javascriptreact": ["javascript"] },
   "snippets.snipmate.enable": false,

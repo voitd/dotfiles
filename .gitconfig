@@ -21,7 +21,7 @@
 	c = commit
 	amend = commit --amend --reuse-message=HEAD
 	undo = reset HEAD~1 --mixed
-	clone = clone --template=/Users/void/.git-templates
+	; clone = clone --template=/Users/void/.git-templates
   # push 
   p = push
   pf = push --force-with-lease
@@ -29,31 +29,30 @@
   rc = rebase --continue            # continue rebase
   rs = rebase --skip                # skip rebase
 
+	# Show verbose output about tags, branches or remotes
+	tags = tag -l
+	branches = branch -a
+	remotes = remote -v
+
+  # emf: edit modified files
+  # ecf: edit conflicted files
+  # udf: untrack deleted files
+  # dmb: delete merged branches
+  emf = ! nvim -p `git status -s | cut -b 4- | grep -v '\\/$' | uniq`
+  ecf = ! nvim -p `git ls-files --unmerged | cut -f2 | sort -u`
+  udf = ! git rm `git ls-files --deleted | cut -f2 | sort -u`
+  dmb = ! git branch --merged | grep -v \\* | grep -v master | xargs -n 1 git branch -d
+
 	# View the current working tree status using the short format
   st = status --short --branch
 
   changelog = "!_() { t=$(git describe --abbrev=0 --tags); git log ${t}..HEAD --no-merges --pretty=format:'* %s'; }; _"
-  # Get the current branch name (not so useful in itself, but used in
-  # other aliases)
-  branch-name = "!git rev-parse --abbrev-ref HEAD"
-
-  # Push the current branch to the remote "origin", and set it to track
-  # the upstream branch
-  publish = "!git push -u origin $(git branch-name)"
-
-	# Delete the remote version of the current branch
-  unpublish = "!git push origin :$(git branch-name)"
-
-	# Delete a branch and recreate it from master — useful if you have, say,
-  # a development branch and a master branch and they could conceivably go
-  # out of sync
-  recreate = "!f() { [[ -n $@ ]] && git checkout \"$@\" && git unpublish && git checkout master && git branch -D \"$@\" && git checkout -b \"$@\" && git publish; }; f"
 
   # Interactive rebase with the given number of latest commits
 	rebase-branch = "!r() { git rebase -i HEAD~$1; }; r"
 
   # respond to PR feedback
-  respond ="!git commit --amend --reuse-message=HEAD --no-edit && git push  --force"
+  pr ="!git commit --amend --reuse-message=HEAD --no-edit && git push --force-with-lease"
 
   # interactive sync your current branch with master
   sync = "!git fetch origin && git rebase --interactive origin/master"
@@ -65,22 +64,19 @@
 	go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
 
   # Checkout a pull request from origin (of a github repository)
-  pr = !"pr() { git fetch origin pull/$1/head:pr-$1; git checkout pr-$1; }; pr"
+  f = !"pr() { git fetch origin pull/$1/head:pr-$1; git checkout pr-$1; }; pr"
 
   unpushed = log --branches --not --remotes --no-walk --decorate --oneline
 
   conflicts = diff --name-only --diff-filter=U
-wtf = "! git log --pretty=tformat:\"%C(auto,yellow)%h%C(auto)%d%C(auto,reset) by %C(auto,blue)%cn%C(auto,reset), %C(auto,cyan)%ar%C(auto,reset)%n %s%n\" --stat"
+  wtf = "! git log --pretty=tformat:\"%C(auto,yellow)%h%C(auto)%d%C(auto,reset) by %C(auto,blue)%cn%C(auto,reset), %C(auto,cyan)%ar%C(auto,reset)%n %s%n\" --stat"
   # nice logs
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative -n 10
   lgf = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 
-	# Show verbose output about tags, branches or remotes
-	tags = tag -l
-	branches = branch -a
-	remotes = remote -v
+	lines = ! git ls-files | xargs cat | wc -l
 
-  fshow = "!f() { \
+  fzfshow = "!f() { \
 		git log --graph --color=always \
 			--format=\"%C(auto)%h%d %s %C(black)%C(bold)%cr\" \"$@\" | \
 		fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
@@ -94,30 +90,10 @@ wtf = "! git log --pretty=tformat:\"%C(auto,yellow)%h%C(auto)%d%C(auto,reset) by
   
   # commit all with an message (which need not be quoted)
   cm = "!f() { git commit -a -m \"$*\" ; }; f"
+
   save = "!git add -A && git commit -m 'SAVEPOINT'"
   wipe = "!git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard"
-  # NEW.
-	new = "!f() { git commit -m \"NEW: $@\"; }; f"
-	# IMPROVE.
-	imp = "!f() { git commit -m \"IMPROVE: $@\"; }; f"
-	# FIX.
-	fix = "!f() { git commit -m \"FIX: $@\"; }; f"
-	# RELEASE.
-	rel = "!f() { git commit -m \"RELEASE: $@\"; }; f"
-	# DOC.
-	doc = "!f() { git commit -m \"DOC: $@\"; }; f"
-	# TEST.
-	tes = "!f() { git commit -m \"TEST: $@\"; }; f"
-	# Cleanup.
-	cle = "!f() { git commit -m \"CLEANUP: $@\"; }; f"
-	# Incomplete.
-	inc = "!f() { git commit -m \"INCOMPLETE: $@\"; }; f"
-	# SOLVE.
-	sol = "!f() { git commit -m \"SOLVE: $@\"; }; f"
-	# UPDATE.
-	upd = "!f() { git commit -m \"UPDATE: $@\"; }; f"
-	# Add.
-	ad = "!f() { git commit -m \"ADD: $@\"; }; f"
+
   # fix your branch when it's missing upstream
   upstream = "!git branch --set-upstream-to=origin/$(git rev-parse --abbrev-ref HEAD) $(git rev-parse --abbrev-ref HEAD)"
 

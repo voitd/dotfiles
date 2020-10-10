@@ -18,7 +18,7 @@ highlight default link WhichKeyGroup     Identifier
 highlight default link WhichKeyDesc      Function
 
 " Hide status line
-autocmd! FileType which_key 
+autocmd! FileType which_key
 autocmd  FileType which_key set laststatus=0 noshowmode noruler
   \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
 
@@ -30,15 +30,13 @@ let g:which_key_display_names = {' ': '', '<CR>': '↵', '<C-H>': '', '<C-
 " Single mappings
 let g:which_key_map[' '] = [ ':WhichKey'                  , 'Toggle Which Key' ]
 let g:which_key_map[','] = [ 'Startify'                   , 'Startify' ]
-" let g:which_key_map['r'] = [ ':SourceThis'                , 'Source file' ]
-let g:which_key_map['d'] = [ ':lcd %:p:h<CR>:pwd<CR>'     , 'Toggle root dir' ]
+let g:which_key_map['r'] = [ ':SourceThis'                , 'Source file' ]
 let g:which_key_map['.'] = [ ':e $MYVIMRC'                , 'Open init.vim' ]
 let g:which_key_map['x'] = [ ':source $MYVIMRC | echom "Reloaded $NVIMRC" | redraw! | silent doautocmd ColorScheme |' , 'Reload init.vim' ]
 let g:which_key_map['e'] = [ ':CocCommand explorer'       , 'Explorer' ]
 let g:which_key_map['z'] = [ ':Goyo'                      , 'Focus mode']
 let g:which_key_map['u'] = [ ':UndotreeToggle'            , 'Undo tree' ]
 let g:which_key_map['T'] = [ ':Todos'                     , 'Show TODO marks' ]
-let g:which_key_map[']'] = [ ':tabnew'                    , 'New tab' ]
 
 "}}}
 
@@ -46,19 +44,13 @@ let g:which_key_map[']'] = [ ':tabnew'                    , 'New tab' ]
 let g:which_key_map.a = {
       \ 'name' : '+Actions' ,
       \ 'A' : [':norm ggVG'                     , 'Select All'],
-      \ 'k' : [':ColorizerToggle'               , 'Colorize'],
-      \ 'C' : [':Codi'                          , 'Virtual repl ON'],
-      \ 'c' : [':Codi!'                         , 'Virtual repl OFF'],
-      \ 'm' : [':MarkdownPreview'               , 'Markdown preview'],
-      \ 'M' : [':MarkdownPreviewStop'           , 'Markdown preview stop'],
-      \ 'h' : [':let @/ = ""'                   , 'Remove current search highlight'],
-      \ 'H' : [':set nohlsearch'                , 'Set no search highlight'],
+      \ 'H' : [':let @/ = ""'                   , 'Remove current search highlight'],
+      \ 'h' : [':set nohlsearch'                , 'Set no search highlight'],
       \ 'n' : [':set nonumber!'                 , 'Line-numbers'],
       \ 'r' : [':set norelativenumber!'         , 'Relative line nums'],
-      \ 'z' : [':set wrap!'                     , 'Word wrap'],      
-      \ 'f' : ['<Plug>(coc-fix-current)'        , 'Fix line'],      
-      \ 'w' : [':FixWhitespace'                 , 'QuickFix whitespaces '],      
-      \ 't' : [':SwitchColors '                 , 'Theme switch']
+      \ 'w' : [':set wrap!'                     , 'Word wrap'],
+      \ 'f' : ['<Plug>(coc-fix-current)'        , 'Fix line'],
+      \ 's' : [':FixWhitespace'                 , 'QuickFix whitespaces '],
       \ }
 "}}}
 
@@ -87,7 +79,7 @@ let g:which_key_map.g = {
       \ 'l' : [':GV'                               , 'Commits Log'],
       \ 'o' : [':GBrowse'                          , 'Open in Browser'],
       \ 'w' : [':Gwrite'                           , 'Save'],
-      \ 'V' : [':GV!'                              , 'View Buffer Commits'],     
+      \ 'V' : [':GV!'                              , 'View Buffer Commits'],
       \ 'k' : {
           \ 'name' : '+GitCommands' ,
           \ 'm' : [':Git respond'                      , 'Ammend commit'],
@@ -96,7 +88,7 @@ let g:which_key_map.g = {
           \ 'b' : [':Git blame'                        , 'Blame'],
           \ 'w' : [':Git gwip'                , 'Commit a work-in-progress(WIP) branch'],
           \ 'u' : [':Git gunwip'              , 'Uncommit a work-in-progress(WIP) branch'],
-          \ 't' : [':CocCommand git.toggleGutters'     , 'Toggle Gutters'],     
+          \ 't' : [':CocCommand git.toggleGutters'     , 'Toggle Gutters'],
           \ },
       \ 'h' : {
           \ 'name' : '+GitGutterHunks' ,
@@ -122,27 +114,24 @@ let g:which_key_map.g = {
 " {{{ CoC
 let g:which_key_map.c = {
 			\ 'name' : '+Coc-Commands' ,
-      \ '.' : [':CocConfig'                          , 'config'],
-      \ ';' : ['<Plug>(coc-refactor)'                , 'refactor'],
-      \ 'a' : ['<Plug>(coc-codeaction)'              , 'line action'],
-      \ 'A' : ['<Plug>(coc-codeaction-selected)'     , 'selected action'],
-      \ 'b' : [':CocNext'                            , 'next action'],
-      \ 'B' : [':CocPrev'                            , 'prev action'],
-      \ 'c' : [':CocList commands'                   , 'commands'],
+      \ '.' : [':CocConfig'                          , 'Config'],
+      \ ';' : ['<Plug>(coc-refactor)'                , 'Refactor'],
+      \ 'a' : ['<Plug>(coc-codeaction)'              , 'Line action'],
+      \ 'A' : ['<Plug>(coc-codeaction-selected)'     , 'Selected action'],
+      \ 'b' : [':CocNext'                            , 'Next action'],
+      \ 'B' : [':CocPrev'                            , 'Prev action'],
+      \ 'c' : [':CocList commands'                   , 'Commands'],
       \ 'L' : [':CocFzfList'                         , 'List Fzf commands'],
-      \ 'e' : [':CocList extensions'                 , 'extensions list'],
-      \ 'd' : [':CocList diagnostics'                , 'diagnostics'],
-      \ 'n' : ['<Plug>(coc-diagnostic-next-error)'   , 'next error'],
-      \ 'p' : ['<Plug>(coc-diagnostic-prev-error)'   , 'prev error'],
-      \ 'f' : ['<Plug>(coc-fix-current)'             , 'quickfix'],
-      \ 'r' : ['<Plug>(coc-rename)'                  , 'rename'],
-      \ 'S' : [':CocList -I symbols'                 , 'references'],
-      \ 's' : [':CocList snippets'                   , 'snippets'],
-      \ 'u' : [':CocListResume'                      , 'resume list'],
-      \ 'U' : [':CocUpdate'                          , 'update CoC'],
-      \ 'z' : [':CocDisable'                         , 'disable CoC'],
-      \ 'Z' : [':CocEnable'                          , 'enable CoC'],
-      \ 'x' : [':CocRestart'                         , 'restart CoC'],
+      \ 'e' : [':CocList extensions'                 , 'Extensions list'],
+      \ 'd' : [':CocList diagnostics'                , 'Diagnostics'],
+      \ 'n' : ['<Plug>(coc-diagnostic-next-error)'   , 'Next error'],
+      \ 'p' : ['<Plug>(coc-diagnostic-prev-error)'   , 'Prev error'],
+      \ 'f' : ['<Plug>(coc-fix-current)'             , 'Quickfix'],
+      \ 'r' : ['<Plug>(coc-rename)'                  , 'Rename'],
+      \ 'S' : [':CocList -I symbols'                 , 'References'],
+      \ 's' : [':CocList snippets'                   , 'Snippets'],
+      \ 'u' : [':CocListResume'                      , 'Resume list'],
+      \ 'x' : [':CocRestart'                         , 'Restart CoC'],
       \ 'y' : [':CocList -A --normal yank'           , 'Yank List'],
       \ 'Y' : [':CocCommand yank.clean'              , 'Clear Yank List'],
       \ }
@@ -191,11 +180,10 @@ let g:which_key_map.s = {
       \ }
 "}}}
 
-" {{{ Terminal  
-let g:which_key_map.t = {
+" {{{ Terminal
+let g:which_key_map.T = {
       \ 'name' : '+Terminal' ,
       \ 'j' : [':FloatermNew --wintype=popup --height=10'       , 'Terminal in Bottom'],
-      \ 't' : [':FloatermToggle '                               , 'Toggle'],
       \ 'n' : [':FloatermNew'                                   , 'New'],
       \ 'y' : [':FloatermNew ytop'                              , 'ytop'],
       \ 'g' : [':FloatermNew lazygit'                           , 'lazygit'],
@@ -208,7 +196,7 @@ let g:which_key_map.t = {
 
 "}}}
 
-" {{{ Jest 
+" {{{ Jest
 let g:which_key_map.J = {
       \ 'name' : '+Jest' ,
       \ 'c' : [':JestNearest'                          , 'Test nearest to the cursor'],
@@ -224,22 +212,15 @@ let g:which_key_map.w = {
       \ 'name' : '+Windows'                        ,
       \ 'w'    : ['<C-w>w'                         , 'Next window']           ,
       \ 'q'    : ['<C-w>q'                         , 'Quit window']           ,
-      \ 'd'    : [':bdelete'                       , 'Close buffer']          ,
       \ '-'    : ['<C-w>s'                         , 'Split horizotal']       ,
       \ '|'    : ['<C-w>v'                         , 'Split vertical']        ,
       \ '2'    : ['<C-w>v'                         , 'Duplicate in splits']   ,
-      \ 'h'    : ['<C-w>h'                         , 'Window left']           ,
-      \ 'j'    : ['<C-w>j'                         , 'Window below']          ,
-      \ 'l'    : ['<C-w>l'                         , 'Window right']          ,
-      \ 'k'    : ['<C-w>k'                         , 'Window up']             ,
       \ 'H'    : ['<C-w>5<'                        , 'Resize left']           ,
       \ 'J'    : ['resize -5'                      , 'Resize below']          ,
       \ 'L'    : ['<C-w>5>'                        , 'Resize right']          ,
       \ 'K'    : ['resize +5'                      , 'Resize up']             ,
       \ '='    : ['<C-w>='                         , 'Balance window']        ,
       \ 'x'    : ['<C-w>x'                         , 'Flip windows']          ,
-      \ 'z'    : [''    , 'Zoom window']           ,
-      \ 'Z'    : [''                  , 'Unzoom window']         ,
       \ 'f'    : ['<C-w>t<C-w>H'                   , 'Flip horiz-to-vert']    ,
       \ 'F'    : ['<C-w>t<C-w>K'                   , 'Flip vert-to-horiz']    ,
       \ 'W'    : ['Windows'                        , 'Fzf window']            ,
@@ -249,11 +230,25 @@ let g:which_key_map.w = {
 
 " {{{ Sesions
 let g:which_key_map.S = {
-			\ 'name' : '+Session' ,
+			\ 'name' : '+Sessions' ,
 			\ 's' : [':SSave'           , 'Save Session'],
 			\ 'l' : [':SLoad'           , 'Load Session'],
 			\ 'd' : [':SDelete'         , 'Delete Session'],
 			\ 'c' : [':SClose'          , 'Close Session'],
+      \ }
+
+"}}}
+
+" {{{ Togglers
+let g:which_key_map.t = {
+			\ 'name' : '+Toogle' ,
+      \ 't' : [':FloatermToggle '               , 'Terminal'],
+			\ 'i' : [':IndentLinesToggle'             , 'Indentline'],
+			\ 's' : [':LeadingSpaceToggle'            , 'Leading space'],
+      \ 'c' : [':ColorizerToggle'               , 'Show Colors'],
+      \ 'b' : [':RainbowToggle'                 , 'Color Brackets'],
+      \ 'r' : [':Codi!!'                        , 'Virtual REPL'],
+      \ 'm' : ['<Plug>MarkdownPreviewToggle'    , 'Markdown preview'],
       \ }
 
 "}}}
@@ -287,15 +282,15 @@ let g:which_key_map.m = {
 " {{{  Graveyard
 
 
-      " \ 'po': [':normal! :FloaterSend git push origin $(git branch | grep "\*" | sed s:^..::g )<cr>'     , 'Push into origin'],     
+      " \ 'po': [':normal! :FloaterSend git push origin $(git branch | grep "\*" | sed s:^..::g )<cr>'     , 'Push into origin'],
 
 " let g:which_key_map.w = {
 " 			\ 'name' : '+Window' ,
 " 			\ '|' : ['<C-u>split<CR>'            , 'Vertical split'],
 " 			\ '_' : ['<C-u>vsplit<CR>'           , 'Horizontal split'],
 " 			\ 'b' : ['<C-W>='                    , 'Balance windows'],
-" 			\ '+' : ['resize +5', 'Resize +'],  
-" 			\ '-' : ['resize -5', 'Resize -'], 
+" 			\ '+' : ['resize +5', 'Resize +'],
+" 			\ '-' : ['resize -5', 'Resize -'],
 "       \ 'h' : ['<c-w>_'                    , 'max height'],
 "     	\ 'w' : ['<c-w>|'                    , 'max width'],
 "       \ }
