@@ -8,6 +8,9 @@ let g:sneak#use_ic_scs = 1
 " imediately move tot the next instance of search, if you move the cursor sneak is back to default behavior
 let g:sneak#s_next = 1
 
+let g:sneak#streak = 1
+let g:sneak#streak_esc = "\<Esc>"
+
 " remap so I can use , and ; with f and t
 " map gS <Plug>Sneak_,
 " map gs <Plug>Sneak_;
@@ -30,4 +33,5 @@ highlight Sneak      guifg=black guibg=#00C7DF
 highlight SneakScope guifg=red   guibg=yellow 
 
 " Cool prompt
-let g:sneak#prompt = '🔎'
+" let g:sneak#prompt = '🔎'
+let g:sneak#prompt = '  '

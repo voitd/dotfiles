@@ -38,14 +38,14 @@ alias ta="t a -t"
 alias tl="t ls"
 alias tn="t new -t"
 alias tk="t kill-server"
-alias tf="ta fullscreen"
-alias tq="ta guake"
+alias tkall="tmux list-sessions | grep -v attached | cut -d: -f1 |  xargs -t -n1 tmux kill-session -t"
+
 
 # Replace legacy tools with new ones
 alias ls='exa -G  --color auto --icons -a -s type'
 alias ll='exa -alhF --group-directories-first --time-style=long-iso'
 # alias llex='ll --git-ignore --ignore-glob=".git|node_modules"' tr2='llex -T -L=2' tr3='llex -T -L=3'
-alias rls="cd && cd - && ls -G"
+alias cdls="cd && cd - && ls -G"
 
 # Colorized cat.
 alias cat='bat -pp --theme="Nord"'
@@ -73,10 +73,13 @@ alias brewup='brew update && brew upgrade && brew cask upgrade'
 
 
 # docker
-alias dk="docker"
+alias doc="docker"
+alias docspa="docker stop (docker ps -a -q)"
+alias dks="docker stats"
 alias dkc="docker-compose"
 alias dke="docker exec -it"
 alias dkm="docker-machine"
+
 
 #git
 alias upd="git pull origin develop:develop --rebase --ff-only"

@@ -33,6 +33,7 @@
 	tags = tag -l
 	branches = branch -a
 	remotes = remote -v
+  unstage  = reset HEAD --
 
   # emf: edit modified files
   # ecf: edit conflicted files
@@ -45,7 +46,7 @@
 
 	# View the current working tree status using the short format
   st = status --short --branch
-
+	amend-to = "!f() { SHA=`git rev-parse "$1"`; git commit --fixup "$SHA" && GIT_SEQUENCE_EDITOR=true git rebase --interactive --autosquash "$SHA^"; }; f"
   changelog = "!_() { t=$(git describe --abbrev=0 --tags); git log ${t}..HEAD --no-merges --pretty=format:'* %s'; }; _"
 
   # Interactive rebase with the given number of latest commits
@@ -71,9 +72,10 @@
   conflicts = diff --name-only --diff-filter=U
   wtf = "! git log --pretty=tformat:\"%C(auto,yellow)%h%C(auto)%d%C(auto,reset) by %C(auto,blue)%cn%C(auto,reset), %C(auto,cyan)%ar%C(auto,reset)%n %s%n\" --stat"
   # nice logs
+  l = log --color --graph --pretty=format:'%C(yellow)%h%Creset %s %C(bold green)%ar%Creset %C(bold blue)%an%Creset%C(bold red)%d%Creset -n 16'
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative -n 10
   lgf = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-
+  history = log -10 --format=format:'%Cgreen%h %Creset• %s (%cN, %ar)'
 	lines = ! git ls-files | xargs cat | wc -l
 
   fzfshow = "!f() { \

@@ -14,23 +14,20 @@
   "explorer.openAction.for.directory": "expandOrCollapse",
   "explorer.keyMappings": {
     "<cr>": ["expandable?", "expand", "open"],
-    "v": "open:vsplit"
+    "v": "open:vsplit",
+    "P": "copyFilepath",
+    "F": "copyFilename"
   },
-
   "list.source.files.defaultOptions": ["--auto-preview"],
   "list.source.outline.defaultOptions": ["--auto-preview"],
   "list.indicator": "❯",
   "list.selectedSignText": " ",
-
   "suggest.triggerAfterInsertEnter": false,
   "suggest.timeout": 2000,
   "suggest.noselect": false,
-  //"suggest.enablePreselect": false,
-  "suggest.minTriggerInputLength": 2,
-  // "suggest.snippetIndicator": "👾",
-  "suggest.triggerCompletionWait": 100,
+  "suggest.triggerCompletionWait": 300,
   "suggest.autoTrigger": "always",
-  "suggest.maxCompleteItemCount": 20,
+  "suggest.maxCompleteItemCount": 30,
   "suggest.removeDuplicateItems": true,
   "suggest.completionItemKindLabels": {
     "keyword": "",
@@ -59,45 +56,36 @@
     "typeParameter": "\uf728",
     "default": "\uf29c"
   },
-
   // eslint
-  //  "eslint.options": {
-  //   "configFile": "/Users/void/.eslintrc.yml"
-  //},
-  "eslint.filetypes": [
-    "javascript",
-    "typescript",
-    "typescriptreact",
-    "javascriptreact",
-    "typescript.tsx"
-  ],
-  "eslint.autoFix": true,
+  "eslint.run": "onSave",
   "eslint.autoFixOnSave": true,
-
-  "diagnostic.refreshAfterSave": true,
-  "diagnostic.refreshOnInsertMode": true,
+  "eslint.filetypes": ["javascript", "javascriptreact", "javascript.jsx"],
+  //"diagnostic.refreshOnInsertMode": true,
   "diagnostic.signOffset": 9999999,
   "diagnostic.highlightOffset": 9999999,
   "diagnostic.messageDelay": 500,
   "diagnostic.enableSign": true,
-  "diagnostic.errorSign": " ",
-  "diagnostic.warningSign": " ",
+  "diagnostic.checkCurrentLine": true,
+  "diagnostic.refreshAfterSave": true,
+  //"diagnostic.errorSign": " ",
+  //"diagnostic.warningSign": " ",
+  //"diagnostic.infoSign": "",
+  //"diagnostic.hintSign": " ",
+  "diagnostic.errorSign": "✘",
+  "diagnostic.hintSign": "",
   "diagnostic.infoSign": "",
-  "diagnostic.hintSign": " ",
-  //"diagnostic.messageTarget": "echo",
-  //"diagnostic.checkCurrentLine": true,
-  //"diagnostic.virtualText": true,
-  //"diagnostic.virtualTextPrefix": " ❯ ",
-
+  "diagnostic.warningSign": "",
+  "diagnostic.messageTarget": "echo",
+  "diagnostic.virtualText": true,
+  "diagnostic.virtualTextPrefix": "❮ ",
+  "coc.preferences.jumpCommand": "vsplit",
   "coc.preferences.colorSupport": true,
   "coc.preferences.formatOnType": true,
-  "coc.preferences.snippetStatusText": "Ⓢ ",
-  "coc.preferences.extensionUpdateCheck": "daily",
   "coc.preferences.hoverTarget": "float",
   "coc.preferences.formatOnSaveFiletypes": [
-    "markdown",
     "javascript",
     "javascriptreact",
+    "markdown",
     "typescript",
     "json",
     "html",
@@ -105,21 +93,9 @@
     "scss",
     "yaml"
   ],
-  "coc.preferences.formatOnTypeFiletypes": [
-    "javascript",
-    "typescript",
-    "javascriptreact",
-    "typescriptreact",
-    "typescript.tsx",
-    "html",
-    "json",
-    "Markdown",
-    "css",
-    "svelte"
-  ],
-  //  "git.addGBlameToBufferVar": true,
-  //  "git.addGBlameToVirtualText": true,
-  //  "git.virtualTextPrefix": " ❯❯❯ ",
+  //"git.addGBlameToBufferVar": true,
+  //"git.addGBlameToVirtualText": true,
+  //"git.virtualTextPrefix": "        ",
   "git.branchCharacter": "\uf418",
   "git.addedSign.hlGroup": "GitGutterAdd",
   "git.changedSign.hlGroup": "GitGutterChange",
@@ -135,37 +111,27 @@
   "git.topRemovedSign.text": "▔",
   "git.changeRemovedSign.text": "▋",
   "git.enableGutters": false,
-
-  "tsserver.formatOnType": true,
   "typescript.showUnused": false,
-
+  //"tsserver.formatOnType": true,
+  //"typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
+  //"javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
   "javascript.showUnused": false,
   "javascript.suggest.autoImports": true,
-
+  "javascript.format.enabled": true,
   "scss.validate": true,
-
   "html.suggest.html5": true,
   "html.validate.styles": true,
   "html.autoClosingTags": true,
   "html.suggest.ionic": true,
-
-  "yaml.format.enable": true,
-  "yaml.schemas": {
-    "http://json.schemastore.org/swagger-2.0": ["*swagger.yaml", "*swagger.yml"]
-  },
-
-  "prettier.statusItemText": "ⓟ ",
-  "prettier.singleQuote": true,
-  "prettier.jsxSingleQuote": true,
-  "prettier.disableSuccessMessage": true,
   "prettier.eslintIntegration": true,
+  //"prettier.printWidth": 100,
+  //"prettier.jsxSingleQuote": true,
+  //"prettier.disableSuccessMessage": true,
   //"prettier.stylelintIntegration": true,
-
-  "snippets.extends": { "javascriptreact": ["javascript"] },
-  "snippets.snipmate.enable": false,
-  "snippets.loadFromExtensions": false,
-  "snippets.enableStatusItem": false,
-
+  //"prettier.singleQuote": true,
+  "snippets.extends": {
+    "javascriptreact": ["javascript"]
+  },
   "coc-actions.hideCursor": false,
   "yank.highlight.duration": 800,
   "yank.enableCompletion": false

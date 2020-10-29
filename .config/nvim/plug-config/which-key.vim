@@ -46,11 +46,15 @@ let g:which_key_map.a = {
       \ 'A' : [':norm ggVG'                     , 'Select All'],
       \ 'H' : [':let @/ = ""'                   , 'Remove current search highlight'],
       \ 'h' : [':set nohlsearch'                , 'Set no search highlight'],
-      \ 'n' : [':set nonumber!'                 , 'Line-numbers'],
-      \ 'r' : [':set norelativenumber!'         , 'Relative line nums'],
       \ 'w' : [':set wrap!'                     , 'Word wrap'],
-      \ 'f' : ['<Plug>(coc-fix-current)'        , 'Fix line'],
-      \ 's' : [':FixWhitespace'                 , 'QuickFix whitespaces '],
+      \ 'W' : [':FixWhitespace'                 , 'QuickFix whitespaces '],
+      \ 'r' : [''                               , 'Search under cursor'],
+      \ ',' : [':CtrlColumn'                    , 'Insert coma EOL'],
+      \ ';' : [':CtrlSemicolumn'                , 'Insert semicolon EOL'],
+      \ 'u' : [':SwitchCase'                    , 'Switch Case'],
+      \ 's' : [':SpellFix'                      , 'Fix Spell'],
+      \ 'c' : [':ConsoleFromReg'                , 'console.log yanked'],
+      \ 'm' : [':MakeTags'                , 'Make Tags'],
       \ }
 "}}}
 
@@ -77,6 +81,7 @@ let g:which_key_map.g = {
       \ 'p' : [':Git push'                         , 'Push'],
       \ 'f' : [':Git pull'                         , 'Pull/Fetch'],
       \ 'l' : [':GV'                               , 'Commits Log'],
+      \ 'm' : [':GitMessager'                      , 'Commit messager'],
       \ 'o' : [':GBrowse'                          , 'Open in Browser'],
       \ 'w' : [':Gwrite'                           , 'Save'],
       \ 'V' : [':GV!'                              , 'View Buffer Commits'],
@@ -126,7 +131,8 @@ let g:which_key_map.c = {
       \ 'd' : [':CocList diagnostics'                , 'Diagnostics'],
       \ 'n' : ['<Plug>(coc-diagnostic-next-error)'   , 'Next error'],
       \ 'p' : ['<Plug>(coc-diagnostic-prev-error)'   , 'Prev error'],
-      \ 'f' : ['<Plug>(coc-fix-current)'             , 'Quickfix'],
+      \ 'q' : ['<Plug>(coc-fix-current)'             , 'Quickfix'  ],
+      \ 'f' : ['<Plug>(coc-format-selected)'         , 'Fix line'],
       \ 'r' : ['<Plug>(coc-rename)'                  , 'Rename'],
       \ 'S' : [':CocList -I symbols'                 , 'References'],
       \ 's' : [':CocList snippets'                   , 'Snippets'],
@@ -159,7 +165,6 @@ let g:which_key_map.s = {
       \ 'name' : '+Search' ,
       \ '/' : [':History/'              , 'History'],
       \ ';' : [':Commands'              , 'Commands'],
-      \ 'o' : [':CocSearch <C-R>=expand("<cword>")<CR><CR>'                    , 'All buffer search'],
       \ 'b' : [':BLines'                , 'Current buffer'],
       \ 'B' : [':Buffers'               , 'Open buffers'],
       \ 'c' : [':Commits'               , 'Commits'],
@@ -175,7 +180,8 @@ let g:which_key_map.s = {
       \ 'p' : [':Helptags'              , 'Help tags'] ,
       \ 'T' : [':Tags'                  , 'Project tags'],
       \ 'S' : [':CocList snippets'      , 'Snippets'],
-      \ 's' : [':Colors'                , 'Color schemes'],
+      \ 'w' : [':call SearchVisual()<CR>'                , 'Rg word'],
+      \ 'v' : [':call SearchWord()<CR>'                , 'Rg visual selected'],
       \ 't' : [':Rg'                    , 'Text Rg'],
       \ }
 "}}}
@@ -185,13 +191,8 @@ let g:which_key_map.T = {
       \ 'name' : '+Terminal' ,
       \ 'j' : [':FloatermNew --wintype=popup --height=10'       , 'Terminal in Bottom'],
       \ 'n' : [':FloatermNew'                                   , 'New'],
-      \ 'y' : [':FloatermNew ytop'                              , 'ytop'],
-      \ 'g' : [':FloatermNew lazygit'                           , 'lazygit'],
-      \ 'd' : [':FloatermNew lazydocker'                        , 'lazydocker'],
-      \ 'm' : [':FloatermNew lazynpm'                           , 'lazynpm'],
-      \ 'o' : [':FloatermNew node'                              , 'node'],
-      \ 'r' : [':FloatermNew ranger'                            , 'ranger'],
-      \ 'l' : [':FloatermList'                                  , 'Show List Terminals'],
+      \ 'l' : [':FloatermList'                                  , 'List terms'],
+      \ 't' : [':FloatermToggle '                               , 'Terminal'],
       \ }
 
 "}}}
@@ -210,20 +211,16 @@ let g:which_key_map.J = {
 " {{{ Windows
 let g:which_key_map.w = {
       \ 'name' : '+Windows'                        ,
-      \ 'w'    : ['<C-w>w'                         , 'Next window']           ,
+      \ 'n'    : ['<C-w>w'                         , 'Next window']           ,
       \ 'q'    : ['<C-w>q'                         , 'Quit window']           ,
       \ '-'    : ['<C-w>s'                         , 'Split horizotal']       ,
-      \ '|'    : ['<C-w>v'                         , 'Split vertical']        ,
-      \ '2'    : ['<C-w>v'                         , 'Duplicate in splits']   ,
-      \ 'H'    : ['<C-w>5<'                        , 'Resize left']           ,
-      \ 'J'    : ['resize -5'                      , 'Resize below']          ,
-      \ 'L'    : ['<C-w>5>'                        , 'Resize right']          ,
-      \ 'K'    : ['resize +5'                      , 'Resize up']             ,
+      \ '\'    : ['<C-w>v'                         , 'Split vertical']        ,
+      \ 'd'    : ['<C-w>v'                         , 'Duplicate in splits']   ,
       \ '='    : ['<C-w>='                         , 'Balance window']        ,
-      \ 'x'    : ['<C-w>x'                         , 'Flip windows']          ,
+      \ 's'    : ['<C-w>x'                         , 'Swap windows']          ,
       \ 'f'    : ['<C-w>t<C-w>H'                   , 'Flip horiz-to-vert']    ,
       \ 'F'    : ['<C-w>t<C-w>K'                   , 'Flip vert-to-horiz']    ,
-      \ 'W'    : ['Windows'                        , 'Fzf window']            ,
+      \ 'w'    : ['Windows'                        , 'Fzf window']            ,
       \ }
 
 "}}}
@@ -239,7 +236,7 @@ let g:which_key_map.S = {
 
 "}}}
 
-" {{{ Togglers
+" {{{ Toggle
 let g:which_key_map.t = {
 			\ 'name' : '+Toogle' ,
       \ 't' : [':FloatermToggle '               , 'Terminal'],
@@ -247,8 +244,35 @@ let g:which_key_map.t = {
 			\ 's' : [':LeadingSpaceToggle'            , 'Leading space'],
       \ 'c' : [':ColorizerToggle'               , 'Show Colors'],
       \ 'b' : [':RainbowToggle'                 , 'Color Brackets'],
-      \ 'r' : [':Codi!!'                        , 'Virtual REPL'],
+      \ 'r' : [':Codi'                          , 'ON Virtual REPL'],
+      \ 'R' : [':Codi!'                         , 'OFF Virtual REPL'],
+      \ 'S' : [':ToggleSpell'                   , 'Spell word'],
       \ 'm' : ['<Plug>MarkdownPreviewToggle'    , 'Markdown preview'],
+      \ }
+
+"}}}
+
+" {{{ Formaters
+let g:which_key_map.f = {
+			\ 'name' : '+Formaters' ,
+			\ 'w' : [':noa w'      , 'Save buffer without formatting'],
+			\ 'f' : [':Format'     , 'Format with Prettier'],
+			\ 'c' : [''            , 'Fromat selected'],
+      \ }
+
+"}}}
+
+" {{{ Open
+let g:which_key_map.o = {
+			\ 'name' : '+Open' ,
+      \ 'v' : [':Vista!!'                       , 'Vista'],
+      \ 'y' : [':FloatermNew ytop'                              , 'ytop'],
+      \ 'g' : [':FloatermNew lazygit'                           , 'lazygit'],
+      \ 'd' : [':FloatermNew lazydocker'                        , 'lazydocker'],
+      \ 'm' : [':FloatermNew lazynpm'                           , 'lazynpm'],
+      \ 'o' : [':FloatermNew node'                              , 'node'],
+      \ 'r' : [':FloatermNew ranger'                            , 'ranger'],
+      \ 's' : [':FloatermNew ncdu'                              , 'ncdu'],
       \ }
 
 "}}}
@@ -272,7 +296,7 @@ let g:which_key_map.m = {
 			\ 'n' : [':CocCommand bookmark.next'                 , 'Next'],
 			\ 'p' : [':CocCommand bookmark.prev'                 , 'Prev'],
       \ 'l' : [':CocList bookmark'                         , 'List CoC marks'],
-      \ 'L' : [':NativeMarks<CR>'                              , 'List native marks'],
+      \ 'L' : [':NativeMarks<CR>'                          , 'List native marks'],
 			\ 'd' : [':delmarks!<CR>:delmarks A-Z0-9<CR>'        , 'Del native marks'],
 			\ 'c' : [':CocCommand bookmark.clearForCurrentFile'  , 'Clear buffer marks'],
 			\ 'C' : [':CocCommand bookmark.clearForAllFile'      , 'Clear all buffer marks'],
@@ -282,18 +306,7 @@ let g:which_key_map.m = {
 " {{{  Graveyard
 
 
-      " \ 'po': [':normal! :FloaterSend git push origin $(git branch | grep "\*" | sed s:^..::g )<cr>'     , 'Push into origin'],
-
-" let g:which_key_map.w = {
-" 			\ 'name' : '+Window' ,
-" 			\ '|' : ['<C-u>split<CR>'            , 'Vertical split'],
-" 			\ '_' : ['<C-u>vsplit<CR>'           , 'Horizontal split'],
-" 			\ 'b' : ['<C-W>='                    , 'Balance windows'],
-" 			\ '+' : ['resize +5', 'Resize +'],
-" 			\ '-' : ['resize -5', 'Resize -'],
-"       \ 'h' : ['<c-w>_'                    , 'max height'],
-"     	\ 'w' : ['<c-w>|'                    , 'max width'],
-"       \ }
+      " \ 'po': [':normal! :FloatermSend git push origin $(git branch | grep "\*" | sed s:^..::g )<cr>'     , 'Push into origin'],
 
 
 " let g:which_key_map.w = {

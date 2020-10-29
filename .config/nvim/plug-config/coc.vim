@@ -42,7 +42,7 @@ autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | end
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 " Use `:Format` to format current buffer
-command! -nargs=0 Format :call CocAction('format')
+command! -nargs=0 Format :call Format()<CR>
 
 " Use `:Fold` to fold current buffer
 command! -nargs=? Fold :call CocAction('fold', <f-args>)
@@ -67,11 +67,8 @@ command! JestInit :call CocAction('runCommand', 'jest.init')
 let g:coc_global_extensions = [
   \ 'coc-tsserver',
   \ 'coc-snippets',
-  \ 'coc-prettier', 
   \ 'coc-jest',
   \ 'coc-git', 
-  \ 'coc-eslint',
-  \ 'coc-emoji',
   \ 'coc-yaml',
   \ 'coc-json',
   \ 'coc-stylelint',
@@ -79,12 +76,10 @@ let g:coc_global_extensions = [
   \ 'coc-emmet',
   \ 'coc-html',
   \ 'coc-webpack',
-  \ 'coc-markdownlint',
   \ 'coc-spell-checker',
   \ 'coc-scssmodules',
-  \ 'coc-sh',
-  \ 'coc-react-refactor',
   \ 'coc-explorer',
+  \ 'coc-eslint',
   \ ]
 
 if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
@@ -94,6 +89,31 @@ endif
 if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
   let g:coc_global_extensions += ['coc-eslint']
 endif
+
+function! Format()
+    :call CocAction('format')
+    let filetypesWithImports = ['javascript', 'typescript']
+    if index(filetypesWithImports, &filetype) != -1
+        :call CocAction('runCommand', 'editor.action.organizeImport')
+    endif
+endfunction
+
+autocmd FileType javascript,javascriptreact,typescript,typescript.tsx let b:coc_root_patterns =
+        \ ['.git', 'package-lock.json', 'yarn.lock']
+
+autocmd FileType json syntax match Comment +\/\/.\+$+
+
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+" Create mappings for function text object, requires document symbols feature of languageserver.
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
 
 " " Fancy Hover:
 " function! ShowDocIfNoDiagnostic(timer_id)

@@ -9,13 +9,13 @@
 
 
 " Main
-" source ~/.config/nvim/s3.vim
 " source ~/.config/nvim/st2.vim
+" source ~/.config/nvim/s3.vim
 source ~/.config/nvim/statusline.vim
-source ~/.config/nvim/plug-config/hooks.vim
 " source ~/.config/nvim/plug-config/themer.vim
 
 " Plagins
+source ~/.config/nvim/plug-config/hooks.vim
 source ~/.config/nvim/plug-config/coc.vim
 source ~/.config/nvim/plug-config/startify.vim
 source ~/.config/nvim/plug-config/which-key.vim
@@ -24,6 +24,8 @@ source ~/.config/nvim/plug-config/goyo.vim
 source ~/.config/nvim/plug-config/fzf.vim
 source ~/.config/nvim/plug-config/sneak.vim
 source ~/.config/nvim/plug-config/conflict-marker.vim
+source ~/.config/nvim/plug-config/rainbow.vim
+source ~/.config/nvim/plug-config/vista.vim
 
 "*****************************************************************************
 ""{{{  Plugin
@@ -34,15 +36,13 @@ call plug#begin()
 " {{{Themes
 Plug 'Rigellute/rigel'
 " Plug 'liuchengxu/space-vim-theme'
-Plug 'cormacrelf/vim-colors-github'
 Plug 'arcticicestudio/nord-vim'
 Plug 'equt/paper.vim'
-
+Plug 'romgrk/github-light.vim'
 
 " }}}
 
 " JavaScript {{{
-    " Plug 'pangloss/vim-javascript', { 'for':  'javascript' }
     " if executable('npm')
     "     Plug 'prettier/vim-prettier', {
     "                 \ 'do': 'npm install',
@@ -59,16 +59,22 @@ Plug 'equt/paper.vim'
     "                 \ 'vue',
     "                 \ 'yaml'
     "                 \ ] }
+    " autocmd BufWritePre *.md,*.mdx,*.ts,*.tsx,*.js,*.jsx execute ':Prettier'
     " endif
+    " Plug 'pangloss/vim-javascript', { 'for':  'javascript' }
     " Plug 'heavenshell/vim-jsdoc', { 'for': ['javascript', 'typescript'] }
     " Plug 'jparise/vim-graphql'
+    " Plug 'gko/yats.vim', { 'for': 'typescript' }
+    " Plug 'peitalin/vim-jsx-typescript'
+    " Plug 'posva/vim-vue'
+    " Plug 'jxnblk/vim-mdx-js'
 " }}}
 
 " JSX {{{
-    Plug 'MaxMEllon/vim-jsx-pretty', { 'for': ['javascript', 'typescript', 'typescriptreact'] }
+Plug 'MaxMEllon/vim-jsx-pretty', { 'for': ['javascriptreact', 'typescriptreact'] }
 " }}}
 
-" Intellisense {{{
+" Coc {{{
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 let g:coc_global_extensions = [
   \ 'coc-tsserver'
@@ -83,14 +89,17 @@ Plug 'antoinemadec/coc-fzf'
 "}}}
 
 " {{{ Git
-" Plug 'airblade/vim-gitgutter'
-Plug 'stsewd/fzf-checkout.vim'
-" https://gist.github.com/voitd/60f606b02724dbb863ed09e7f5679b43
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
-" Git commit browser.
-Plug 'junegunn/gv.vim'
-
+if executable('git')
+  " Plug 'airblade/vim-gitgutter'
+  Plug 'stsewd/fzf-checkout.vim'
+  " https://gist.github.com/voitd/60f606b02724dbb863ed09e7f5679b43
+  Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-rhubarb'
+  " Git commit browser.
+  Plug 'junegunn/gv.vim'
+  " reveal the hidden message from Git under the cursor quickly
+  Plug 'rhysd/git-messenger.vim'
+endif
 " }}} 
 
 "{{{ Zen mode
@@ -99,15 +108,22 @@ Plug 'junegunn/limelight.vim'
 
 " }}} 
 
+" {{{ UI
+
 " Pretty start screen
 Plug 'mhinz/vim-startify'
-
 " See what keys do like in emacs
 Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+" Cool Icons
+Plug 'ryanoasis/vim-devicons'
+" Rainbow Parentheses Improved
+Plug 'frazrepo/vim-rainbow'
+" displaying thin vertical lines at each indentation level for code indented with spaces
+Plug 'Yggdroot/indentLine'
+" }}}
 
 " Terminal
 Plug 'voldikss/vim-floaterm'
-
 
 " Closetags
 Plug 'alvan/vim-closetag'
@@ -124,7 +140,10 @@ Plug 'tpope/vim-commentary'
 " Auto change html tags
 Plug 'AndrewRadev/tagalong.vim'
 
-
+" View and search LSP symbols, tags
+Plug 'liuchengxu/vista.vim'
+" Live server
+" Plug 'turbio/bracey.vim
 
 " Highlight conflict markers.[x and ]x
 " command ct for themselves, co for ourselves, cn for none and cb for both
@@ -132,7 +151,6 @@ Plug 'rhysd/conflict-marker.vim'
 
 "Yank something that you want to console.log into your register and then run :Consolate
 Plug 'agarrharr/consolation-vim'
-
 
 " Emmet snippets
 Plug 'mattn/emmet-vim'
@@ -144,13 +162,14 @@ Plug 'mbbill/undotree'
 Plug 'airblade/vim-rooter'
 
 " Interactive code (repl)
-Plug 'ChristianChiarulli/codi.vim'
+" Plug 'ChristianChiarulli/codi.vim'
+Plug 'metakirby5/codi.vim'
 
 " Motion | replaced by coc-smartf
 Plug 'justinmk/vim-sneak'
 
 " Smooth scroll
-Plug 'yuttie/comfortable-motion.vim'
+" Plug 'yuttie/comfortable-motion.vim'
 
 " Snippets
 Plug 'dominikduda/vim_es7_javascript_react_snippets'
@@ -168,17 +187,10 @@ Plug 'sheerun/vim-polyglot'
 " Markdown Preview
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }
 
-" Cool Icons
-Plug 'ryanoasis/vim-devicons'
-
 " Highlight colors in buffer
 Plug 'norcalli/nvim-colorizer.lua'
 
-" displaying thin vertical lines at each indentation level for code indented with spaces
-Plug 'Yggdroot/indentLine'
 
-" Rainbow Parentheses Improved
-Plug 'frazrepo/vim-rainbow'
 
 call plug#end()
 "}}}
@@ -188,9 +200,10 @@ call plug#end()
 ""{{{  Visual Settings
 "*****************************************************************************
 
-syntax on
-set termguicolors
-  " colorscheme paper
+" colorscheme github-light
+" colorscheme paper
+" set background=light    
+" source ~/.config/nvim/plug-config/st2.vim
 
 " colorscheme nord
 " let g:nord_cursor_line_number_background = 1
@@ -206,14 +219,6 @@ set termguicolors
  " let g:space_vim_filetype_hi_groups = 1
  " let g:space_vim_dark_background = 233
 
-" colorscheme low-contrast
-
-" colorscheme github
-" set background=light    
-" let g:github_colors_soft = 1
-" let g:github_colors_extra_functions = 0
-
-
 " colorscheme rigel
 " let g:rigel_italic=1
 " let g:rigel_bold=1
@@ -221,17 +226,23 @@ set termguicolors
 
 " Colors and styling
 " hi! Comment gui=italic
-" hi! link SignColumn LineNr
-hi VertSplit guibg=NONE guifg=NONE
-hi StatusLine guibg=NONE
+" hi link SignColumn LineNr
+hi! VertSplit guibg=NONE guifg=#001a24
+" hi StatusLine guibg=NONE
 
 
 let g:time = strftime("%H")
-if  g:time > 08 && g:time < 18
+if  g:time > 08 && g:time < 17
+    set termguicolors
     colorscheme paper
     set background=light    
+    set nocursorline
+    set statusline=%!ActiveLine() 
 else
-    set background=dark    
+    colorscheme rigel
+    let g:rigel_italic=1
+    let g:rigel_bold=1
+    source ~/.config/nvim/plug-config/statusline/rigel-line.vim
   " hi Comment guifg=#5C6370
 endif
 
@@ -241,14 +252,14 @@ endif
 " hi! NonText ctermbg=NONE guibg=#001a24 guifg=NONE ctermfg=NONE
 
 
-if $TERMINAL == 'kitty'
-  let g:normal_fg = synIDattr(hlID('Normal'), 'fg')
-  let g:normal_bg = synIDattr(hlID('Normal'), 'bg')
+" if $TERMINAL == 'kitty'
+"   let g:normal_fg = synIDattr(hlID('Normal'), 'fg')
+"   let g:normal_bg = synIDattr(hlID('Normal'), 'bg')
 
-  silent call system('kitty @ set-colors  background=' . g:normal_bg . ' foreground=' . g:normal_fg . ' &')
-endif  
+"   silent call system('kitty @ set-colors  background=' . g:normal_bg . ' foreground=' . g:normal_fg . ' &')
+" endif  
 
-let javaScript_fold=1 "activate folding by JS syntax
+" let javaScript_fold=1 "activate folding by JS syntax
 
 "}}}
 "*****************************************************************************
@@ -256,10 +267,15 @@ let javaScript_fold=1 "activate folding by JS syntax
 "*****************************************************************************
 ""{{{  Basic Setup
 "*****************************************************************************"
+" This is recommended by coc
+set hidden        
 set noswapfile
 set nobackup
 set nowritebackup
+            
 " set spell spelllang=ru
+
+" set autowrite
 
 " You will have bad experience for diagnostic messages when it's default 4000.
 set updatetime=300
@@ -291,9 +307,20 @@ set suffixesadd+=.js
 " set 256 color
 set t_Co=256
 
-" set terminal gui colors
-if (has("termguicolors"))
- set termguicolors
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+" Cursor settings. This makes terminal vim sooo much nicer!
+" Tmux will only forward escape sequences to the terminal if surrounded by a DCS
+" sequence
+if exists('$TMUX')
+  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
 
 " Highlight cursor line
@@ -305,11 +332,11 @@ set nocursorline
 " endif
 
 
-set hidden                     " allow hidden window
 set nowrap                     " disable wrap and wrap when typing
+set whichwrap+=<,>,[,],h,l
 set scrolloff=5                " Display 5 lines above/below the cursor when scrolling with a mouse.
 set matchpairs+=<:>
-set history=1000               " increase the history limit of
+set history=9000               " increase the history limit of
 " set showtabline=2            " show buffer line
 set noshowmode                 " disable mode display since lightline display
 set noshowcmd
@@ -344,7 +371,7 @@ set softtabstop=2
 set expandtab
 set noshiftround
 set textwidth=0
-set formatoptions-=t
+" set formatoptions-=t
 
 " Better display for messages
 set shortmess+=A        " ignore annoying swapfile messages"
@@ -365,20 +392,27 @@ set timeoutlen=400
 set ttimeoutlen=0
 set matchtime=1
 
+" Removes pipes | that act as seperators on splits
+" set fillchars+=vert:|
+set fillchars+=vert:\ 
+set fillchars+=fold:\ 
+" set fillchars+=diff:░ "alternatives: ⣿ ░
+set fillchars+=diff:\ 
+
 " show hidden charactors
-set list
-set listchars=tab:▸\ ,nbsp:∘,extends:❯,precedes:❮
+" set list
+set listchars=tab:∘\ ,nbsp:·,extends:❯,precedes:❮
 
 " Wild menu
 " show hidden charactors
-set list
-set listchars=tab:▸\ ,nbsp:∘,extends:❯,precedes:❮
 " setlocal foldmethod=marker
 " set nofoldenable
-
+" set foldmarker={{{,}}}
+" set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
 " Wildmenu completion {{{
 set wildmenu
 set wildmode=longest:full,full "zsh-like autocomplete
+" set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
 set wildoptions=pum
 " set pumblend=30
 set wildignore=*.o,*.obj,*~,*.exe,*.a,*.pdb,*.lib
@@ -419,11 +453,6 @@ let &fcs='eob: '
 " background color.
 let &t_ut=' '
 
-" Removes pipes | that act as seperators on splits
-" set fillchars+=vert:|
-set fillchars+=vert:\ 
-set fillchars+=fold:\ 
-set fillchars+=diff:░ "alternatives: ⣿ ░
 
 " Set internal g:clipboard to save some startup time.
 if has('mac') && executable('pbpaste')
@@ -468,6 +497,7 @@ let g:closetag_regions = {
     \ 'javascript.jsx': 'jsxRegion',
     \ 'javascriptreact': 'jsxRegion',
     \ }
+
 let g:undotree_TreeNodeShape = '◉'
 let g:undotree_WindowLayout = 3
 let g:undotree_SplitWidth = 45
@@ -487,18 +517,11 @@ let g:rooter_silent_chdir  = 1
 " Indentline
 let g:indentLine_enabled = 0
 let g:indentLine_leadingSpaceChar = '·'
-let g:indentLine_char = '|'
-let g:indentLine_fileTypeExclude = [ 'startify' ]
+let g:indentLine_char = '│'
+let g:indentLine_fileTypeExclude = [ 'coc-explorer', 'fzf', 'floaterm', 'startify' ]
+let g:indentLine_bufNameExclude  = ["term:.*"]
 
-" rainbow parentheses
-let g:rainbow_active = 0
-let g:rainbow_load_separately = [
-    \ [ '*' , [['(', ')'], ['\[', '\]'], ['{', '}']] ],
-    \ [ '*.{html,htm,jsx}' , [['(', ')'], ['\[', '\]'], ['{', '}'], ['<\a[^>]*>', '</[^>]*>']] ],
-    \ ]
-
-let g:rainbow_guifgs = ['RoyalBlue3', 'DarkOrange3', 'DarkOrchid3', 'FireBrick']
-let g:rainbow_ctermfgs = ['lightblue', 'lightgreen', 'yellow', 'red', 'magenta']
+let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 "}}}
 "*****************************************************************************
 
@@ -612,17 +635,21 @@ cabbrev Й q!
 "*****************************************************************************
 " let mapleader = ","
 " let localleader=" "
-
 let g:mapleader = "\<Space>"
 let g:maplocalleader = ','
+nmap \ <leader>
 
 nnoremap <Space> <Nop>
 nnoremap <silent><leader> :silent <c-u> :silent WhichKey '<Space>'<CR>
 vnoremap <silent><leader> :silent <c-u> :silent WhichKeyVisual '<Space>'<CR>
 
 " switch buffer
-nnoremap <silent><S-right> :bn<CR>
-nnoremap <silent><S-left> :bp<CR>
+nnoremap <silent> <S-l> :bn<CR>
+nnoremap <silent> <S-h> :bp<CR>
+map ;] :bnext<CR>
+map <Leader>] :bnext<CR>
+map ;[ :bprev<CR>
+map <Leader>[ :bprev<CR>
 nnoremap <silent><S-Tab> :b#<CR>
 nnoremap <silent><leader>bo :w <bar> %bd <bar> e# <bar> bd# <CR> "Only one buffer
 
@@ -631,19 +658,23 @@ set wildcharm=<C-s>
 nnoremap <Tab><Tab> :buffer <C-s><S-Tab>
 
 
-nnoremap <silent><leader><leader> :CocCommand explorer<CR>
+nnoremap <silent><leader><leader> :CocCommand explorer --position floating<CR>
 " fzf.vim mappings
 " nnoremap <silent><C-p> :Files<CR>
 nnoremap <silent><C-p> :call FzfOmniFiles()<CR>
 
 " Smooth Scrolling
-nnoremap <silent> <C-d> :call comfortable_motion#flick(125)<CR>
-nnoremap <silent> <C-u> :call comfortable_motion#flick(-125)<CR>
+" nnoremap <silent> <C-d> :call comfortable_motion#flick(125)<CR>
+" nnoremap <silent> <C-u> :call comfortable_motion#flick(-125)<CR>
 " ScrollWheel smooth scroll
-noremap <silent> <ScrollWheelDown> :call comfortable_motion#flick(40)<CR>
-noremap <silent> <ScrollWheelUp>   :call comfortable_motion#flick(-40)<CR>
+ " noremap <silent> <ScrollWheelDown> :call comfortable_motion#flick(40)<CR>
+" noremap <silent> <ScrollWheelUp>   :call comfortable_motion#flick(-40)<CR>
 
 nmap <silent><F2> <Plug>(coc-rename)
+
+" Use `[c` and `]c` to navigate diagnostics
+nmap <silent> [e <Plug>(coc-diagnostic-prev)
+nmap <silent> ]e <Plug>(coc-diagnostic-next)
 
 " Better window navigation
 nnoremap <C-h> <C-w>h
@@ -651,6 +682,8 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+nnoremap <M-j> }zz 
+nnoremap <M-k> {zz
 " Vmap for maintain Visual Mode after shifting > and <
 vmap < <gv
 vmap > >gv
@@ -701,6 +734,9 @@ vnoremap <Down> <Esc>:echo "Use [j] for down"<CR>
 " " Cancel the complete menu item like CTRL+e would.
 " inoremap <expr> <Left> pumvisible() ? "<C-e>" : "<Left>"
 
+" Better nav for omnicomplete TODO figure out why this is being overridden
+inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
@@ -715,7 +751,7 @@ nnoremap J mZJ`ZmZ
 nnoremap <silent> K ylpr<Enter>
 
 " Clear search highlighting with Escape key
-nnoremap <silent><Esc> :noh<CR>:redraw!<CR><Esc>
+" nnoremap <silent><Esc> :noh<CR>:redraw!<CR><Esc>
 
 " auto escaping
 cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
@@ -729,9 +765,10 @@ nnoremap x "_x
 
 " non-saving delete
 noremap X "_d
-
 " Repeat command for each line in selection
 vnoremap . :normal .<CR>
+" @: repeats macro on every line
+xnoremap @ :normal@
 
 " Search mappings: These will make it so that going to the next one in a
 " search will center on the line it's found in.
@@ -747,17 +784,15 @@ nnoremap zk zkzz
 
 
 nmap uu u
+nnoremap <silent><expr> <Esc> (
+            \   exists('b:esc') ? b:esc
+            \ : ':nohl<CR>' )
+
 imap jj <Esc>`^
 imap kk <Esc>`^
 imap jk <Esc>`^
 imap kj <Esc>`^
 " inoremap <Esc> <Esc>`^
-
-" an empty split relative to current
-" nmap <Leader><left>  :leftabove  vnew<CR>
-" nmap <Leader><right> :rightbelow vnew<CR>
-" nmap <Leader><up>    :leftabove  new<CR>
-" nmap <Leader><down>  :rightbelow new<CR>
 
 
 " ¯\_(ツ)_/¯
@@ -772,7 +807,6 @@ tnoremap <Esc><Esc>  <C-\><C-n>:FloatermHide<CR>
 nnoremap <leader>cl :Consolate<cr>
 nnoremap <leader>ap :TurboConsoleLog<cr>
 
-
 xmap <silent> <RightMouse> :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
 xmap <silent> <leader>aa :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
 
@@ -781,16 +815,26 @@ nnoremap <silent>zz :normal!za<cr>
 " Fold code open/close with click
 nmap <expr> <2-LeftMouse> 'zz'
 
-" Use CTRL-S for selections ranges.
-" Requires 'textDocument/selectionRange' support of LS, ex: coc-tsserver
-nmap <silent> <C-s> <Plug>(coc-range-select)
-xmap <silent> <C-s> <Plug>(coc-range-select)
+" nmap <F1> :SwitchColors <C-s><S-Tab>
+" nnoremap <F3> :SyntaxInfo
+" nnoremap <silent><F4> :SourceThis<CR>
+" Formatting selected code.
+xmap <leader>fc  <Plug>(coc-format-selected)
+nmap <leader>fc  <Plug>(coc-format-selected)
 
-nmap <F1> :SwitchColors <C-s><S-Tab>
-nnoremap <F3> :SyntaxInfo
-nnoremap <silent><F4> :SourceThis<CR>
+augroup mygroup
 
+" Surround line with { and }
+nnoremap  g{   m`o}<esc><lt><lt>kkA<Space>{<esc>``
 
+nnoremap <leader>ar :CocSearch <C-R>=expand("<cword>")<CR><CR>
+
+" Ctrl-r: Easier search and replace
+vnoremap <c-r> "hy:%s/<c-r>h//gc<left><left><left>
+" Ctrl-s: Easier substitue
+vnoremap <c-s> :s/\%V//g<left><left><left>
+
+ nmap <Leader>gm <Plug>(git-messenger)
 "}}}
 "*****************************************************************************
 
