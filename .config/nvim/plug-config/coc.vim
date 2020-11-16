@@ -42,7 +42,7 @@ autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | end
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 " Use `:Format` to format current buffer
-command! -nargs=0 Format :call Format()<CR>
+" command! -nargs=0 Format :call Format()<CR>
 
 " Use `:Fold` to fold current buffer
 command! -nargs=? Fold :call CocAction('fold', <f-args>)
@@ -50,7 +50,7 @@ command! -nargs=? Fold :call CocAction('fold', <f-args>)
 " use `:OR` for organize import of current buffer
 command! -nargs=0 OR   :call CocAction('runCommand', 'editor.action.organizeImport')
 
-command! -nargs=0 Todos  :CocList -A --normal grep -e TODO|FIXM
+command! -nargs=0 Todos  :CocList -A --normal grep -e TODO|FIXME
 
 " Run jest for current project
 command! -nargs=0 Jest :call CocAction('runCommand', 'jest.projectTest')
@@ -66,21 +66,22 @@ command! JestInit :call CocAction('runCommand', 'jest.init')
 
 let g:coc_global_extensions = [
   \ 'coc-tsserver',
-  \ 'coc-snippets',
   \ 'coc-jest',
+  \ 'coc-snippets',
   \ 'coc-git', 
   \ 'coc-yaml',
   \ 'coc-json',
-  \ 'coc-stylelint',
   \ 'coc-css',
   \ 'coc-emmet',
   \ 'coc-html',
   \ 'coc-webpack',
-  \ 'coc-spell-checker',
   \ 'coc-scssmodules',
   \ 'coc-explorer',
-  \ 'coc-eslint',
+  \ 'coc-docker',
+  \ 'coc-yank',
+  \ 'coc-style-helper',
   \ ]
+" \ 'coc-spell-checker',
 
 if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
   let g:coc_global_extensions += ['coc-prettier']
@@ -90,19 +91,12 @@ if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
   let g:coc_global_extensions += ['coc-eslint']
 endif
 
-function! Format()
-    :call CocAction('format')
-    let filetypesWithImports = ['javascript', 'typescript']
-    if index(filetypesWithImports, &filetype) != -1
-        :call CocAction('runCommand', 'editor.action.organizeImport')
-    endif
-endfunction
+if isdirectory('./node_modules') && isdirectory('./node_modules/stylelint')
+  let g:coc_global_extensions += ['coc-stylelintplus']
+endif
 
 autocmd FileType javascript,javascriptreact,typescript,typescript.tsx let b:coc_root_patterns =
         \ ['.git', 'package-lock.json', 'yarn.lock']
-
-autocmd FileType json syntax match Comment +\/\/.\+$+
-
 
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)

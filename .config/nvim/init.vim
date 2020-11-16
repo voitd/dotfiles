@@ -22,18 +22,20 @@ source ~/.config/nvim/plug-config/which-key.vim
 source ~/.config/nvim/plug-config/floaterm.vim
 source ~/.config/nvim/plug-config/goyo.vim
 source ~/.config/nvim/plug-config/fzf.vim
+source ~/.config/nvim/plug-config/fzf-preview.vim
 source ~/.config/nvim/plug-config/sneak.vim
 source ~/.config/nvim/plug-config/conflict-marker.vim
 source ~/.config/nvim/plug-config/rainbow.vim
 source ~/.config/nvim/plug-config/vista.vim
+source ~/.config/nvim/plug-config/indentline.vim
 
 "*****************************************************************************
-""{{{  Plugin
+""{{{  Plugin                                                                 
 "*****************************************************************************
 
 call plug#begin()
 
-" {{{Themes
+" Themes {{{
 Plug 'Rigellute/rigel'
 " Plug 'liuchengxu/space-vim-theme'
 Plug 'arcticicestudio/nord-vim'
@@ -75,20 +77,18 @@ Plug 'MaxMEllon/vim-jsx-pretty', { 'for': ['javascriptreact', 'typescriptreact']
 " }}}
 
 " Coc {{{
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-let g:coc_global_extensions = [
-  \ 'coc-tsserver'
-  \ ]
+Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': 'yarn install --frozen-lockfile'}
+Plug 'antoinemadec/coc-fzf'
 "}}}
 
 " FZF {{{
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'antoinemadec/coc-fzf'
+Plug 'yuki-ycino/fzf-preview.vim', { 'branch': 'release', 'do': ':UpdateRemotePlugins' }
 " Plug 'benwainwright/fzf-switch-project'
 "}}}
 
-" {{{ Git
+" Git {{{ 
 if executable('git')
   " Plug 'airblade/vim-gitgutter'
   Plug 'stsewd/fzf-checkout.vim'
@@ -102,13 +102,13 @@ if executable('git')
 endif
 " }}} 
 
-"{{{ Zen mode
+" Zen mode {{{
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 
 " }}} 
 
-" {{{ UI
+" UI {{{
 
 " Pretty start screen
 Plug 'mhinz/vim-startify'
@@ -121,6 +121,9 @@ Plug 'frazrepo/vim-rainbow'
 " displaying thin vertical lines at each indentation level for code indented with spaces
 Plug 'Yggdroot/indentLine'
 " }}}
+
+" take screenshot from visual selection code
+" Plug 'kristijanhusak/vim-carbon-now-sh'
 
 " Terminal
 Plug 'voldikss/vim-floaterm'
@@ -136,6 +139,10 @@ Plug 'machakann/vim-sandwich'
 
 " Auto commentary [gcc]
 Plug 'tpope/vim-commentary'
+
+
+" match-up is a plugin that lets you highlight, navigate, and operate on sets of matching text. It extends vim's % 
+" Plug 'andymass/vim-matchup'
 
 " Auto change html tags
 Plug 'AndrewRadev/tagalong.vim'
@@ -197,9 +204,10 @@ call plug#end()
 "*****************************************************************************
 
 "*****************************************************************************
-""{{{  Visual Settings
+""{{{  Visual Settings                                                        
 "*****************************************************************************
 
+set termguicolors
 " colorscheme github-light
 " colorscheme paper
 " set background=light    
@@ -213,32 +221,41 @@ call plug#end()
 " let g:nord_underline = 1
 
  " colorscheme space_vim_theme
+ " set background=light    
  " let g:space_vim_italic = 1
  " let g:space_vim_italicize_strings = 1
  " let g:space_vim_plugin_hi_groups = 1
  " let g:space_vim_filetype_hi_groups = 1
  " let g:space_vim_dark_background = 233
+ " set statusline=%!ActiveLine() 
+
 
 " colorscheme rigel
 " let g:rigel_italic=1
 " let g:rigel_bold=1
 " source ~/.config/nvim/plug-config/statusline/rigel-line.vim
 
+    " set termguicolors
+    " colorscheme paper
+    " set background=light    
+    " set nocursorline
+    " set statusline=%!ActiveLine() 
+
 " Colors and styling
 " hi! Comment gui=italic
 " hi link SignColumn LineNr
 hi! VertSplit guibg=NONE guifg=#001a24
+" hi! MatchParen cterm=italic gui=italic 
 " hi StatusLine guibg=NONE
-
 
 let g:time = strftime("%H")
 if  g:time > 08 && g:time < 17
     set termguicolors
     colorscheme paper
     set background=light    
-    set nocursorline
     set statusline=%!ActiveLine() 
 else
+    " set background=dark
     colorscheme rigel
     let g:rigel_italic=1
     let g:rigel_bold=1
@@ -260,12 +277,17 @@ endif
 " endif  
 
 " let javaScript_fold=1 "activate folding by JS syntax
-
+" vim-matchup
+" if s:plug.is_installed('vim-matchup')
+"   let g:loaded_matchit = 1
+"   hi MatchParenCur cterm=underline gui=underline
+"   hi MatchWordCur cterm=underline gui=underline
+" endif
 "}}}
 "*****************************************************************************
 
 "*****************************************************************************
-""{{{  Basic Setup
+""{{{  Basic Setup                                                            
 "*****************************************************************************"
 " This is recommended by coc
 set hidden        
@@ -307,6 +329,12 @@ set suffixesadd+=.js
 " set 256 color
 set t_Co=256
 
+if executable('fish')
+    " use fish for embedded terminals
+    set shell=fish
+    " use bash for else
+    let $SHELL = 'bash'
+endif
 if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -322,9 +350,6 @@ else
   let &t_SI = "\<Esc>]50;CursorShape=1\x7"
   let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
-
-" Highlight cursor line
-set nocursorline
 
 " syntax highlighting
 " if !exists('g:syntax_on')
@@ -371,7 +396,7 @@ set softtabstop=2
 set expandtab
 set noshiftround
 set textwidth=0
-" set formatoptions-=t
+set formatoptions=tcqronj
 
 " Better display for messages
 set shortmess+=A        " ignore annoying swapfile messages"
@@ -402,13 +427,48 @@ set fillchars+=diff:\
 " show hidden charactors
 " set list
 set listchars=tab:∘\ ,nbsp:·,extends:❯,precedes:❮
-
-" Wild menu
-" show hidden charactors
+" Set a nicer foldtext function
+set foldtext=MyFoldText()
+function! MyFoldText()
+  let line = getline(v:foldstart)
+  if match( line, '^[ \t]*\(\/\*\|\/\/\)[*/\\]*[ \t]*$' ) == 0
+    let initial = substitute( line, '^\([ \t]\)*\(\/\*\|\/\/\)\(.*\)', '\1\2', '' )
+    let linenum = v:foldstart + 1
+    while linenum < v:foldend
+      let line = getline( linenum )
+      let comment_content = substitute( line, '^\([ \t\/\*]*\)\(.*\)$', '\2', 'g' )
+      if comment_content != ''
+        break
+      endif
+      let linenum = linenum + 1
+    endwhile
+    let sub = initial . ' ' . comment_content
+  else
+    let sub = line
+    let startbrace = substitute( line, '^.*{[ \t]*$', '{', 'g')
+    if startbrace == '{'
+      let line = getline(v:foldend)
+      let endbrace = substitute( line, '^[ \t]*}\(.*\)$', '}', 'g')
+      if endbrace == '}'
+        let sub = sub.substitute( line, '^[ \t]*}\(.*\)$', '...}\1', 'g')
+      endif
+    endif
+  endif
+  let n = v:foldend - v:foldstart + 1
+  let info = " " . n . " lines"
+  let sub = sub . "                                                                                                                  "
+  let num_w = getwinvar( 0, '&number' ) * getwinvar( 0, '&numberwidth' )
+  let fold_w = getwinvar( 0, '&foldcolumn' )
+  let sub = strpart( sub, 0, winwidth(0) - strlen( info ) - num_w - fold_w - 1 )
+  return sub . info
+endfunction
+"show hidden charactors
 " setlocal foldmethod=marker
 " set nofoldenable
 " set foldmarker={{{,}}}
-" set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
+set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
+
+" Wild menu
 " Wildmenu completion {{{
 set wildmenu
 set wildmode=longest:full,full "zsh-like autocomplete
@@ -440,7 +500,7 @@ set wildignore+=*/node_modules/*,*/vendor/*
 "*****************************************************************************
 
 "*****************************************************************************
-""{{{ Custom configs
+""{{{ Custom configs                                                          
 "*****************************************************************************
 
 " Remove tildas on end of buffer
@@ -453,7 +513,7 @@ let &fcs='eob: '
 " background color.
 let &t_ut=' '
 
-
+" let g:loaded_matchit = 1
 " Set internal g:clipboard to save some startup time.
 if has('mac') && executable('pbpaste')
 	let g:clipboard = {
@@ -501,7 +561,7 @@ let g:closetag_regions = {
 let g:undotree_TreeNodeShape = '◉'
 let g:undotree_WindowLayout = 3
 let g:undotree_SplitWidth = 45
-let g:undotree_DiffpanelHeight = 20
+let g:undotree_DiffpanelHeight = 30
 let g:undotree_SetFocusWhenToggle = 1
 
 let g:importjs_disable_default_mappings = 1
@@ -513,28 +573,23 @@ set diffopt+=vertical
 let g:rooter_patterns = ['.git/', 'package.json', 'composer.json']
 let g:rooter_resolve_links = 1
 let g:rooter_silent_chdir  = 1
-
-" Indentline
-let g:indentLine_enabled = 0
-let g:indentLine_leadingSpaceChar = '·'
-let g:indentLine_char = '│'
-let g:indentLine_fileTypeExclude = [ 'coc-explorer', 'fzf', 'floaterm', 'startify' ]
-let g:indentLine_bufNameExclude  = ["term:.*"]
+let g:rooter_change_directory_for_non_project_files= 'current'
 
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 "}}}
 "*****************************************************************************
 
 "*****************************************************************************
-""{{{ Abbreviations
+""{{{ Abbreviations                                                          
 "*****************************************************************************
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
 cnoreabbrev Qall! qall!
-cnoreabbrev Wq wq
-cnoreabbrev Wa wa
-cnoreabbrev wQ wq
-cnoreabbrev WQ wq
+cnoreabbrev wq wq!
+cnoreabbrev Wq wq!
+cnoreabbrev Wa wa!
+cnoreabbrev wQ wq!
+cnoreabbrev WQ wq!
 cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev Qall qall
@@ -631,37 +686,37 @@ cabbrev Й q!
 "*****************************************************************************
 
 "*****************************************************************************
-"" {{{ Mappings
+"" {{{ Mappings                                                          
 "*****************************************************************************
 " let mapleader = ","
 " let localleader=" "
 let g:mapleader = "\<Space>"
 let g:maplocalleader = ','
-nmap \ <leader>
 
 nnoremap <Space> <Nop>
 nnoremap <silent><leader> :silent <c-u> :silent WhichKey '<Space>'<CR>
 vnoremap <silent><leader> :silent <c-u> :silent WhichKeyVisual '<Space>'<CR>
 
 " switch buffer
-nnoremap <silent> <S-l> :bn<CR>
-nnoremap <silent> <S-h> :bp<CR>
-map ;] :bnext<CR>
-map <Leader>] :bnext<CR>
-map ;[ :bprev<CR>
-map <Leader>[ :bprev<CR>
-nnoremap <silent><S-Tab> :b#<CR>
-nnoremap <silent><leader>bo :w <bar> %bd <bar> e# <bar> bd# <CR> "Only one buffer
+nnoremap <silent><A-Tab> :b#<CR>
+nnoremap <silent><leader>bo :w <bar> %bd <bar> e# <bar> bd# <CR>  "Only one buffer
+nnoremap <silent><leader>bd :bp<BAR>bd#<CR>   
+"
+" Buffer moving
+nnoremap [b :bprevious <CR> 
+nnoremap ]b :bnext <CR>
 
 " list buffers
 set wildcharm=<C-s>
 nnoremap <Tab><Tab> :buffer <C-s><S-Tab>
 
 
-nnoremap <silent><leader><leader> :CocCommand explorer --position floating<CR>
+nnoremap <silent><leader><leader> :CocCommand explorer --position floating --floating-position right-center --floating-width 50<CR>
 " fzf.vim mappings
-" nnoremap <silent><C-p> :Files<CR>
+" nnoremap <silent><C-f> :Files<CR>
 nnoremap <silent><C-p> :call FzfOmniFiles()<CR>
+nnoremap <silent><C-m> :CocCommand fzf-preview.ProjectMruFiles<CR>
+
 
 " Smooth Scrolling
 " nnoremap <silent> <C-d> :call comfortable_motion#flick(125)<CR>
@@ -671,6 +726,7 @@ nnoremap <silent><C-p> :call FzfOmniFiles()<CR>
 " noremap <silent> <ScrollWheelUp>   :call comfortable_motion#flick(-40)<CR>
 
 nmap <silent><F2> <Plug>(coc-rename)
+nmap <silent><BS> <C-^>
 
 " Use `[c` and `]c` to navigate diagnostics
 nmap <silent> [e <Plug>(coc-diagnostic-prev)
@@ -682,8 +738,16 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-nnoremap <M-j> }zz 
-nnoremap <M-k> {zz
+nnoremap <C-s> :noa w<CR>
+
+" Remap arrows to resize
+nnoremap <A-Up>    :resize +2<CR>
+nnoremap <A-Down>  :resize -2<CR>
+nnoremap <A-Left>  :vertical resize +2<CR>
+nnoremap <A-Right> :vertical resize -2<CR>
+
+nnoremap <A-j> }zz 
+nnoremap <A-k> {zz
 " Vmap for maintain Visual Mode after shifting > and <
 vmap < <gv
 vmap > >gv
@@ -692,20 +756,12 @@ vmap > >gv
 nmap > >>
 nmap < <<
 
-" Fixed I/A for visual
-xnoremap <expr> I mode() ==# 'v' ? "\<c-v>I" : mode() ==# 'V' ? "\<c-v>^o^I" : "I"
-xnoremap <expr> A mode() ==# 'v' ? "\<c-v>A" : mode() ==# 'V' ? "\<c-v>Oo$A" : "A
-
-" make movement and operations behave “as you would expect”, or just generally more useful.
-noremap <expr> G &wrap ? "G$g0" : "G"
-noremap <expr> 0 &wrap ? 'g0' : '0'
-noremap <expr> $ &wrap ? "g$" : "$"
-
 " j/k will move virtual lines (lines that wrap)
 nnoremap <expr> j v:count == 0 ? 'gj' : 'j'
 xnoremap <expr> j (v:count == 0 && mode() !=# 'V') ? 'gj' : 'j'
 nnoremap <expr> k v:count == 0 ? 'gk' : 'k'
 xnoremap <expr> k (v:count == 0 && mode() !=# 'V') ? 'gk' : 'k'
+
 
 " Stops regression to arrow keys, encourages learning of advanced motion keys
 nnoremap <Left> :echo "Use [h] for left"<CR>
@@ -735,6 +791,9 @@ vnoremap <Down> <Esc>:echo "Use [j] for down"<CR>
 " inoremap <expr> <Left> pumvisible() ? "<C-e>" : "<Left>"
 
 " Better nav for omnicomplete TODO figure out why this is being overridden
+ " Autocomplete navigation
+" inoremap <expr> j ((pumvisible())?("\<C-n>"):("j"))
+" inoremap <expr> k ((pumvisible())?("\<C-p>"):("k"))
 inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -753,10 +812,6 @@ nnoremap <silent> K ylpr<Enter>
 " Clear search highlighting with Escape key
 " nnoremap <silent><Esc> :noh<CR>:redraw!<CR><Esc>
 
-" auto escaping
-cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
-cnoremap <expr> ? getcmdtype() == '?' ? '\?' : '?'
-
 " paste over a selection, keep the unnamed register untouched and jump to the end of the pasted text
 xnoremap <expr> p 'pgv"' . v:register . 'y`]'
 
@@ -765,6 +820,7 @@ nnoremap x "_x
 
 " non-saving delete
 noremap X "_d
+
 " Repeat command for each line in selection
 vnoremap . :normal .<CR>
 " @: repeats macro on every line
@@ -781,9 +837,9 @@ nnoremap } }zz
 nnoremap { {zz
 nnoremap zj zjzz
 nnoremap zk zkzz
+nnoremap * *zz
+nnoremap # #zz
 
-
-nmap uu u
 nnoremap <silent><expr> <Esc> (
             \   exists('b:esc') ? b:esc
             \ : ':nohl<CR>' )
@@ -792,8 +848,7 @@ imap jj <Esc>`^
 imap kk <Esc>`^
 imap jk <Esc>`^
 imap kj <Esc>`^
-" inoremap <Esc> <Esc>`^
-
+imap <Esc> <Esc>`^
 
 " ¯\_(ツ)_/¯
 map <silent> q: :q<Cr>
@@ -807,8 +862,6 @@ tnoremap <Esc><Esc>  <C-\><C-n>:FloatermHide<CR>
 nnoremap <leader>cl :Consolate<cr>
 nnoremap <leader>ap :TurboConsoleLog<cr>
 
-xmap <silent> <RightMouse> :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
-xmap <silent> <leader>aa :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
 
 " Quick fold and unfold
 nnoremap <silent>zz :normal!za<cr>
@@ -818,11 +871,6 @@ nmap <expr> <2-LeftMouse> 'zz'
 " nmap <F1> :SwitchColors <C-s><S-Tab>
 " nnoremap <F3> :SyntaxInfo
 " nnoremap <silent><F4> :SourceThis<CR>
-" Formatting selected code.
-xmap <leader>fc  <Plug>(coc-format-selected)
-nmap <leader>fc  <Plug>(coc-format-selected)
-
-augroup mygroup
 
 " Surround line with { and }
 nnoremap  g{   m`o}<esc><lt><lt>kkA<Space>{<esc>``
@@ -834,10 +882,24 @@ vnoremap <c-r> "hy:%s/<c-r>h//gc<left><left><left>
 " Ctrl-s: Easier substitue
 vnoremap <c-s> :s/\%V//g<left><left><left>
 
- nmap <Leader>gm <Plug>(git-messenger)
+nmap <Leader>gm <Plug>(git-messenger)
+
+" Open file in a tab
+noremap <Leader>ot :tabe <C-R>=expand("%:p:h") . "/" <CR>
+" Open file cur path
+noremap <leader>of :e <C-R>=expand("%:p:h") . "/" <CR>
+
+" nmap <silent> <C-j> <Plug>(coc-split-term-show)
+" nmap <silent> <C-j> <Plug>(coc-split-term-hide)
+nmap <silent> <C-j> <Plug>(coc-split-term-toggle)
+
+" nnoremap <silent> <Leader>f. :Files <C-r>=expand("%:h")<CR>/<CR>
+nnoremap <silent> <Leader>fs     :<C-U>CocCommand fzf-preview.ProjectGrep <C-r>=expand('<cword>')<CR><CR>
+xnoremap          <Leader>fs     "sy:<C-U>CocCommand fzf-preview.ProjectGrep<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"<CR>
+
+
 "}}}
 "*****************************************************************************
 
 " vim: fdm=marker
-
 

@@ -36,7 +36,6 @@ let g:which_key_map['x'] = [ ':source $MYVIMRC | echom "Reloaded $NVIMRC" | redr
 let g:which_key_map['e'] = [ ':CocCommand explorer'       , 'Explorer' ]
 let g:which_key_map['z'] = [ ':Goyo'                      , 'Focus mode']
 let g:which_key_map['u'] = [ ':UndotreeToggle'            , 'Undo tree' ]
-let g:which_key_map['T'] = [ ':Todos'                     , 'Show TODO marks' ]
 
 "}}}
 
@@ -52,19 +51,24 @@ let g:which_key_map.a = {
       \ ',' : [':CtrlColumn'                    , 'Insert coma EOL'],
       \ ';' : [':CtrlSemicolumn'                , 'Insert semicolon EOL'],
       \ 'u' : [':SwitchCase'                    , 'Switch Case'],
-      \ 's' : [':SpellFix'                      , 'Fix Spell'],
+      \ 'F' : [':SpellFix'                      , 'Fix Spell'],
+      \ '"' : [':s/\%V\(.*\)\%V/"\1"/'   , 'surround ""'],
+      \ '(' : [':s/\%V\(.*\)\%V/(\1)/'   , 'surround ()'],
+      \ '{' : [':s/\%V\(.*\)\%V/{\1}/'   , 'surround {}'],
+      \ '[' : [':s/\%V\(.*\)\%V/[\1]/'   , 'surround ""'],
       \ 'c' : [':ConsoleFromReg'                , 'console.log yanked'],
-      \ 'm' : [':MakeTags'                , 'Make Tags'],
+      \ 'm' : [':MakeTags'                      , 'Make Tags'],
       \ }
 "}}}
 
 " {{{ Buffers
 let g:which_key_map.b = {
       \ 'name' : '+Buffer' ,
-      \ 'd' : ['bd'                                    , 'Delete buffer'  ],
+      \ 'd' : [''                                    , 'Delete buffer'  ],
       \ 'n' : ['bnext'                                 , 'Next buffer'    ],
       \ 'p' : ['bprevious'                             , 'Previous buffer'],
       \ 'b' : ['Buffers'                               , 'Buffers'   ],
+      \ 'B' : [':CocCommand fzf-preview.AllBuffers'    , 'All buffers'],
       \ 'o' : [''                                      , 'Only one buffer'],
       \ }
 
@@ -73,6 +77,7 @@ let g:which_key_map.b = {
 " {{{ Git
 let g:which_key_map.g = {
       \ 'name' : '+Git' ,
+      \ '.' : [':FzfPreviewGitActions'             , 'Actions'],
       \ 'A' : [':Git add .'                        , 'Add All'],
       \ 'a' : [':Git add %'                        , 'Add Current'],
       \ 's' : [':Gstatus'                          , 'Status'],
@@ -87,12 +92,11 @@ let g:which_key_map.g = {
       \ 'V' : [':GV!'                              , 'View Buffer Commits'],
       \ 'k' : {
           \ 'name' : '+GitCommands' ,
-          \ 'm' : [':Git respond'                      , 'Ammend commit'],
+          \ 'm' : [':Git amend'                        , 'Amend commit'],
           \ 'S' : [':Git save'                         , 'SAVEPOINT commit'],
-          \ 'W' : [':Git wipe'                         , 'Wipe SAVEPOINT commit'],
+          \ 'u' : [':Git undo'                         , 'Undo last commit'],
           \ 'b' : [':Git blame'                        , 'Blame'],
-          \ 'w' : [':Git gwip'                , 'Commit a work-in-progress(WIP) branch'],
-          \ 'u' : [':Git gunwip'              , 'Uncommit a work-in-progress(WIP) branch'],
+          \ 'p' : [':CocCommand fzf-preview.BlamePR'   , 'Blame PR'],
           \ 't' : [':CocCommand git.toggleGutters'     , 'Toggle Gutters'],
           \ },
       \ 'h' : {
@@ -121,21 +125,19 @@ let g:which_key_map.c = {
 			\ 'name' : '+Coc-Commands' ,
       \ '.' : [':CocConfig'                          , 'Config'],
       \ ';' : ['<Plug>(coc-refactor)'                , 'Refactor'],
-      \ 'a' : ['<Plug>(coc-codeaction)'              , 'Line action'],
+      \ 'a' : ['<Plug>(coc-codeaction)'              , 'Action'],
       \ 'A' : ['<Plug>(coc-codeaction-selected)'     , 'Selected action'],
-      \ 'b' : [':CocNext'                            , 'Next action'],
-      \ 'B' : [':CocPrev'                            , 'Prev action'],
       \ 'c' : [':CocList commands'                   , 'Commands'],
-      \ 'L' : [':CocFzfList'                         , 'List Fzf commands'],
       \ 'e' : [':CocList extensions'                 , 'Extensions list'],
-      \ 'd' : [':CocList diagnostics'                , 'Diagnostics'],
-      \ 'n' : ['<Plug>(coc-diagnostic-next-error)'   , 'Next error'],
-      \ 'p' : ['<Plug>(coc-diagnostic-prev-error)'   , 'Prev error'],
-      \ 'q' : ['<Plug>(coc-fix-current)'             , 'Quickfix'  ],
+      \ 'D' : [':CocCommand fzf-preview.CocDiagnostics'                , 'Diagnostics for project'],
+      \ 'd' : [':CocCommand fzf-preview.CocCurrentDiagnostics'                , 'Diagnostics for buffer'],
+      \ 'j' : ['<Plug>(coc-diagnostic-next-error)'   , 'Next error'],
+      \ 'k' : ['<Plug>(coc-diagnostic-prev-error)'   , 'Prev error'],
+      \ 'q' : [':CocCommand fzf-preview.QuickFix'    , 'Quickfix list'],
       \ 'f' : ['<Plug>(coc-format-selected)'         , 'Fix line'],
       \ 'r' : ['<Plug>(coc-rename)'                  , 'Rename'],
-      \ 'S' : [':CocList -I symbols'                 , 'References'],
-      \ 's' : [':CocList snippets'                   , 'Snippets'],
+      \ 's' : [':CocList -I symbols'                 , 'Search references'],
+      \ 'S' : [':CocList snippets'                   , 'Snippets'],
       \ 'u' : [':CocListResume'                      , 'Resume list'],
       \ 'x' : [':CocRestart'                         , 'Restart CoC'],
       \ 'y' : [':CocList -A --normal yank'           , 'Yank List'],
@@ -155,9 +157,25 @@ let g:which_key_map.j = {
       \ 'r' : ['<Plug>(coc-references)'              , 'References'],
       \ 'p' : ['<Plug>(coc-diagnostic-prev)'         , 'Prev diagnostic'],
       \ 'n' : ['<Plug>(coc-diagnostic-next)'         , 'Next diagnostic'],
+      \ 'l' : [':CocCommand fzf-preview.Jumps'       , 'Jumps List'],
       \ }
 
 "}}}
+
+"{{{ Fzf preview
+let g:which_key_map.f = {
+      \ 'name' : '+Fzf' ,
+      \ 'b' : [':FzfPreviewBufferLines'                             , 'In current buffer'],
+      \ 'T' : [':FzfTodo'                                           , 'TODO list'],
+      \ 'B' : [':FzfPreviewGitBranches'                             , 'Git Branches'],
+      \ 'd' : [':CocCommand fzf-preview.DirectoryFiles'             , 'Directories'],
+      \ 'f' : [':CocCommand fzf-preview.ProjectFiles'               , 'Files'],
+      \ 'g' : [':CocCommand fzf-preview.GitFiles'                   , 'Git files'],
+      \ 'm' : [':CocCommand fzf-preview.MruFiles'                   , 'MRU files'],
+      \ 'c' : [':CocCommand fzf-preview.Changes'                    , 'Changes'],
+      \ 'r' : [':CocCommand fzf-preview.CocReferences'              , 'References'],
+      \ }
+" }}}
 
 " {{{ Search
 
@@ -166,7 +184,6 @@ let g:which_key_map.s = {
       \ '/' : [':History/'              , 'History'],
       \ ';' : [':Commands'              , 'Commands'],
       \ 'b' : [':BLines'                , 'Current buffer'],
-      \ 'B' : [':Buffers'               , 'Open buffers'],
       \ 'c' : [':Commits'               , 'Commits'],
       \ 'C' : [':BCommits'              , 'Buffer commits'],
       \ 'f' : [':Files'                 , 'Files'],
@@ -175,14 +192,21 @@ let g:which_key_map.s = {
       \ 'h' : [':History'               , 'File history'],
       \ 'H' : [':History:'              , 'Command history'],
       \ 'l' : [':Lines'                 , 'Lines'] ,
-      \ 'm' : [':Marks'                 , 'Marks'] ,
+      \ 'm' : [''                       , 'Git Lens'] ,
       \ 'M' : [':Maps'                  , 'Binding maps'] ,
-      \ 'p' : [':Helptags'              , 'Help tags'] ,
+      \ 'P' : [':Helptags'              , 'Help tags'] ,
       \ 'T' : [':Tags'                  , 'Project tags'],
       \ 'S' : [':CocList snippets'      , 'Snippets'],
       \ 'w' : [':call SearchVisual()<CR>'                , 'Rg word'],
       \ 'v' : [':call SearchWord()<CR>'                , 'Rg visual selected'],
       \ 't' : [':Rg'                    , 'Text Rg'],
+      \ 'p' : {
+          \ 'name' : '+Projects' ,
+          \ 'm' : [':CocCommand fzf-preview.ProjectMruFiles'   , 'MRU (Most Recently Used) files'],
+          \ 'w' : [':CocCommand fzf-preview.ProjectMrwFiles'   , 'MRW (Most Recently Written) files'],
+          \ 'f' : [':CocCommand fzf-preview.ProjectFiles'      , 'Files'],
+          \ 'g' : [':call SearchRG()<CR>'                      , 'Grep word under cursor'],
+          \ },
       \ }
 "}}}
 
@@ -240,24 +264,16 @@ let g:which_key_map.S = {
 let g:which_key_map.t = {
 			\ 'name' : '+Toogle' ,
       \ 't' : [':FloatermToggle '               , 'Terminal'],
+      \ 'T' : [':ToggleTabline'                 , 'Tabline'],
 			\ 'i' : [':IndentLinesToggle'             , 'Indentline'],
 			\ 's' : [':LeadingSpaceToggle'            , 'Leading space'],
       \ 'c' : [':ColorizerToggle'               , 'Show Colors'],
       \ 'b' : [':RainbowToggle'                 , 'Color Brackets'],
-      \ 'r' : [':Codi'                          , 'ON Virtual REPL'],
-      \ 'R' : [':Codi!'                         , 'OFF Virtual REPL'],
+      \ 'r' : [':Codi'                        , 'OFF Virtual REPL'],
+      \ 'R' : [':Codi!'                        , 'OFF Virtual REPL'],
       \ 'S' : [':ToggleSpell'                   , 'Spell word'],
       \ 'm' : ['<Plug>MarkdownPreviewToggle'    , 'Markdown preview'],
-      \ }
-
-"}}}
-
-" {{{ Formaters
-let g:which_key_map.f = {
-			\ 'name' : '+Formaters' ,
-			\ 'w' : [':noa w'      , 'Save buffer without formatting'],
-			\ 'f' : [':Format'     , 'Format with Prettier'],
-			\ 'c' : [''            , 'Fromat selected'],
+      \ 'g' : [':CocCommand git.toggleGutters'  , 'Git Gutters'],
       \ }
 
 "}}}
@@ -265,14 +281,17 @@ let g:which_key_map.f = {
 " {{{ Open
 let g:which_key_map.o = {
 			\ 'name' : '+Open' ,
-      \ 'v' : [':Vista!!'                       , 'Vista'],
-      \ 'y' : [':FloatermNew ytop'                              , 'ytop'],
-      \ 'g' : [':FloatermNew lazygit'                           , 'lazygit'],
-      \ 'd' : [':FloatermNew lazydocker'                        , 'lazydocker'],
-      \ 'm' : [':FloatermNew lazynpm'                           , 'lazynpm'],
-      \ 'o' : [':FloatermNew node'                              , 'node'],
-      \ 'r' : [':FloatermNew ranger'                            , 'ranger'],
-      \ 's' : [':FloatermNew ncdu'                              , 'ncdu'],
+      \ 'f' : [''                                               , 'File'],
+      \ 'T' : [''                                               , 'Tab by file'],
+      \ 'v' : [':Vista!!'                                       , 'Vista'],
+      \ 'y' : [':FloatermNew ytop'                              , 'Ytop'],
+      \ 'g' : [':FloatermNew lazygit'                           , 'Lazygit'],
+      \ 'd' : [':FloatermNew lazydocker'                        , 'Lazydocker'],
+      \ 'm' : [':FloatermNew lazynpm'                           , 'Lazynpm'],
+      \ 'n' : [':FloatermNew node'                              , 'Node'],
+      \ 'r' : [':FloatermNew ranger'                            , 'Ranger'],
+      \ 's' : [':FloatermNew ncdu'                              , 'Ncdu'],
+      \ 't' : [':FloatermNew'                                   , 'Floaterm'],
       \ }
 
 "}}}
@@ -295,11 +314,9 @@ let g:which_key_map.m = {
 			\ 'a' : [':CocCommand bookmark.annotate'             , 'Named mark'],
 			\ 'n' : [':CocCommand bookmark.next'                 , 'Next'],
 			\ 'p' : [':CocCommand bookmark.prev'                 , 'Prev'],
-      \ 'l' : [':CocList bookmark'                         , 'List CoC marks'],
-      \ 'L' : [':NativeMarks<CR>'                          , 'List native marks'],
-			\ 'd' : [':delmarks!<CR>:delmarks A-Z0-9<CR>'        , 'Del native marks'],
 			\ 'c' : [':CocCommand bookmark.clearForCurrentFile'  , 'Clear buffer marks'],
 			\ 'C' : [':CocCommand bookmark.clearForAllFile'      , 'Clear all buffer marks'],
+      \ 'l' : [':CocCommand fzf-preview.Marks', 'list marks'],
       \ }
 "}}}
 
@@ -351,5 +368,6 @@ let g:which_key_map.m = {
 
 "}}}
 
-
 " vim: fdm=marker
+
+

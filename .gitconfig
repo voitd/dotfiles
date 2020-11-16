@@ -28,26 +28,39 @@
   # rebase
   rc = rebase --continue            # continue rebase
   rs = rebase --skip                # skip rebase
-
-	# Show verbose output about tags, branches or remotes
-	tags = tag -l
-	branches = branch -a
-	remotes = remote -v
-  unstage  = reset HEAD --
+  ps = "!git push origin $(git rev-parse --abbrev-ref HEAD)"
+  pl = "!git pull origin $(git rev-parse --abbrev-ref HEAD)"
 
   # emf: edit modified files
   # ecf: edit conflicted files
   # udf: untrack deleted files
   # dmb: delete merged branches
-  emf = ! nvim -p `git status -s | cut -b 4- | grep -v '\\/$' | uniq`
-  ecf = ! nvim -p `git ls-files --unmerged | cut -f2 | sort -u`
-  udf = ! git rm `git ls-files --deleted | cut -f2 | sort -u`
-  dmb = ! git branch --merged | grep -v \\* | grep -v master | xargs -n 1 git branch -d
+  emf = !nvim -p `git status -s | cut -b 4- | grep -v '\\/$' | uniq`
+  ecf = !nvim -p `git ls-files --unmerged | cut -f2 | sort -u`
+  udf = !git rm `git ls-files --deleted | cut -f2 | sort -u`
+  dmb = !git branch --merged | grep -v \\* | grep -v master | xargs -n 1 git branch -d
+  # edit conflicted file on merge
+  #edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`"
+  # add conflicted file on merge
+  #add-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
+
 
 	# View the current working tree status using the short format
   st = status --short --branch
 	amend-to = "!f() { SHA=`git rev-parse "$1"`; git commit --fixup "$SHA" && GIT_SEQUENCE_EDITOR=true git rebase --interactive --autosquash "$SHA^"; }; f"
   changelog = "!_() { t=$(git describe --abbrev=0 --tags); git log ${t}..HEAD --no-merges --pretty=format:'* %s'; }; _"
+
+  # list files which have changed since REVIEW_BASE
+  # (REVIEW_BASE defaults to 'master' in my zshrc)
+  files = !git diff --name-only $(git merge-base HEAD \"$REVIEW_BASE\")
+  # Open all files changed since REVIEW_BASE in Vim tabs
+  # Then, run fugitive's :Gdiff in each tab, and finally
+  # tell vim-gitgutter to show +/- for changes since REVIEW_BASE
+  review = !nvim -p $(git files) +\"tabdo Gvdiffsplit! $REVIEW_BASE\" +\"let g:gitgutter_diff_base = '$REVIEW_BASE'\"
+  # Same as the above, except specify names of files as arguments,
+  # instead of opening all files:
+  # git reviewone foo.js bar.js
+  reviewone = !nvim -p +\"tabdo Gvdiffsplit! $REVIEW_BASE\" +\"let g:gitgutter_diff_base = '$REVIEW_BASE'\"
 
   # Interactive rebase with the given number of latest commits
 	rebase-branch = "!r() { git rebase -i HEAD~$1; }; r"
@@ -57,6 +70,8 @@
 
   # interactive sync your current branch with master
   sync = "!git fetch origin && git rebase --interactive origin/master"
+    # interactive sync your current branch with master
+  syncu = "!git fetch upstream && git rebase --interactive upstream/master"
 
   # Pull in remote changes for the current repository and all its submodules
   up = "!git pull --rebase --prune $@ && git submodule update --init --recursive"
@@ -70,12 +85,10 @@
   unpushed = log --branches --not --remotes --no-walk --decorate --oneline
 
   conflicts = diff --name-only --diff-filter=U
-  wtf = "! git log --pretty=tformat:\"%C(auto,yellow)%h%C(auto)%d%C(auto,reset) by %C(auto,blue)%cn%C(auto,reset), %C(auto,cyan)%ar%C(auto,reset)%n %s%n\" --stat"
   # nice logs
-  l = log --color --graph --pretty=format:'%C(yellow)%h%Creset %s %C(bold green)%ar%Creset %C(bold blue)%an%Creset%C(bold red)%d%Creset -n 16'
+  l = log --color --graph --pretty=format:'%C(yellow)%h%Creset %s %C(bold green)%ar%Creset %C(bold blue)%an%Creset%C(bold red)%d%Creset' -n 16
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative -n 10
   lgf = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-  history = log -10 --format=format:'%Cgreen%h %Creset• %s (%cN, %ar)'
 	lines = ! git ls-files | xargs cat | wc -l
 
   fzfshow = "!f() { \

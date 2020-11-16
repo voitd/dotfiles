@@ -45,7 +45,7 @@ alias tkall="tmux list-sessions | grep -v attached | cut -d: -f1 |  xargs -t -n1
 alias ls='exa -G  --color auto --icons -a -s type'
 alias ll='exa -alhF --group-directories-first --time-style=long-iso'
 # alias llex='ll --git-ignore --ignore-glob=".git|node_modules"' tr2='llex -T -L=2' tr3='llex -T -L=3'
-alias cdls="cd && cd - && ls -G"
+alias lcd="cd && ls -G"
 
 # Colorized cat.
 alias cat='bat -pp --theme="Nord"'
@@ -73,17 +73,18 @@ alias brewup='brew update && brew upgrade && brew cask upgrade'
 
 
 # docker
-alias doc="docker"
-alias docspa="docker stop (docker ps -a -q)"
+alias dk="docker"
+alias dksa="docker stop (docker ps -a -q)"
+alias dkda="docker rm -f (docker ps -a -q)"
+alias dkdv="docker volume rm (docker volume ls -q)"
 alias dks="docker stats"
+alias dkst="docker stats --format 'table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}'"
 alias dkc="docker-compose"
 alias dke="docker exec -it"
 alias dkm="docker-machine"
 
 
 #git
-alias upd="git pull origin develop:develop --rebase --ff-only"
-alias upm="git pull origin master:master --rebase --ff-only"
 alias gct='cat ~/dotfiles/commit-types'
 alias commit="/Users/void/validate-commit.py"
 
@@ -96,27 +97,30 @@ alias speedtest="curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/m
 
 # Get External IP / Internet Speed
 alias myip="curl https://ipinfo.io/json" # or /ip for plain-text ip
+
 # Get macOS Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
 alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; npm install npm -g; npm update -g;'
+
 # Recursively delete `.DS_Store` files
 alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
+
 # Kill all the tabs in Chrome to free up memory
 # [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
 alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
+
 # Lock the screen (when going AFK)
 alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
-alias webdev="./bin/webpack-dev-server --watch --colors --progress"
 
 alias rebuild_open_with_index="/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -r -domain local -domain user; killall Finder"
 alias rebuild_spotlight_index="sudo mdutil -i on /"
 alias rebuild_indices="rebuild_open_with_index && rebuild_spotlight_index"
 alias rbi="rebuild_indices"
 
-abbr smbreload "sudo kextload /System/Library/Extensions/smbfs.kext"
-
+alias kr 'kitty @ set-colors -a "~/.config/kitty/colors/rigel.conf"'
 alias kd 'kitty @ set-colors -a "~/.config/kitty/colors/gruvbox-dark.conf"'
 alias kl 'kitty @ set-colors -a "~/.config/kitty/colors/gruvbox-light.conf"'
 alias kpl 'kitty @ set-colors -a "~/.config/kitty/colors/palenight.conf"'
+
 
 abbr Dl  "cd ~/Downloads/"
 abbr g 'git'
