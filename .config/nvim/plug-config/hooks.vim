@@ -52,9 +52,9 @@ au VimEnter *
 " Make sure the terminal buffer has no numbers and no sign column
 " Always open on insert mode
 " tnoremap <Esc> <C-\><C-n>
-" au TermOpen * setlocal signcolumn=no nonumber norelativenumber statusline=%{b:term_title}
-" au TermOpen term://* startinsert
-" au BufLeave term://* stopinsert
+au TermOpen * setlocal signcolumn=no nonumber norelativenumber statusline=%{b:term_title}
+au TermOpen term://* startinsert
+au BufLeave term://* stopinsert
 au BufEnter * if &buftype == 'terminal' | :startinsert | endif
 au FileType floaterm tnoremap <buffer> <C-h> <c-\><c-n>:FloatermPrev<CR>
 au FIleType floaterm tnoremap <buffer> <C-l> <c-\><c-n>:FloatermNext<CR>
@@ -80,8 +80,8 @@ au BufReadPost *
 au FocusLost * :wa!
 
 " Only show the cursor line in the active buffer.
-au VimEnter,WinEnter,BufWinEnter,BufEnter * setlocal relativenumber cursorline ""statusline=%!ActiveLine() 
-au WinLeave,BufLeave * setlocal norelativenumber nocursorline ""statusline=%!InactiveLine()
+au VimEnter,WinEnter,BufWinEnter,BufEnter * setlocal cursorline ""statusline=%!ActiveLine() 
+au WinLeave,BufLeave * setlocal nocursorline ""statusline=%!InactiveLine()
 
 " Every time you open a git object using fugitive it creates a new buffer.
 " This means that your buffer listing can quickly become swamped with
@@ -137,7 +137,7 @@ au VimResized * :wincmd =
 "" Commands
 "*****************************************************************************
 
-
+command! Sudo w !sudo tee %
 " Remove trailing whitespaces
 command! FixWhitespace :%s/\s\+$//e
 
@@ -289,6 +289,20 @@ function! SpellFix()
   echom "Spell fixed!"
 endfunction
 command! SpellFix silent! call SpellFix()
+
+let g:git_blame_show = 0
+
+function! ToggleGitBlame()
+  if g:git_blame_show == 0
+    call coc#config('git.addGBlameToVirtualText', v:true)
+    let g:git_blame_show = 1
+  else
+    call coc#config('git.addGBlameToVirtualText', v:false)
+    let g:git_blame_show = 0
+  endif
+endfunction
+command! ToggleGitBlame silent! call ToggleGitBlame()
+
 
 " Add a debug statement
 " Takes a variable name as an arg and will output a debug log

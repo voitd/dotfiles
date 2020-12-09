@@ -75,9 +75,8 @@ alias brewup='brew update && brew upgrade && brew cask upgrade'
 # docker
 alias dk="docker"
 alias dksa="docker stop (docker ps -a -q)"
-alias dkda="docker rm -f (docker ps -a -q)"
+alias dkda="docker rm (docker ps -a -q)"
 alias dkdv="docker volume rm (docker volume ls -q)"
-alias dks="docker stats"
 alias dkst="docker stats --format 'table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}'"
 alias dkc="docker-compose"
 alias dke="docker exec -it"
@@ -135,8 +134,6 @@ abbr d 'dots'
 # bare git repo alias for dotfiles
 alias dots="/usr/local/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME"
 alias dotfiles="/usr/local/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME"
-# alias dotsall="dots add commit-types .tmux.conf .gitconfig .config/fish/config.fish
-# .config/nvim/init.vim .config/nvim/coc-settings.json .config/nvim/plug-config .config/kitty/"
 
 
 # vim: foldmethod=marker:sw=2:foldlevel=10

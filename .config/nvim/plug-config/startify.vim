@@ -72,14 +72,14 @@ endfunction
 let g:startify_lists = [
       \ { 'type': 'sessions',                    'header': ["      \ue62e Sessions"]           },
       \ { 'type': 'files',                       'header': ["      \ufa1e Files"]              },
-      \ { 'type': 'dir',                         'header': ["      \ufa1e MRU in ". getcwd()]  },
-      \ { 'type': function('s:gitModified'),     'header': ["      Git Modified"]              },
       \ { 'type': function('s:list_commits'),    'header': ["       Commits "]                },
       \ { 'type': 'bookmarks',                   'header': ["      \uf5c2 Bookmarks"]          },
       \ { 'type': 'commands',                    'header': ["      \ufb32 Commands"]           },
       \ { 'type': function('s:pluginInfo'),      'header': ["      漣Plugin loaded " .len(get(g:, 'plugs', 0)).' '], 'indices': ['I','U','C','S'] },
       \ ]
 
+      " \ { 'type': 'dir',                         'header': ["      \ufa1e MRU in ". getcwd()]  },
+      " \ { 'type': function('s:gitModified'),     'header': ["      Git Modified"]              },
  let g:startify_commands = [
       \ {'h': ['Check Vim health'       , ':checkhealth']},
       \ {'u': ['Update CoC Plugin'      , ':CocUpdate']},
@@ -101,7 +101,7 @@ let g:startify_bookmarks = [
 let g:startify_session_sort = 1 " sort sessions by alphabet or modification time
 let g:startify_change_to_dir = 1 " when opening a file or bookmark, change to its directory
 let g:startify_session_autoload = 1
-let g:startify_session_delete_buffers = 1
+let g:startify_session_delete_buffers = 0
 let g:startify_session_persistence = 1
 let g:startify_change_to_vcs_root = 1
 let g:startify_padding_left = 5

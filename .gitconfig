@@ -1,5 +1,5 @@
 [user]
-	name = Dimytr Voitenko
+	name = voitd
 	email = dimytr.voitenko@gmail.com
 [core]
   editor = nvim
@@ -25,28 +25,39 @@
   # push 
   p = push
   pf = push --force-with-lease
+
+  sw = checkout -
   # rebase
   rc = rebase --continue            # continue rebase
   rs = rebase --skip                # skip rebase
-  ps = "!git push origin $(git rev-parse --abbrev-ref HEAD)"
-  pl = "!git pull origin $(git rev-parse --abbrev-ref HEAD)"
+  ps = git push origin $(git rev-parse --abbrev-ref HEAD)
+  pl = git pull origin $(git rev-parse --abbrev-ref HEAD)
 
   # emf: edit modified files
   # ecf: edit conflicted files
   # udf: untrack deleted files
   # dmb: delete merged branches
+  # addf: add untracked files to index
+  # addu: remove staged files from index
   emf = !nvim -p `git status -s | cut -b 4- | grep -v '\\/$' | uniq`
   ecf = !nvim -p `git ls-files --unmerged | cut -f2 | sort -u`
   udf = !git rm `git ls-files --deleted | cut -f2 | sort -u`
   dmb = !git branch --merged | grep -v \\* | grep -v master | xargs -n 1 git branch -d
+  addf = !git ls-files -m -o --exclude-standard | fzf -m --print0 | xargs -0 git add
+  addu = !git diff --name-only --cached | fzf -m --print0 | xargs -0 git restore --staged
   # edit conflicted file on merge
-  #edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`"
+  edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`"
   # add conflicted file on merge
-  #add-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
+  add-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
 
 
 	# View the current working tree status using the short format
   st = status --short --branch
+  ss  = stash save
+	sc  = stash clear
+	sl  = !git stash list | awk -F':' '{print $1}' | fzf --preview 'git -c color.ui=always stash show -p {}'
+	sp  = !git stash pop `git stash list | awk -F':' '{print $1}' | fzf --preview 'git -c color.ui=always stash show -p {}'`
+	sd  = !git stash drop `git stash list | awk -F':' '{print $1}' | fzf --preview 'git -c color.ui=always stash show -p {}'`
 	amend-to = "!f() { SHA=`git rev-parse "$1"`; git commit --fixup "$SHA" && GIT_SEQUENCE_EDITOR=true git rebase --interactive --autosquash "$SHA^"; }; f"
   changelog = "!_() { t=$(git describe --abbrev=0 --tags); git log ${t}..HEAD --no-merges --pretty=format:'* %s'; }; _"
 
@@ -66,15 +77,15 @@
 	rebase-branch = "!r() { git rebase -i HEAD~$1; }; r"
 
   # respond to PR feedback
-  pr ="!git commit --amend --reuse-message=HEAD --no-edit && git push --force-with-lease"
+  pr =!git commit --amend --reuse-message=HEAD --no-edit && git push --force-with-lease
 
   # interactive sync your current branch with master
-  sync = "!git fetch origin && git rebase --interactive origin/master"
+  sync = !git fetch origin && git rebase --interactive origin/master
     # interactive sync your current branch with master
-  syncu = "!git fetch upstream && git rebase --interactive upstream/master"
+  syncu = !git fetch upstream && git rebase --interactive upstream/master
 
   # Pull in remote changes for the current repository and all its submodules
-  up = "!git pull --rebase --prune $@ && git submodule update --init --recursive"
+  up = !git pull --rebase --prune $@ && git submodule update --init --recursive
 
 	# Switch to a branch, creating it if necessary
 	go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"

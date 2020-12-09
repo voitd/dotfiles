@@ -17,17 +17,21 @@ source ~/.config/nvim/statusline.vim
 " Plagins
 source ~/.config/nvim/plug-config/hooks.vim
 source ~/.config/nvim/plug-config/coc.vim
+source ~/.config/nvim/plug-config/codi.vim
 source ~/.config/nvim/plug-config/startify.vim
 source ~/.config/nvim/plug-config/which-key.vim
 source ~/.config/nvim/plug-config/floaterm.vim
 source ~/.config/nvim/plug-config/goyo.vim
 source ~/.config/nvim/plug-config/fzf.vim
-source ~/.config/nvim/plug-config/fzf-preview.vim
 source ~/.config/nvim/plug-config/sneak.vim
 source ~/.config/nvim/plug-config/conflict-marker.vim
 source ~/.config/nvim/plug-config/rainbow.vim
-source ~/.config/nvim/plug-config/vista.vim
 source ~/.config/nvim/plug-config/indentline.vim
+" source ~/.config/nvim/plug-config/test.vim
+" source ~/.config/nvim/plug-config/notes.vim
+" source ~/.config/nvim/plug-config/fzf-preview.vim
+" source ~/.config/nvim/plug-config/vista.vim
+" source ~/.config/nvim/plug-config/tmux.vim
 
 "*****************************************************************************
 ""{{{  Plugin                                                                 
@@ -79,12 +83,13 @@ Plug 'MaxMEllon/vim-jsx-pretty', { 'for': ['javascriptreact', 'typescriptreact']
 " Coc {{{
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': 'yarn install --frozen-lockfile'}
 Plug 'antoinemadec/coc-fzf'
+
 "}}}
 
 " FZF {{{
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'yuki-ycino/fzf-preview.vim', { 'branch': 'release', 'do': ':UpdateRemotePlugins' }
+" Plug 'yuki-ycino/fzf-preview.vim', { 'branch': 'release', 'do': ':UpdateRemotePlugins' }
 " Plug 'benwainwright/fzf-switch-project'
 "}}}
 
@@ -95,10 +100,12 @@ if executable('git')
   " https://gist.github.com/voitd/60f606b02724dbb863ed09e7f5679b43
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-rhubarb'
+  " A git blame plugin for (neo)vim inspired by VS Code's GitLens plugin.
+  " Plug 'APZelos/blamer.nvim'
   " Git commit browser.
   Plug 'junegunn/gv.vim'
-  " reveal the hidden message from Git under the cursor quickly
-  Plug 'rhysd/git-messenger.vim'
+  " Merginal aims to provide a nice interface for dealing with Git branches. It offers interactive TUI :MerginalToggle
+  " Plug 'idanarye/vim-merginal'
 endif
 " }}} 
 
@@ -122,6 +129,22 @@ Plug 'frazrepo/vim-rainbow'
 Plug 'Yggdroot/indentLine'
 " }}}
 
+" Tmux {{{
+" plugin for vim-tmux interactions
+" Plug 'christoomey/vim-tmux-navigator'
+" resizing windows
+" Plug 'talek/obvious-resize'
+" send lines to tmux pane repl
+" Plug 'esamattis/slimux'
+
+" }}}
+
+" Tests {{{
+" Plug 'kubejm/jest.nvim'
+Plug 'vim-test/vim-test'
+"Plug 'rcarriga/vim-ultest'
+" }}}
+
 " take screenshot from visual selection code
 " Plug 'kristijanhusak/vim-carbon-now-sh'
 
@@ -140,7 +163,6 @@ Plug 'machakann/vim-sandwich'
 " Auto commentary [gcc]
 Plug 'tpope/vim-commentary'
 
-
 " match-up is a plugin that lets you highlight, navigate, and operate on sets of matching text. It extends vim's % 
 " Plug 'andymass/vim-matchup'
 
@@ -148,7 +170,7 @@ Plug 'tpope/vim-commentary'
 Plug 'AndrewRadev/tagalong.vim'
 
 " View and search LSP symbols, tags
-Plug 'liuchengxu/vista.vim'
+" Plug 'liuchengxu/vista.vim'
 " Live server
 " Plug 'turbio/bracey.vim
 
@@ -157,7 +179,7 @@ Plug 'liuchengxu/vista.vim'
 Plug 'rhysd/conflict-marker.vim'
 
 "Yank something that you want to console.log into your register and then run :Consolate
-Plug 'agarrharr/consolation-vim'
+" Plug 'agarrharr/consolation-vim'
 
 " Emmet snippets
 Plug 'mattn/emmet-vim'
@@ -176,10 +198,11 @@ Plug 'metakirby5/codi.vim'
 Plug 'justinmk/vim-sneak'
 
 " Smooth scroll
-" Plug 'yuttie/comfortable-motion.vim'
+Plug 'yuttie/comfortable-motion.vim'
 
 " Snippets
 Plug 'dominikduda/vim_es7_javascript_react_snippets'
+Plug 'joaohkfaria/vim-jest-snippets'
 
 " ImportJS helps you import JavaScript dependencies. Hit a keyboard shortcut to automatically
 " add import x from 'y' statements at the top of the file.
@@ -209,9 +232,16 @@ call plug#end()
 
 set termguicolors
 " colorscheme github-light
-" colorscheme paper
+colorscheme paper
 " set background=light    
 " source ~/.config/nvim/plug-config/st2.vim
+
+" let g:time = strftime("%H")
+" if  g:time > 08 && g:time < 17
+"     set background=light    
+" else
+"     set background=dark
+" endif
 
 " colorscheme nord
 " let g:nord_cursor_line_number_background = 1
@@ -230,10 +260,10 @@ set termguicolors
  " set statusline=%!ActiveLine() 
 
 
-" colorscheme rigel
-" let g:rigel_italic=1
-" let g:rigel_bold=1
-" source ~/.config/nvim/plug-config/statusline/rigel-line.vim
+colorscheme rigel
+let g:rigel_italic=1
+let g:rigel_bold=1
+source ~/.config/nvim/plug-config/statusline/rigel-line.vim
 
     " set termguicolors
     " colorscheme paper
@@ -248,20 +278,20 @@ hi! VertSplit guibg=NONE guifg=#001a24
 " hi! MatchParen cterm=italic gui=italic 
 " hi StatusLine guibg=NONE
 
-let g:time = strftime("%H")
-if  g:time > 08 && g:time < 17
-    set termguicolors
-    colorscheme paper
-    set background=light    
-    set statusline=%!ActiveLine() 
-else
-    " set background=dark
-    colorscheme rigel
-    let g:rigel_italic=1
-    let g:rigel_bold=1
-    source ~/.config/nvim/plug-config/statusline/rigel-line.vim
-  " hi Comment guifg=#5C6370
-endif
+" let g:time = strftime("%H")
+" if  g:time > 08 && g:time < 17
+"     set termguicolors
+"     colorscheme paper
+"     set background=light    
+"     set statusline=%!ActiveLine() 
+" else
+"     " set background=dark
+"     colorscheme rigel
+"     let g:rigel_italic=1
+"     let g:rigel_bold=1
+"     source ~/.config/nvim/plug-config/statusline/rigel-line.vim
+"   " hi Comment guifg=#5C6370
+" endif
 
 " Color Settings as transparent
 " set background=dark cursorline termguicolors
@@ -335,11 +365,13 @@ if executable('fish')
     " use bash for else
     let $SHELL = 'bash'
 endif
+
 if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   set termguicolors
 endif
+
 " Cursor settings. This makes terminal vim sooo much nicer!
 " Tmux will only forward escape sequences to the terminal if surrounded by a DCS
 " sequence
@@ -502,7 +534,6 @@ set wildignore+=*/node_modules/*,*/vendor/*
 "*****************************************************************************
 ""{{{ Custom configs                                                          
 "*****************************************************************************
-
 " Remove tildas on end of buffer
 let &fcs='eob: '
 
@@ -544,7 +575,7 @@ elseif exists('$DISPLAY') && executable('xclip')
 endif
 
 let g:python_host_prog  = expand('/usr/bin/python' )
-let g:python3_host_prog = expand('/usr/local/bin/python3.8')
+let g:python3_host_prog = expand('/usr/local/bin/python3')
 let g:loaded_python3_provider = 1
 
 " vim autoclose tag config
@@ -699,55 +730,61 @@ vnoremap <silent><leader> :silent <c-u> :silent WhichKeyVisual '<Space>'<CR>
 
 " switch buffer
 nnoremap <silent><A-Tab> :b#<CR>
-nnoremap <silent><leader>bo :w <bar> %bd <bar> e# <bar> bd# <CR>  "Only one buffer
-nnoremap <silent><leader>bd :bp<BAR>bd#<CR>   
+nnoremap <silent><leader>bo :w<BAR>%bd<BAR>e#<BAR>bd#<CR>
+nnoremap <silent><leader>bd :b#<BAR>bd#<CR>   
 "
+" Error moving
+nmap <silent> [e <Plug>(coc-diagnostic-prev)
+nmap <silent> ]e <Plug>(coc-diagnostic-next)
+" navigate chunks of current buffer
+nmap <silent> [g <Plug>(coc-git-prevchunk)
+nmap <silent> ]g <Plug>(coc-git-nextchunk)
+" navigate conflicts of current buffer
+nmap <silent> [c <Plug>(coc-git-prevconflict)
+nmap <silent> ]c <Plug>(coc-git-nextconflict)
 " Buffer moving
-nnoremap [b :bprevious <CR> 
-nnoremap ]b :bnext <CR>
+nnoremap <silent> [b :bprevious<CR> 
+nnoremap <silent> ]b :bnext<CR>
+" Tabs moving
+nnoremap <silent> [t :tabprevious<CR>
+nnoremap <silent> ]t :tabnext<CR>
+" Window moving
+nnoremap <silent> [w <C-w>w
+nnoremap <silent> ]w <C-w>W
 
 " list buffers
 set wildcharm=<C-s>
 nnoremap <Tab><Tab> :buffer <C-s><S-Tab>
 
-
 nnoremap <silent><leader><leader> :CocCommand explorer --position floating --floating-position right-center --floating-width 50<CR>
 " fzf.vim mappings
 " nnoremap <silent><C-f> :Files<CR>
 nnoremap <silent><C-p> :call FzfOmniFiles()<CR>
-nnoremap <silent><C-m> :CocCommand fzf-preview.ProjectMruFiles<CR>
-
 
 " Smooth Scrolling
 " nnoremap <silent> <C-d> :call comfortable_motion#flick(125)<CR>
 " nnoremap <silent> <C-u> :call comfortable_motion#flick(-125)<CR>
 " ScrollWheel smooth scroll
- " noremap <silent> <ScrollWheelDown> :call comfortable_motion#flick(40)<CR>
+" noremap <silent> <ScrollWheelDown> :call comfortable_motion#flick(40)<CR>
 " noremap <silent> <ScrollWheelUp>   :call comfortable_motion#flick(-40)<CR>
 
 nmap <silent><F2> <Plug>(coc-rename)
 nmap <silent><BS> <C-^>
 
-" Use `[c` and `]c` to navigate diagnostics
-nmap <silent> [e <Plug>(coc-diagnostic-prev)
-nmap <silent> ]e <Plug>(coc-diagnostic-next)
-
 " Better window navigation
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
 
 nnoremap <C-s> :noa w<CR>
 
 " Remap arrows to resize
 nnoremap <A-Up>    :resize +2<CR>
 nnoremap <A-Down>  :resize -2<CR>
-nnoremap <A-Left>  :vertical resize +2<CR>
-nnoremap <A-Right> :vertical resize -2<CR>
+nnoremap <A-Left>  :vertical resize -2<CR>
+nnoremap <A-Right> :vertical resize +2<CR>
 
-nnoremap <A-j> }zz 
-nnoremap <A-k> {zz
 " Vmap for maintain Visual Mode after shifting > and <
 vmap < <gv
 vmap > >gv
@@ -757,10 +794,10 @@ nmap > >>
 nmap < <<
 
 " j/k will move virtual lines (lines that wrap)
-nnoremap <expr> j v:count == 0 ? 'gj' : 'j'
-xnoremap <expr> j (v:count == 0 && mode() !=# 'V') ? 'gj' : 'j'
-nnoremap <expr> k v:count == 0 ? 'gk' : 'k'
-xnoremap <expr> k (v:count == 0 && mode() !=# 'V') ? 'gk' : 'k'
+" nnoremap <expr> j v:count == 0 ? 'gj' : 'j'
+" xnoremap <expr> j (v:count == 0 && mode() !=# 'V') ? 'gj' : 'j'
+" nnoremap <expr> k v:count == 0 ? 'gk' : 'k'
+" xnoremap <expr> k (v:count == 0 && mode() !=# 'V') ? 'gk' : 'k'
 
 
 " Stops regression to arrow keys, encourages learning of advanced motion keys
@@ -848,7 +885,7 @@ imap jj <Esc>`^
 imap kk <Esc>`^
 imap jk <Esc>`^
 imap kj <Esc>`^
-imap <Esc> <Esc>`^
+" imap <Esc><Esc> <Esc>`^
 
 " ¯\_(ツ)_/¯
 map <silent> q: :q<Cr>
@@ -864,9 +901,11 @@ nnoremap <leader>ap :TurboConsoleLog<cr>
 
 
 " Quick fold and unfold
-nnoremap <silent>zz :normal!za<cr>
+map _ zM
+map + zR
+" nnoremap <silent>zz :normal!za<cr>
 " Fold code open/close with click
-nmap <expr> <2-LeftMouse> 'zz'
+nmap <expr> <2-LeftMouse> 'za'
 
 " nmap <F1> :SwitchColors <C-s><S-Tab>
 " nnoremap <F3> :SyntaxInfo
@@ -877,25 +916,17 @@ nnoremap  g{   m`o}<esc><lt><lt>kkA<Space>{<esc>``
 
 nnoremap <leader>ar :CocSearch <C-R>=expand("<cword>")<CR><CR>
 
-" Ctrl-r: Easier search and replace
-vnoremap <c-r> "hy:%s/<c-r>h//gc<left><left><left>
-" Ctrl-s: Easier substitue
-vnoremap <c-s> :s/\%V//g<left><left><left>
-
-nmap <Leader>gm <Plug>(git-messenger)
-
 " Open file in a tab
 noremap <Leader>ot :tabe <C-R>=expand("%:p:h") . "/" <CR>
 " Open file cur path
 noremap <leader>of :e <C-R>=expand("%:p:h") . "/" <CR>
 
-" nmap <silent> <C-j> <Plug>(coc-split-term-show)
-" nmap <silent> <C-j> <Plug>(coc-split-term-hide)
-nmap <silent> <C-j> <Plug>(coc-split-term-toggle)
+nmap <silent> <C-j> :FloatermNew --height=0.3 --wintype=normal --position=bottom <CR>
+nmap <silent> <C-l> :FloatermNew --width=0.4 --wintype=normal --position=right <CR>
 
-" nnoremap <silent> <Leader>f. :Files <C-r>=expand("%:h")<CR>/<CR>
-nnoremap <silent> <Leader>fs     :<C-U>CocCommand fzf-preview.ProjectGrep <C-r>=expand('<cword>')<CR><CR>
-xnoremap          <Leader>fs     "sy:<C-U>CocCommand fzf-preview.ProjectGrep<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"<CR>
+
+nm <silent> <Leader>js :call CocAction('jumpDefinition','vsplit')<CR>
+nm <silent> <Leader>jsh :call CocAction('jumpDefinition','split')<CR>
 
 
 "}}}

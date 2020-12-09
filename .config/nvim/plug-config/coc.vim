@@ -79,7 +79,11 @@ let g:coc_global_extensions = [
   \ 'coc-explorer',
   \ 'coc-docker',
   \ 'coc-yank',
+  \ 'coc-word',
   \ 'coc-style-helper',
+  \ 'coc-dictionary',
+  \ 'coc-prettier',
+  \ 'coc-inline-jest',
   \ ]
 " \ 'coc-spell-checker',
 
@@ -91,9 +95,9 @@ if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
   let g:coc_global_extensions += ['coc-eslint']
 endif
 
-if isdirectory('./node_modules') && isdirectory('./node_modules/stylelint')
-  let g:coc_global_extensions += ['coc-stylelintplus']
-endif
+" if isdirectory('./node_modules') && isdirectory('./node_modules/stylelint')
+"   let g:coc_global_extensions += ['coc-stylelintplus']
+" endif
 
 autocmd FileType javascript,javascriptreact,typescript,typescript.tsx let b:coc_root_patterns =
         \ ['.git', 'package-lock.json', 'yarn.lock']
@@ -108,6 +112,12 @@ xmap if <Plug>(coc-funcobj-i)
 xmap af <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
+
+
+" show chunk diff at current position
+nmap gs <Plug>(coc-git-chunkinfo)
+" show commit contains current position
+nmap gc <Plug>(coc-git-commit)
 
 " " Fancy Hover:
 " function! ShowDocIfNoDiagnostic(timer_id)

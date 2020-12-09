@@ -38,3 +38,6 @@ let g:ale_fixers = {
 \  'dart': ['dartfmt']
 \}
 let g:ale_javascript_prettier_use_local_config = 1
+
+" ALE quick command to toggle fixing"
+command! ALEToggleFixer execute "let g:ale_fix_on_save = get(g:, 'ale_fix_on_save', 0) ? 0 : 1"

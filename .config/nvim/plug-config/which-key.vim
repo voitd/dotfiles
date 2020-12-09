@@ -24,7 +24,7 @@ autocmd  FileType which_key set laststatus=0 noshowmode noruler
 
 autocmd! User vim-which-key call which_key#register('<Space>', 'g:which_key_map')
 
-"{{{ Main mapinng
+" {{{ Main mapinng
 
 let g:which_key_display_names = {' ': '', '<CR>': '↵', '<C-H>': '', '<C-I>': 'ﲑ', '<TAB>': '⇆'}
 " Single mappings
@@ -39,7 +39,7 @@ let g:which_key_map['u'] = [ ':UndotreeToggle'            , 'Undo tree' ]
 
 "}}}
 
-"{{{ Actions
+" {{{ Actions
 let g:which_key_map.a = {
       \ 'name' : '+Actions' ,
       \ 'A' : [':norm ggVG'                     , 'Select All'],
@@ -52,6 +52,7 @@ let g:which_key_map.a = {
       \ ';' : [':CtrlSemicolumn'                , 'Insert semicolon EOL'],
       \ 'u' : [':SwitchCase'                    , 'Switch Case'],
       \ 'F' : [':SpellFix'                      , 'Fix Spell'],
+      \ 's' : ['::CarbonNowSh'                      , 'Screenshot Carbon.now'],
       \ '"' : [':s/\%V\(.*\)\%V/"\1"/'   , 'surround ""'],
       \ '(' : [':s/\%V\(.*\)\%V/(\1)/'   , 'surround ()'],
       \ '{' : [':s/\%V\(.*\)\%V/{\1}/'   , 'surround {}'],
@@ -68,8 +69,10 @@ let g:which_key_map.b = {
       \ 'n' : ['bnext'                                 , 'Next buffer'    ],
       \ 'p' : ['bprevious'                             , 'Previous buffer'],
       \ 'b' : ['Buffers'                               , 'Buffers'   ],
-      \ 'B' : [':CocCommand fzf-preview.AllBuffers'    , 'All buffers'],
       \ 'o' : [''                                      , 'Only one buffer'],
+      \ 's' : [':BLines'                , 'Search in buffer'],
+      \ 't' : [':BTags'                , 'Tags in buffer'],
+      \ 'c' : [':BCommits'              , 'Buffer commits'],
       \ }
 
 "}}}
@@ -77,10 +80,10 @@ let g:which_key_map.b = {
 " {{{ Git
 let g:which_key_map.g = {
       \ 'name' : '+Git' ,
-      \ '.' : [':FzfPreviewGitActions'             , 'Actions'],
       \ 'A' : [':Git add .'                        , 'Add All'],
       \ 'a' : [':Git add %'                        , 'Add Current'],
       \ 's' : [':Gstatus'                          , 'Status'],
+      \ '.' : [':Magit'                          , 'Magit'],
       \ 'c' : [':Gcommit'                          , 'Commit'],
       \ 'b' : [':GCheckout'                        , 'Checkout'],
       \ 'p' : [':Git push'                         , 'Push'],
@@ -96,7 +99,6 @@ let g:which_key_map.g = {
           \ 'S' : [':Git save'                         , 'SAVEPOINT commit'],
           \ 'u' : [':Git undo'                         , 'Undo last commit'],
           \ 'b' : [':Git blame'                        , 'Blame'],
-          \ 'p' : [':CocCommand fzf-preview.BlamePR'   , 'Blame PR'],
           \ 't' : [':CocCommand git.toggleGutters'     , 'Toggle Gutters'],
           \ },
       \ 'h' : {
@@ -129,11 +131,9 @@ let g:which_key_map.c = {
       \ 'A' : ['<Plug>(coc-codeaction-selected)'     , 'Selected action'],
       \ 'c' : [':CocList commands'                   , 'Commands'],
       \ 'e' : [':CocList extensions'                 , 'Extensions list'],
-      \ 'D' : [':CocCommand fzf-preview.CocDiagnostics'                , 'Diagnostics for project'],
-      \ 'd' : [':CocCommand fzf-preview.CocCurrentDiagnostics'                , 'Diagnostics for buffer'],
+      \ 'd' : [':CocList diagnostics'                 , 'Diagnostics for buffer'],
       \ 'j' : ['<Plug>(coc-diagnostic-next-error)'   , 'Next error'],
       \ 'k' : ['<Plug>(coc-diagnostic-prev-error)'   , 'Prev error'],
-      \ 'q' : [':CocCommand fzf-preview.QuickFix'    , 'Quickfix list'],
       \ 'f' : ['<Plug>(coc-format-selected)'         , 'Fix line'],
       \ 'r' : ['<Plug>(coc-rename)'                  , 'Rename'],
       \ 's' : [':CocList -I symbols'                 , 'Search references'],
@@ -158,24 +158,11 @@ let g:which_key_map.j = {
       \ 'p' : ['<Plug>(coc-diagnostic-prev)'         , 'Prev diagnostic'],
       \ 'n' : ['<Plug>(coc-diagnostic-next)'         , 'Next diagnostic'],
       \ 'l' : [':CocCommand fzf-preview.Jumps'       , 'Jumps List'],
+      \ 's': ['', 'Open in vertical split'],
+      \ 'sh': ['', 'Open in horizotal split']
       \ }
 
 "}}}
-
-"{{{ Fzf preview
-let g:which_key_map.f = {
-      \ 'name' : '+Fzf' ,
-      \ 'b' : [':FzfPreviewBufferLines'                             , 'In current buffer'],
-      \ 'T' : [':FzfTodo'                                           , 'TODO list'],
-      \ 'B' : [':FzfPreviewGitBranches'                             , 'Git Branches'],
-      \ 'd' : [':CocCommand fzf-preview.DirectoryFiles'             , 'Directories'],
-      \ 'f' : [':CocCommand fzf-preview.ProjectFiles'               , 'Files'],
-      \ 'g' : [':CocCommand fzf-preview.GitFiles'                   , 'Git files'],
-      \ 'm' : [':CocCommand fzf-preview.MruFiles'                   , 'MRU files'],
-      \ 'c' : [':CocCommand fzf-preview.Changes'                    , 'Changes'],
-      \ 'r' : [':CocCommand fzf-preview.CocReferences'              , 'References'],
-      \ }
-" }}}
 
 " {{{ Search
 
@@ -185,7 +172,6 @@ let g:which_key_map.s = {
       \ ';' : [':Commands'              , 'Commands'],
       \ 'b' : [':BLines'                , 'Current buffer'],
       \ 'c' : [':Commits'               , 'Commits'],
-      \ 'C' : [':BCommits'              , 'Buffer commits'],
       \ 'f' : [':Files'                 , 'Files'],
       \ 'g' : [':GFiles'                , 'Git files'],
       \ 'G' : [':GFiles?'               , 'Modified git files'],
@@ -200,23 +186,16 @@ let g:which_key_map.s = {
       \ 'w' : [':call SearchVisual()<CR>'                , 'Rg word'],
       \ 'v' : [':call SearchWord()<CR>'                , 'Rg visual selected'],
       \ 't' : [':Rg'                    , 'Text Rg'],
-      \ 'p' : {
-          \ 'name' : '+Projects' ,
-          \ 'm' : [':CocCommand fzf-preview.ProjectMruFiles'   , 'MRU (Most Recently Used) files'],
-          \ 'w' : [':CocCommand fzf-preview.ProjectMrwFiles'   , 'MRW (Most Recently Written) files'],
-          \ 'f' : [':CocCommand fzf-preview.ProjectFiles'      , 'Files'],
-          \ 'g' : [':call SearchRG()<CR>'                      , 'Grep word under cursor'],
-          \ },
       \ }
 "}}}
 
 " {{{ Terminal
 let g:which_key_map.T = {
       \ 'name' : '+Terminal' ,
-      \ 'j' : [':FloatermNew --wintype=popup --height=10'       , 'Terminal in Bottom'],
-      \ 'n' : [':FloatermNew'                                   , 'New'],
-      \ 'l' : [':FloatermList'                                  , 'List terms'],
-      \ 't' : [':FloatermToggle '                               , 'Terminal'],
+      \ 'J' : [':FloatermNew --wintype=normal --height=15'      , 'Terminal in Bottom'],
+      \ 'N' : [':FloatermNew'                                   , 'New'],
+      \ 'L' : [':FloatermList'                                  , 'List terms'],
+      \ 'T' : [':FloatermToggle '                               , 'Terminal'],
       \ }
 
 "}}}
@@ -224,13 +203,17 @@ let g:which_key_map.T = {
 " {{{ Jest
 let g:which_key_map.J = {
       \ 'name' : '+Jest' ,
-      \ 'c' : [':JestNearest'                          , 'Test nearest to the cursor'],
-      \ 'f' : [':JestCurrent'                          , 'Runs all tests in the current file'],
-      \ 'r' : [':Jest'                                 , 'Runs Jest'],
-      \ 'i' : [':JestInit'                             , 'Init Jest'],
+      \ 'C' : [':JestNearest'                          , 'Jest nearest to the cursor'],
+      \ 'F' : [':JestCurrent'                          , 'Runs all tests in the current file'],
+      \ 'J' : [':Jest'                                 , 'Runs Jest'],
+      \ 'I' : [':JestInit'                             , 'Init Jest'],
       \ }
 
-"}}}
+      "\ 'T' : [':TestFile'                             , 'Test current file'],   
+      "\ 'O' : [':TestVisit'                            , 'Open test file'],   
+      "\ 'A' : [':TestSuite'                            , 'All test'],   
+      "\ 'c' : [':TestNearest'                          , 'Test nearest to the cursor'],
+""}}}
 
 " {{{ Windows
 let g:which_key_map.w = {
@@ -242,8 +225,8 @@ let g:which_key_map.w = {
       \ 'd'    : ['<C-w>v'                         , 'Duplicate in splits']   ,
       \ '='    : ['<C-w>='                         , 'Balance window']        ,
       \ 's'    : ['<C-w>x'                         , 'Swap windows']          ,
-      \ 'f'    : ['<C-w>t<C-w>H'                   , 'Flip horiz-to-vert']    ,
-      \ 'F'    : ['<C-w>t<C-w>K'                   , 'Flip vert-to-horiz']    ,
+      \ 'f'    : ['<C-w>H'                   , 'Flip horiz-to-vert']    ,
+      \ 'F'    : ['<C-w>K'                   , 'Flip vert-to-horiz']    ,
       \ 'w'    : ['Windows'                        , 'Fzf window']            ,
       \ }
 
@@ -269,11 +252,12 @@ let g:which_key_map.t = {
 			\ 's' : [':LeadingSpaceToggle'            , 'Leading space'],
       \ 'c' : [':ColorizerToggle'               , 'Show Colors'],
       \ 'b' : [':RainbowToggle'                 , 'Color Brackets'],
-      \ 'r' : [':Codi'                        , 'OFF Virtual REPL'],
-      \ 'R' : [':Codi!'                        , 'OFF Virtual REPL'],
+      \ 'g' : [':ToggleGitBlame'                , 'Git Blame'],
+      \ 'r' : [':Codi'                          , 'ON Virtual REPL'],
+      \ 'R' : [':Codi!'                         , 'OFF Virtual REPL'],
       \ 'S' : [':ToggleSpell'                   , 'Spell word'],
       \ 'm' : ['<Plug>MarkdownPreviewToggle'    , 'Markdown preview'],
-      \ 'g' : [':CocCommand git.toggleGutters'  , 'Git Gutters'],
+      \ 'G' : [':CocCommand git.toggleGutters'  , 'Git Gutters'],
       \ }
 
 "}}}
@@ -307,6 +291,16 @@ let g:which_key_map.i = {
 
 "}}}
 
+" {{{ PLugins
+let g:which_key_map.P = {
+			\ 'name' : '+Plugins' ,
+			\ 'I' : [':PlugInstall'     , 'Install'],
+			\ 'U' : [':PlugUpgrade'    , 'Upgrade'],
+			\ 'S' : [':PlugStatus'    , 'Status'],
+      \ }
+
+"}}}
+
 " {{{  Marks
 let g:which_key_map.m = {
 			\ 'name' : '+Mark' ,
@@ -316,7 +310,7 @@ let g:which_key_map.m = {
 			\ 'p' : [':CocCommand bookmark.prev'                 , 'Prev'],
 			\ 'c' : [':CocCommand bookmark.clearForCurrentFile'  , 'Clear buffer marks'],
 			\ 'C' : [':CocCommand bookmark.clearForAllFile'      , 'Clear all buffer marks'],
-      \ 'l' : [':CocCommand fzf-preview.Marks', 'list marks'],
+      \ 'l' : [':CocList bookmark', 'list marks'],
       \ }
 "}}}
 

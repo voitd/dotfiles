@@ -191,12 +191,15 @@ set statusline+=%#StatuslineMainAccent#
 set statusline+=%#StatuslineDiagnostic#%{CocDiagnostic()}
 set statusline+=%#StatuslineMainAccent#
 " " Padding
-" set statusline+=\ 
+set statusline+=\ 
 " " Filetype
 " set statusline+=%#StatuslineAccent#
 " set statusline+=%#StatuslineFiletype#%{WebDevIconsGetFileTypeSymbol()}
 " set statusline+=%#StatuslineAccent#
 
+" set statusline+=%#StatuslineMainAccent#
+" set statusline+=%#StatuslineDiagnostic#%{TestingStatus()}
+" set statusline+=%#StatuslineMainAccent#
 " " Padding
 set statusline+=\ 
 
