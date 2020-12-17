@@ -30,3 +30,6 @@ starship init fish | source
 source $HOME/.aliases
 
 set -x PATH (pwd)"/git-fuzzy/bin:$PATH"
+set -g fish_user_paths "/usr/local/opt/python@3.8/bin" $fish_user_paths
+pyenv init - | source
+set VIRTUAL_ENV "/Users/void/.virtualenvs/my-env"
