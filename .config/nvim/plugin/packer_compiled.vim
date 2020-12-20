@@ -9,18 +9,24 @@ endif
 
 lua << END
 local plugins = {
+  ["completion-buffers"] = {
+    loaded = false,
+    only_sequence = false,
+    only_setup = false,
+    path = "/Users/void/.local/share/nvim/site/pack/packer/opt/completion-buffers"
+  },
   ["packer.nvim"] = {
     loaded = false,
     only_sequence = false,
     only_setup = false,
     path = "/Users/void/.local/share/nvim/site/pack/packer/opt/packer.nvim"
   },
-  ["vim-bbye"] = {
-    commands = { "Bdelete" },
+  ["vim-commentary"] = {
+    keys = { { "", "gcc" } },
     loaded = false,
     only_sequence = false,
     only_setup = false,
-    path = "/Users/void/.local/share/nvim/site/pack/packer/opt/vim-bbye"
+    path = "/Users/void/.local/share/nvim/site/pack/packer/opt/vim-commentary"
   }
 }
 
@@ -145,10 +151,6 @@ end
 
 -- Pre-load configuration
 -- Post-load configuration
--- Config for: galaxyline.nvim
-loadstring("\27LJ\1\2+\0\0\2\0\2\0\0044\0\0\0%\1\1\0>\0\2\1G\0\1\0\16plugins/_st\frequire\0")()
--- Config for: barbar.nvim
-loadstring("\27LJ\1\2r\0\0\5\0\6\0\0154\0\0\0007\0\1\0004\1\0\0007\1\3\1%\2\4\0004\3\0\0007\3\1\0037\3\2\3\14\0\3\0T\4\1€2\3\0\0003\4\5\0>\1\4\2:\1\2\0G\0\1\0\1\0\1\rclosable\1\nforce\15tbl_extend\15bufferline\6g\bvim\0")()
 -- Conditional loads
 -- Load plugins in order defined by `after`
 END
@@ -159,9 +161,9 @@ endfunction
 
 
 " Command lazy-loads
-command! -nargs=* -range -bang -complete=file Bdelete call s:load(['vim-bbye'], { "cmd": "Bdelete", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
 
 " Keymap lazy-loads
+noremap <silent> gcc <cmd>call <SID>load(['vim-commentary'], { "keys": "gcc", "prefix": "" })<cr>
 
 augroup packer_load_aucmds
   au!

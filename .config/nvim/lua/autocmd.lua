@@ -33,3 +33,7 @@ function help_tab()
     end
 end
 cmd("au BufEnter *.txt lua help_tab()")
+
+-- Reload module after saving
+-- cmd("au BufWritePost ~/.config/nvim/init.lua <cmd>lua require'plenary.reload'.reload_module'init'<cr>")
+

@@ -14,7 +14,7 @@ export NOTES_DIR="$HOME/Documents/notes"
 export MANPAGER="/bin/sh -c \"col -b | vim --not-a-term -c 'set ft=man ts=8 nomod nolist noma' -\""
 
 # FZF settings {{{
- # set -gx FZF_DEFAULT_OPTS '--color=bg+:#073642,bg:#eee8d5,spinner:#859900,hl:#586e75,fg:#073642,pointer:#859900,info:#cb4b16,fg+:#fdf6e3,marker:#859900,header:#586e75,prompt:#859900,hl+:#859900'
+# set -gx FZF_DEFAULT_OPTS '--color=bg+:#073642,bg:#eee8d5,spinner:#859900,hl:#586e75,fg:#073642,pointer:#859900,info:#cb4b16,fg+:#fdf6e3,marker:#859900,header:#586e75,prompt:#859900,hl+:#859900'
  set -gx FZF_DEFAULT_COMMAND 'rg --files --ignore --smart-case --hidden --follow --no-messages --ignore-file ~/.gitignore'
 # }}}
 
@@ -25,6 +25,7 @@ export MANPAGER="/bin/sh -c \"col -b | vim --not-a-term -c 'set ft=man ts=8 nomo
 #     echo -n (set_color red)(git branch 2> /dev/null | awk '{print $2}' | sed '/^\s*$/d')"❯"
 #     echo -n " "
 # end
+
 starship init fish | source
 
 source $HOME/.aliases
@@ -32,4 +33,3 @@ source $HOME/.aliases
 set -x PATH (pwd)"/git-fuzzy/bin:$PATH"
 set -g fish_user_paths "/usr/local/opt/python@3.8/bin" $fish_user_paths
 pyenv init - | source
-set VIRTUAL_ENV "/Users/void/.virtualenvs/my-env"

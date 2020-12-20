@@ -1,41 +1,54 @@
 local sign_define = vim.fn.sign_define
-local lsp_config = require'lspconfig'
-local lsp_completion = require'completion'
+-- local lsp_config = require'lspconfig'
+-- local lsp_status = require'lsp-status'
+-- local lsp_completion = require'completion'
 
-vim.lsp.handlers['textDocument/publishDiagnostics'] =
-    vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, 
-    {
-      underline = true,
-      virtual_text = {
-        space = 2, 
-        prefix = ' '
-      },
-      signs = true,
-      update_in_insert = false,
-    })
-
-vim.g.diagnostic_auto_popup_while_jump = false
+vim.lsp.handlers["textDocument/publishDiagnostics"] =
+  vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics,
+  {
+    underline = true,
+    virtual_text = {
+      space = 2,
+      prefix = " "
+    },
+    signs = true,
+    update_in_insert = false
+  }
+)
 
 sign_define(
   "LspDiagnosticsSignError",
-  {text = " ", texthl = "LspDiagnosticsError"}
+  {
+    text = " ",
+    -- texthl = "LspDiagnosticsDefaultError",
+    -- numhl = "LspDiagnosticsDefaultError"
+  }
 )
 
 sign_define(
   "LspDiagnosticsSignWarning",
-  {text = "", texthl = "LspDiagnosticsWarning"}
+  {
+    text = "",
+    -- texthl = "LspDiagnosticsDefaultWarning",
+    -- numhl = "LspDiagnosticsDefaultWarning"
+  }
 )
 
 sign_define(
   "LspDiagnosticsSignInformation",
-  {text = "", texthl = "LspDiagnosticsInformation"}
+  {
+    text = "",
+    -- texthl = "LspDiagnosticsDefaultInformation",
+    -- numhl = "LspDiagnosticsDefaultInformation"
+  }
 )
 
 sign_define(
   "LspDiagnosticsSignHint",
-  {text = "", texthl = "LspDiagnosticsHint"}
+  {
+    text = "",
+    -- texthl = "LspDiagnosticsDefaultHint",
+    -- numhl = "LspDiagnosticsDefaultHint"
+  }
 )
-
-
-

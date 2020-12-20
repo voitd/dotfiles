@@ -1,18 +1,21 @@
 local map = require("utils").map
+local g = vim.g
 
-vim.g.lua_tree_side = "left"
-vim.g.lua_tree_ignore = {".git", "node_modules"}
-vim.g.lua_tree_auto_open = 1
-vim.g.lua_tree_auto_close = 1
-vim.g.lua_tree_follow = 1
-vim.g.lua_tree_tab_open = 1
-vim.g.lua_tree_show_icons = {
+g.lua_tree_ignore = {".git", "node_modules"}
+g.lua_tree_auto_close = 1
+g.lua_tree_quit_on_open = 1
+g.lua_tree_git_hl = 1
+g.lua_tree_tab_open=1
+-- g.lua_tree_follow = 1
+g.lua_tree_indent_markers = 1
+g.lua_tree_root_folder_modifier = ':~'
+g.lua_tree_show_icons = {
   git = 1,
-  folders = 1,
-  files = 1
+  folders = 0,
+  files = 0
 }
 
-vim.g.lua_tree_icons = {
+g.lua_tree_icons = {
   default = "",
   symlink = "",
   git = {
@@ -22,15 +25,19 @@ vim.g.lua_tree_icons = {
     renamed = "➜",
     untracked = "★"
   },
-  folder = {default = "", open = " "}
+  folder = {
+      default = "",
+      open = ""
+    }
+  -- folder = {default = "", open = " "}
 }
 
-vim.g.lua_tree_bindings = {
-  edit_split = {"<C-s>"},
-  create = {"n"}
-}
+-- g.lua_tree_bindings = {
+--   toggle_ignored = {'.'},
+-- }
 
-map("n","<Leader>e","LuaTreeToggle<CR>", {})
+map("n","<Leader>e",":LuaTreeToggle<CR>", {noremap = true,silent = true})
+map("n","<Leader>er",":LuaTreeRefresh<CR>", {noremap = true,silent = true})
 
 vim.api.nvim_exec(
   [[

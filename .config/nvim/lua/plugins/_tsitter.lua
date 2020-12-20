@@ -3,37 +3,24 @@ require "nvim-treesitter.configs".setup {
     highlight = {
         enable = true
     },
-    indent = {
-        enable = false
+    rainbow = {
+        enable = true,
     },
-    refactor = {
-        highlight_definitions = {
-            enable = false
-        }
-    },
-    textobjects = {
-        select = {
-            enable = true,
-            keymaps = {
-                ["af"] = "@function.outer",
-                ["if"] = "@function.inner",
-                ["ac"] = "@class.outer",
-                ["ic"] = "@class.inner"
-            }
-        }
-        -- lsp_interop = {
-        --     enable = false,
-        --     peek_definition_code = {
-        --         ["df"] = "@function.outer",
-        --         ["dF"] = "@class.outer"
-        --     }
-        -- }
-    }
+    -- textobjects = {
+    --   enable=true,
+    --   select = {
+    --     enable = true,
+    --     keymaps = {
+    --       -- You can use the capture groups defined in textobjects.scm
+    --       ["af"] = "@function.outer",
+    --       ["if"] = "@function.inner",
+    --       ["ac"] = "@class.outer",
+    --       ["ic"] = "@class.inner",
+    --     },
+    --   },
+    -- },
 }
-
-require("_lsp")
-
--- function _G.dump(...)
---     local objects = vim.tbl_map(vim.inspect, {...})
---     print(unpack(objects))
--- end
+-- disable hl for brackets to allow use of rainbow
+require('nvim-treesitter.highlight')
+vim.treesitter.highlighter.hl_map["punctuation.delimiter"] = "Delimiter"
+vim.treesitter.highlighter.hl_map["punctuation.bracket"] = nil

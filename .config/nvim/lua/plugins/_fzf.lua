@@ -32,14 +32,15 @@ g.fzf_history_dir = "~/.local/share/fzf-history"
 
 g.fzf_layout = {
     window = {
-        width = 0.4,
-        height = 0.25,
-        yoffset = 0.5,
+        width = 0.6,
+        height = 0.35,
+        yoffset = 0.4,
     },
 }
 
 cmd [[ command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, { "options": "--prompt '❯ '"}, <bang>0) ]]
 
+-- g.fzf_preview_window = {"right:50%", "ctr-/"}
 g.fzf_preview_window = ""
 g.fzf_buffers_jump = 1
 
@@ -69,5 +70,8 @@ map("n", "'i", "<CMD>lua FZFOpen(':History')<CR>")
 -- h = home
 map("n", "'h", "<CMD>lua FZFOpen(':FZF ~/')<CR>")
 
+-- g = gitfiles
 map("n", "'g", "<CMD>lua FZFOpen(':GFiles')<CR>")
 
+-- d = diagnostics
+map("n", "<leaderr>cd", "<CMD>lua FZFOpen(':Diagnostics')<CR>")

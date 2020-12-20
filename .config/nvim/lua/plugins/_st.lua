@@ -19,7 +19,7 @@ local colors = {
   blue = '#569CD6',
   red = '#D16969'
 }
-    
+
 local buffer_not_empty = function()
   if vim.fn.empty(vim.fn.expand('%:t')) ~= 1 then
     return true
@@ -44,7 +44,7 @@ gls.left[2] = {
                           cv = colors.red,ce=colors.red, r = colors.cyan,rm = colors.cyan, ['r?'] = colors.cyan,
                           ['!']  = colors.red,t = colors.red}
       vim.api.nvim_command('hi GalaxyViMode guifg='..mode_color[vim.fn.mode()])
-      return '    '
+      return '   '
       -- return '    '
     end,
     highlight = {colors.red,colors.line_bg,'bold'},

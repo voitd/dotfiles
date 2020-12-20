@@ -30,11 +30,11 @@ vim.g.startify_lists = {
 
        -- { type ='dir',                         header = {'       MRU in '. getcwd() }  },
 vim.g.startify_commands = {
-       -- {h = {'Check Vim health'       , ':checkhealth' }},
-       { i = {'Install PLugins'        , ':PackerInstall' }},
+       { h = {'Check Vim health'       , ':checkhealth'    }},
+       { i = {'Install PLugins'        , ':PackerInstall'  }},
        { u = {'Update Plugin'          , ':PackerUpdate'   }},
-       { c = {'Clean Plugin'           , ':PackerClean'   }},
-       -- {m = {'CoC Marketplace'        , ':CocList marketplace'}},
+       { c = {'Clean Plugin'           , ':PackerClean'    }},
+       { s = {'Sync Plugin'            , ':PackerSync'     }},
        }
 
 vim.g.startify_bookmarks = {
