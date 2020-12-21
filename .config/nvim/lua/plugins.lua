@@ -20,21 +20,10 @@ return require("packer").startup(
       -- Packer can manage itself as an optional plugin
       use {"wbthomason/packer.nvim", opt = true}
 
-      use "nvim-lua/plenary.nvim"
-      use "neovim/nvim-lspconfig"
-      use "nvim-lua/lsp-status.nvim"
-      use "nvim-lua/completion-nvim"
-      -- use { 'nvim-lua/completion-nvim',
-      -- opt = true,
-      -- requires = {
-      -- {'hrsh7th/vim-vsnip', opt = true},
-      -- {'hrsh7th/vim-vsnip-integ', opt = true}}
-      -- }
+      use "nvim-lua/plenary.nvim" -- float window
 
-
-      -- use "nvim-treesitter/nvim-treesitter"
-      use {"steelsojka/completion-buffers", opt = true}
-      -- use "p00f/nvim-ts-rainbow"
+      use {"neoclide/coc.nvim", branch = "release"}
+      use "antoinemadec/coc-fzf"
 
       use "tweekmonster/startuptime.vim" -- benchmark startup
       use "oberblastmeister/rooter.nvim"
@@ -44,11 +33,9 @@ return require("packer").startup(
       use "tpope/vim-rhubarb"
       use "rhysd/conflict-marker.vim" -- Highlight conflict markers.[x and ]x, ct for themselves, co for ourselves, cn for none and cb
       use "lewis6991/gitsigns.nvim"
-
       use "f-person/git-blame.nvim"
 
       -- Misk
-      -- use "mg979/vim-visual-multi"
       use "AndrewRadev/splitjoin.vim" -- allows to split one liner to multi lines
       use "mhinz/vim-startify" -- start screen
       use "mbbill/undotree" -- undo tree
@@ -57,7 +44,6 @@ return require("packer").startup(
       use "machakann/vim-sandwich" -- Change surrounding arks
       use "cohama/lexima.vim" -- Auto close parentheses and repeat by dot dot dot...
       use "alvan/vim-closetag"
-      use "rrethy/vim-illuminate" -- highlight matching words when cursor on it
       use "AndrewRadev/tagalong.vim" -- Auto change html tags
       use "mhartington/formatter.nvim"
       use "metakirby5/codi.vim"
@@ -65,6 +51,7 @@ return require("packer").startup(
       use "whatyouhide/vim-lengthmatters"
       use "norcalli/nvim-colorizer.lua"
       use "mattn/emmet-vim"
+      -- use "rrethy/vim-illuminate" -- highlight matching words when cursor on it
 
       -- Fzf
       -- use { 'nvim-telescope/telescope.nvim', opt = true, requires = { {'nvim-lua/popup.nvim', opt = true}, {'nvim-lua/plenary.nvim', opt = true} } }
@@ -73,30 +60,28 @@ return require("packer").startup(
       use "gfanto/fzf-lsp.nvim"
 
       use "vim-test/vim-test" -- test
-      use "kubejm/jest.nvim"
       use "rcarriga/vim-ultest" -- pretty test output
 
-      use "dsznajder/vscode-es7-javascript-react-snippets"
-      use "coco-platform/vscode-jest-snippets"
-      use "hrsh7th/vim-vsnip-integ"
-      use "hrsh7th/vim-vsnip"
-      use "SirVer/ultisnips"
-      use "dominikduda/vim_es7_javascript_react_snippets"
-      -- use "joaohkfaria/vim-jest-snippets"
+      use "Galooshi/vim-import-js"
 
+      use "joaohkfaria/vim-jest-snippets"
+      use "dominikduda/vim_es7_javascript_react_snippets"
+
+      -- Theme
       use "christianchiarulli/nvcode-color-schemes.vim"
-      -- use "arcticicestudio/nord-vim"
-      use "kyazdani42/nvim-web-devicons"
-      use "ryanoasis/vim-devicons"
-      use "sheerun/vim-polyglot"
       use "Rigellute/rigel"
       use "equt/paper.vim"
       use "romgrk/github-light.vim"
+      -- use "arcticicestudio/nord-vim"
+      -- use 'sainnhe/gruvbox-material'
+      -- use 'adrian5/oceanic-next-vim'
+      use "kyazdani42/nvim-web-devicons"
+      use "ryanoasis/vim-devicons"
+      use "sheerun/vim-polyglot"
 
       use "romgrk/barbar.nvim"
 
       use {"glepnir/galaxyline.nvim", branch = "main"}
-      -- use "kyazdani42/nvim-tree.lua"
     end,
     config = {
       display = {

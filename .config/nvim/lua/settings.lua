@@ -1,33 +1,6 @@
 local g = vim.g
 local cmd = vim.api.nvim_command
 
-vim.cmd("filetype plugin indent on")
-vim.cmd('let test#strategy = "floaterm"')
-vim.cmd('let test#elixir#exunit#executable = "MIX_ENV=test mix test"')
-vim.cmd('let test#javascript#jest#options = "--color=always"')
--- cmd('')
--- cmd('let g:vsnip_filetypes.typescriptreact = ['typescript']')
--- cmd('let g:vsnip_filetypes.javascriptreact = ['javascript']')
-
-cmd('let g:vsnip_filetypes = {}')
-
-vim.g.vsnip_filetypes = {}
-g.vsnip_filetypes.javascriptreact = {"javascript"}
-g.vsnip_filetypes.typescriptreact = {"typescript"}
-
-g.lengthmatters_highlight_one_column = 1
-
-g.gitblame_enabled = 0
-g.gitblame_message_template = "     <author> • <summary> • <date>"
-
--- g.ultest_virtual_text = 1
--- g.ultest_icons = 1
-
--- g.rooter_patterns = {'.git/', 'package.json', 'composer.json'}
--- g.rooter_silent_chdir  = 1
--- g.rooter_change_directory_for_non_project_files= 'current'
-
-
 local apply_options = function(opts)
   for k, v in pairs(opts) do
     if v == true then

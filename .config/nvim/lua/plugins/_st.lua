@@ -5,7 +5,7 @@ gl.short_line_list = {'LuaTree','packager'}
 local colors = {
   bg = '#2e3440',
   fg = '#81a1c1',
-  line_bg = '#2e3440',
+  line_bg = 'NONE',
   fg_green = '#6d96a5',
 
   yellow = '#fabd2f',
@@ -20,6 +20,7 @@ local colors = {
   red = '#D16969'
 }
 
+  -- line_bg = '#2e3440',
 local buffer_not_empty = function()
   if vim.fn.empty(vim.fn.expand('%:t')) ~= 1 then
     return true
@@ -61,7 +62,7 @@ gls.left[4] = {
   FileName = {
     provider = 'FileName',
     condition = buffer_not_empty,
-    separator = ' ',
+    separator = '',
     separator_highlight = {colors.purple,colors.bg},
     highlight = {colors.fg,colors.line_bg,'bold'}
   }

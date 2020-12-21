@@ -9,12 +9,6 @@ endif
 
 lua << END
 local plugins = {
-  ["completion-buffers"] = {
-    loaded = false,
-    only_sequence = false,
-    only_setup = false,
-    path = "/Users/void/.local/share/nvim/site/pack/packer/opt/completion-buffers"
-  },
   ["packer.nvim"] = {
     loaded = false,
     only_sequence = false,

@@ -6,7 +6,7 @@ local cmd = vim.cmd
 map("n", "<Space>", "<Nop>")
 vim.g.mapleader = " "
 
-map("i", "<Tab>", [[ pumvisible() ? "\<C-n>" : "\<Tab>" ]], {expr = true})
+-- map("i", "<Tab>", [[ pumvisible() ? "\<C-n>" : "\<Tab>" ]], {expr = true})
 
 -- Better indenting
 map("v", "<", "<gv", {})
@@ -28,7 +28,7 @@ map("n", "<A-Right>", "<C-W>5<", {})
 map("n", "<A-Left>", "<C-W>5>", {})
 map("n", "<A-Up>", "<C-W>+5", {})
 map("n", "<A-Down>", "<C-W>-5", {})
--- map("n", "<leader>e", ":LuaTreeToggle<CR>", {})
+map("n", "<leader>e", "<cmd>CocCommand explorer<CR>", {})
 
 -- LSP
 -- map("n", "gd",             ":Definitions<CR>", {})
@@ -45,26 +45,26 @@ map("n", "<leader>st",     ":Rg!<CR>", {})
 map("n", "<leader>r",      ":luafile %<CR>", {})
 map("n", "<leader>x",      ":luafile $MYVIMRC<CR>", {})
 map("n", "<leader>.",      ":e $MYVIMRC<CR>", {})
-map("n", "<leader>,",      ":Startify", {})
+map("n", "<leader>,",      ":Startify<CR>", {})
 map("n", "<leader>tg",     ":GitBlameToggle<CR>", {})
 map("n", "<leader>tc",     ":ColorizerToggle<CR>", {})
 map("n", "<leader>bd",     ":bp<BAR>bd#<CR><CR>", {})
 map("n", "<leader>bo",     ":w<BAR>%bd<BAR>e#<BAR>bd#<CR>", {})
-map("n", "rn",             "<cmd>lua vim.lsp.buf.rename()<CR>", {})
-map("n", "<CR>",           "<cmd>lua vim.lsp.buf.hover()<CR>", {})
-map("n", "<leader>h",      "<cmd>lua vim.lsp.buf.signature_help()<CR>", {})
-map(
-    "n",
-    "[e",
-    "<cmd>lua vim.lsp.diagnostic.goto_prev({ popup_opts = { show_header = false } })<CR>",
-    {}
-  )
-map(
-    "n",
-    "]e",
-    "<cmd>lua vim.lsp.diagnostic.goto_next({ popup_opts = { show_header = false } })<CR>",
-    {}
-  )
+-- map("n", "rn",             "<cmd>lua vim.lsp.buf.rename()<CR>", {})
+-- map("n", "<CR>",           "<cmd>lua vim.lsp.buf.hover()<CR>", {})
+-- map("n", "<leader>h",      "<cmd>lua vim.lsp.buf.signature_help()<CR>", {})
+-- map(
+--     "n",
+--     "[e",
+--     "<cmd>lua vim.lsp.diagnostic.goto_prev({ popup_opts = { show_header = false } })<CR>",
+--     {}
+--   )
+-- map(
+--     "n",
+--     "]e",
+--     "<cmd>lua vim.lsp.diagnostic.goto_next({ popup_opts = { show_header = false } })<CR>",
+--     {}
+--   )
 
 map("n", "<BS>",           "<C-^>", {})
 map("n", "[t",             ":tabprevious<CR>", {})
@@ -81,8 +81,8 @@ cmd [[xnoremap <expr> p 'pgv"' . v:register . 'y`]']]
 
 map("n",'<leader>tf',   '<cmd>TestFile<CR>', {})
 map("n",'<leader>tv',   '<cmd>TestVisit<CR>', {})
-map("n",'<leader>tj',   '<cmd>Jest<CR>', {})
-map("n",'<leader>tjf',  '<cmd>JestFile<CR>', {})
+map("n",'<leader>jr',   '<cmd>Jest<CR>', {})
+map("n",'<leader>jj',  '<cmd>JestCurrent<CR>', {})
 map("n",'<leader>u',    '<cmd>UndotreeToggle<CR>', {})
 map("n",'\\',           '<cmd>BufferPick<CR>', {})
 map("n",'<F12>',        '<cmd>FloatermToggle<CR>', {})
@@ -93,6 +93,7 @@ map("n",'<C-j>',        '<cmd>FloatermNew --height=0.3 --wintype=normal --positi
 cmd('cabbrev qa qa!')
 cmd('cabbrev q!! qwa!')
 cmd('cabbrev q q!')
+cmd('cabbrev q: q!')
 cmd('cabbrev Q q!')
 cmd('cabbrev w w!')
 cmd('cabbrev W w!')
