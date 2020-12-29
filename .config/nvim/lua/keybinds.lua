@@ -44,7 +44,7 @@ map("n", "<Leader>jh", ":call CocAction('jumpDefinition','split')<CR>", {})
 -- map('v', '<leader>s', ':s//gcI<Left><Left><Left><Left>')
 -- map('n', '<leader>s', ':%s//gcI<Left><Left><Left><Left>')
 -- map("n", "<leader>sd", ":DocumentSymbols:<CR>", {})
--- map("n", "<leader>ca", ":CodeActions<CR>", {})
+map("n", "<leader>ca", ":CodeActions<CR>", {})
 -- map("n", "<leader>cd", ":Diagnostics<CR>", {})
 map("n", "<leader>sd", ":DocumentSymbols<CR>", {})
 map("n", "<leader>ca", ":CodeActions<CR>", {})
@@ -143,3 +143,9 @@ cmd [[nnoremap <silent><Plug>(JsConsoleLog) :lua return require'utils'.console_l
 -- Git
 map("n", "<Leader>gs", ":Gstatus<CR>", {})
 map("n", "<Leader>gb", ":Gbranches<CR>", {})
+
+
+-- Searches 
+map("n", "<leader>fr", ":Search<CR>", {})
+map("n", "<leader>fw", ":Search<C-R><C-W><CR>", {})
+

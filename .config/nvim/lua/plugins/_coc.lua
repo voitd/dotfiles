@@ -74,7 +74,7 @@ map("x", "<leader>ac", "<Plug>(coc-codeaction-selected)", {noremap = false})
 map("n", "<leader>ac", "<Plug>(coc-codeaction-selected)", {noremap = false})
 
 -- Remap keys for applying codeAction to the current buffer.
-map("n", "<leader>ca", "<Plug>(coc-codeaction)", {noremap = false})
+-- map("n", "<leader>ca", "<Plug>(coc-codeaction)", {noremap = false})
 
 -- Map function and class text objects
 -- NOTE: Requires 'textDocument.documentSymbol' support from the language server.

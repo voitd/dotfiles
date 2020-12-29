@@ -37,6 +37,7 @@ local my_nord = {
   BufferInactive = "rustAttribute",
   BufferTabpages = "Normal",
   BufferTabpageFill = "Normal",
+  NonText = "Normal",
   StartifyHeader = "Number",
   StartifyFile = "Directory",
   StartifyPath = "rustAttribute",

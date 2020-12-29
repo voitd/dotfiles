@@ -20,51 +20,10 @@ return require("packer").startup(
       -- Packer can manage itself as an optional plugin
       use {"wbthomason/packer.nvim", opt = true}
 
+      -- LSP
       use "nvim-lua/plenary.nvim"
+      use "neovim/nvim-lspconfig"
 
-      use {
-        "neovim/nvim-lspconfig",
-        -- config = function()
-        --   require "plugins/_lsp"
-        -- end
-      }
-
-      -- -- completion engine
-      -- use {
-      --   "nvim-lua/completion-nvim",
-      --   config = function()
-      --     require "plugin/_completions"
-      --   end,
-      --   requires = {
-      --     "steelsojka/completion-buffers",
-      --     {
-      --       "SirVer/ultisnips",
-      --       config = function()
-      --         require "config/ultisnips"
-      --       end
-      --     },
-      --     "honza/vim-snippets",
-      --     "hrsh7th/vim-vsnip",
-      --     "hrsh7th/vim-vsnip-integ"
-      --   }
-      -- }
-
-      -- use {
-      --   "nvim-treesitter/nvim-treesitter",
-      --   run = function()
-      --     vim.cmd [[TSInstall all]]
-      --   end,
-      --   config = function()
-      --     require "plugins/_tsitter"
-      --   end
-      -- }
-      -- lsp status wrapper
-      -- use {"nvim-lua/lsp-status.nvim", disable = true}
-
-      -- use "p00f/nvim-ts-rainbow"
-
-      use "tweekmonster/startuptime.vim" -- benchmark startup
-      use "oberblastmeister/rooter.nvim"
 
       -- Git
       use "tpope/vim-fugitive"
@@ -75,6 +34,9 @@ return require("packer").startup(
       use "f-person/git-blame.nvim"
 
       -- Misk
+      use "tweekmonster/startuptime.vim" -- benchmark startup
+      use "oberblastmeister/rooter.nvim"
+      use "romgrk/searchReplace.vim" -- search for a pattern across multiple files
       use "AndrewRadev/splitjoin.vim" -- allows to split one liner to multi lines
       use "mhinz/vim-startify" -- start screen
       use "mbbill/undotree" -- undo tree
@@ -96,46 +58,32 @@ return require("packer").startup(
       use "antoinemadec/coc-fzf" -- coc and fzf together
 
       -- Fzf
-      -- use { 'nvim-telescope/telescope.nvim', opt = true, requires = { {'nvim-lua/popup.nvim', opt = true}, {'nvim-lua/plenary.nvim', opt = true} } }
       use {"junegunn/fzf", run = "./install --all"} -- Fuzzy Searcher
       use "junegunn/fzf.vim"
       use "gfanto/fzf-lsp.nvim"
 
+      --Test
       use "janko/vim-test"
-
-      -- use {
-      --   "janko/vim-test",
-      --   cmd = {"TestNearest", "TestFile", "TestSuite", "TestLast", "TestVisit"},
-      --   config = function()
-      --     vim.cmd [[let test#strategy = "floaterm"]]
-      --   end
-      -- }
       use "rcarriga/vim-ultest" -- pretty test output
 
+      -- JavaScript
       use "Galooshi/vim-import-js"
-
-      -- use "dsznajder/vscode-es7-javascript-react-snippets"
-      -- use "coco-platform/vscode-jest-snippets"
-      -- use "hrsh7th/vim-vsnip-integ"
-      -- use "hrsh7th/vim-vsnip"
-      -- use "SirVer/ultisnips"
       use "dominikduda/vim_es7_javascript_react_snippets"
-      -- use "joaohkfaria/vim-jest-snippets"
 
-      use 'relastle/vim-colorrange'
-      -- use "christianchiarulli/nvcode-color-schemes.vim"
-      use 'arcticicestudio/nord-vim'
+      -- Themes
+      use "relastle/vim-colorrange"
+      use "arcticicestudio/nord-vim"
       use "kyazdani42/nvim-web-devicons"
       use "ryanoasis/vim-devicons"
       use "sheerun/vim-polyglot"
       -- use "Rigellute/rigel"
-      use "equt/paper.vim"
-      use "romgrk/github-light.vim"
+      -- use "equt/paper.vim"
+      -- use "romgrk/github-light.vim"
+      -- use "christianchiarulli/nvcode-color-schemes.vim"
 
+      -- UI
       use "romgrk/barbar.nvim"
-
-      use {"glepnir/galaxyline.nvim", branch = "main"}
-      -- use "kyazdani42/nvim-tree.lua"
+      use "glepnir/galaxyline.nvim"
     end,
     config = {
       display = {
