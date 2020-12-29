@@ -23,6 +23,8 @@
   p = push
   pf = push --force-with-lease
 
+  b = branch
+
   sw = checkout -
   # rebase
   rb = rebase
@@ -124,6 +126,7 @@
 
 	# List aliases
 	aliases = config --get-regexp alias
+
 
 [url "git@github.com:"]
   insteadOf = git://github.com/
