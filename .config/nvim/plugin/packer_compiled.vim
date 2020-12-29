@@ -14,13 +14,6 @@ local plugins = {
     only_sequence = false,
     only_setup = false,
     path = "/Users/void/.local/share/nvim/site/pack/packer/opt/packer.nvim"
-  },
-  ["vim-commentary"] = {
-    keys = { { "", "gcc" } },
-    loaded = false,
-    only_sequence = false,
-    only_setup = false,
-    path = "/Users/void/.local/share/nvim/site/pack/packer/opt/vim-commentary"
   }
 }
 
@@ -157,7 +150,6 @@ endfunction
 " Command lazy-loads
 
 " Keymap lazy-loads
-noremap <silent> gcc <cmd>call <SID>load(['vim-commentary'], { "keys": "gcc", "prefix": "" })<cr>
 
 augroup packer_load_aucmds
   au!

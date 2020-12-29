@@ -1,17 +1,4 @@
-local g = vim.g
-local cmd = vim.api.nvim_command
-
-local apply_options = function(opts)
-  for k, v in pairs(opts) do
-    if v == true then
-      cmd("set " .. k)
-    elseif v == false then
-      cmd(string.format("set no%s", k))
-    else
-      cmd(string.format("set %s=%s", k, v))
-    end
-  end
-end
+local apply_options = require('utils').apply_options
 
 local options = {
   -- Boolean value
@@ -20,16 +7,14 @@ local options = {
   showcmd = false,
   wildmenu = true,
   cindent = true,
-  formatoptions = "qrn1co",
   undofile = true,
-  undodir = "/tmp/",
   autoindent = true,                          -- enable autoindent
   backup = false,                             -- disable backup
   cursorline = true,                          -- enable cursorline
   expandtab = true,                           -- use spaces instead of tabs
   autowrite = true,                           -- autowrite buffer when it's not focused
   hidden = true,                              -- keep hidden buffers
-  hlsearch = false,                           -- don't highlight matching search
+  hlsearch = true,                            -- highlight matching search
   ignorecase = true,                          -- case insensitive on search
   lazyredraw = true,                          -- lazyredraw to make macro faster
   list = false,                               -- display listchars
@@ -46,9 +31,12 @@ local options = {
   termguicolors = true,                       -- truecolours for better experience
   wrap = false,                               -- dont wrap lines
   writebackup = false,                        -- disable backup
+  wildignorecase = true;
+
 
   -- String value
   completeopt = "menuone,noinsert,noselect",  -- better completion
+  formatoptions = "qrn1co",                   -- improve editor formatting
   encoding = "UTF-8",                         -- set encoding
   fillchars = "vert:│,eob:\\ ",               -- make vertical split sign better
   foldmethod = "marker",                      -- foldmethod using marker
@@ -60,6 +48,10 @@ local options = {
   clipboard = "unnamedplus",                  -- use system clipboard
   shell = "fish",                             -- fish as shell
   syntax = "on",                              -- syntax enable
+  undodir = "/tmp/",
+  wildignore = ".git,.hg,.svn,*.pyc,*.o,*.out,*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store,**/node_modules/**,**/bower_modules/**";
+  -- wildcharm='<C-s>',
+
 
   -- Number value
   -- colorcolumn = 120,                       -- 120 chars color column

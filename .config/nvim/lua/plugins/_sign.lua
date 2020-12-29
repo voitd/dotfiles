@@ -22,5 +22,11 @@ require("gitsigns").setup {
     interval = 1000
   },
   sign_priority = 6,
-  status_formatter = nil -- Use default
+  status_formatter = nil,
+  -- status_formatter = function(status)
+      -- local added = status.added > 0 and "  " .. status.added or ""
+      -- local changed = status.changed > 0 and "  " .. status.changed or ""
+      -- local removed = status.removed > 0 and "  " .. status.removed or ""
+      -- return status.head .. added .. changed .. removed .. " "
+    -- end
 }

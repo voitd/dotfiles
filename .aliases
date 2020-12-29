@@ -18,6 +18,10 @@ alias mv='mv -i'
 alias rm='rm -i'
 alias df='df -h'                  
 
+alias ptp='ping 192.168.0.1'
+alias px='ping 192.168.10.1'
+alias pm='ping 192.168.1.1'
+alias trg='traceroute google.com.ua'
 
 # apps
 alias v="nvim"

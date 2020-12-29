@@ -8,7 +8,6 @@ export TERMINAL="kitty"
 export EDITOR="nvim"
 export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=YES
 export DOTBARE_DIR="$HOME/dotfiles"
-export NOTES_DIR="$HOME/Documents/notes"
 
 # sets vim as manpager
 export MANPAGER="/bin/sh -c \"col -b | vim --not-a-term -c 'set ft=man ts=8 nomod nolist noma' -\""
