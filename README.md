@@ -3,7 +3,8 @@
   <br>
 </p>
 
-<img width="1020" alt="nvim" src="https://user-images.githubusercontent.com/60138143/104243026-a2d2fb80-5468-11eb-9e4b-76605d5d23f3.png">
+<img width="1020" alt="nvim 17 33 34" src="https://user-images.githubusercontent.com/60138143/104244967-217d6800-546c-11eb-8e66-0b623b82ac90.png">
+
 <!-- ### 🖥 Screenshots -->
 
 
