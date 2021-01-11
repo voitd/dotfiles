@@ -8,13 +8,10 @@ cmd "au TextYankPost * silent! lua require'vim.highlight'.on_yank({timeout = 800
 cmd "au BufEnter * set fo-=c fo-=r fo-=o"
 cmd "au TermOpen * setlocal signcolumn=no nonumber norelativenumber"
 
-cmd "au BufNewFile,BufRead .aliases setf sh"
--- cmd "au BufNewFile,BufRead .setf json"
-cmd "au BufNewFile,BufRead .prettierrc setf json"
-cmd "au BufNewFile,BufRead .eslintrc setf json"
-cmd "au BufNewFile,BufRead .eslintignore setf gitignore"
+cmd "au BufNewFile,BufRead .eslintignore,.prettierignore,.aliases setf conf"
+cmd "au BufNewFile,BufRead .eslintrc,.prettierrc,tsconfig.json setf json"
 
-cmd "au BufEnter *.txt lua require('utils').help_tab()"
+cmd "au BufEnter *.txt lua require('settings.utils').help_tab()"
 
 -- Open image file in system preview
 cmd [[au BufEnter *.png,*.jpg,*.gif,*.ico exec "silent !open ".expand("%") | :bw"]]

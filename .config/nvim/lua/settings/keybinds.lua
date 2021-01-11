@@ -28,6 +28,10 @@ map("v", "j", "h", {})
 map("v", "k", "j", {})
 map("v", "m", "k", {})
 
+map("x", "j", "h", {})
+map("x", "k", "j", {})
+map("x", "m", "k", {})
+
 -- Easier Moving between splits
 map("n", "<C-J>", "<C-W><C-J>", {})
 map("n", "<C-K>", "<C-W><C-K>", {})

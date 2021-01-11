@@ -1,7 +1,7 @@
 local lspconfig = require 'lspconfig'
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = false
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- function to attach completion when setting up lsp
 local on_attach = function(client)

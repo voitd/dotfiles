@@ -126,41 +126,6 @@ function U.hiLinks(hi_table)
   end
 end
 
-function U.disable_distribution_plugins()
-  g.loaded_gzip = 1
-  g.loaded_tar = 1
-  g.loaded_tarPlugin = 1
-  g.loaded_zip = 1
-  g.loaded_zipPlugin = 1
-  g.loaded_getscript = 1
-  g.loaded_getscriptPlugin = 1
-  g.loaded_vimball = 1
-  g.loaded_vimballPlugin = 1
-  g.loaded_matchit = 1
-  g.loaded_matchparen = 1
-  g.loaded_2html_plugin = 1
-  g.loaded_logiPat = 1
-  g.loaded_rrhelper = 1
-  g.loaded_netrw = 1
-  g.loaded_netrwPlugin = 1
-  g.loaded_netrwSettings = 1
-  g.loaded_netrwFileHandlers = 1
-end
-
-U.disable_distribution_plugins()
-
-function U.toggle_settings(settings)
-  for _, setting_name in ipairs(settings) do
-    if o[setting_name] == true then
-      o[setting_name] = false
-    elseif o[setting_name] == false then
-      o[setting_name] = true
-    else
-      print("error must be boolean")
-    end
-  end
-end
-
 -- takes a table of global variable names to toggle
 function U.toggle_global_variables(global_variables)
   for _, g_var_name in ipairs(global_variables) do

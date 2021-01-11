@@ -16,7 +16,7 @@ cmd [[ autocmd BufWritePost plugins.lua PackerCompile ]]
 
 return require("packer").startup(
   {
-    function()
+    function(use)
       -- Packer can manage itself as an optional plugin
       use {"wbthomason/packer.nvim", opt = true}
 
