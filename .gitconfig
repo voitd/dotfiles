@@ -23,7 +23,7 @@
   p = push
   pf = push --force-with-lease
 
-  b = branch
+  b = branch -a
 
   sw = checkout -
   # rebase

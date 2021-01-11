@@ -21,10 +21,14 @@ alias df='df -h'
 alias ptp='ping 192.168.0.1'
 alias px='ping 192.168.10.1'
 alias pm='ping 192.168.1.1'
-alias trg='traceroute google.com.ua'
+alias p8='ping 8.8.8.8'
+alias trg='traceroute google.com'
 
+alias abd='abduco -A dots'
+alias abc='abduco -a codebattle'
 # apps
 alias v="nvim"
+alias n="nvim"
 alias vi="vim"
 alias vim="nvim"
 alias v!='nvim -u NONE'
@@ -92,7 +96,7 @@ alias gct='cat ~/dotfiles/commit-types'
 alias commit="/Users/void/validate-commit.py"
 
 
-alias fzf='fzf --color=light'
+alias fzf='fzf --color=light --preview'
 alias rg='rg --hidden -g "!.git" -g "!node_modules" --max-columns 200'
 alias findF="ps -ef | grep -v grep | grep "
 
@@ -124,12 +128,14 @@ alias kd 'kitty @ set-colors -a "~/.config/kitty/colors/gruvbox-dark.conf"'
 alias kl 'kitty @ set-colors -a "~/.config/kitty/colors/gruvbox-light.conf"'
 alias kpl 'kitty @ set-colors -a "~/.config/kitty/colors/palenight.conf"'
 
+# alias fonts = 'kitty + list-fonts --psnames'
 
 abbr Dl  "cd ~/Downloads/"
 abbr g 'git'
 abbr d 'dots'
 
 
+# abbr vsc "nvim +call feedkeys(':SLoad dotfiles') +call feedkeys('\<cr>')"
 # alias tobash="sudo chsh $USER -s /bin/bash && echo 'Now log out.'"
 # alias tozsh="sudo chsh $USER -s /bin/zsh && echo 'Now log out.'"
 # alias tofish="sudo chsh $USER -s /bin/fish && echo 'Now log out.'"

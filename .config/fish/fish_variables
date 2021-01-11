@@ -147,6 +147,7 @@ SETUVAR _fish_abbr_ran:cd\x20\x7e/\x2econfig/ranger/
 SETUVAR _fish_abbr_rec:ffmpeg\x20\x2di\x20\x2dvcodec\x20h264\x20\x2dacodec\x20mp2\x20output\x2emp4
 SETUVAR _fish_abbr_record:ffmpeg\x20\x2ds\x201440x900\x20\x2di\x20\x3a0\x2e0\x20\x2dr\x2030\x20\x2dvcodec\x20h264\x20recording\x2emp4
 SETUVAR _fish_abbr_smbreload:sudo\x20kextload\x20/System/Library/Extensions/smbfs\x2ekext
+SETUVAR _fish_abbr_vsc:nvim\x20\x2bcall\x20feedkeys\x28\x27\x3aSLoad\x20dotfiles\x27\x29\x20\x2bcall\x20feedkeys\x28\x27\x5c\x3ccr\x3e\x27\x29
 SETUVAR fish_color_autosuggestion:4c566a
 SETUVAR fish_color_cancel:\x2dr
 SETUVAR fish_color_command:81a1c1
