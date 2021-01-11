@@ -3,21 +3,9 @@
   <br>
 </p>
 
-![header-min](https://user-images.githubusercontent.com/60138143/92312584-cffb3300-efca-11ea-9e0c-5a0dffc3955c.png)
+<img width="1020" alt="nvim" src="https://user-images.githubusercontent.com/60138143/104243026-a2d2fb80-5468-11eb-9e4b-76605d5d23f3.png">
+<!-- ### 🖥 Screenshots -->
 
-### 🖥 Screenshots
-
-<details>
- <summary>Nvim Startify Which-keys</summary>
-   <img width="1593" alt="fullscreen" src="https://user-images.githubusercontent.com/60138143/92312171-046cf000-efc7-11ea-9ee0-b594f7eb255d.png">
-   <img width="1593" alt="startify" src="https://user-images.githubusercontent.com/60138143/92312169-046cf000-efc7-11ea-8e21-046a6ea90067.png">
-   <img width="1593" alt="html" src="https://user-images.githubusercontent.com/60138143/92312166-02a32c80-efc7-11ea-913d-b1551e220649.png">
-</details>
-
-<details>
- <summary>iTerm2 Tmux</summary>
-  <img width="1593" alt="iterm2 tmux" src="https://user-images.githubusercontent.com/60138143/91641434-12ea6300-ea2d-11ea-8e75-4b3d2afaaf6e.png">
-</details>
 
 ### ⚙️ Configuration
 
@@ -26,7 +14,8 @@
 - Terminal: [Kitty](https://sw.kovidgoyal.net/kitty/)
 - Shell: [Fish](https://fishshell.com)
 - Multiplexer : [tmux](https://github.com/tmux/tmux)
-- Fonts: [JetBrainsMono Nerd](https://github.com/JetBrains/JetBrainsMono)
+<!-- - Fonts: [JetBrainsMono Nerd](https://github.com/JetBrains/JetBrainsMono) -->
+- Fonts: [Victor Mono Nerd](https://rubjo.github.io/victor-mono)
 - Windows manager: [Moom](https://manytricks.com/moom/).
 - Vim main theme: [Rigel](https://rigel.netlify.app)
 
