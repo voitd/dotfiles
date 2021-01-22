@@ -18,19 +18,20 @@ cmd [[au BufEnter *.png,*.jpg,*.gif,*.ico exec "silent !open ".expand("%") | :bw
 -- cmd [[au BufEnter *.png,*.jpg,*gif exec "! kitty +kitten icat ".expand("%") | :bw]]
 
 -- Return to last edited line
-cmd [[au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif]]
+cmd [[au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") && &filetype != 'gitcommit' | exe "normal! g'\"" | endif]]
 -- Reload module after saving
-cmd "command!  -nargs=1 ReloadModule lua require('plenary.reload').reload_module(<q-args>)"
-cmd "au BufWritePost *.lua :ReloadModule<CR>"
+-- cmd "command!  -nargs=1 ReloadModule lua require('plenary.reload').reload_module(<q-args>)"
+-- cmd "au BufWritePost *.lua :ReloadModule<CR>"
 
+cmd "au Filetype fzf setlocal winblend=7"
 cmd "au CmdlineLeave : echo ''"
-
 
 cmd "command! ReloadLSP lua reload_lsp()"
 cmd "command! DebugLSP lua print(vim.inspect(vim.lsp.get_active_clients()))"
 cmd "command! LogLSP lua open_lsp_log()"
 
--- cmd("au BufEnter * lua require'com_pletion'.on_attach()")
+-- cmd [[command! -nargs=0 ImportJs execute "normal ggOimport { ".expand('<cword>')."} from '';"]]
+-- cmd("au BufEnter * lua require'completion'.on_attach()")
 -- cmd("au CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics({ show_header = false })")
 
 -- Startuptime

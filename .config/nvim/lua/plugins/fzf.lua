@@ -43,12 +43,15 @@ g.fzf_history_dir = "~/.local/share/fzf-history"
 -- g.fzf_files_options = '--preview "(kitty +kitten icat --width 50 --true-color {} || cat {}) 2> /dev/null "'
 g.fzf_layout = {
   window = {
-    width = 0.7,
-    height = 0.35,
-    yoffset = 0.4
+    width = 0.6,
+    height = 0.55,
+    yoffset = 0.4,
+    xoffset = 0.5,
   }
 }
 
+-- g.fzf_layout = { ['down'] = '30%' }
+vim.g.fzf_preview_window = 'right:60%'
 cmd [[ command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, { "options": "--prompt '❯ '"}, <bang>0) ]]
 
 -- g.fzf_preview_window='right:50%'
@@ -69,37 +72,41 @@ function FZFOpen(cmd_str)
   cmd(cmd_str)
 end
 
+
 -- Ctrl-p = fuzzy finder
-map("n", "<C-P>", "<CMD>lua FZFOpen(':Files')<CR>")
+-- map("n", "<C-m>", "<CMD>lua FZFOpen(':History')<CR>")
+-- map("n", "<C-m>", "<CMD>lua FZFOpen(':History')<CR>")
+-- map("n", "<C-P>", "<CMD>lua FZFOpen(':Files')<CR>")
+  
 
 -- . = location of current file
 map("n", "'.", "<CMD>lua FZFOpen(':FZF " .. fn.expand("%:h") .. "')<CR>")
 
-map("n", "<leader>sw", "<CMD>lua require('utils').rg_word()<CR>")
+map("n", "<leader>sw", "<CMD>lua require('settings.utils').rg_word()<CR>")
 
 -- r = RG
-map("n", "'r", "<CMD>lua FZFOpen(':RG')<CR>")
+map("n", "<leader>srg", "<CMD>lua FZFOpen(':RG')<CR>")
 
 -- z = FZF
-map("n", "'z", "<CMD>lua FZFOpen(':FZF')<CR>")
+map("n", "<leader>sf", "<CMD>lua FZFOpen(':FZF')<CR>")
 
 -- b = buffers
-map("n", "'b", "<CMD>lua FZFOpen(':Buffers')<CR>")
+map("n", "<leader>bb", "<CMD>lua FZFOpen(':Buffers')<CR>")
 
 -- t = tags
-map("n", "'t", "<CMD>lua FZFOpen(':Tags')<CR>")
+map("n", "<leader>sta", "<CMD>lua FZFOpen(':Tags')<CR>")
 
 -- i = history
-map("n", "'i", "<CMD>lua FZFOpen(':History')<CR>")
+-- map("n", "<C-m>", "<CMD>lua FZFOpen(':History')<CR>")
 
 -- h = home
-map("n", "'h", "<CMD>lua FZFOpen(':FZF ~/')<CR>")
+map("n", "<leader>sh", "<CMD>lua FZFOpen(':FZF ~/')<CR>")
 
 -- g = gitfiles
-map("n", "'g", "<CMD>lua FZFOpen(':GFiles')<CR>")
+map("n", "<leader>sg", "<CMD>lua FZFOpen(':GFiles')<CR>")
 
 -- d = diagnostics
-map("n", "<leaderr>cd", "<CMD>lua FZFOpen(':Diagnostics')<CR>")
+map("n", "<leader>cd", "<CMD>lua FZFOpen(':Diagnostics')<CR>")
 
 api.nvim_exec(
   [[
@@ -115,3 +122,14 @@ api.nvim_exec(
       ]],
   ""
 )
+
+
+function _G.fzf_omni()
+  if vim.fn.isdirectory(".git") == 1 then
+   return ':GFiles --cached --others --exclude-standard --full-name'
+  else
+   return ':Files'
+  end
+end
+
+map("n", "<C-p>", ":lua FZFOpen(fzf_omni())<CR>")

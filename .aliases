@@ -20,12 +20,10 @@ alias df='df -h'
 
 alias ptp='ping 192.168.0.1'
 alias px='ping 192.168.10.1'
-alias pm='ping 192.168.1.1'
+alias pm='ping 192.168.101.1'
 alias p8='ping 8.8.8.8'
 alias trg='traceroute google.com'
 
-alias abd='abduco -A dots'
-alias abc='abduco -a codebattle'
 # apps
 alias v="nvim"
 alias n="nvim"

@@ -83,10 +83,12 @@ function U.esc(arg)
   return api.nvim_replace_termcodes(arg, true, false, true)
 end
 
+
 -- Usage:
 -- hi(Cursor, { fg = bg_dark, bg = yellow })
 function U.hi(group, styles)
-  local command = string.format("hi! %s", group)
+  -- local command = string.format("hi! %s", group)
+  local command = string.format("autocmd ColorScheme * hi %s", group)
   if styles.bg then
     command = string.format("%s guibg=%s", command, styles.bg)
   end
@@ -99,8 +101,8 @@ function U.hi(group, styles)
   if styles.cfg then
     command = string.format("%s ctermfg=%s", command, styles.cfg)
   end
-  if styles.g then
-    command = string.format("%s gui=%s", command, styles.g)
+  if styles.gui then
+    command = string.format("%s gui=%s", command, styles.gui)
   end
   cmd(command)
 end
@@ -139,10 +141,27 @@ function U.toggle_global_variables(global_variables)
   end
 end
 
-function U.get_toggleterm_name(_, bufnum)
-  local shell = fnamemodify(vim.env.SHELL, ":t")
-  local terminal_prefix = "Terminal(" .. shell .. ")["
-  return terminal_prefix .. fn.getbufvar(bufnum, "toggle_number") .. "]"
+function U.organize_imports_sync()
+  local params = lsp.util.make_range_params()
+  params.context = {
+    diagnostics = {},
+    only = { 'source.organizeImports' }
+  }
+
+  local responses = lsp.buf_request_sync(0, 'textDocument/codeAction', params)
+
+  if not responses or vim.tbl_isempty(responses) then
+    print('You cannot organize your imports')
+    return
+  end
+
+  for _, response in pairs(responses) do
+    for _, result in pairs(response.result or {}) do
+      if result.edit then
+        lsp.util.apply_workspace_edit(result.edit)
+      end
+    end
+  end
 end
 
 function U.console_log()
@@ -158,22 +177,92 @@ function U.rg_word()
   cmd(join("Rg! ", word))
 end
 
--- Creates an FZF executor for running FZF in lua
--- @param sink_fn Function to execute with selected line(s)
--- @param source to
-function U.run(opts)
-  fn['fzf#run'](fn['fzf#wrap'] {
-    source = opts.source;
-    sink = opts.sink_fn;
-    window = {width = 0.8; height = 0.7; border = true};
-    opts = opts.opts or os.getenv('FZF_DEFAULT_OPTS')
-  })
+function U.open_file_or_create_new()
+  local path = fn.expand("<cfile>")
+  if not path or path == "" then
+    return false
+  end
+
+  -- TODO handle terminal buffers
+
+  if pcall(vim.cmd, "norm!gf") then
+    return true
+  end
+
+  local answer = fn.input("Create a new file, (Y)es or (N)o? ")
+  if not answer or string.lower(answer) ~= "y" then
+    return vim.cmd "redraw"
+  end
+  vim.cmd "redraw"
+  local new_path = fn.fnamemodify(fn.expand("%:p:h") .. "/" .. path, ":p")
+  local ext = fn.fnamemodify(new_path, ":e")
+
+  if ext and ext ~= "" then
+    return vim.cmd("edit " .. new_path)
+  end
+
+  local suffixes = fn.split(vim.bo.suffixesadd, ",")
+
+  for _, suffix in ipairs(suffixes) do
+    if fn.filereadable(new_path .. suffix) then
+      return vim.cmd("edit " .. new_path .. suffix)
+    end
+  end
+
+  return vim.cmd("edit " .. new_path .. suffixes[1])
 end
--- killy buffah
-function U.kill_buffers() return U.run({sink_fn = 'bd'; source = 'ls'}) end
--- load sessions
-function U.load_sessions()
-  -- return U.run({sink_fn = 'source'; source = sessions.list()})
+
+local function preview_location_callback(_, method, result)
+  if result == nil or vim.tbl_isempty(result) then
+    vim.lsp.log.info(method, 'No location found')
+    return nil
+  end
+  if vim.tbl_islist(result) then
+    vim.lsp.util.preview_location(result[1])
+  else
+    vim.lsp.util.preview_location(result)
+  end
+end
+
+function U.peek_definition()
+  local params = vim.lsp.util.make_position_params()
+  return vim.lsp.buf_request(0, 'textDocument/definition', params, preview_location_callback)
+end
+
+vim.lsp.handlers["textDocument/formatting"] = function(err, _, result, _, bufnr)
+    if err ~= nil or result == nil then
+      return
+    end
+    if not vim.bo[bufnr].modified then
+      local view = vim.fn.winsaveview()
+      vim.lsp.util.apply_text_edits(result, bufnr)
+      vim.fn.winrestview(view)
+      if bufnr == vim.api.nvim_get_current_buf() then
+        vim.cmd("noautocmd :update")
+      end
+    end
+  end
+
+function U.rename()
+  local current_word = vim.fn.expand("<cword>")
+  local plenary_window = require('plenary.window.float').percentage_range_window(0.5, 0.01)
+  vim.api.nvim_buf_set_option(plenary_window.bufnr, 'buftype', 'prompt')
+  vim.fn.prompt_setprompt(plenary_window.bufnr, string.format('Rename "%s" to > ', current_word))
+  vim.fn.prompt_setcallback(plenary_window.bufnr, function(text)
+    vim.api.nvim_win_close(plenary_window.win_id, true)
+
+    if text ~= '' then
+      vim.schedule(function()
+        vim.api.nvim_buf_delete(plenary_window.bufnr, { force = true })
+
+        vim.lsp.buf.rename(text)
+      end)
+    else
+      print("Nothing to rename!")
+    end
+  end)
+
+  vim.cmd [[startinsert]]
 end
 
 function _G.dump(...)
@@ -190,5 +279,40 @@ function _G.open_lsp_log()
   local path = vim.lsp.get_log_path()
   cmd("edit " .. path)
 end
+
+local special_buffers = {
+  'git',
+  'undotree',
+  'help',
+  'startify',
+  'vim-plug',
+  'NvimTree',
+}
+
+function _G.is_special_buffer()
+  local buftype = api.nvim_buf_get_option(0, 'buftype')
+  if buftype == 'terminal' or buftype == 'quickfix' or buftype == 'help' then
+    return true
+  end
+  local filetype = api.nvim_buf_get_option(0, 'filetype')
+  for _, b in ipairs(special_buffers) do
+    if filetype == b then
+      return true
+    end
+  end
+  return false
+end
+
+_G.folds_render = require('settings.fold').render
+
+function _G.check_backspace()
+  local col = vim.fn.col('.') - 1
+  if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+    return true
+  else
+    return false
+  end
+end
+
 
 return U

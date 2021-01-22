@@ -5,7 +5,8 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- function to attach completion when setting up lsp
 local on_attach = function(client)
-    require'completion'.on_attach(client)
+    -- require'completion'.on_attach(client)
+    print("'" .. client.name .. "' server attached")
 end
 
 lspconfig.denols.setup {
@@ -14,7 +15,7 @@ lspconfig.denols.setup {
   init_options = {
     enable = true,
     lint = false,
-    unstable = false
+    unstable = true,
   },
   settings = {
   },

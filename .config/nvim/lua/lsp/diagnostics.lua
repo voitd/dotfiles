@@ -1,21 +1,75 @@
-
 local lspconfig = require("lspconfig")
+local sign_define = vim.fn.sign_define
+local lsp = vim.lsp
+local map = require("settings.utils").map
+
+
+map("n", "'d", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>",{})
+map('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', {})
+map('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', {})
+
+lsp.handlers["textDocument/publishDiagnostics"] =
+  lsp.with(
+  lsp.diagnostic.on_publish_diagnostics,
+  {
+    underline = true,
+    virtual_text = {
+      space = 2,
+      prefix = " "
+    },
+    signs = true,
+    update_in_insert = false
+  }
+)
+
+sign_define(
+  "LspDiagnosticsSignError",
+  {
+    text = "",
+    texthl = "LspDiagnosticsError"
+
+  }
+)
+
+sign_define(
+  "LspDiagnosticsSignWarning",
+  {
+    text = "",
+    texthl = "LspDiagnosticsWarning"
+  }
+)
+
+sign_define(
+  "LspDiagnosticsSignInformation",
+  {
+    text = "",
+    texthl = "LspDiagnosticsInformation"
+  }
+)
+
+sign_define(
+  "LspDiagnosticsSignHint",
+  {
+    text = "",
+    texthl = "LspDiagnosticsHint"
+  }
+)
 
 lspconfig.diagnosticls.setup(
   {
-    -- filetypes = {
-    --   "markdown",
-    --   "javascript",
-    --   "typescript",
-    --   "javascriptreact",
-    --   "typescriptreact",
-    --   "javascript.jsx",
-    --   "typescript.tsx",
-    --   "css",
-    --   "scss",
-    --   "sass",
-    --   "lua"
-    -- },
+    filetypes = {
+      "markdown",
+      "javascript",
+      "typescript",
+      "javascriptreact",
+      "typescriptreact",
+      "javascript.jsx",
+      "typescript.tsx",
+      "css",
+      "scss",
+      "sass",
+      "lua"
+    },
     init_options = {
       linters = {
         eslint = {
@@ -108,7 +162,7 @@ lspconfig.diagnosticls.setup(
         },
         prettier = {
           -- args = {"--stdin-filepath", "%filepath", "--single-quote", "--print-width 120"},
-          -- command = "npx prettier",
+          command = "npx prettier",
           -- args = {
           --   "--stdin-filepath",
           --   "%filepath",
@@ -138,3 +192,4 @@ lspconfig.diagnosticls.setup(
     }
   }
 )
+

@@ -15,9 +15,21 @@ map("n", ">", ">>", {})
 map("v", ">", ">gv", {})
 
 -- clear all the highlighted text from the previous search
-map("n", "<Esc><Esc>", ":noh<CR>", {silent = true})
+-- map("n", "<Esc><Esc>", ":noh<CR>", {silent = true})
+
+-- kk is escape, THEN move to the right to preserve the cursor position, unless
+-- at the first column.  <esc> will continue to work the default way.
+-- NOTE: this is a recursive mapping so anything bound (by a plugin) to <esc> still works
+-- map("i", "kk", [[col('.') == 1 ? '<esc>' : '<esc>l']], {expr = true, noremap = false})
+-- map("x", "kk", [[<ESC>]])
+
+-- Zero should go to the first non-blank character not to the first column (which could be blank)
+map("n", "0", "^")
+-- when going to the end of the line in visual mode ignore whitespace characters
+map("v", "$", "g_")
 
 map("n", "|", "<Plug>LineLetters", {silent = true, noremap = false})
+map("n", "<leader><leader>", ":FloatermNew ranger<cr>", {})
 
 -- Moves for colemak
 map("n", "j", "h", {})
@@ -51,8 +63,8 @@ map("n", "<A-Down>", "<C-W>-5", {})
 map("n", "<leader>ca", ":CodeActions<CR>", {})
 map("n", "<leader>sd", ":DocumentSymbols<CR>", {})
 
-map("n", "<leader>.",  ":e $MYVIMRC<CR>", {})
-map("n", "<leader>,",  ":Startify<CR>", {})
+map("n", "<leader>.", ":e $MYVIMRC<CR>", {})
+map("n", "<leader>,", ":Startify<CR>", {})
 map("n", "<leader>bd", ":bp<BAR>bd#<CR>", {})
 map("n", "<leader>bo", ":w<BAR>%bd<BAR>e#<BAR>bd#<CR>", {})
 
@@ -67,18 +79,16 @@ map("n", "]b", ":bnext<CR>", {})
 map("n", "[w", "<C-w>w", {})
 map("n", "]w", "<C-w>W", {})
 
-map("v", "J", ":m '>+1<CR>gv=gv", {})
-map("v", "K", ":m '<-2<CR>gv=gv", {})
+map("v", "K", ":m '>+1<CR>gv=gv", {})
+map("v", "M", ":m '<-2<CR>gv=gv", {})
 
 cmd [[xnoremap <expr> p 'pgv"' . v:register . 'y`]']]
 
 map("n", "<F3>", [[:echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '>'<cr>]], {})
 
-
-
 map("v", ".", ":normal .<CR>")
-map("x", "@", ":normal@<CR>")
-map("n", "@", ":normal@<CR>")
+map("x", "@", ":normal @<CR>")
+map("n", "@", ":normal @<CR>")
 map("n", "U", "~<Left>")
 
 cmd "set wildcharm=<C-s>"
@@ -106,7 +116,7 @@ map("n", "gs", ":SplitjoinSplit<CR>", {noremap = false})
 
 
 -- Jump to definition in vertical split
--- map('n', '<Leader>]', '<C-W>v<C-]>')
+map('n', '<Leader>js', '<C-W>v<C-]>')
 
 -- Taken from https://gist.github.com/romainl/c0a8b57a36aec71a986f1120e1931f20
 for _, char in ipairs({"_", ".", ":", ",", ";", "<bar>", "/", "<bslash>", "*", "+", "-", "#"}) do
@@ -117,21 +127,51 @@ for _, char in ipairs({"_", ".", ":", ",", ";", "<bar>", "/", "<bslash>", "*", "
 end
 
 map("n", "<Leader>ap", "<Plug>(JsConsoleLog)", {noremap = false})
-cmd [[nnoremap <silent><Plug>(JsConsoleLog) :lua return require'utils'.console_log()<CR>]]
--- map("n", '<Leader>sw', '<Plug>(RgWord)', { noremap = false })
--- cmd [[nnoremap <silent><Plug>(RgWord) :lua require'utils'.rg_word()<CR>]]
-
+cmd [[nnoremap <silent><Plug>(JsConsoleLog) :lua return require'settings.utils'.console_log()<CR>]]
 
 -- Git
 map("n", "<Leader>gs", ":Gstatus<CR>", {})
 map("n", "<Leader>gb", ":GBranches<CR>", {})
 map("n", "<Leader>go", ":GBrowse<CR>", {})
 
+-- vim-import-js
+map("n", "<Leader>if", ":ImportJSFix<CR>", {})
+map("n", "<Leader>iw", ":ImportJSWord<CR>", {})
+map("n", "<Leader>ig", ":ImportJSGoto<CR>", {})
 
 -- Searches
+-- when using * # ignore smart case
+_G['*'] = function()
+  vim.o.ignorecase = false
+  vim.o.smartcase = false
+  cmd('/' .. fn.expand('<cword>'))
+  vim.o.ignorecase = true
+  vim.o.smartcase = true
+end
+_G['#'] = function()
+  vim.o.ignorecase = false
+  vim.o.smartcase = false
+  cmd('?' .. fn.expand('<cword>'))
+  vim.o.ignorecase = true
+  vim.o.smartcase = true
+end
+-- case-sensative search for * and #
+vim.cmd"au cursorhold * set nohlsearch"
+map("n", "*", ":lua _G['*']()<cr>")
+map("n", "#", ":lua _G['#']()<cr>")
+map("n", "n", ":set hlsearch <cr>n")
+map("n", "N", ":set hlsearch <cr>N")
+map("n", "/", ":set hlsearch <cr>/")
+map("n", "?", ":set hlsearch <cr>?")
+
+
+
 map("n", "<leader>st", ":Rg!<CR>", {})
 map("n", "<leader>sb", ":BLines<CR>", {})
 map("n", "<leader>bs", ":BLines<CR>", {})
+map("n", "<leader>ss", [[:%s/\<<C-r>=expand("<cword>")<CR>\>/]])
+map("n", "<leader>sr", [[:s/\<<C-r>=expand("<cword>")<CR>\>/]])
+map("v", "<leader>ss", [["zy:%s/<C-r><C-o>"/]])
 
 -- Test
 map("n", "<leader>tf", "<cmd>TestFile<CR>", {})
@@ -141,19 +181,23 @@ map("n", "<leader>jj", "<cmd>JestCurrent<CR>", {})
 map("n", "<leader>ju", "<Plug>(ultest-run-file)", {noremap = false})
 
 -- Terminal
-map("n", "<F12>", "<cmd>FloatermToggle<CR>", {})
-map("t", "<Esc><Esc>", "<cmd>FloatermToggle<CR>", {})
-map("n", "<F10>", "<cmd>FloatermClose<CR>", {})
-map("n", "<C-j>", "<cmd>FloatermNew --height=0.3 --wintype=normal --position=bottom<CR>", {})
-map("n", "<C-j>v", "<cmd>FloatermNew --width=0.4 --wintype=normal --position=right<CR>", {})
+map("n", "<C-j>",      "<cmd>FloatermNew --height=0.3 --wintype=normal --position=bottom<CR>", {})
+map("n", "<C-j>v",     "<cmd>FloatermNew --width=0.4 --wintype=normal --position=right<CR>", {})
 
 -- Togglers
 map("n", "<leader>tg", ":GitBlameToggle<CR>", {})
 map("n", "<leader>tc", ":HexokinaseToggle<CR>", {})
 map("n", "<leader>tu", ":UndotreeToggle<CR>", {})
-map("n", "<leader>tr", "Codi<CR>", {})
-map("n", "<leader>tR", "Codi!<CR>", {})
+map("n", "<leader>tr", ":Codi<CR>", {})
+map("n", "<leader>tR", ":Codi!<CR>", {})
 
+--open a new file in the same directory
+map("n", "<Leader>nf", [[:e <C-R>=expand("%:p:h") . "/" <CR>]], {silent = false})
+map("n", "<Leader>of", ':lua require"settings.utils".open_file_or_create_new()', {silent = false})
 -- Kitty
 map("n", "<leader>kv", ":silent !kitty @ launch --copy-env --cwd=current nvim %", {})
+
+map("n", '<leader>io', '<cmd>lua require("settings.utils").organize_imports_sync()<CR>',{})
+
+map("n", "<leader>t", ":CHADopen<CR>", {})
 

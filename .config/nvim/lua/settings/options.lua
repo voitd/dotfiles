@@ -35,13 +35,11 @@ apply_options(
     writebackup = false, -- disable backup
     wildignorecase = true,
     -- String value
-    cpoptions = "x", -- stay at seach item when <esc>
     matchpairs = "(:),{:},[:],<:>", -- highlight match pairs
-    completeopt = "menuone,noinsert,noselect", -- better completion
-    formatoptions = "qrn1co", -- improve editor formatting
+    completeopt = "menuone,noinsert,noselect,longest", -- better completion
+    formatoptions = "1n2jvcroql", -- improve editor formatting
     encoding = "UTF-8", -- set encoding
-    fillchars = "vert:│,eob:\\ ", -- make vertical split sign better
-    foldmethod = "marker", -- foldmethod using marker
+    fillchars = "vert:│,fold:·,diff:,msgsep:‾,eob:\\ ,foldopen:▾,foldsep:│,foldclose:▸", -- make vertical split sign better
     inccommand = "split", -- incrementally show result of command
     listchars = "eol:↲,tab:∘\\ ", -- set listchars
     mouse = "nv", -- enable mouse support
@@ -52,10 +50,13 @@ apply_options(
     syntax = "on", -- syntax enable
     undodir = "/tmp/",
     wildignore = ".git,.hg,.svn,*.pyc,*.o,*.out,*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store,**/node_modules/**,**/bower_modules/**",
+    foldtext = "v:lua.folds_render()",
+    foldmethod = 'syntax',
     -- wildcharm='<C-s>',
 
     -- Number value
     -- colorcolumn = 120,                       -- 120 chars color column
+    foldlevelstart = 10,
     laststatus = 2, -- always enable statusline
     pumheight = 20, -- limit completion items
     re = 0, -- set regexp engine to auto

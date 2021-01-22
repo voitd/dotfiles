@@ -1,28 +1,57 @@
-local map = require"opts.utils".map
+vim.cmd [[packadd vim-vsnip]]
+vim.cmd [[packadd vim-vsnip-integ]]
+-- vim.cmd [[packadd completion-nvim]]
+vim.cmd [[packadd nvim-lspconfig]]
 
-require "lsp.js"
+local map = require "settings.utils".map
+
+require "lsp.compe"
+-- require "lsp.js"
+require "lsp.ts"
 require "lsp.html"
 require "lsp.css"
 require "lsp.json"
 require "lsp.lua"
-require "lsp.elixir"
+-- require "lsp.elixir"
 require "lsp.bash"
+require "lsp.diagnostics"
 
 -- LSP
-map('n', 'K',              '<cmd>lua require"opts.utils".show_doc()<CR>')
-map('n', '<leader>k',      '<cmd>lua require"opts.utils".hover()<CR>')
-map( "n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", {})
-map( "n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", {})
-map( "n", "gh", "<Cmd>lua vim.lsp.buf.hover()<CR>", {})
-map( "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", {})
-map( "n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", {})
-map( "n", "gdt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", {})
-map( "n", "rn", "<cmd>lua vim.lsp.buf.rename()<CR>", {})
-map( "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", {})
-map( "n", "ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", {})
-map( "n", "<leader>bf", "<cmd>lua vim.lsp.buf.formatting()<CR>", {})
+map("n", "gh", '<cmd>lua require"settings.utils".show_doc()<CR>', {noremap = true, silent = true})
+map("n", "<leader>h", '<cmd>lua require"settings.utils".hover()<CR>', {noremap = true, silent = true})
+map("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", {noremap = true, silent = true})
+map("n", "gh", "<Cmd>lua vim.lsp.buf.hover()<CR>", {noremap = true, silent = true})
+map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", {noremap = true, silent = true})
+map("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", {noremap = true, silent = true})
+map("n", "gdt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", {noremap = true, silent = true})
+map("n", "rn", "<cmd>lua vim.lsp.buf.rename()<CR>", {noremap = true, silent = true})
+map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", {noremap = true, silent = true})
+map("n", "ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", {noremap = true, silent = true})
 
-map('i', '<Tab>',   'pumvisible() ? "<C-n>" : "<Tab>"', { expr = true })
-map('i', '<S-Tab>', 'pumvisible() ? "<C-p>" : "<S-Tab>"', { expr = true })
-map('i', '<CR>',    'pumvisible() ? complete_info()["selected"] != "-1" ? "<Plug>(completion_confirm_completion)" : "<C-e><CR>" : "<CR>"',{expr = true})
+-- if client.resolved_capabilities.document_formatting then
+  map("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>",{noremap = true, silent = true})
+  map("n", "<leader>ff", ":Format<CR>", {})
 
+-- end
+-- if client.resolved_capabilities.document_range_formatting then
+--   map("v", "ft", "<cmd>lua vim.lsp.buf.formatting()<CR>",{})
+-- end
+
+map("n", "gp", ':lua require"settings.utils".peek_definition()<CR>', {})
+
+
+FormatRange = function()
+  local start_pos = vim.api.nvim_buf_get_mark(0, "<")
+  local end_pos = vim.api.nvim_buf_get_mark(0, ">")
+  vim.lsp.buf.range_formatting({}, start_pos, end_pos)
+end
+
+vim.cmd([[
+  command! -range FormatRange  execute 'lua FormatRange()'
+]])
+
+vim.cmd([[
+  command! LSPFormat  execute 'lua vim.lsp.buf.formatting()'
+]])
+
+map("n", "<F2>", ':lua require"settings.utils".rename()<CR>', {})

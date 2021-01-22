@@ -4,16 +4,10 @@
 
   "coc-actions.hideCursor": false,
 
-  "list.maxPreviewHeight": 30,
-
-
-  "suggest.triggerCompletionWait": 50,
   "suggest.noselect": false,
 
   "suggest.enablePreview": true,
-  "suggest.detailMaxLength":120,
-  "suggest.detailField": "abbr",
-  "suggest.echodocSupport": true,
+  /* "suggest.detailField": "abbr", */
   "suggest.disableMenuShortcut": true,
   "suggest.completionItemKindLabels": {
     "keyword": " [keyword]",

@@ -47,7 +47,7 @@ end
 map("n", "gh", "<CMD>lua show_docs()<CR>")
 
 map("n", "<leader>cx", ":CocRestart<CR>", {silent = true})
-map("n", "<Esc>", "coc#float#close_all()", {silent = true})
+-- map("n", "<Esc>", "coc#float#close_all()", {silent = true})
 
 map("n", "<leader>e", "<cmd>CocCommand explorer<CR>", {})
 map("n", "<leader><leader>", "<cmd>CocCommand explorer --position floating<CR>", {})
@@ -58,8 +58,8 @@ map("n", "<Leader>jk", ":call CocActionAsync('jumpDefinition','silent !kitty @ l
 
 -- Use `[e` and `]e` to navigate diagnostics
 -- Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-map("n", "[e", "<Plug>(coc-diagnostic-prev)", {noremap = false})
-map("n", "]e", "<Plug>(coc-diagnostic-next)", {noremap = false})
+map("n", "[d", "<Plug>(coc-diagnostic-prev)", {noremap = false})
+map("n", "]d", "<Plug>(coc-diagnostic-next)", {noremap = false})
 
 -- Multiple Cursors support
 map("n", "gw", "<Plug>(coc-cursors-word)", {noremap = false})
