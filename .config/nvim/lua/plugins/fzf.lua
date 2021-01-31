@@ -80,30 +80,30 @@ end
   
 
 -- . = location of current file
-map("n", "'.", "<CMD>lua FZFOpen(':FZF " .. fn.expand("%:h") .. "')<CR>")
+-- map("n", "'.", "<CMD>lua FZFOpen(':FZF " .. fn.expand("%:h") .. "')<CR>")
 
-map("n", "<leader>sw", "<CMD>lua require('settings.utils').rg_word()<CR>")
+map("n", "<leader>sw", "<CMD>lua rg_word()<CR>")
 
 -- r = RG
 map("n", "<leader>srg", "<CMD>lua FZFOpen(':RG')<CR>")
 
 -- z = FZF
-map("n", "<leader>sf", "<CMD>lua FZFOpen(':FZF')<CR>")
+-- map("n", "<leader>sf", "<CMD>lua FZFOpen(':FZF')<CR>")
 
 -- b = buffers
 map("n", "<leader>bb", "<CMD>lua FZFOpen(':Buffers')<CR>")
 
 -- t = tags
-map("n", "<leader>sta", "<CMD>lua FZFOpen(':Tags')<CR>")
+-- map("n", "<leader>sta", "<CMD>lua FZFOpen(':Tags')<CR>")
 
 -- i = history
 -- map("n", "<C-m>", "<CMD>lua FZFOpen(':History')<CR>")
 
 -- h = home
-map("n", "<leader>sh", "<CMD>lua FZFOpen(':FZF ~/')<CR>")
+-- map("n", "<leader>sh", "<CMD>lua FZFOpen(':FZF ~/')<CR>")
 
 -- g = gitfiles
-map("n", "<leader>sg", "<CMD>lua FZFOpen(':GFiles')<CR>")
+-- map("n", "<leader>sg", "<CMD>lua FZFOpen(':GFiles')<CR>")
 
 -- d = diagnostics
 map("n", "<leader>cd", "<CMD>lua FZFOpen(':Diagnostics')<CR>")
@@ -132,4 +132,4 @@ function _G.fzf_omni()
   end
 end
 
-map("n", "<C-p>", ":lua FZFOpen(fzf_omni())<CR>")
+map("n", "<C-f>", ":lua FZFOpen(fzf_omni())<CR>")

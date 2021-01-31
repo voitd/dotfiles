@@ -1,10 +1,10 @@
 require("gitsigns").setup {
   signs = {
-    add = {hl = "GitGutterAdd", text = "│"},
-    change = {hl = "GitGutterChange", text = "│"},
-    delete = {hl = "GitGutterDelete", text = "│"},
-    topdelete = {hl = "GitGutterDelete", text = "│"},
-    changedelete = {hl = "GitGutterDelete", text = "│"}
+    add = {hl = "GitGutterAdd", text = "│",numhl = "GitGutterAdd"},
+    change = {hl = "GitGutterChange", text = "│",numhl = "GitGutterChange"},
+    delete = {hl = "GitGutterDelete", text = "│",numhl = "GitGutterDelete"},
+    topdelete = {hl = "GitGutterDelete", text = "│",numhl = "GitGutterDelete"},
+    changedelete = {hl = "GitGutterDelete", text = "│",numhl = "GitGutterDelete"}
   },
   numhl = true,
   keymaps = {
@@ -16,7 +16,9 @@ require("gitsigns").setup {
     ["n <leader>hu"] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
     ["n <leader>hr"] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
     ["n <leader>hp"] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
-    ["n <leader>hb"] = '<cmd>lua require"gitsigns".blame_line()<CR>'
+    ["n <leader>hb"] = '<cmd>lua require"gitsigns".blame_line()<CR>',
+    ["n <leader>ha"] = '<cmd>lua require"gitsigns".attach()<CR>',
+    ["n <leader>hd"] = '<cmd>lua require"gitsigns".detach_all()<CR>'
   },
   watch_index = {
     interval = 1000

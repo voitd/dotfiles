@@ -37,7 +37,8 @@ apply_options(
     -- String value
     matchpairs = "(:),{:},[:],<:>", -- highlight match pairs
     completeopt = "menuone,noinsert,noselect,longest", -- better completion
-    formatoptions = "1n2jvcroql", -- improve editor formatting
+    complete = vim.o.complete..",k/Users/void/.config/word10k.txt",
+    formatoptions = "qrn1", -- improve editor formatting
     encoding = "UTF-8", -- set encoding
     fillchars = "vert:│,fold:·,diff:,msgsep:‾,eob:\\ ,foldopen:▾,foldsep:│,foldclose:▸", -- make vertical split sign better
     inccommand = "split", -- incrementally show result of command
@@ -49,7 +50,7 @@ apply_options(
     shell = "fish", -- fish as shell
     syntax = "on", -- syntax enable
     undodir = "/tmp/",
-    wildignore = ".git,.hg,.svn,*.pyc,*.o,*.out,*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store,**/node_modules/**,**/bower_modules/**",
+    wildignore = ".git,.hg,.svn,*.pyc,*.o,*.out,*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store,**/node_modules/**",
     foldtext = "v:lua.folds_render()",
     foldmethod = 'syntax',
     -- wildcharm='<C-s>',
@@ -59,14 +60,14 @@ apply_options(
     foldlevelstart = 10,
     laststatus = 2, -- always enable statusline
     pumheight = 20, -- limit completion items
-    re = 0, -- set regexp engine to auto
+    re = 1, -- set regexp engine to auto
     shiftwidth = 2, -- set indentation width
     scrolloff = 8, -- make scrolling better
     sidescroll = 2, -- make scrolling better
     sidescrolloff = 15, -- make scrolling better
-    synmaxcol = 300, -- set limit for syntax highlighting in a single line
+    synmaxcol = 140, -- set limit for syntax highlighting in a single line
     tabstop = 2, -- tabsize
-    timeoutlen = 400, -- faster timeout wait time
+    timeoutlen = 300, -- faster timeout wait time
     updatetime = 100, -- set faster update time
     ttimeoutlen = 0,
     softtabstop = 2,

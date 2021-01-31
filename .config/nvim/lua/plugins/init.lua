@@ -6,13 +6,16 @@ require "plugins.statusline"
 require "plugins.rooter"
 require "plugins.sneak"
 require "plugins.formatter"
+
 require "plugins.nord"
--- require "plugins.defx"
+
+-- require "plugins.tree"
+-- require "plugins.pairs"
+-- require "plugins.tsitter"
 
 
 require"nvim-web-devicons".setup()
 
 -- require "plugins.fzf"
 require "plugins.telescope"
--- require "plugins.bl"
 

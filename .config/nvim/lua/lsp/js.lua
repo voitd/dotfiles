@@ -15,7 +15,7 @@ lspconfig.denols.setup {
   init_options = {
     enable = true,
     lint = false,
-    unstable = true,
+    unstable = false,
   },
   settings = {
   },

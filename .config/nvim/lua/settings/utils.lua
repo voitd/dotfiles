@@ -1,11 +1,6 @@
-local g = vim.g
-local o = vim.o
-local bo = vim.bo
-local fn = vim.fn
+local g,o,bo = vim.g,vim.o,vim.bo
+local util,api,cmd,fn,lsp = vim.lsp.util,vim.api,vim.cmd,vim.fn,vim.lsp
 local fnamemodify = fn.fnamemodify
-local api = vim.api
-local cmd = vim.cmd
-local lsp = vim.lsp
 local U = {}
 
 local function join(...)
@@ -141,128 +136,12 @@ function U.toggle_global_variables(global_variables)
   end
 end
 
-function U.organize_imports_sync()
-  local params = lsp.util.make_range_params()
-  params.context = {
-    diagnostics = {},
-    only = { 'source.organizeImports' }
-  }
-
-  local responses = lsp.buf_request_sync(0, 'textDocument/codeAction', params)
-
-  if not responses or vim.tbl_isempty(responses) then
-    print('You cannot organize your imports')
-    return
-  end
-
-  for _, response in pairs(responses) do
-    for _, result in pairs(response.result or {}) do
-      if result.edit then
-        lsp.util.apply_workspace_edit(result.edit)
-      end
-    end
-  end
-end
-
-function U.console_log()
+function _G.console_log()
   local view = fn.winsaveview()
   local word = fn.expand("<cword>")
 
   cmd(string.format("keepjumps norm!oconsole.log('%s ->', %s); // eslint-disable-line no-console", word, word))
   fn.winrestview(view)
-end
-
-function U.rg_word()
-  local word = fn.expand("<cword>")
-  cmd(join("Rg! ", word))
-end
-
-function U.open_file_or_create_new()
-  local path = fn.expand("<cfile>")
-  if not path or path == "" then
-    return false
-  end
-
-  -- TODO handle terminal buffers
-
-  if pcall(vim.cmd, "norm!gf") then
-    return true
-  end
-
-  local answer = fn.input("Create a new file, (Y)es or (N)o? ")
-  if not answer or string.lower(answer) ~= "y" then
-    return vim.cmd "redraw"
-  end
-  vim.cmd "redraw"
-  local new_path = fn.fnamemodify(fn.expand("%:p:h") .. "/" .. path, ":p")
-  local ext = fn.fnamemodify(new_path, ":e")
-
-  if ext and ext ~= "" then
-    return vim.cmd("edit " .. new_path)
-  end
-
-  local suffixes = fn.split(vim.bo.suffixesadd, ",")
-
-  for _, suffix in ipairs(suffixes) do
-    if fn.filereadable(new_path .. suffix) then
-      return vim.cmd("edit " .. new_path .. suffix)
-    end
-  end
-
-  return vim.cmd("edit " .. new_path .. suffixes[1])
-end
-
-local function preview_location_callback(_, method, result)
-  if result == nil or vim.tbl_isempty(result) then
-    vim.lsp.log.info(method, 'No location found')
-    return nil
-  end
-  if vim.tbl_islist(result) then
-    vim.lsp.util.preview_location(result[1])
-  else
-    vim.lsp.util.preview_location(result)
-  end
-end
-
-function U.peek_definition()
-  local params = vim.lsp.util.make_position_params()
-  return vim.lsp.buf_request(0, 'textDocument/definition', params, preview_location_callback)
-end
-
-vim.lsp.handlers["textDocument/formatting"] = function(err, _, result, _, bufnr)
-    if err ~= nil or result == nil then
-      return
-    end
-    if not vim.bo[bufnr].modified then
-      local view = vim.fn.winsaveview()
-      vim.lsp.util.apply_text_edits(result, bufnr)
-      vim.fn.winrestview(view)
-      if bufnr == vim.api.nvim_get_current_buf() then
-        vim.cmd("noautocmd :update")
-      end
-    end
-  end
-
-function U.rename()
-  local current_word = vim.fn.expand("<cword>")
-  local plenary_window = require('plenary.window.float').percentage_range_window(0.5, 0.01)
-  vim.api.nvim_buf_set_option(plenary_window.bufnr, 'buftype', 'prompt')
-  vim.fn.prompt_setprompt(plenary_window.bufnr, string.format('Rename "%s" to > ', current_word))
-  vim.fn.prompt_setcallback(plenary_window.bufnr, function(text)
-    vim.api.nvim_win_close(plenary_window.win_id, true)
-
-    if text ~= '' then
-      vim.schedule(function()
-        vim.api.nvim_buf_delete(plenary_window.bufnr, { force = true })
-
-        vim.lsp.buf.rename(text)
-      end)
-    else
-      print("Nothing to rename!")
-    end
-  end)
-
-  vim.cmd [[startinsert]]
 end
 
 function _G.dump(...)
@@ -314,5 +193,17 @@ function _G.check_backspace()
   end
 end
 
+function _G.reload()
+    local modules = {"lsp", "plugins", "settings"}
+    for _, moduleName in pairs(modules) do
+        for packageName, _ in pairs(package.loaded) do
+            if string.find(packageName, "^" .. moduleName) then
+                package.loaded[packageName] = nil
+            end
+        end
+        require(moduleName)
+    end
+    print("Reloaded!")
+end
 
 return U

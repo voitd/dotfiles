@@ -14,9 +14,3 @@ require "plugins"
 require "lsp"
 -- require "coc"
 
-
--- if vim.fn.exists('g:coc') == 1 then
---   require"coc"
---   return
--- end
-

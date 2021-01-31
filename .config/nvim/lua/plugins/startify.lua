@@ -25,10 +25,10 @@ g.startify_custom_header = 'startify#center(g:ascii)'
 
 
 g.startify_lists = {
-   { type ='sessions',                    header = {'        Sessions' }           },
-   { type ='files',                       header = {'        Files'    }           },
-   { type ='bookmarks',                   header = {'        Bookmarks'}           },
-   { type ='commands',                    header = {'       גּ Commands' }           },
+   { type ='sessions',                    header = {'          Sessions' }           },
+   { type ='files',                       header = {'          Files'    }           },
+   { type ='bookmarks',                   header = {'          Bookmarks'}           },
+   { type ='commands',                    header = {'        גּ  Commands' }           },
  }
 
    -- { type ='dir',                         header = {'       MRU in '. getcwd() }  },
@@ -62,7 +62,7 @@ g.startify_change_to_vcs_root = 1
 g.startify_padding_left = 6
 g.webdevicons_enable_startify = 1
 g.startify_enable_special = 1
-g.startify_files_number = 12
+g.startify_files_number = 10
 g.startify_update_oldfiles = 1
 g.startify_change_to_dir = 1
 

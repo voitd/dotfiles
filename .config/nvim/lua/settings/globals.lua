@@ -11,6 +11,7 @@ cmd "filetype plugin indent on"
 apply_globals(
   {
     ultest_icons = 1,
+    dap_virtual_text = true,
     dict = '/Users/void/.config/word10k.txt',
     gitblame_enabled = 0,
     gitblame_message_template = "     <author> • <summary> • <date>",
@@ -38,6 +39,9 @@ apply_globals(
       ["typescript.tsx"] = "jsxRegion,tsxRegion",
       ["javascript.jsx"] = "jsxRegion"
     },
+    user_emmet_mode = 'i',
+    user_emmet_leader_key = '<C-a>',
+    user_emmet_expandabbr_key = '<C-a><C-a>',
     user_emmet_install_global = 0,
     bufferline = {
       animation = false,
@@ -59,14 +63,6 @@ apply_globals(
       typescriptreact = {'typescript'},
       ['javascript.jsx'] = {'javascript'},
       ['typescript.jsx'] = {'typescript'}
-    },
-    chad_settings = {  
-      keymap = {
-        new = "a",
-        tertiary = "o",
-        open_sys = "O"
-      }
-
     },
     -- Completion.nvim
     -- completion_confirm_key = "",

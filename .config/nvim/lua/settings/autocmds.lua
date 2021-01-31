@@ -10,9 +10,12 @@ cmd "au TermOpen * setlocal signcolumn=no nonumber norelativenumber"
 
 cmd "au BufNewFile,BufRead .eslintignore,.prettierignore,.aliases setf conf"
 cmd "au BufNewFile,BufRead .eslintrc,.prettierrc,tsconfig.json setf json"
+-- cmd "au BufNewFile,BufRead .jsx setf javascript"
+
+cmd 'au FileType html,css,javascriptreact EmmetInstall'
 
 cmd "au BufEnter *.txt lua require('settings.utils').help_tab()"
-
+-- cmd "au CursorMovedI * lua vim.lsp.buf.signature_help()"
 -- Open image file in system preview
 cmd [[au BufEnter *.png,*.jpg,*.gif,*.ico exec "silent !open ".expand("%") | :bw"]]
 -- cmd [[au BufEnter *.png,*.jpg,*gif exec "! kitty +kitten icat ".expand("%") | :bw]]
@@ -21,14 +24,14 @@ cmd [[au BufEnter *.png,*.jpg,*.gif,*.ico exec "silent !open ".expand("%") | :bw
 cmd [[au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") && &filetype != 'gitcommit' | exe "normal! g'\"" | endif]]
 -- Reload module after saving
 -- cmd "command!  -nargs=1 ReloadModule lua require('plenary.reload').reload_module(<q-args>)"
--- cmd "au BufWritePost *.lua :ReloadModule<CR>"
+-- cmd "au BufWritePost *.lua :lua reload()<CR>"
 
 cmd "au Filetype fzf setlocal winblend=7"
 cmd "au CmdlineLeave : echo ''"
 
-cmd "command! ReloadLSP lua reload_lsp()"
-cmd "command! DebugLSP lua print(vim.inspect(vim.lsp.get_active_clients()))"
-cmd "command! LogLSP lua open_lsp_log()"
+cmd "command! LSPReload lua reload_lsp()"
+cmd "command! LSPDebug lua print(vim.inspect(vim.lsp.get_active_clients()))"
+cmd "command! LSPLog lua open_lsp_log()"
 
 -- cmd [[command! -nargs=0 ImportJs execute "normal ggOimport { ".expand('<cword>')."} from '';"]]
 -- cmd("au BufEnter * lua require'completion'.on_attach()")

@@ -163,7 +163,7 @@ section.right[6] = {
     provider = "LineColumn",
     separator = "",
     separator_highlight = {nord_colors.blue, nord_colors.line_bg},
-    highlight = {nord_colors.fg, nord_colors.line_bg}
+    highlight = {nord_colors.gray, nord_colors.line_bg}
   }
 }
 -- section.right[7] = {
@@ -179,8 +179,8 @@ section.right[6] = {
 section.right[8] = {
   DiagnosticError = {
     provider = "DiagnosticError",
-    -- separator = " ",
-    icon = "   ",
+    separator = " ",
+    icon = " ",
     highlight = {nord_colors.red, nord_colors.line_bg},
     separator_highlight = {nord_colors.bg, nord_colors.bg}
   }
@@ -189,7 +189,7 @@ section.right[9] = {
   DiagnosticWarn = {
     provider = "DiagnosticWarn",
     -- separator = " ",
-    icon = "   ",
+    icon = " ",
     highlight = {nord_colors.yellow, nord_colors.line_bg},
     separator_highlight = {nord_colors.bg, nord_colors.bg}
   }
@@ -199,7 +199,7 @@ section.right[10] = {
   DiagnosticInfo = {
     -- separator = " ",
     provider = "DiagnosticInfo",
-    icon = "   ",
+    icon = " ",
     highlight = {nord_colors.green, nord_colors.line_bg},
     separator_highlight = {nord_colors.bg, nord_colors.bg}
   }
@@ -209,7 +209,7 @@ section.right[11] = {
   DiagnosticHint = {
     provider = "DiagnosticHint",
     -- separator = " ",
-    icon = "   ",
+    icon = " ",
     highlight = {nord_colors.blue, nord_colors.line_bg},
     separator_highlight = {nord_colors.bg, nord_colors.bg}
   }

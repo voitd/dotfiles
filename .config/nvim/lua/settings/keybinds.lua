@@ -3,10 +3,15 @@ local cmd = vim.cmd
 local g = vim.g
 local fn = vim.fn
 
--- Mapleader
+
 -- Map <leader> to space
 map("n", "<Space>", "<Nop>")
+-- Mapleader
 g.mapleader = " "
+
+-- remove annoying exmode
+map("n", "Q", "<Nop>", {noremap = true})
+map("n", "q:", "<Nop>", {noremap = true})
 
 -- Better indenting
 map("v", "<", "<gv", {})
@@ -14,37 +19,36 @@ map("n", "<", "<<", {})
 map("n", ">", ">>", {})
 map("v", ">", ">gv", {})
 
--- clear all the highlighted text from the previous search
--- map("n", "<Esc><Esc>", ":noh<CR>", {silent = true})
-
--- kk is escape, THEN move to the right to preserve the cursor position, unless
--- at the first column.  <esc> will continue to work the default way.
--- NOTE: this is a recursive mapping so anything bound (by a plugin) to <esc> still works
--- map("i", "kk", [[col('.') == 1 ? '<esc>' : '<esc>l']], {expr = true, noremap = false})
--- map("x", "kk", [[<ESC>]])
-
 -- Zero should go to the first non-blank character not to the first column (which could be blank)
 map("n", "0", "^")
 -- when going to the end of the line in visual mode ignore whitespace characters
 map("v", "$", "g_")
+map("n", "$", "g_")
 
-map("n", "|", "<Plug>LineLetters", {silent = true, noremap = false})
+map("n", "yy", "^yg_")
+-- map("n", "dd", "^dg_")
+
 map("n", "<leader><leader>", ":FloatermNew ranger<cr>", {})
+map("t", "<leader><leader>", [[<C-\><C-n>:FloatermKill]], {})
 
 -- Moves for colemak
 map("n", "j", "h", {})
 map("n", "k", "j", {})
-map("n", "m", "k", {})
+map("n", "h", "k", {})
 
 map("v", "j", "h", {})
 map("v", "k", "j", {})
-map("v", "m", "k", {})
+map("v", "h", "k", {})
 
 map("x", "j", "h", {})
 map("x", "k", "j", {})
-map("x", "m", "k", {})
+map("x", "h", "k", {})
 
+map("o", "j", "h", {})
+map("o", "k", "j", {})
+map("o", "h", "k", {})
 -- Easier Moving between splits
+
 map("n", "<C-J>", "<C-W><C-J>", {})
 map("n", "<C-K>", "<C-W><C-K>", {})
 map("n", "<C-L>", "<C-W><C-L>", {})
@@ -58,10 +62,6 @@ map("n", "<A-Down>", "<C-W>-5", {})
 
 -- map('v', '<leader>s', ':s//gcI<Left><Left><Left><Left>')
 -- map('n', '<leader>s', ':%s//gcI<Left><Left><Left><Left>')
-
--- map("n", "<leader>cd", ":Diagnostics<CR>", {})
-map("n", "<leader>ca", ":CodeActions<CR>", {})
-map("n", "<leader>sd", ":DocumentSymbols<CR>", {})
 
 map("n", "<leader>.", ":e $MYVIMRC<CR>", {})
 map("n", "<leader>,", ":Startify<CR>", {})
@@ -80,7 +80,7 @@ map("n", "[w", "<C-w>w", {})
 map("n", "]w", "<C-w>W", {})
 
 map("v", "K", ":m '>+1<CR>gv=gv", {})
-map("v", "M", ":m '<-2<CR>gv=gv", {})
+map("v", "H", ":m '<-2<CR>gv=gv", {})
 
 cmd [[xnoremap <expr> p 'pgv"' . v:register . 'y`]']]
 
@@ -89,14 +89,15 @@ map("n", "<F3>", [[:echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") .
 map("v", ".", ":normal .<CR>")
 map("x", "@", ":normal @<CR>")
 map("n", "@", ":normal @<CR>")
+
 map("n", "U", "~<Left>")
 
 cmd "set wildcharm=<C-s>"
 map("n", "<Tab><Tab>", ":buffer <C-s><S-Tab>", {})
 
 map("n", "<leader>r", ":luafile %<CR>", {})
--- map("n", "<leader>x", ':lua require"plenary.reload".reload_module"init"<CR>', {})
-map("n", "<leader>x", ":luafile $MYVIMRC<CR>", {})
+map("n", "<leader>x", ":lua reload()<CR>", {})
+
 -- Copy to system clipboard
 map("v", "<C-c>", '"+y')
 -- Paste from system clipboard with Ctrl + v
@@ -111,8 +112,8 @@ map("v", "p", "p`]")
 map("o", "A", ":<C-U>normal! ggVG<CR>")
 -- Disable ex mode mapping
 
-map("n", "gj", ":SplitjoinJoin<CR>", {noremap = false})
-map("n", "gs", ":SplitjoinSplit<CR>", {noremap = false})
+map("n", "gJ", ":SplitjoinJoin<CR>", {})
+map("n", "gj", ":SplitjoinSplit<CR>", {})
 
 
 -- Jump to definition in vertical split
@@ -127,7 +128,7 @@ for _, char in ipairs({"_", ".", ":", ",", ";", "<bar>", "/", "<bslash>", "*", "
 end
 
 map("n", "<Leader>ap", "<Plug>(JsConsoleLog)", {noremap = false})
-cmd [[nnoremap <silent><Plug>(JsConsoleLog) :lua return require'settings.utils'.console_log()<CR>]]
+cmd [[nnoremap <silent><Plug>(JsConsoleLog) :lua console_log()<CR>]]
 
 -- Git
 map("n", "<Leader>gs", ":Gstatus<CR>", {})
@@ -167,6 +168,7 @@ map("n", "?", ":set hlsearch <cr>?")
 
 
 map("n", "<leader>st", ":Rg!<CR>", {})
+map("n", "<leader>sw", ':Rg' .. fn.expand('<cword>'), {})
 map("n", "<leader>sb", ":BLines<CR>", {})
 map("n", "<leader>bs", ":BLines<CR>", {})
 map("n", "<leader>ss", [[:%s/\<<C-r>=expand("<cword>")<CR>\>/]])
@@ -178,11 +180,11 @@ map("n", "<leader>tf", "<cmd>TestFile<CR>", {})
 map("n", "<leader>tv", "<cmd>TestVisit<CR>", {})
 map("n", "<leader>jr", "<cmd>Jest<CR>", {})
 map("n", "<leader>jj", "<cmd>JestCurrent<CR>", {})
-map("n", "<leader>ju", "<Plug>(ultest-run-file)", {noremap = false})
+map("n", "<leader>ut", "<Plug>(ultest-run-file)", {noremap = false})
 
 -- Terminal
-map("n", "<C-j>",      "<cmd>FloatermNew --height=0.3 --wintype=normal --position=bottom<CR>", {})
-map("n", "<C-j>v",     "<cmd>FloatermNew --width=0.4 --wintype=normal --position=right<CR>", {})
+map("n", "<leader>tt",      "<cmd>FloatermNew --height=0.3 --wintype=normal --position=bottom<CR>", {})
+map("n", "<leader>tv",      "<cmd>FloatermNew --width=0.4 --wintype=normal --position=right<CR>", {})
 
 -- Togglers
 map("n", "<leader>tg", ":GitBlameToggle<CR>", {})
@@ -193,11 +195,8 @@ map("n", "<leader>tR", ":Codi!<CR>", {})
 
 --open a new file in the same directory
 map("n", "<Leader>nf", [[:e <C-R>=expand("%:p:h") . "/" <CR>]], {silent = false})
-map("n", "<Leader>of", ':lua require"settings.utils".open_file_or_create_new()', {silent = false})
+map("n", "<Leader>of", ':lua open_file_or_create_new()', {silent = false})
 -- Kitty
-map("n", "<leader>kv", ":silent !kitty @ launch --copy-env --cwd=current nvim %", {})
+map("n", "<leader>kv", ":silent !kitty @ launch --copy-env --cwd=current nvim % <CR>", {})
 
-map("n", '<leader>io', '<cmd>lua require("settings.utils").organize_imports_sync()<CR>',{})
-
-map("n", "<leader>t", ":CHADopen<CR>", {})
-
+map("n", "<leader>cc", ":normal gcc<CR>", {})
