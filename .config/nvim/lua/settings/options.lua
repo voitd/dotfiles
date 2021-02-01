@@ -4,13 +4,15 @@ apply_options(
   {
     -- Boolean value
     compatible = false,
-    ttyfast = true,
     wildmenu = true,
     cindent = true,
+    autoindent = true, -- enable autoindent
+    smartcase = true, -- improve searching using '/'
+    smartindent = true, -- smarter indentation
+    smarttab = true, -- make tab behaviour smarter
     undofile = true,
     showcmd = false, -- disable mode display since lightline display
     showmatch = true, -- highlight matching [{()}]
-    autoindent = true, -- enable autoindent
     backup = false, -- disable backup
     cursorline = true, -- enable cursorline
     expandtab = true, -- use spaces instead of tabs
@@ -23,9 +25,6 @@ apply_options(
     number = true, -- enable number
     relativenumber = true, -- enable relativenumber
     showmode = false, -- don't show mode
-    smartcase = true, -- improve searching using '/'
-    smartindent = true, -- smarter indentation
-    smarttab = true, -- make tab behaviour smarter
     splitbelow = true, -- split below instead of above
     splitright = true, -- split right instead of left
     startofline = false, -- don't go to the start of the line when moving to another file
@@ -34,11 +33,14 @@ apply_options(
     wrap = false, -- dont wrap lines
     writebackup = false, -- disable backup
     wildignorecase = true,
+    ttyfast = true,
+    timeout = true,
+    ttimeout = true,
     -- String value
     matchpairs = "(:),{:},[:],<:>", -- highlight match pairs
     completeopt = "menuone,noinsert,noselect,longest", -- better completion
     complete = vim.o.complete..",k/Users/void/.config/word10k.txt",
-    formatoptions = "qrn1", -- improve editor formatting
+    formatoptions = "1jcroql", -- improve editor formatting
     encoding = "UTF-8", -- set encoding
     fillchars = "vert:│,fold:·,diff:,msgsep:‾,eob:\\ ,foldopen:▾,foldsep:│,foldclose:▸", -- make vertical split sign better
     inccommand = "split", -- incrementally show result of command
@@ -57,21 +59,22 @@ apply_options(
 
     -- Number value
     -- colorcolumn = 120,                       -- 120 chars color column
-    foldlevelstart = 10,
+    foldlevelstart = 99,
     laststatus = 2, -- always enable statusline
     pumheight = 20, -- limit completion items
     re = 1, -- set regexp engine to auto
-    shiftwidth = 2, -- set indentation width
     scrolloff = 8, -- make scrolling better
     sidescroll = 2, -- make scrolling better
     sidescrolloff = 15, -- make scrolling better
-    synmaxcol = 140, -- set limit for syntax highlighting in a single line
+    synmaxcol = 500, -- set limit for syntax highlighting in a single line
+    shiftwidth = 2, -- set indentation width
     tabstop = 2, -- tabsize
+    softtabstop = 2,
+    textwidth = 140,
+    redrawtime = 1500,
+    numberwidth = 1,
     timeoutlen = 300, -- faster timeout wait time
     updatetime = 100, -- set faster update time
     ttimeoutlen = 0,
-    softtabstop = 2,
-    textwidth = 140,
-    numberwidth = 1
   }
 )

@@ -3,7 +3,7 @@ vim.cmd [[packadd vim-vsnip]]
 vim.cmd [[packadd vim-vsnip-integ]]
 local map = require "settings.utils".map
 
-vim.cmd "au BufEnter *.jsx set filetype=javascript"
+-- vim.cmd "au BufEnter *.jsx set filetype=javascript"
 
 require "compe".setup {
   enabled = true,
@@ -18,7 +18,8 @@ require "compe".setup {
     buffer = true,
     vsnip = true,
     nvim_lsp = true,
-    nvim_lua = true
+    nvim_lua = true,
+    dict = true
   }
 }
 

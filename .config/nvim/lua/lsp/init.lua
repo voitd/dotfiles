@@ -18,15 +18,9 @@ require "lsp.diagnostics"
 map("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", {noremap = true, silent = true})
 map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", {noremap = true, silent = true})
 map("n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", {noremap = true, silent = true})
--- map("n", "gh", '<cmd>lua require"settings.utils".show_doc()<CR>', {noremap = true, silent = true})
--- map("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", {noremap = true, silent = true})
--- map("n", "<leader>h", '<cmd>lua require"settings.utils".hover()<CR>', {noremap = true, silent = true})
--- map("n", "rn", "<cmd>lua vim.lsp.buf.rename()<CR>", {noremap = true, silent = true})
--- map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", {noremap = true, silent = true})
--- map("n", "ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", {noremap = true, silent = true})
 
 
-map("n", "<leader>f",  ":lua LSPFormat<CR>", {})
+map("n", "<leader>f",  ":LSPFormat<CR>", {})
 map("n", "<leader>ff", ":Format<CR>", {})
 
 FormatRange = function()

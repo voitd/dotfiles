@@ -25,10 +25,10 @@ g.startify_custom_header = 'startify#center(g:ascii)'
 
 
 g.startify_lists = {
-   { type ='sessions',                    header = {'          Sessions' }           },
-   { type ='files',                       header = {'          Files'    }           },
-   { type ='bookmarks',                   header = {'          Bookmarks'}           },
-   { type ='commands',                    header = {'        גּ  Commands' }           },
+   { type ='sessions',                    header = {'         Sessions' }           },
+   { type ='files',                       header = {'         Files'    }           },
+   { type ='bookmarks',                   header = {'         Bookmarks'}           },
+   { type ='commands',                    header = {'       גּ  Commands' }           },
  }
 
    -- { type ='dir',                         header = {'       MRU in '. getcwd() }  },

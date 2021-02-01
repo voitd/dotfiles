@@ -17,8 +17,8 @@ map("n", "<leader>tt",  "<cmd>lua require('lspsaga.floaterm').open_float_termina
 map("t", "<leader>tt",  [[:lua <C-\><C-n>:lua require('lspsaga.floaterm').close_float_terminal()<CR>]], {noremap = true, silent = true})
 
 map("n", "rn",  "<cmd>lua  require('lspsaga.rename').rename()<CR>",                         {noremap = true, silent = true})
-map("n", "<leader>dd",  "<cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>", {noremap = true, silent = true})
-map("n", "[e", "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>",       {noremap = true, silent = true})
-map("n", "]e", "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>",       {noremap = true, silent = true})
+map("n", "'d",  "<cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>", {noremap = true, silent = true})
+map("n", "[d", "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>",       {noremap = true, silent = true})
+map("n", "]d", "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>",       {noremap = true, silent = true})
 
 -- map("n", "<leader>sr", "<cmd>lua ", {noremap = true, silent = true})

@@ -74,6 +74,7 @@ return require("packer").startup(
       use "hrsh7th/vim-vsnip"
       use "hrsh7th/vim-vsnip-integ"
       use "dsznajder/vscode-es7-javascript-react-snippets"
+      -- "hollowtree/vscode-vue-snippets"
 
       -- Themes
       use "sheerun/vim-polyglot"

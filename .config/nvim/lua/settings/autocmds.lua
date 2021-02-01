@@ -12,7 +12,7 @@ cmd "au BufNewFile,BufRead .eslintignore,.prettierignore,.aliases setf conf"
 cmd "au BufNewFile,BufRead .eslintrc,.prettierrc,tsconfig.json setf json"
 -- cmd "au BufNewFile,BufRead .jsx setf javascript"
 
-cmd 'au FileType html,css,javascriptreact EmmetInstall'
+cmd 'au FileType html,css,javascript,javascriptreact,vue,typescript,typescriptreact EmmetInstall'
 
 cmd "au BufEnter *.txt lua require('settings.utils').help_tab()"
 -- cmd "au CursorMovedI * lua vim.lsp.buf.signature_help()"

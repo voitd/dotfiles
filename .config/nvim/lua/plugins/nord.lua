@@ -97,10 +97,6 @@ highlights(
     TelescopeMatching = {fg = colors.nord11},
     TelescopeNormal = {fg = colors.nord9},
     FloatermBorder = {fg = colors.nord15},
-    LspDiagnosticsUnderlineError = { gui='underline' },
-    LspDiagnosticsUnderlineWarning = { gui='underline' },
-    LspDiagnosticsUnderlineInformation = { gui='underline' },
-    LspDiagnosticsUnderlineHint = { gui='underline' },
   }
 )
 

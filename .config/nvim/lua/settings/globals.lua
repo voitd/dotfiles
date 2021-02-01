@@ -12,7 +12,7 @@ apply_globals(
   {
     ultest_icons = 1,
     dap_virtual_text = true,
-    dict = '/Users/void/.config/word10k.txt',
+    dict = "/Users/void/.config/word10k.txt",
     gitblame_enabled = 0,
     gitblame_message_template = "     <author> • <summary> • <date>",
     lengthmatters_highlight_one_column = 1,
@@ -34,15 +34,21 @@ apply_globals(
     javascript_plugin_flow = 1,
     javascript_plugin_jsdoc = 1,
     tagalong_additional_filetypes = {"javascript"},
+    -- closetag
     closetag_filetypes = "html,xhtml,phtml,html.handlebars,javascriptreact,typescriptreact",
+    closetag_filenames = "*.html,*.xhtml,*.phtml,*.js,*.jsx,*.ts,*.tsx",
+    closetag_emptyTags_caseSensitive = 1,
+    closetag_shortcut = ">",
     closetag_regions = {
       ["typescript.tsx"] = "jsxRegion,tsxRegion",
       ["javascript.jsx"] = "jsxRegion"
     },
-    user_emmet_mode = 'i',
-    user_emmet_leader_key = '<C-a>',
-    user_emmet_expandabbr_key = '<C-a><C-a>',
+    -- emmet
+    user_emmet_mode = "i",
+    user_emmet_leader_key = ",",
+    user_emmet_expandabbr_key = "<C-a><C-a>",
     user_emmet_install_global = 0,
+    user_emmet_install_command = 0,
     bufferline = {
       animation = false,
       maximum_padding = 0,
@@ -58,51 +64,11 @@ apply_globals(
         extends = "jsx"
       }
     },
-    vsnip_filetypes = {
-      javascriptreact = {'javascript'},
-      typescriptreact = {'typescript'},
-      ['javascript.jsx'] = {'javascript'},
-      ['typescript.jsx'] = {'typescript'}
-    },
-    -- Completion.nvim
-    -- completion_confirm_key = "",
-    -- completion_trigger_character = {".", "::"},
-    -- completion_auto_change_source = 1,
-    -- completion_enable_auto_paren = 1,
-    -- completion_enable_auto_signature = 1,
-    -- completion_enable_auto_hover = 1,
-    -- completion_enable_snippet = "vim-vsnip",
-    -- completion_sorting = "none",
-    -- -- completion_timer_cycle = 200,
-    -- completion_customize_lsp_label = {
-    --   Function = " [function]",
-    --   Method = " [method]",
-    --   Reference = " [refrence]",
-    --   Enum = " [enum]",
-    --   Field = "ﰠ [field]",
-    --   Keyword = " [key]",
-    --   Variable = " [variable]",
-    --   Folder = " [folder]",
-    --   Operator = " [operator]",
-    --   Module = " [module]",
-    --   Text = "ﮜ [text]",
-    --   Class = " [class]",
-    --   Interface = " [interface]",
-    --   File = " [file]",
-    --   Value = "\u{f89f} [value]",
-    --   Constant = "\u{f8fe} [constant]",
-    --   Struct = "\u{fb44} [struct]",
-    --   EnumMember = "\u{f02b} [enum member]",
-    --   Color = "\u{e22b} [color]",
-    --   Property = "\u{e624} [property]",
-    --   Unit = "\u{f475} [unit]",
-    --   Event = "\u{facd} [event]",
-    --   TypeParameter = "\u{f728} [type param]",
-    --   Default = "\u{f29c} [default]",
-    --   Buffers = " [buffers]",
-    --   Snippet = " [snippet]",
-    --   ["vim-vsnip"] = " [snippet]"
-    -- },
+    -- snippets
+    vsnip_filetypes = {},
+    ["vsnip_filetypes.javascriptreact"] = {"javascript"},
+    ["vsnip_filetypes.vue"] = {"vue", "javascript", "typescript"},
+    ["vsnip_filetypes.typescriptreact"] = {"typescript"},
     -- vim-test
     ["test#strategy"] = "floaterm",
     ["test#elixir#exunit#executable"] = "MIX_ENV=test mix test",
