@@ -38,8 +38,9 @@ apply_options(
     ttimeout = true,
     -- String value
     matchpairs = "(:),{:},[:],<:>", -- highlight match pairs
-    completeopt = "menuone,noinsert,noselect,longest", -- better completion
-    complete = vim.o.complete..",k/Users/void/.config/word10k.txt",
+    -- completeopt = "menu,menuone,noselect", -- better completion
+    omnifunc = "v:lua.vim.lsp.omnifunc",
+    -- complete = vim.o.complete..",k/Users/void/.config/word10k.txt",
     formatoptions = "1jcroql", -- improve editor formatting
     encoding = "UTF-8", -- set encoding
     fillchars = "vert:│,fold:·,diff:,msgsep:‾,eob:\\ ,foldopen:▾,foldsep:│,foldclose:▸", -- make vertical split sign better
@@ -54,7 +55,7 @@ apply_options(
     undodir = "/tmp/",
     wildignore = ".git,.hg,.svn,*.pyc,*.o,*.out,*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store,**/node_modules/**",
     foldtext = "v:lua.folds_render()",
-    foldmethod = 'syntax',
+    foldmethod = "syntax",
     -- wildcharm='<C-s>',
 
     -- Number value
@@ -75,6 +76,6 @@ apply_options(
     numberwidth = 1,
     timeoutlen = 300, -- faster timeout wait time
     updatetime = 100, -- set faster update time
-    ttimeoutlen = 0,
+    ttimeoutlen = 0
   }
 )

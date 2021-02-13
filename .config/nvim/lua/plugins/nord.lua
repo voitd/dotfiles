@@ -44,6 +44,7 @@ hiLinks(
     jsFuncBlock = "rustPanic",
     jsExport = "typescriptBOMWindowMethod",
     jsImport = "typescriptBOMWindowMethod",
+    jsFrom = "typescriptBOMWindowMethod",
     jsNull = "typescriptDecorator",
     jsBooleanTrue = "typescriptDecorator",
     jsBooleanFalse = "typescriptDecorator",

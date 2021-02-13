@@ -3,7 +3,6 @@ local cmd = vim.cmd
 local g = vim.g
 local fn = vim.fn
 
-
 -- Map <leader> to space
 map("n", "<Space>", "<Nop>")
 -- Mapleader
@@ -25,8 +24,11 @@ map("n", "0", "^")
 map("v", "$", "g_")
 map("n", "$", "g_")
 
-map("n", "yy", "^yg_")
+-- map("n", "yy", "^yg_")
 -- map("n", "dd", "^dg_")
+
+map("i", '"', '""<left>', {})
+map("i", "'", "''<left>", {})
 
 map("n", "<leader><leader>", ":FloatermNew ranger<cr>", {})
 map("t", "<leader><leader>", [[<C-\><C-n>:FloatermKill]], {})
@@ -114,10 +116,10 @@ map("o", "A", ":<C-U>normal! ggVG<CR>")
 
 map("n", "gJ", ":SplitjoinJoin<CR>", {})
 map("n", "gj", ":SplitjoinSplit<CR>", {})
-
+map("n", "g{", [[m`o}<esc><lt><lt>kkA<Space>{<esc>``]], {})
 
 -- Jump to definition in vertical split
-map('n', '<Leader>js', '<C-W>v<C-]>')
+map("n", "<Leader>js", "<C-W>v<C-]>")
 
 -- Taken from https://gist.github.com/romainl/c0a8b57a36aec71a986f1120e1931f20
 for _, char in ipairs({"_", ".", ":", ",", ";", "<bar>", "/", "<bslash>", "*", "+", "-", "#"}) do
@@ -131,7 +133,7 @@ map("n", "<Leader>ap", "<Plug>(JsConsoleLog)", {noremap = false})
 cmd [[nnoremap <silent><Plug>(JsConsoleLog) :lua console_log()<CR>]]
 
 -- Git
-map("n", "<Leader>gs", ":Gstatus<CR>", {})
+map("n", "<Leader>gg", ":Gstatus<CR>", {})
 map("n", "<Leader>gb", ":GBranches<CR>", {})
 map("n", "<Leader>go", ":GBrowse<CR>", {})
 
@@ -142,22 +144,22 @@ map("n", "<Leader>ig", ":ImportJSGoto<CR>", {})
 
 -- Searches
 -- when using * # ignore smart case
-_G['*'] = function()
+_G["*"] = function()
   vim.o.ignorecase = false
   vim.o.smartcase = false
-  cmd('/' .. fn.expand('<cword>'))
+  cmd("/" .. fn.expand("<cword>"))
   vim.o.ignorecase = true
   vim.o.smartcase = true
 end
-_G['#'] = function()
+_G["#"] = function()
   vim.o.ignorecase = false
   vim.o.smartcase = false
-  cmd('?' .. fn.expand('<cword>'))
+  cmd("?" .. fn.expand("<cword>"))
   vim.o.ignorecase = true
   vim.o.smartcase = true
 end
 -- case-sensative search for * and #
-vim.cmd"au cursorhold * set nohlsearch"
+vim.cmd "au cursorhold * set nohlsearch"
 map("n", "*", ":lua _G['*']()<cr>")
 map("n", "#", ":lua _G['#']()<cr>")
 map("n", "n", ":set hlsearch <cr>n")
@@ -165,10 +167,8 @@ map("n", "N", ":set hlsearch <cr>N")
 map("n", "/", ":set hlsearch <cr>/")
 map("n", "?", ":set hlsearch <cr>?")
 
-
-
 map("n", "<leader>st", ":Rg!<CR>", {})
-map("n", "<leader>sw", ':Rg' .. fn.expand('<cword>'), {})
+map("n", "<leader>sw", ":Rg" .. fn.expand("<cword>" .. ""), {})
 map("n", "<leader>sb", ":BLines<CR>", {})
 map("n", "<leader>bs", ":BLines<CR>", {})
 map("n", "<leader>ss", [[:%s/\<<C-r>=expand("<cword>")<CR>\>/]])
@@ -183,19 +183,21 @@ map("n", "<leader>jj", "<cmd>JestCurrent<CR>", {})
 map("n", "<leader>ut", "<Plug>(ultest-run-file)", {noremap = false})
 
 -- Terminal
-map("n", "<leader>tt",      "<cmd>FloatermNew --height=0.3 --wintype=normal --position=bottom<CR>", {})
-map("n", "<leader>tv",      "<cmd>FloatermNew --width=0.4 --wintype=normal --position=right<CR>", {})
+map("n", "<leader>tt", "<cmd>FloatermNew --height=0.3 --wintype=normal --position=bottom<CR>", {})
+map("n", "<leader>tv", "<cmd>FloatermNew --width=0.4 --wintype=normal --position=right<CR>", {})
 
 -- Togglers
 map("n", "<leader>tg", ":GitBlameToggle<CR>", {})
 map("n", "<leader>tc", ":HexokinaseToggle<CR>", {})
-map("n", "<leader>tu", ":UndotreeToggle<CR>", {})
+map("n", "<leader>u", ":UndotreeToggle<CR>", {})
 map("n", "<leader>tr", ":Codi<CR>", {})
 map("n", "<leader>tR", ":Codi!<CR>", {})
+map("n", "<leader>tm", ":MatchTagToggleBoth<CR>", {})
+map("n", "<leader>tM", ":MatchTagToggle<CR>", {})
 
 --open a new file in the same directory
 map("n", "<Leader>nf", [[:e <C-R>=expand("%:p:h") . "/" <CR>]], {silent = false})
-map("n", "<Leader>of", ':lua open_file_or_create_new()', {silent = false})
+map("n", "<Leader>of", ":lua open_file_or_create_new()", {silent = false})
 -- Kitty
 map("n", "<leader>kv", ":silent !kitty @ launch --copy-env --cwd=current nvim % <CR>", {})
 

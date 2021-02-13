@@ -1,5 +1,5 @@
-local g,o,bo = vim.g,vim.o,vim.bo
-local util,api,cmd,fn,lsp = vim.lsp.util,vim.api,vim.cmd,vim.fn,vim.lsp
+local g, o, bo = vim.g, vim.o, vim.bo
+local util, api, cmd, fn, lsp = vim.lsp.util, vim.api, vim.cmd, vim.fn, vim.lsp
 local fnamemodify = fn.fnamemodify
 local U = {}
 
@@ -23,9 +23,9 @@ function U.map(mode, key, result, opts)
 end
 
 function U.show_doc()
-  local ft = api.nvim_buf_get_option(api.nvim_get_current_buf(), 'ft')
-  if ft == 'vim' or ft == 'help' then
-    api.nvim_exec('h '..fn.expand('<cword>'), '')
+  local ft = api.nvim_buf_get_option(api.nvim_get_current_buf(), "ft")
+  if ft == "vim" or ft == "help" then
+    api.nvim_exec("h " .. fn.expand("<cword>"), "")
   else
     lsp.buf.signature_help()
   end
@@ -33,7 +33,7 @@ end
 
 local current_hovered_word = nil
 function U.hover()
-  local new_current_hovered_word = fn.expand('<cword>')
+  local new_current_hovered_word = fn.expand("<cword>")
   if current_hovered_word ~= new_current_hovered_word then
     lsp.buf.hover()
   end
@@ -53,7 +53,9 @@ function U.apply_options(opts)
 end
 
 function U.apply_globals(opts)
-  for k, v in pairs(opts) do g[k] = v end
+  for k, v in pairs(opts) do
+    g[k] = v
+  end
 end
 
 -- For moments when I don't want my cursor to stay on the tree
@@ -77,7 +79,6 @@ end
 function U.esc(arg)
   return api.nvim_replace_termcodes(arg, true, false, true)
 end
-
 
 -- Usage:
 -- hi(Cursor, { fg = bg_dark, bg = yellow })
@@ -160,20 +161,20 @@ function _G.open_lsp_log()
 end
 
 local special_buffers = {
-  'git',
-  'undotree',
-  'help',
-  'startify',
-  'vim-plug',
-  'NvimTree',
+  "git",
+  "undotree",
+  "help",
+  "startify",
+  "vim-plug",
+  "NvimTree"
 }
 
 function _G.is_special_buffer()
-  local buftype = api.nvim_buf_get_option(0, 'buftype')
-  if buftype == 'terminal' or buftype == 'quickfix' or buftype == 'help' then
+  local buftype = api.nvim_buf_get_option(0, "buftype")
+  if buftype == "terminal" or buftype == "quickfix" or buftype == "help" then
     return true
   end
-  local filetype = api.nvim_buf_get_option(0, 'filetype')
+  local filetype = api.nvim_buf_get_option(0, "filetype")
   for _, b in ipairs(special_buffers) do
     if filetype == b then
       return true
@@ -182,11 +183,11 @@ function _G.is_special_buffer()
   return false
 end
 
-_G.folds_render = require('settings.fold').render
+_G.folds_render = require("settings.fold").render
 
 function _G.check_backspace()
-  local col = vim.fn.col('.') - 1
-  if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+  local col = vim.fn.col(".") - 1
+  if col == 0 or vim.fn.getline("."):sub(col, col):match("%s") then
     return true
   else
     return false
@@ -194,16 +195,21 @@ function _G.check_backspace()
 end
 
 function _G.reload()
-    local modules = {"lsp", "plugins", "settings"}
-    for _, moduleName in pairs(modules) do
-        for packageName, _ in pairs(package.loaded) do
-            if string.find(packageName, "^" .. moduleName) then
-                package.loaded[packageName] = nil
-            end
-        end
-        require(moduleName)
+  local modules = {"lsp", "plugins", "settings"}
+  for _, moduleName in pairs(modules) do
+    for packageName, _ in pairs(package.loaded) do
+      if string.find(packageName, "^" .. moduleName) then
+        package.loaded[packageName] = nil
+      end
     end
-    print("Reloaded!")
+    require(moduleName)
+  end
+  print("Reloaded!")
+end
+
+function _G.rg_word()
+  local word = fn.expand("<cword>")
+  cmd(join("Rg! ", word))
 end
 
 return U

@@ -9,11 +9,18 @@ local transform_mod = require("telescope.actions.mt").transform_mod
 
 require("telescope").load_extension("fzy_native")
 
+vim.fn.setenv("FZF_DEFAULT_COMMAND", "rg --files --hidden --glob '!.git/**'")
+
 telescope.setup {
   defaults = {
     prompt_position = "top",
     prompt_prefix = " ❯",
-    file_ignore_patterns = {".git/*"},
+    file_ignore_patterns = {".git/*", "node_modules"},
+    --[[ vimgrep_arguments = {
+      "rg",
+      "--glob",
+      "!{node_modules/*,.git/*,dist/*,build/*}"
+    }, ]]
     shorten_path = true,
     color_devicons = true,
     winblend = 20,

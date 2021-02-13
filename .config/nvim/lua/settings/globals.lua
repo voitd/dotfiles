@@ -3,10 +3,8 @@ local cmd = vim.cmd
 local apply_globals = require "settings.utils".apply_globals
 
 cmd "filetype plugin indent on"
-
+-- cmd "syntax enable"
 -- cmd('')
--- cmd('let g:vsnip_filetypes = {}')
--- cmd('let g:vsnip_filetypes.javascriptreact = ["javascript"]')
 
 apply_globals(
   {
@@ -28,15 +26,24 @@ apply_globals(
       },
       cache_enabled = 0
     },
+    fuzzy_options = {
+      width = 50,
+      height = 50,
+      loc = "center"
+    },
     python_host_prog = "/usr/bin/python",
     python3_host_prog = "/usr/local/bin/python3",
     jsx_ext_required = 1,
     javascript_plugin_flow = 1,
     javascript_plugin_jsdoc = 1,
-    tagalong_additional_filetypes = {"javascript"},
+    tagalong_additional_filetypes = {"javascript", "vue"},
+    -- matchtag
+    vim_matchtag_enable_by_default = 0,
+    vim_matchtag_both = 0,
+    vim_matchtag_files = "*.html,*.xml,*.js,*.jsx,*.vue,*.svelte,*.jsp",
     -- closetag
-    closetag_filetypes = "html,xhtml,phtml,html.handlebars,javascriptreact,typescriptreact",
-    closetag_filenames = "*.html,*.xhtml,*.phtml,*.js,*.jsx,*.ts,*.tsx",
+    closetag_filetypes = "html,xhtml,phtml,html.handlebars,javascriptreact,typescriptreact,vue",
+    closetag_filenames = "*.html,*.xhtml,*.phtml,*.js,*.jsx,*.ts,*.tsx,*.vue",
     closetag_emptyTags_caseSensitive = 1,
     closetag_shortcut = ">",
     closetag_regions = {

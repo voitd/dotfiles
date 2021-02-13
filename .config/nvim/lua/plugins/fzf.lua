@@ -43,15 +43,15 @@ g.fzf_history_dir = "~/.local/share/fzf-history"
 -- g.fzf_files_options = '--preview "(kitty +kitten icat --width 50 --true-color {} || cat {}) 2> /dev/null "'
 g.fzf_layout = {
   window = {
-    width = 0.6,
-    height = 0.55,
+    width = 0.9,
+    height = 0.6,
     yoffset = 0.4,
-    xoffset = 0.5,
+    xoffset = 0.5
   }
 }
 
 -- g.fzf_layout = { ['down'] = '30%' }
-vim.g.fzf_preview_window = 'right:60%'
+vim.g.fzf_preview_window = "right:50%"
 cmd [[ command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, { "options": "--prompt '❯ '"}, <bang>0) ]]
 
 -- g.fzf_preview_window='right:50%'
@@ -72,12 +72,10 @@ function FZFOpen(cmd_str)
   cmd(cmd_str)
 end
 
-
 -- Ctrl-p = fuzzy finder
 -- map("n", "<C-m>", "<CMD>lua FZFOpen(':History')<CR>")
 -- map("n", "<C-m>", "<CMD>lua FZFOpen(':History')<CR>")
 -- map("n", "<C-P>", "<CMD>lua FZFOpen(':Files')<CR>")
-  
 
 -- . = location of current file
 -- map("n", "'.", "<CMD>lua FZFOpen(':FZF " .. fn.expand("%:h") .. "')<CR>")
@@ -123,12 +121,11 @@ api.nvim_exec(
   ""
 )
 
-
 function _G.fzf_omni()
   if vim.fn.isdirectory(".git") == 1 then
-   return ':GFiles --cached --others --exclude-standard --full-name'
+    return ":GFiles --cached --others --exclude-standard --full-name"
   else
-   return ':Files'
+    return ":Files"
   end
 end
 

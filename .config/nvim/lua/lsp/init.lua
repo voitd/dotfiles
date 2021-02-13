@@ -1,3 +1,9 @@
+-- bash        npm install -g bash-language-server
+-- dockerfile  npm install -g dockerfile-language-server-nodejs
+-- python      npm install -g pyright
+-- js, ts      npm install -g typescript typescript-language-server
+-- vue         npm install -g typescript vls
+
 local map = require "settings.utils".map
 
 require "lsp.compe"
@@ -10,6 +16,7 @@ require "lsp.lua"
 require "lsp.elixir"
 require "lsp.bash"
 require "lsp.efm"
+require "lsp.vue"
 -- require "lsp.dap"
 require "lsp.saga"
 require "lsp.diagnostics"
@@ -19,15 +26,9 @@ map("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", {noremap = true, silent 
 map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", {noremap = true, silent = true})
 map("n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", {noremap = true, silent = true})
 
-
-map("n", "<leader>f",  ":LSPFormat<CR>", {})
+-- map("n", "<leader>f",  ":LSPFormat<CR>", {})
+map("n", "<leader>f", ":lua vim.lsp.buf.formatting()<CR>", {})
 map("n", "<leader>ff", ":Format<CR>", {})
-
-FormatRange = function()
-  local start_pos = vim.api.nvim_buf_get_mark(0, "<")
-  local end_pos = vim.api.nvim_buf_get_mark(0, ">")
-  vim.lsp.buf.range_formatting({}, start_pos, end_pos)
-end
 
 vim.lsp.handlers["textDocument/formatting"] = function(err, _, result, _, bufnr)
   if err ~= nil or result == nil then
@@ -43,13 +44,16 @@ vim.lsp.handlers["textDocument/formatting"] = function(err, _, result, _, bufnr)
   end
 end
 
-vim.cmd([[
-  command! -range FormatRange  execute 'lua FormatRange()'
-]])
+-- vim.cmd([[
+-- command! -range FormatRange  execute 'lua FormatRange()'
+-- ]])
 
-vim.cmd([[
-  command! LSPFormat  execute 'lua vim.lsp.buf.formatting()'
-]])
+-- vim.cmd([[
+-- command! LSPFormat  execute 'lua vim.lsp.buf.formatting()'
+-- ]])
 
-
-
+--[[ FormatRange = function()
+  local start_pos = vim.api.nvim_buf_get_mark(0, "<")
+  local end_pos = vim.api.nvim_buf_get_mark(0, ">")
+  vim.lsp.buf.range_formatting({}, start_pos, end_pos)
+end ]]

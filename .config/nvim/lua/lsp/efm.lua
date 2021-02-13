@@ -12,9 +12,21 @@ lspconfig.efm.setup {
     "typescript",
     "typescriptreact",
     "javascriptreact",
+    "vue",
     "lua",
     "elixir",
     "css",
     "html"
-  }
+  },
+  settings = {
+    rootMarkers = {'package.json'},
+    --[[ languages = {
+      typescript = {eslint},
+      typescriptreact = {eslint},
+      javascript = {eslint},
+      vue = {eslint},
+    }, ]]
+  },
 }
+
+

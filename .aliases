@@ -132,6 +132,7 @@ abbr Dl  "cd ~/Downloads/"
 abbr g 'git'
 abbr d 'dots'
 
+abbr stg 'git st'
 
 # abbr vsc "nvim +call feedkeys(':SLoad dotfiles') +call feedkeys('\<cr>')"
 # alias tobash="sudo chsh $USER -s /bin/bash && echo 'Now log out.'"
