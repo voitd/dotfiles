@@ -2,7 +2,6 @@ local apply_options = require("settings.utils").apply_options
 
 apply_options(
   {
-    -- Boolean value
     compatible = false,
     wildmenu = true,
     cindent = true,
@@ -36,11 +35,9 @@ apply_options(
     ttyfast = true,
     timeout = true,
     ttimeout = true,
-    -- String value
     matchpairs = "(:),{:},[:],<:>", -- highlight match pairs
-    -- completeopt = "menu,menuone,noselect", -- better completion
     omnifunc = "v:lua.vim.lsp.omnifunc",
-    -- complete = vim.o.complete..",k/Users/void/.config/word10k.txt",
+    complete = vim.o.complete .. ",k/Users/void/.config/word10k.txt",
     formatoptions = "1jcroql", -- improve editor formatting
     encoding = "UTF-8", -- set encoding
     fillchars = "vert:│,fold:·,diff:,msgsep:‾,eob:\\ ,foldopen:▾,foldsep:│,foldclose:▸", -- make vertical split sign better
@@ -56,10 +53,6 @@ apply_options(
     wildignore = ".git,.hg,.svn,*.pyc,*.o,*.out,*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store,**/node_modules/**",
     foldtext = "v:lua.folds_render()",
     foldmethod = "syntax",
-    -- wildcharm='<C-s>',
-
-    -- Number value
-    -- colorcolumn = 120,                       -- 120 chars color column
     foldlevelstart = 99,
     laststatus = 2, -- always enable statusline
     pumheight = 20, -- limit completion items

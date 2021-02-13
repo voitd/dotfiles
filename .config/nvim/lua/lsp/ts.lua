@@ -20,12 +20,13 @@ end
 lspconfig.tsserver.setup {
   on_attach = on_attach,
   filetypes = {
+    "vue",
     "javascript",
     "javascriptreact",
     "javascript.jsx",
     "typescript",
     "typescriptreact",
-    "typescript.tsx",
+    "typescript.tsx"
   },
   capabilities = {
     textDocument = {

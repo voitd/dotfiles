@@ -209,7 +209,7 @@ end
 
 function _G.rg_word()
   local word = fn.expand("<cword>")
-  cmd(join("Rg! ", word))
+  cmd(join("RG ", word))
 end
 
 return U

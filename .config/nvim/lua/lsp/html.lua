@@ -1,10 +1,7 @@
+-- npm install -g vscode-html-languageserver-bin
 local lspconfig = require "lspconfig"
 
--- function to attach completion when setting up lsp
-
 local on_attach = function(client, server)
-  -- require'completion'.on_attach(client)
-  -- let efm server handles linting and formatting stuff
   if server == "efm" then
     client.resolved_capabilities.document_formatting = true
   else
@@ -16,7 +13,7 @@ end
 
 lspconfig.html.setup {
   cmd = {"html-languageserver", "--stdio"},
-  filetypes = {"html", "tsx", "jsx", "javascriptreact", "vue", "hbs", "handlebars", "html.handlebars"},
+  filetypes = {"html", "tsx", "jsx", "javascriptreact", "vue"},
   init_options = {
     configurationSection = {"html", "css", "javascript"},
     embeddedLanguages = {

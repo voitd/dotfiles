@@ -44,6 +44,12 @@ vim.lsp.handlers["textDocument/formatting"] = function(err, _, result, _, bufnr)
   end
 end
 
+Custom_capabilities = function()
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities.textDocument.completion.completionItem.snippetSupport = true
+  return capabilities
+end
+
 -- vim.cmd([[
 -- command! -range FormatRange  execute 'lua FormatRange()'
 -- ]])

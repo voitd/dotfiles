@@ -41,23 +41,32 @@ g.fzf_colors = {
 --   'previous-history' instead of 'down' and 'up'.
 g.fzf_history_dir = "~/.local/share/fzf-history"
 -- g.fzf_files_options = '--preview "(kitty +kitten icat --width 50 --true-color {} || cat {}) 2> /dev/null "'
-g.fzf_layout = {
+--[[ g.fzf_layout = {
   window = {
     width = 0.9,
     height = 0.6,
     yoffset = 0.4,
     xoffset = 0.5
   }
+} ]]
+g.fzf_layout = {
+  window = {
+    width = 1,
+    height = 0.4,
+    border = "top",
+    yoffset = 1
+  }
 }
 
+-- g.fzf_preview_window = {"right:+{2}-/2:hidden", "ctrl-\\"}
 -- g.fzf_layout = { ['down'] = '30%' }
 vim.g.fzf_preview_window = "right:50%"
+
 cmd [[ command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, { "options": "--prompt '❯ '"}, <bang>0) ]]
 
 -- g.fzf_preview_window='right:50%'
 g.fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
--- g.fzf_preview_window = {"right:50%", "ctr-p"}
--- g.fzf_preview_window = ""
+
 g.fzf_action = {
   ["ctrl-t"] = "tab split",
   ["ctrl-x"] = "split",
@@ -80,7 +89,7 @@ end
 -- . = location of current file
 -- map("n", "'.", "<CMD>lua FZFOpen(':FZF " .. fn.expand("%:h") .. "')<CR>")
 
-map("n", "<leader>sw", "<CMD>lua rg_word()<CR>")
+map("n", "<leader>rw", "<CMD>lua rg_word()<CR>")
 
 -- r = RG
 map("n", "<leader>srg", "<CMD>lua FZFOpen(':RG')<CR>")
@@ -105,6 +114,9 @@ map("n", "<leader>bb", "<CMD>lua FZFOpen(':Buffers')<CR>")
 
 -- d = diagnostics
 map("n", "<leader>cd", "<CMD>lua FZFOpen(':Diagnostics')<CR>")
+map("n", "<leader>cr", "<CMD>lua FZFOpen(':References')<CR>")
+map("n", "<leader>cs", "<CMD>lua FZFOpen(':DocumentSymbols')<CR>")
+map("n", "<leader>ci", "<CMD>lua FZFOpen(':Implementations')<CR>")
 
 api.nvim_exec(
   [[
@@ -112,7 +124,7 @@ api.nvim_exec(
           let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
           let initial_command = printf(command_fmt, shellescape(a:query))
           let reload_command = printf(command_fmt, '{q}')
-          let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command], 'down': '70%'}
+          let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command], 'down': '40%'}
           call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec))
         endfunction
         command! -nargs=* -bang RG call RipgrepFzf(<q-args>)

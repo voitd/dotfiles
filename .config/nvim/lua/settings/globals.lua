@@ -26,11 +26,6 @@ apply_globals(
       },
       cache_enabled = 0
     },
-    fuzzy_options = {
-      width = 50,
-      height = 50,
-      loc = "center"
-    },
     python_host_prog = "/usr/bin/python",
     python3_host_prog = "/usr/local/bin/python3",
     jsx_ext_required = 1,
@@ -72,10 +67,15 @@ apply_globals(
       }
     },
     -- snippets
-    vsnip_filetypes = {},
+    vsnip_filetypes = {
+      javascriptreact = {"javascript", "html"},
+      typescriptreact = {"typescript", "html"},
+      vue = {"vue", "javascript", "html"}
+    },
+    --[[ vsnip_filetypes = {},
     ["vsnip_filetypes.javascriptreact"] = {"javascript"},
     ["vsnip_filetypes.vue"] = {"vue", "javascript", "typescript"},
-    ["vsnip_filetypes.typescriptreact"] = {"typescript"},
+    ["vsnip_filetypes.typescriptreact"] = {"typescript"}, ]]
     -- vim-test
     ["test#strategy"] = "floaterm",
     ["test#elixir#exunit#executable"] = "MIX_ENV=test mix test",
