@@ -6,14 +6,16 @@ local highlights = require "settings.utils".highlights
 -- vim.cmd("colorscheme github-light")
 -- vim.cmd("set background=light")
 
-cmd "colorscheme nord"
+cmd "syntax enable"
 cmd "set termguicolors"
+cmd "colorscheme nord"
+
 g.nord_uniform_status_lines = 0
 -- g.nord_uniform_diff_background = 1
 g.nord_bold = 1
 g.nord_italic = 1
 g.nord_italic_comments = 1
-g.nord_underline = 1
+g.nord_underline = 0
 
 local colors = {
   nord1 = "#3B4252",
@@ -32,11 +34,13 @@ local colors = {
   nord12 = "#D08770",
   nord13 = "#EBCB8B",
   nord14 = "#A3BE8C",
-  nord15 = "#B48EAD",
+  nord15 = "#B48EAD"
 }
 
 hiLinks(
   {
+    htmlTag = "htmlTagName",
+    htmlEndTag = "htmlTagName",
     jsxTagName = "jsxComponentName",
     jsObjectKey = "StorageClass",
     jsVariableDef = "Number",
@@ -45,18 +49,18 @@ hiLinks(
     jsExport = "typescriptBOMWindowMethod",
     jsImport = "typescriptBOMWindowMethod",
     jsFrom = "typescriptBOMWindowMethod",
-    jsNull = "typescriptDecorator",
-    jsBooleanTrue = "typescriptDecorator",
-    jsBooleanFalse = "typescriptDecorator",
+    -- jsNull = "typescriptDecorator",
+    -- jsBooleanTrue = "typescriptDecorator",
+    -- jsBooleanFalse = "typescriptDecorator",
     jsObjectValue = "Function",
-    BufferInactiveMod = "typescriptDecorator",
+    --[[ BufferInactiveMod = "typescriptDecorator",
     BufferCurrentMod = "typescriptDecorator",
     BufferVisibleMod = "typescriptDecorator",
     BufferCurrent = "typescriptBOMWindowMethod",
     BufferVisible = "rustAttribute",
     BufferInactive = "rustAttribute",
     BufferTabpages = "Normal",
-    BufferTabpageFill = "Normal",
+    BufferTabpageFill = "Normal", ]]
     elixirAtom = "Number",
     elixirFunctionDeclaration = "rustAttribute",
     elixirDefine = "typescriptBOMWindowMethod",
@@ -65,18 +69,18 @@ hiLinks(
     elixirAlias = "SpecialChar",
     elixirModuleDeclaration = "typescriptDecorator",
     elixirInclude = "rustEnum",
-    elixirId = "Type",
-    LspDiagnosticsVirtualTextError = "LspDiagnosticsError",
+    elixirId = "Type"
+    --[[ LspDiagnosticsVirtualTextError = "LspDiagnosticsError",
     LspDiagnosticsVirtualTextWarning = "LspDiagnosticsWarning",
     LspDiagnosticsVirtualTextInformation = "LspDiagnosticsInformation",
-    LspDiagnosticsVirtualTextHint = "LspDiagnosticsHint"
+    LspDiagnosticsVirtualTextHint = "LspDiagnosticsHint" ]]
   }
 )
 
 highlights(
   {
-    cssTagName= {fg = colors.nord13, gui = "italic"},
-    cssClassName= {fg = "#eda48d", gui = "italic"},
+    cssTagName = {fg = colors.nord13, gui = "italic"},
+    cssClassName = {fg = "#eda48d", gui = "italic"},
     jsGlobalObjects = {fg = "#eda48d", gui = "italic"},
     cssIndetifier = {fg = "#eda48d", gui = "italic"},
     jsReturn = {fg = colors.nord11, gui = "bold"},
@@ -98,8 +102,10 @@ highlights(
     TelescopeMatching = {fg = colors.nord11},
     TelescopeNormal = {fg = colors.nord9},
     FloatermBorder = {fg = colors.nord15},
+    javaScriptNumber = {fg = colors.nord15},
+    javaScriptNull = {fg = colors.nord11},
+    javaScriptBoolean = {fg = colors.nord12}
   }
 )
 
 -- cmd 'autocmd ColorScheme * hi jsGlobalObjects guifg=#eda48d'
-

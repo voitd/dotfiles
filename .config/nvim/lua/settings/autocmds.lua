@@ -11,6 +11,9 @@ cmd "au BufWritePost * FormatWrite"
 cmd "au BufNewFile,BufRead .eslintignore,.prettierignore,.aliases setf conf"
 cmd "au BufNewFile,BufRead .eslintrc,.prettierrc,tsconfig.json setf json"
 
+-- cmd "au CursorHold * lua vim.defer_fn(function() require'lspsaga.signaturehelp'.signature_help() end, 5000)"
+-- cmd "au CursorHold * lua vim.defer_fn(function() require'lspsaga.provider'.preview_definition() end, 5000)"
+
 cmd "au FileType gitcommit setl spell"
 cmd "au FileType html,css,javascript,javascriptreact,vue,typescript,typescriptreact EmmetInstall"
 

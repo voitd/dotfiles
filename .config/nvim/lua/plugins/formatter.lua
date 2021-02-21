@@ -38,6 +38,7 @@ require("formatter").setup(
       typescriptreact = prettier,
       json = prettier,
       css = prettier,
+      scss = prettier,
       html = prettier,
       svelte = prettier,
       vue = prettier,

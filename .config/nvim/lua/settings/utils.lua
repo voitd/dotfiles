@@ -84,7 +84,7 @@ end
 -- hi(Cursor, { fg = bg_dark, bg = yellow })
 function U.hi(group, styles)
   -- local command = string.format("hi! %s", group)
-  local command = string.format("autocmd ColorScheme * hi %s", group)
+  local command = string.format("hi %s", group)
   if styles.bg then
     command = string.format("%s guibg=%s", command, styles.bg)
   end

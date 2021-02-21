@@ -27,9 +27,9 @@ map("n", "$", "g_")
 -- map("n", "yy", "^yg_")
 -- map("n", "dd", "^dg_")
 
-map("i", '"', '""<left>', {})
+--[[ map("i", '"', '""<left>', {})
 map("i", "'", "''<left>", {})
-
+ ]]
 map("n", "<leader><leader>", ":FloatermNew ranger<cr>", {})
 map("t", "<leader><leader>", [[<C-\><C-n>:FloatermKill]], {})
 
@@ -71,8 +71,8 @@ map("n", "<leader>bd", ":bp<BAR>bd#<CR>", {})
 map("n", "<leader>bo", ":w<BAR>%bd<BAR>e#<BAR>bd#<CR>", {})
 
 map("n", "<BS>", "<C-^>", {})
--- map("n", "\\", "<cmd>BufferLinePick<CR>", {})
-map("n", "\\", "<cmd>BufferPick<CR>", {})
+map("n", "\\", "<cmd>BufferLinePick<CR>", {})
+-- map("n", "\\", "<cmd>BufferPick<CR>", {})
 
 map("n", "[t", ":tabprevious<CR>", {})
 map("n", "]t", ":tabnext<CR>", {})
@@ -93,6 +93,7 @@ map("x", "@", ":normal @<CR>")
 map("n", "@", ":normal @<CR>")
 
 map("n", "U", "~<Left>")
+map("n", "<C-s>", ":noa w<CR>")
 
 cmd "set wildcharm=<C-s>"
 map("n", "<Tab><Tab>", ":buffer <C-s><S-Tab>", {})
@@ -139,8 +140,8 @@ map("n", "<Leader>go", ":GBrowse<CR>", {})
 
 -- vim-import-js
 map("n", "<Leader>if", ":ImportJSFix<CR>", {})
+map("n", "<Leader>ii", ":ImportJSWord<CR>", {})
 map("n", "<Leader>iw", ":ImportJSWord<CR>", {})
-map("n", "<Leader>ig", ":ImportJSGoto<CR>", {})
 
 -- Searches
 -- when using * # ignore smart case
@@ -167,10 +168,10 @@ map("n", "N", ":set hlsearch <cr>N")
 map("n", "/", ":set hlsearch <cr>/")
 map("n", "?", ":set hlsearch <cr>?")
 
-map("n", "<leader>st", ":Rg!<CR>", {})
-map("n", "<leader>sw", ":Rg" .. fn.expand("<cword>" .. ""), {})
-map("n", "<leader>sb", ":BLines<CR>", {})
-map("n", "<leader>bs", ":BLines<CR>", {})
+-- map("n", "<leader>st", ":Rg!<CR>", {})
+-- map("n", "<leader>sw", ":Rg" .. fn.expand("<cword>" .. ""), {})
+--[[ map("n", "<leader>sb", ":BLines<CR>", {})
+map("n", "<leader>bs", ":BLines<CR>", {}) ]]
 map("n", "<leader>ss", [[:%s/\<<C-r>=expand("<cword>")<CR>\>/]])
 map("n", "<leader>sr", [[:s/\<<C-r>=expand("<cword>")<CR>\>/]])
 map("v", "<leader>ss", [["zy:%s/<C-r><C-o>"/]])

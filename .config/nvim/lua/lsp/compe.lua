@@ -9,10 +9,10 @@ vim.o.completeopt = "menuone,noselect"
 require "compe".setup {
   enabled = true,
   debug = false,
-  min_length = 2,
+  min_length = 1,
   preselect = "always",
   source_timeout = 200,
-  -- incomplete_delay = 400,
+  incomplete_delay = 400,
   allow_prefix_unmatch = false,
   documentation = true,
   source = {
@@ -23,8 +23,8 @@ require "compe".setup {
     nvim_lua = {menu = " "},
     spell = true,
     calc = true,
-    tags = true,
-    omni = true
+    tags = true
+    -- omni = true
   }
 }
 

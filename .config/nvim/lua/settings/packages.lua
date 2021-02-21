@@ -10,7 +10,7 @@ end
 
 cmd "packadd packer.nvim"
 
-cmd "au BufWritePost plugins.lua PackerCompile"
+cmd "au BufWritePost packages.lua PackerCompile"
 
 local init = {
   -- Packer can manage itself as an optional plugin
@@ -26,7 +26,8 @@ local lsp = {
   "neovim/nvim-lspconfig",
   "hrsh7th/nvim-compe",
   "glepnir/lspsaga.nvim",
-  "tsuyoshicho/vim-efm-langserver-settings" -- auto config efm lsp
+  "tsuyoshicho/vim-efm-langserver-settings", -- auto config efm lsp
+  {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
 }
 
 local git = {
@@ -39,7 +40,8 @@ local git = {
 }
 
 local misk = {
-  "b3nj5m1n/kommentary", -- comments like gcc
+  -- "b3nj5m1n/kommentary", -- comments like gcc
+  "tpope/vim-commentary",
   "tweekmonster/startuptime.vim", -- benchmark startup
   "oberblastmeister/rooter.nvim", -- root dir switcher
   "AndrewRadev/tagalong.vim", -- Auto change html tags
@@ -71,7 +73,9 @@ local test = {
 }
 
 local langs = {
-  "Galooshi/vim-import-js"
+  "Galooshi/vim-import-js",
+  "pangloss/vim-javascript"
+  -- "maxmellon/vim-jsx-pretty",
   -- use "styled-components/vim-styled-components"
 }
 
@@ -84,17 +88,23 @@ local snippets = {
 }
 
 local themes = {
-  "sheerun/vim-polyglot",
-  "arcticicestudio/nord-vim",
+  --[[ "sheerun/vim-polyglot",
+  "arcticicestudio/nord-vim", ]]
+  "embark-theme/vim",
   "equt/paper.vim",
   "romgrk/github-light.vim"
+  -- "christianchiarulli/nvcode-color-schemes.vim"
+
+  --[[ "tjdevries/colorbuddy.vim",
+  "delafthi/onedarkbuddy" ]]
 }
 
 local ui = {
   "mhinz/vim-startify", -- start screen
   "kyazdani42/nvim-web-devicons",
-  "romgrk/barbar.nvim",
+  "akinsho/nvim-bufferline.lua",
   "glepnir/galaxyline.nvim"
+  -- "romgrk/barbar.nvim",
 }
 
 local packer = require("packer")

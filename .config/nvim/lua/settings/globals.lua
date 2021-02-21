@@ -3,7 +3,6 @@ local cmd = vim.cmd
 local apply_globals = require "settings.utils".apply_globals
 
 cmd "filetype plugin indent on"
--- cmd "syntax enable"
 -- cmd('')
 
 apply_globals(
@@ -47,15 +46,17 @@ apply_globals(
     },
     -- emmet
     user_emmet_mode = "i",
-    user_emmet_leader_key = ",",
     user_emmet_expandabbr_key = "<C-a><C-a>",
     user_emmet_install_global = 0,
     user_emmet_install_command = 0,
     bufferline = {
-      animation = false,
-      maximum_padding = 0,
-      icon_separator_active = "",
-      icon_separator_inactive = ""
+      shadow = true,
+      animation = true,
+      icons = true,
+      closable = true,
+      clickable = true,
+      maximum_padding = 2,
+      unsafe = true
     },
     Hexokinase_highlighters = {"foregroundfull"},
     lineletters_settings = {
@@ -72,10 +73,6 @@ apply_globals(
       typescriptreact = {"typescript", "html"},
       vue = {"vue", "javascript", "html"}
     },
-    --[[ vsnip_filetypes = {},
-    ["vsnip_filetypes.javascriptreact"] = {"javascript"},
-    ["vsnip_filetypes.vue"] = {"vue", "javascript", "typescript"},
-    ["vsnip_filetypes.typescriptreact"] = {"typescript"}, ]]
     -- vim-test
     ["test#strategy"] = "floaterm",
     ["test#elixir#exunit#executable"] = "MIX_ENV=test mix test",
@@ -101,6 +98,8 @@ apply_globals(
     loaded_netrw = 1,
     loaded_netrwPlugin = 1,
     loaded_netrwSettings = 1,
-    loaded_netrwFileHandlers = 1
+    loaded_netrwFileHandlers = 1,
+    embark_terminal_italics = 1,
+    vue_pre_processors = {"pug", "scss"}
   }
 )

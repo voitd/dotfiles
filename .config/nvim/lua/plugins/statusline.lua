@@ -22,9 +22,11 @@ local one_dark_colors = {
 }
 
 local nord_colors = {
-  bg = "#2E3440",
+  bg = "NONE",
+  -- bg = "#2E3440",
   fg = "#81A1C1",
-  line_bg = "#2E3440",
+  line_bg = "NONE",
+  -- line_bg = "#2E3440",
   fg_green = "#8FBCBB",
   yellow = "#EBCB8B",
   cyan = "#A3BE8C",
@@ -81,7 +83,7 @@ section.left[2] = {
         t = nord_colors.red
       }
       cmd("hi GalaxyViMode guifg=" .. mode_color[fn.mode()])
-      return "   "
+      return "     "
     end,
     highlight = {nord_colors.red, nord_colors.line_bg, "bold"}
   }
@@ -217,37 +219,33 @@ section.right[11] = {
 
 section.short_line_left[1] = {
   BufferType = {
-    provider = 'FileTypeName',
-    separator = ' ',
-    separator_highlight = {'NONE',nord_colors.bg},
-    highlight = {nord_colors.blue,nord_colors.bg,'bold'}
+    provider = "FileTypeName",
+    separator = " ",
+    separator_highlight = {"NONE", nord_colors.bg},
+    highlight = {nord_colors.blue, nord_colors.bg, "bold"}
   }
 }
 
 section.short_line_left[2] = {
   SFileName = {
-    provider = function ()
-      local fileinfo = require('galaxyline.provider_fileinfo')
+    provider = function()
+      local fileinfo = require("galaxyline.provider_fileinfo")
       local fname = fileinfo.get_current_file_name()
-      for _,v in ipairs(gl.short_line_list) do
+      for _, v in ipairs(gl.short_line_list) do
         if v == vim.bo.filetype then
-          return ''
+          return ""
         end
       end
       return fname
     end,
     condition = buffer_not_empty,
-    highlight = {nord_colors.white,nord_colors.bg,'bold'}
+    highlight = {nord_colors.white, nord_colors.bg, "bold"}
   }
 }
 
 section.short_line_right[1] = {
   BufferIcon = {
-    provider= 'BufferIcon',
-    highlight = {nord_colors.fg,nord_colors.bg}
+    provider = "BufferIcon",
+    highlight = {nord_colors.fg, nord_colors.bg}
   }
 }
-
-
-
-

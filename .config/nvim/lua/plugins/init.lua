@@ -6,9 +6,15 @@ require "plugins.statusline"
 require "plugins.rooter"
 require "plugins.sneak"
 require "plugins.formatter"
+require "plugins.tabbar"
 -- require "plugins.kommentary"
 
-require "plugins.nord"
+-- require "plugins.nord"
+
+vim.cmd "set termguicolors"
+-- vim.cmd("colorscheme embark")
+vim.cmd "colorscheme paper"
+vim.cmd "set background=light"
 
 -- require "plugins.tree"
 -- require "plugins.pairs"
@@ -16,5 +22,5 @@ require "plugins.nord"
 
 require "nvim-web-devicons".setup()
 
-require "plugins.fzf"
--- require "plugins.telescope"
+-- require "plugins.fzf"
+require "plugins.telescope"

@@ -42,7 +42,7 @@ apply_options(
     encoding = "UTF-8", -- set encoding
     fillchars = "vert:│,fold:·,diff:,msgsep:‾,eob:\\ ,foldopen:▾,foldsep:│,foldclose:▸", -- make vertical split sign better
     inccommand = "split", -- incrementally show result of command
-    listchars = "eol:↲,tab:∘\\ ", -- set listchars
+    listchars = "eol:↲,tab:∘\\ ,", -- set listchars
     mouse = "nv", -- enable mouse support
     shortmess = "filnxtToOFIWc", -- disable some stuff on shortmess
     signcolumn = "yes", -- enable sign column all the time, 4 column

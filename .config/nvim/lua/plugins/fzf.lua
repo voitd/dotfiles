@@ -81,38 +81,15 @@ function FZFOpen(cmd_str)
   cmd(cmd_str)
 end
 
--- Ctrl-p = fuzzy finder
--- map("n", "<C-m>", "<CMD>lua FZFOpen(':History')<CR>")
--- map("n", "<C-m>", "<CMD>lua FZFOpen(':History')<CR>")
--- map("n", "<C-P>", "<CMD>lua FZFOpen(':Files')<CR>")
-
--- . = location of current file
--- map("n", "'.", "<CMD>lua FZFOpen(':FZF " .. fn.expand("%:h") .. "')<CR>")
-
 map("n", "<leader>rw", "<CMD>lua rg_word()<CR>")
 
--- r = RG
-map("n", "<leader>srg", "<CMD>lua FZFOpen(':RG')<CR>")
+map("n", "<leader>st", "<CMD>lua FZFOpen(':RG')<CR>")
 
--- z = FZF
--- map("n", "<leader>sf", "<CMD>lua FZFOpen(':FZF')<CR>")
-
--- b = buffers
+map("n", "<leader>bb", "<CMD>lua FZFOpen(':Buffers')<CR>")
+map("n", "<leader>sb", "<CMD>lua FZFOpen(':BLines')<CR>")
+map("n", "<leader>bs", "<CMD>lua FZFOpen(':BLines')<CR>")
 map("n", "<leader>bb", "<CMD>lua FZFOpen(':Buffers')<CR>")
 
--- t = tags
--- map("n", "<leader>sta", "<CMD>lua FZFOpen(':Tags')<CR>")
-
--- i = history
--- map("n", "<C-m>", "<CMD>lua FZFOpen(':History')<CR>")
-
--- h = home
--- map("n", "<leader>sh", "<CMD>lua FZFOpen(':FZF ~/')<CR>")
-
--- g = gitfiles
--- map("n", "<leader>sg", "<CMD>lua FZFOpen(':GFiles')<CR>")
-
--- d = diagnostics
 map("n", "<leader>cd", "<CMD>lua FZFOpen(':Diagnostics')<CR>")
 map("n", "<leader>cr", "<CMD>lua FZFOpen(':References')<CR>")
 map("n", "<leader>cs", "<CMD>lua FZFOpen(':DocumentSymbols')<CR>")
@@ -140,5 +117,5 @@ function _G.fzf_omni()
     return ":Files"
   end
 end
-
+print()
 map("n", "<C-f>", ":lua FZFOpen(fzf_omni())<CR>")

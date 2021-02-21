@@ -51,7 +51,6 @@ sign_define(
   }
 )
 
-
 -- lspconfig.diagnosticls.setup(
 --   {
 --     filetypes = {
