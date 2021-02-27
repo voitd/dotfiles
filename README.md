@@ -1,6 +1,6 @@
 <p align="center">
   <br>
-  <img width="1360" alt="nvim" src="https://user-images.githubusercontent.com/60138143/109387824-345cd680-790c-11eb-8ccb-8f77a669d514.png">
+  <img width="1360" alt="nvim" src="https://user-images.githubusercontent.com/60138143/109388635-00d07b00-7911-11eb-997f-1b6236b7cd05.png">
   <br>
   <a href="https://www.apple.com/ru/macos/big-sur/"><b>macOS</b></a> &bull; <a href="https://neovim.io"><b>NeoVim</b></a> &bull; <a     href="https://sw.kovidgoyal.net/kitty/"><b>Kitty</b></a> &bull; <a href="https://fishshell.com"><b>Fish</b></a> &bull; <a href="https://github.com/tmux">   <b>Tmux</b></a></br> 
   <a href="https://rubjo.github.io/victor-mono"><b>Victor Mono Nerd</b></a> &bull; <a href="https://manytricks.com/moom/"><b>Moom</b></a> &bull; <a href="https://github.com/equt/paper.vim"><b>Paper</b></a>
