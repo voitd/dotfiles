@@ -7,11 +7,10 @@
   <a href="https://rubjo.github.io/victor-mono"><b>Victor Mono Nerd</b></a> &bull; <a href="https://manytricks.com/moom/"><b>Moom</b></a> &bull; <a href="https://github.com/equt/paper.vim"><b>Paper</b></a>
   <br>
   <br>
+  <br>
+  <br>
   <img src="https://user-images.githubusercontent.com/60138143/91989761-8fd15180-ed39-11ea-8a83-645f92507c2d.png" width="120" title="My dotfiles">
   <br>
-  <br>
-
- 
 </p>
 
 <!-- ### 🖥 Screenshots -->
