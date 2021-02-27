@@ -1,18 +1,16 @@
 <p align="center">
   <br>
-
-<img width="1360" alt="nvim" src="https://user-images.githubusercontent.com/60138143/109387185-8d2a7000-7908-11eb-890d-5c107e3df313.png">
+  <img width="1360" alt="nvim" src="https://user-images.githubusercontent.com/60138143/109387185-8d2a7000-7908-11eb-890d-5c107e3df313.png">
+  <br>
+  <br>
+  <a href="https://www.apple.com/ru/macos/big-sur/"><b>macOS</b></a> &bull; <a href="https://neovim.io"><b>NeoVim</b></a> &bull; <a     href="https://sw.kovidgoyal.net/kitty/"><b>Kitty</b></a> &bull; <a href="https://fishshell.com"><b>Fish</b></a> &bull; <a href="https://github.com/tmux">   <b>Tmux</b></a></br> 
+  <a href="https://rubjo.github.io/victor-mono"><b>Victor Mono Nerd</b></a> &bull; <a href="https://manytricks.com/moom/"><b>Moom</b></a> &bull; <a href="https://github.com/equt/paper.vim"><b>Paper</b></a>
   <br>
   <br>
   <img src="https://user-images.githubusercontent.com/60138143/91989761-8fd15180-ed39-11ea-8a83-645f92507c2d.png" width="120" title="My dotfiles">
   <br>
   <br>
-<a href="https://www.apple.com/ru/macos/big-sur/"><b>macOS</b></a> &bull; <a href="https://neovim.io"><b>NeoVim</b></a> &bull; <a href="https://sw.kovidgoyal.net/kitty/"><b>Kitty</b></a> &bull; <a href="https://fishshell.com"><b>Fish</b></a> &bull; <a href="https://github.com/tmux"><b>Tmux</b></a></br> 
-  <a href="https://rubjo.github.io/victor-mono"><b>Victor Mono Nerd</b></a> &bull; <a href="https://manytricks.com/moom/"><b>Moom</b></a> &bull; <a href="https://rigel.netlify.app"><b>Paper</b></a>
-  <br>
-  <br>
-  <br>
-  <br>
+
  
 </p>
 
