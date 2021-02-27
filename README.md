@@ -2,7 +2,7 @@
   <br>
   <img width="1360" alt="nvim" src="https://user-images.githubusercontent.com/60138143/109388635-00d07b00-7911-11eb-997f-1b6236b7cd05.png">
   <br>
-  <a href="https://www.apple.com/ru/macos/big-sur/" title="OS"><b>macOS</b></a> &bull; <a href="https://neovim.io" title="Editor"><b>NeoVim</b></a> &bull; <a     href="https://sw.kovidgoyal.net/kitty/" title="Terminal"><b>Kitty</b></a> &bull; <a href="https://fishshell.com" title="Shell"><b>Fish</b></a> &bull; <a href="https://github.com/tmux">   <b>Tmux</b></a></br> 
+  <a href="https://www.apple.com/ru/macos/big-sur/" title="OS"><b>macOS</b></a> &bull; <a href="https://github.com/voitd/dotfiles/tree/master/.config/nvim" title="Editor"><b>NeoVim</b></a> &bull; <a     href="https://github.com/voitd/dotfiles/tree/master/.config/kitty" title="Terminal"><b>Kitty</b></a> &bull; <a href="https://github.com/voitd/dotfiles/tree/master/.config/fish" title="Shell"><b>Fish</b></a> &bull; <a href="https://github.com/tmux">   <b>Tmux</b></a></br> 
   <a href="https://rubjo.github.io/victor-mono" title="Font"><b>Victor Mono Nerd</b></a> &bull; <a href="https://manytricks.com/moom/" title="Window manager"><b>Moom</b></a> &bull; <a href="https://github.com/equt/paper.vim" title="nvim colorscheme"><b>Paper</b></a>
  <br><br><br><br>
   <img src="https://user-images.githubusercontent.com/60138143/91989761-8fd15180-ed39-11ea-8a83-645f92507c2d.png" width="120" title="My dotfiles">
