@@ -1,6 +1,6 @@
 <p align="center">
   <br>
-  <img width="1360" alt="nvim" src="https://user-images.githubusercontent.com/60138143/109388635-00d07b00-7911-11eb-997f-1b6236b7cd05.png">
+  <img width="1360" alt="nvim" src="https://user-images.githubusercontent.com/60138143/109932010-51115980-7cd2-11eb-9d52-fd611d7a717b.png">
   <br>
   <a href="https://www.apple.com/ru/macos/big-sur/" title="OS"><b>macOS</b></a> &bull; <a href="https://github.com/voitd/dotfiles/tree/master/.config/nvim" title="Editor"><b>NeoVim</b></a> &bull; <a     href="https://github.com/voitd/dotfiles/tree/master/.config/kitty" title="Terminal"><b>Kitty</b></a> &bull; <a href="https://github.com/voitd/dotfiles/tree/master/.config/fish" title="Shell"><b>Fish</b></a> &bull; <a href="https://github.com/tmux">   <b>Tmux</b></a></br> 
   <a href="https://rubjo.github.io/victor-mono" title="Font"><b>Victor Mono Nerd</b></a> &bull; <a href="https://manytricks.com/moom/" title="Window manager"><b>Moom</b></a> &bull; <a href="https://github.com/equt/paper.vim" title="nvim colorscheme"><b>Paper</b></a>
@@ -13,7 +13,7 @@
 
 
 <!-- ### ⚙️ Configuration
-
+<img width="1360" alt="nvim" src="https://user-images.githubusercontent.com/60138143/109388635-00d07b00-7911-11eb-997f-1b6236b7cd05.png">
 - OS : macOS (11.0) Big Sur
 - Editor: [NeoVim](https://neovim.io)
 - Terminal: [Kitty](https://sw.kovidgoyal.net/kitty/)
