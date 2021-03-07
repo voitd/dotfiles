@@ -42,7 +42,7 @@ apply_options(
     encoding = "UTF-8", -- set encoding
     fillchars = "vert:│,fold:·,diff:,msgsep:‾,eob:\\ ,foldopen:▾,foldsep:│,foldclose:▸", -- make vertical split sign better
     inccommand = "split", -- incrementally show result of command
-    listchars = "eol:↲,tab:∘\\ ,", -- set listchars
+    listchars = "eol:↲,tab:∘\\ ,trail:•", -- set listchars
     mouse = "nv", -- enable mouse support
     shortmess = "filnxtToOFIWc", -- disable some stuff on shortmess
     signcolumn = "yes", -- enable sign column all the time, 4 column
@@ -50,13 +50,15 @@ apply_options(
     shell = "fish", -- fish as shell
     syntax = "on", -- syntax enable
     undodir = "/tmp/",
-    wildignore = ".git,.hg,.svn,*.pyc,*.o,*.out,*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store,**/node_modules/**",
+    wildignore = ".lock,.sass-cache,.git,.hg,.svn,*.pyc,*.o,*.out,*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store,**/node_modules/**",
+    -- grepprg = "rg --hidden --glob '!.git' --no-heading --smart-case --vimgrep --follow $*",
     foldtext = "v:lua.folds_render()",
     foldmethod = "syntax",
+    -- spellfile = "Users/void/.config/word10k.txt",
     foldlevelstart = 99,
     laststatus = 2, -- always enable statusline
     pumheight = 20, -- limit completion items
-    re = 1, -- set regexp engine to auto
+    re = 0, -- set regexp engine to auto
     scrolloff = 8, -- make scrolling better
     sidescroll = 2, -- make scrolling better
     sidescrolloff = 15, -- make scrolling better
@@ -65,7 +67,8 @@ apply_options(
     tabstop = 2, -- tabsize
     softtabstop = 2,
     textwidth = 140,
-    redrawtime = 1500,
+    -- redrawtime = 1500,
+    redrawtime = 10000,
     numberwidth = 1,
     timeoutlen = 300, -- faster timeout wait time
     updatetime = 100, -- set faster update time

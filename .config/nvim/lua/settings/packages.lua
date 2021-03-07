@@ -56,6 +56,7 @@ local misk = {
   "voldikss/vim-floaterm",
   "whatyouhide/vim-lengthmatters",
   "mattn/emmet-vim",
+  "andymass/vim-matchup",
   {"rrethy/vim-hexokinase", run = "make hexokinase"}
   -- "leafOfTree/vim-matchtag" --highlight matching tags html, xml, js, jsx, vue, svelte.
   -- "windwp/nvim-autopairs"
@@ -74,8 +75,9 @@ local test = {
 
 local langs = {
   "Galooshi/vim-import-js",
-  "pangloss/vim-javascript"
-  -- "maxmellon/vim-jsx-pretty",
+  "pangloss/vim-javascript",
+  "maxmellon/vim-jsx-pretty" -- because treesitter breaks jsx indentation
+  -- "leafOfTree/vim-vue-plugin"
   -- use "styled-components/vim-styled-components"
 }
 
@@ -88,15 +90,13 @@ local snippets = {
 }
 
 local themes = {
-  --[[ "sheerun/vim-polyglot",
-  "arcticicestudio/nord-vim", ]]
-  "embark-theme/vim",
   "equt/paper.vim",
-  "romgrk/github-light.vim"
-  -- "christianchiarulli/nvcode-color-schemes.vim"
-
-  --[[ "tjdevries/colorbuddy.vim",
-  "delafthi/onedarkbuddy" ]]
+  "embark-theme/vim",
+  "romgrk/github-light.vim",
+  "rktjmp/lush.nvim",
+  "npxbr/gruvbox.nvim",
+  "Rigellute/rigel",
+  "arcticicestudio/nord-vim"
 }
 
 local ui = {
@@ -115,7 +115,7 @@ packer.startup {
     git,
     misk,
     fzf,
-    test,
+    -- test,
     langs,
     snippets,
     themes,

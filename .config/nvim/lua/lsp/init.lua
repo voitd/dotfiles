@@ -12,6 +12,7 @@ require "lsp.ts"
 require "lsp.html"
 require "lsp.css"
 require "lsp.json"
+-- require "lsp.nlua"
 require "lsp.lua"
 require "lsp.elixir"
 require "lsp.bash"
@@ -27,8 +28,8 @@ map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", {noremap = true, sil
 map("n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", {noremap = true, silent = true})
 
 -- map("n", "<leader>f",  ":LSPFormat<CR>", {})
-map("n", "<leader>f", ":lua vim.lsp.buf.formatting()<CR>", {})
-map("n", "<leader>ff", ":Format<CR>", {})
+map("n", "<leader>ff", ":lua vim.lsp.buf.formatting()<CR>", {})
+-- map("n", "<leader>ff", ":Format<CR>", {})
 
 vim.lsp.handlers["textDocument/formatting"] = function(err, _, result, _, bufnr)
   if err ~= nil or result == nil then

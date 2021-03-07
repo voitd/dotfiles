@@ -49,6 +49,11 @@ apply_globals(
     user_emmet_expandabbr_key = "<C-a><C-a>",
     user_emmet_install_global = 0,
     user_emmet_install_command = 0,
+    user_emmet_settings = {
+      javascript = {
+        extends = "jsx"
+      }
+    },
     bufferline = {
       shadow = true,
       animation = true,
@@ -61,11 +66,6 @@ apply_globals(
     Hexokinase_highlighters = {"foregroundfull"},
     lineletters_settings = {
       prefix_chars = {"t", "n"}
-    },
-    user_emmet_settings = {
-      javascript = {
-        extends = "jsx"
-      }
     },
     -- snippets
     vsnip_filetypes = {
@@ -99,7 +99,16 @@ apply_globals(
     loaded_netrwPlugin = 1,
     loaded_netrwSettings = 1,
     loaded_netrwFileHandlers = 1,
-    embark_terminal_italics = 1,
-    vue_pre_processors = {"pug", "scss"}
+    vue_pre_processors = {"pug", "scss"},
+    matchup_matchparen_timeout = 100,
+    matchup_matchparen_deferred = 1,
+    matchup_matchparen_deferred_show_delay = 150,
+    matchup_matchparen_deferred_hide_delay = 700,
+    matchup_matchparen_hi_surround_always = 1,
+    matchup_matchparen_offscreen = {method = "popup", highlight = "CurrentWord"},
+    matchup_delim_start_plaintext = 0,
+    matchup_motion_override_Npercent = 0,
+    matchup_motion_cursor_end = 0,
+    matchup_mappings_enabled = 0
   }
 )

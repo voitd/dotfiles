@@ -80,9 +80,21 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/void/.local/share/nvim/site/pack/packer/start/gitsigns.nvim"
   },
+  ["gruvbox.nvim"] = {
+    loaded = true,
+    path = "/Users/void/.local/share/nvim/site/pack/packer/start/gruvbox.nvim"
+  },
   ["lspsaga.nvim"] = {
     loaded = true,
     path = "/Users/void/.local/share/nvim/site/pack/packer/start/lspsaga.nvim"
+  },
+  ["lush.nvim"] = {
+    loaded = true,
+    path = "/Users/void/.local/share/nvim/site/pack/packer/start/lush.nvim"
+  },
+  ["nord-vim"] = {
+    loaded = true,
+    path = "/Users/void/.local/share/nvim/site/pack/packer/start/nord-vim"
   },
   ["nvim-bufferline.lua"] = {
     loaded = true,
@@ -120,6 +132,10 @@ _G.packer_plugins = {
   ["popup.nvim"] = {
     loaded = true,
     path = "/Users/void/.local/share/nvim/site/pack/packer/start/popup.nvim"
+  },
+  rigel = {
+    loaded = true,
+    path = "/Users/void/.local/share/nvim/site/pack/packer/start/rigel"
   },
   ["rooter.nvim"] = {
     loaded = true,
@@ -185,9 +201,21 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/void/.local/share/nvim/site/pack/packer/start/vim-import-js"
   },
+  ["vim-javascript"] = {
+    loaded = true,
+    path = "/Users/void/.local/share/nvim/site/pack/packer/start/vim-javascript"
+  },
+  ["vim-jsx-pretty"] = {
+    loaded = true,
+    path = "/Users/void/.local/share/nvim/site/pack/packer/start/vim-jsx-pretty"
+  },
   ["vim-lengthmatters"] = {
     loaded = true,
     path = "/Users/void/.local/share/nvim/site/pack/packer/start/vim-lengthmatters"
+  },
+  ["vim-matchup"] = {
+    loaded = true,
+    path = "/Users/void/.local/share/nvim/site/pack/packer/start/vim-matchup"
   },
   ["vim-rhubarb"] = {
     loaded = true,
@@ -204,14 +232,6 @@ _G.packer_plugins = {
   ["vim-startify"] = {
     loaded = true,
     path = "/Users/void/.local/share/nvim/site/pack/packer/start/vim-startify"
-  },
-  ["vim-test"] = {
-    loaded = true,
-    path = "/Users/void/.local/share/nvim/site/pack/packer/start/vim-test"
-  },
-  ["vim-ultest"] = {
-    loaded = true,
-    path = "/Users/void/.local/share/nvim/site/pack/packer/start/vim-ultest"
   },
   ["vim-vsnip"] = {
     loaded = true,

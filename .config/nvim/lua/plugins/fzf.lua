@@ -5,7 +5,12 @@ local fn = vim.fn
 local cmd = vim.cmd
 local api = vim.api
 
-fn.setenv("FZF_DEFAULT_OPTS", "--color=dark --reverse --keep-right --marker=+ --padding=1,1")
+fn.setenv(
+  "FZF_DEFAULT_OPTS",
+  "--reverse --keep-right --marker=+ --padding=1,1 --color=fg:#D8DEE9,bg:#2E3440,hl:#A3BE8C,fg+:#D8DEE9,bg+:#2E3440,hl+:#A3BE8C,pointer:#BF616A,info:#2E3440,spinner:#4C566A,header:#4C566A,prompt:#81A1C1,marker:#EBCB8B"
+)
+-- "--reverse --keep-right --marker=+ --padding=1,1 --color=fg:#4d4d4c,bg:#eeeeee,hl:#d7005f,fg+:#4d4d4c,bg+:#e8e8e8,hl+:#d7005f,info:#eeeeee,prompt:#8959a8,pointer:#d7005f,marker:#4271ae,spinner:#4271ae,header:#4271ae"
+
 fn.setenv("FZF_DEFAULT_COMMAND", "rg --files --hidden --glob '!.git/**'")
 fn.setenv(
   "FZF_PREVIEW_COMMAND",
@@ -20,21 +25,20 @@ g.fzf_branch_actions = {
 }
 -- Customize fzf colors to match your color scheme
 -- fzf#wrap translates this to a set of `--color` options
-g.fzf_colors = {
-  fg = {"fg", "Normal"},
-  bg = {"bg", "Normal"},
-  hl = {"fg", "Red"},
-  ["fg+"] = {"fg", "White"},
-  ["bg+"] = {"bg", "Normal"},
-  ["hl+"] = {"fg", "Red"},
-  info = {"bg", "Normal"},
-  prompt = {"fg", "White"},
-  pointer = {"fg", "White"},
-  marker = {"fg", "Yellow"},
-  spinner = {"fg", "White"},
-  header = {"bg", "Normal"}
-}
-
+-- g.fzf_colors = {
+--   fg = {"fg", "#4d4d4c"},
+--   bg = {"bg", "#eeeeee"},
+--   hl = {"fg", "#d7005f"},
+--   ["fg+"] = {"fg", "#4d4d4c"},
+--   ["bg+"] = {"bg", "#e8e8e8"},
+--   ["hl+"] = {"fg", "#d7005f"},
+--   info = {"bg", "Normal"},
+--   prompt = {"fg", "#8959a8"},
+--   pointer = {"fg", "#d7005f"},
+--   marker = {"fg", "#4271ae"},
+--   spinner = {"fg", "#4271ae"},
+--   header = {"bg", "#4271ae"}
+-- }
 -- Enable per-command history
 -- - History files will be stored in the specified directory
 -- - When set, CTRL-N and CTRL-P will be bound to 'next-history' and
@@ -85,15 +89,15 @@ map("n", "<leader>rw", "<CMD>lua rg_word()<CR>")
 
 map("n", "<leader>st", "<CMD>lua FZFOpen(':RG')<CR>")
 
-map("n", "<leader>bb", "<CMD>lua FZFOpen(':Buffers')<CR>")
-map("n", "<leader>sb", "<CMD>lua FZFOpen(':BLines')<CR>")
-map("n", "<leader>bs", "<CMD>lua FZFOpen(':BLines')<CR>")
-map("n", "<leader>bb", "<CMD>lua FZFOpen(':Buffers')<CR>")
+-- map("n", "<leader>bb", "<CMD>lua FZFOpen(':Buffers')<CR>")
+-- map("n", "<leader>sb", "<CMD>lua FZFOpen(':BLines')<CR>")
+-- map("n", "<leader>bs", "<CMD>lua FZFOpen(':BLines')<CR>")
+-- map("n", "<leader>bb", "<CMD>lua FZFOpen(':Buffers')<CR>")
 
-map("n", "<leader>cd", "<CMD>lua FZFOpen(':Diagnostics')<CR>")
-map("n", "<leader>cr", "<CMD>lua FZFOpen(':References')<CR>")
-map("n", "<leader>cs", "<CMD>lua FZFOpen(':DocumentSymbols')<CR>")
-map("n", "<leader>ci", "<CMD>lua FZFOpen(':Implementations')<CR>")
+-- map("n", "<leader>cd", "<CMD>lua FZFOpen(':Diagnostics')<CR>")
+-- map("n", "<leader>cr", "<CMD>lua FZFOpen(':References')<CR>")
+-- map("n", "<leader>cs", "<CMD>lua FZFOpen(':DocumentSymbols')<CR>")
+-- map("n", "<leader>ci", "<CMD>lua FZFOpen(':Implementations')<CR>")
 
 api.nvim_exec(
   [[
@@ -118,4 +122,4 @@ function _G.fzf_omni()
   end
 end
 print()
-map("n", "<C-f>", ":lua FZFOpen(fzf_omni())<CR>")
+-- map("n", "<C-f>", ":lua FZFOpen(fzf_omni())<CR>")

@@ -26,7 +26,7 @@ local nord_colors = {
   -- bg = "#2E3440",
   fg = "#81A1C1",
   line_bg = "NONE",
-  -- line_bg = "#2E3440",
+  lbg = "#3B4252",
   fg_green = "#8FBCBB",
   yellow = "#EBCB8B",
   cyan = "#A3BE8C",
@@ -219,10 +219,10 @@ section.right[11] = {
 
 section.short_line_left[1] = {
   BufferType = {
-    provider = "FileTypeName",
+    provider = "FileIcon",
     separator = " ",
-    separator_highlight = {"NONE", nord_colors.bg},
-    highlight = {nord_colors.blue, nord_colors.bg, "bold"}
+    separator_highlight = {"NONE", nord_colors.lbg},
+    highlight = {nord_colors.blue, nord_colors.lbg, "bold"}
   }
 }
 
@@ -239,13 +239,13 @@ section.short_line_left[2] = {
       return fname
     end,
     condition = buffer_not_empty,
-    highlight = {nord_colors.white, nord_colors.bg, "bold"}
+    highlight = {nord_colors.white, nord_colors.lbg, "bold"}
   }
 }
 
 section.short_line_right[1] = {
   BufferIcon = {
     provider = "BufferIcon",
-    highlight = {nord_colors.fg, nord_colors.bg}
+    highlight = {nord_colors.fg, nord_colors.lbg}
   }
 }

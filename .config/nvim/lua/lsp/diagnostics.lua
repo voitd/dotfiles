@@ -18,6 +18,37 @@ lsp.handlers["textDocument/publishDiagnostics"] =
     update_in_insert = false
   }
 )
+-- sign_define(
+--   "LspDiagnosticsSignError",
+--   {
+--     text = " ",
+--     texthl = "Error"
+--   }
+-- )
+
+-- sign_define(
+--   "LspDiagnosticsSignWarning",
+--   {
+--     text = " ",
+--     texthl = "WarningMsg"
+--   }
+-- )
+
+-- sign_define(
+--   "LspDiagnosticsSignInformation",
+--   {
+--     text = " ",
+--     texthl = "Statement"
+--   }
+-- )
+
+-- sign_define(
+--   "LspDiagnosticsSignHint",
+--   {
+--     text = " ",
+--     texthl = "diffAdded"
+--   }
+-- )
 
 sign_define(
   "LspDiagnosticsSignError",
@@ -50,7 +81,6 @@ sign_define(
     texthl = "LspDiagnosticsHint"
   }
 )
-
 -- lspconfig.diagnosticls.setup(
 --   {
 --     filetypes = {

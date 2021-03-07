@@ -1,6 +1,6 @@
-vim.cmd [[packadd nvim-compe]]
-vim.cmd [[packadd vim-vsnip]]
-vim.cmd [[packadd vim-vsnip-integ]]
+-- vim.cmd [[packadd nvim-compe]]
+-- vim.cmd [[packadd vim-vsnip]]
+-- vim.cmd [[packadd vim-vsnip-integ]]
 local map = require "settings.utils".map
 local protocol = require "vim.lsp.protocol"
 -- vim.cmd "au BufEnter *.jsx set filetype=javascript"
@@ -12,7 +12,7 @@ require "compe".setup {
   min_length = 1,
   preselect = "always",
   source_timeout = 200,
-  incomplete_delay = 400,
+  -- incomplete_delay = 400,
   allow_prefix_unmatch = false,
   documentation = true,
   source = {
@@ -21,6 +21,7 @@ require "compe".setup {
     vsnip = {menu = " "},
     nvim_lsp = {menu = "  "},
     nvim_lua = {menu = " "},
+    treesitter = {menu = " "},
     spell = true,
     calc = true,
     tags = true

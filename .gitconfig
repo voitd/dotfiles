@@ -61,8 +61,10 @@
   edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`"
   # add conflicted file on merge
   add-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
-
-
+  # open repo in browser
+  open = !open `git config remote.origin.url` 
+  # show url of remote
+  url =! bash -c 'git config --get remote.origin.url | sed -E "s/.+:\\(.+\\)\\.git$/https:\\\\/\\\\/github\\\\.com\\\\/\\\\1/g"'
 	# View the current working tree status using the short format
   st = status --short --branch
   ss  = stash save

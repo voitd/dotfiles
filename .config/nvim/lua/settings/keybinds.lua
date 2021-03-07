@@ -172,9 +172,9 @@ map("n", "?", ":set hlsearch <cr>?")
 -- map("n", "<leader>sw", ":Rg" .. fn.expand("<cword>" .. ""), {})
 --[[ map("n", "<leader>sb", ":BLines<CR>", {})
 map("n", "<leader>bs", ":BLines<CR>", {}) ]]
-map("n", "<leader>ss", [[:%s/\<<C-r>=expand("<cword>")<CR>\>/]])
-map("n", "<leader>sr", [[:s/\<<C-r>=expand("<cword>")<CR>\>/]])
-map("v", "<leader>ss", [["zy:%s/<C-r><C-o>"/]])
+-- map("n", "<leader>ss", [[:%s/\<<C-r>=expand("<cword>")<CR>\>/]])
+-- map("n", "<leader>sr", [[:s/\<<C-r>=expand("<cword>")<CR>\>/]])
+-- map("v", "<leader>ss", [["zy:%s/<C-r><C-o>"/]])
 
 -- Test
 map("n", "<leader>tf", "<cmd>TestFile<CR>", {})
@@ -203,3 +203,10 @@ map("n", "<Leader>of", ":lua open_file_or_create_new()", {silent = false})
 map("n", "<leader>kv", ":silent !kitty @ launch --copy-env --cwd=current nvim % <CR>", {})
 
 map("n", "<leader>cc", ":normal gcc<CR>", {})
+
+map("n", "za", [[@=(foldlevel('.')?'za':"\<Space>")<CR>]], {})
+map("n", "zO", [[zCzO]], {})
+
+map("n", "%", "<Plug>(matchup-%)", {})
+map("x", "%", "<Plug>(matchup-%)", {})
+map("o", "%", "<Plug>(matchup-%)", {})

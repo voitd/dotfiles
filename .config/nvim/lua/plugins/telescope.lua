@@ -14,7 +14,7 @@ vim.fn.setenv("FZF_DEFAULT_COMMAND", "rg --files --hidden --glob '!.git/**'")
 telescope.setup {
   defaults = {
     prompt_position = "top",
-    prompt_prefix = " ❯",
+    prompt_prefix = " ❯ ",
     file_ignore_patterns = {".git/*", "node_modules"},
     --[[ vimgrep_arguments = {
       "rg",
@@ -27,18 +27,24 @@ telescope.setup {
     mappings = {
       i = {
         ["<esc>"] = actions.close,
-        ["<C-h>"] = actions.goto_file_selection_split,
-        ["<C-v>"] = actions.goto_file_selection_vsplit
+        ["<C-q>"] = actions.send_to_qflist
+        -- ["<C-h>"] = actions.goto_file_selection_split,
+        -- ["<C-v>"] = actions.goto_file_selection_vsplit
       },
       n = {
         ["<esc>"] = actions.close
       }
     },
     file_sorter = sorters.get_fzy_sorter,
-    generic_sorter = sorters.get_fzy_sorter,
     file_previewer = previewers.vim_buffer_cat.new,
     grep_previewer = previewers.vim_buffer_vimgrep.new,
     qflist_previewer = previewers.vim_buffer_qflist.new
+  },
+  extensions = {
+    fzy_native = {
+      override_generic_sorter = false,
+      override_file_sorter = true
+    }
   }
 }
 
@@ -57,20 +63,21 @@ map("n", "<C-p>", "<CMD>lua TelescopeOpenPrewiev('git_files')<CR>")
 map("n", "<C-w>", "<CMD>lua TelescopeOpenPrewiev('oldfiles')<CR>")
 map("n", "<leader>bb", "<CMD>lua TelescopeOpen('buffers')<CR>")
 map("n", "<leader>bt", "<CMD>lua TelescopeOpenPrewiev('current_buffer_tags')<CR>")
-map("n", "<leader>fc", "<CMD>lua TelescopeOpen('commands')<CR>")
-map("n", "<leader>ll", "<CMD>lua TelescopeOpen('builtin')<CR>")
-map("n", "<leader>rw", "<CMD>lua TelescopeOpenPrewiev('grep_string')<CR>")
-map("n", "<leader>rg", "<CMD>lua TelescopeOpenPrewiev('live_grep')<CR>")
-map("n", "<leader>lr", "<CMD>lua TelescopeOpenPrewiev('lsp_references')<CR>")
-map("n", "<leader>ls", "<CMD>lua TelescopeOpenPrewiev('symbols')<CR>")
-map("n", "<leader>fg", "<CMD>lua TelescopeOpenPrewiev('git_status')<CR>")
-map("n", "<leader>fgb", "<CMD>lua TelescopeOpenPrewiev('git_branches')<CR>")
-map("n", "<leader>lsd", "<CMD>lua TelescopeOpenPrewiev('lsp_document_symbols')<CR>")
-map("n", "<leader>lsw", "<CMD>lua TelescopeOpenPrewiev('lsp_workspace_symbols')<CR>")
-map("n", "<leader>lca", "<CMD>lua TelescopeOpenPrewiev('lsp_code_actions')<CR>")
+map("n", "<leader>cc", "<CMD>lua TelescopeOpen('commands')<CR>")
+map("n", "<leader>cb", "<CMD>lua TelescopeOpen('builtin')<CR>")
+-- map("n", "<leader>sw", "<CMD>lua TelescopeOpenPrewiev('grep_string({ search = vim.fn.expand('<cword>')})')<CR>")
+map("n", "<leader>sw", "<CMD>lua TelescopeOpenPrewiev('grep_string')<CR>")
+map("n", "<leader>sg", "<CMD>lua TelescopeOpenPrewiev('live_grep')<CR>")
+map("n", "<leader>cr", "<CMD>lua TelescopeOpenPrewiev('lsp_references')<CR>")
+map("n", "<leader>cs", "<CMD>lua TelescopeOpenPrewiev('symbols')<CR>")
+map("n", "<leader>cg", "<CMD>lua TelescopeOpenPrewiev('git_status')<CR>")
+map("n", "<leader>gb", "<CMD>lua TelescopeOpenPrewiev('git_branches')<CR>")
+map("n", "<leader>csd", "<CMD>lua TelescopeOpenPrewiev('lsp_document_symbols')<CR>")
+map("n", "<leader>csw", "<CMD>lua TelescopeOpenPrewiev('lsp_workspace_symbols')<CR>")
+map("n", "<leader>ca", "<CMD>lua TelescopeOpenPrewiev('lsp_code_actions')<CR>")
 map("n", "<leader>cw", "<CMD>lua TelescopeOpenPrewiev('spell_suggest')<CR>")
 map("n", "<leader>cm", "<CMD>lua TelescopeOpenPrewiev('keymaps')<CR>")
-map("n", "<leader>cr", "<CMD>lua TelescopeOpenPrewiev('reloader')<CR>")
+map("n", "<leader>cl", "<CMD>lua TelescopeOpenPrewiev('reloader')<CR>")
 map("n", "<leader>cv", "<CMD>lua TelescopeOpenPrewiev('vim_options')<CR>")
 
 -- map("n", "<leader>",  "<CMD>lua TelescopeOpenPrewiev('')<CR>")

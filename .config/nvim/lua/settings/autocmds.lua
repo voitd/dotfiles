@@ -7,15 +7,18 @@ cmd "au FocusLost * silent! :wa!"
 cmd "au TextYankPost * silent! lua require'vim.highlight'.on_yank({timeout = 800})"
 cmd "au BufEnter * set fo-=c fo-=r fo-=o"
 cmd "au TermOpen * setlocal signcolumn=no nonumber norelativenumber"
-cmd "au BufWritePost * FormatWrite"
 cmd "au BufNewFile,BufRead .eslintignore,.prettierignore,.aliases setf conf"
 cmd "au BufNewFile,BufRead .eslintrc,.prettierrc,tsconfig.json setf json"
+
+-- cmd "au BufWritePost * FormatWrite"
+cmd "au BufWritePre * lua vim.lsp.buf.formatting()"
+cmd "au BufWritePost * normal! zv"
 
 -- cmd "au CursorHold * lua vim.defer_fn(function() require'lspsaga.signaturehelp'.signature_help() end, 5000)"
 -- cmd "au CursorHold * lua vim.defer_fn(function() require'lspsaga.provider'.preview_definition() end, 5000)"
 
 cmd "au FileType gitcommit setl spell"
-cmd "au FileType html,css,javascript,javascriptreact,vue,typescript,typescriptreact EmmetInstall"
+cmd "au FileType html,css,scss,javascript,javascriptreact,vue,typescript,typescriptreact EmmetInstall"
 
 cmd "au BufEnter *.txt lua require('settings.utils').help_tab()"
 -- Open image file in system preview
@@ -25,7 +28,7 @@ cmd [[au BufEnter *.png,*.jpg,*.gif,*.ico exec "silent !open ".expand("%") | :bw
 -- Return to last edited line
 cmd [[au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") && &filetype != 'gitcommit' | exe "normal! g'\"" | endif]]
 
-cmd "au Filetype fzf setlocal winblend=7"
+-- cmd "au Filetype fzf setlocal winblend=7"
 cmd "au CmdlineLeave : echo ''"
 
 cmd "command! LSPReload lua reload_lsp()"

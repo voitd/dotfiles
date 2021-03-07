@@ -49,10 +49,10 @@ hiLinks(
     jsExport = "typescriptBOMWindowMethod",
     jsImport = "typescriptBOMWindowMethod",
     jsFrom = "typescriptBOMWindowMethod",
+    jsObjectValue = "Function",
     -- jsNull = "typescriptDecorator",
     -- jsBooleanTrue = "typescriptDecorator",
     -- jsBooleanFalse = "typescriptDecorator",
-    jsObjectValue = "Function",
     --[[ BufferInactiveMod = "typescriptDecorator",
     BufferCurrentMod = "typescriptDecorator",
     BufferVisibleMod = "typescriptDecorator",
@@ -69,11 +69,11 @@ hiLinks(
     elixirAlias = "SpecialChar",
     elixirModuleDeclaration = "typescriptDecorator",
     elixirInclude = "rustEnum",
-    elixirId = "Type"
-    --[[ LspDiagnosticsVirtualTextError = "LspDiagnosticsError",
+    elixirId = "Type",
+    LspDiagnosticsVirtualTextError = "LspDiagnosticsError",
     LspDiagnosticsVirtualTextWarning = "LspDiagnosticsWarning",
     LspDiagnosticsVirtualTextInformation = "LspDiagnosticsInformation",
-    LspDiagnosticsVirtualTextHint = "LspDiagnosticsHint" ]]
+    LspDiagnosticsVirtualTextHint = "LspDiagnosticsHint",
   }
 )
 
