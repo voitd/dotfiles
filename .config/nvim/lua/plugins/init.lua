@@ -1,19 +1,24 @@
--- require "plugins.devicons"
 require "plugins.floaterm"
 require "plugins.sign"
 require "plugins.startify"
 require "plugins.statusline"
 require "plugins.rooter"
-require "plugins.sneak"
-require "plugins.formatter"
 require "plugins.tabbar"
-require "plugins.fzf"
 require "plugins.telescope"
-require "plugins.nord"
+require "plugins.tsitter"
+require "plugins.abbrman"
+require "plugins.discord"
+require "plugins.tree"
+require "plugins.gruvbox"
+
+-- require "plugins.trouble"
+-- require "plugins.indent"
+-- require "plugins.sneak"
+-- require "plugins.rigel"
 -- require "plugins.ui"
--- require "plugins.tree"
+-- require "plugins.fzf"
+-- require "plugins.nord"
 -- require "plugins.pairs"
--- require "plugins.tsitter"
 
 require "nvim-web-devicons".setup()
-
+require "nvim-ts-autotag".setup()

@@ -19,7 +19,7 @@ apply_options(
     hidden = true, -- keep hidden buffers
     hlsearch = true, -- highlight matching search
     ignorecase = true, -- case insensitive on search
-    lazyredraw = true, -- lazyredraw to make macro faster
+    -- lazyredraw = true, -- lazyredraw to make macro faster
     list = false, -- display listchars
     number = true, -- enable number
     relativenumber = true, -- enable relativenumber
@@ -32,7 +32,7 @@ apply_options(
     wrap = false, -- dont wrap lines
     writebackup = false, -- disable backup
     wildignorecase = true,
-    ttyfast = true,
+    -- ttyfast = true,
     timeout = true,
     ttimeout = true,
     matchpairs = "(:),{:},[:],<:>", -- highlight match pairs
@@ -40,7 +40,7 @@ apply_options(
     complete = vim.o.complete .. ",k/Users/void/.config/word10k.txt",
     formatoptions = "1jcroql", -- improve editor formatting
     encoding = "UTF-8", -- set encoding
-    fillchars = "vert:│,fold:·,diff:,msgsep:‾,eob:\\ ,foldopen:▾,foldsep:│,foldclose:▸", -- make vertical split sign better
+    fillchars = "vert:│,fold:\\ ,diff:,msgsep:‾,eob:\\ ,foldopen:▾,foldsep:│,foldclose:▸", -- make vertical split sign better
     inccommand = "split", -- incrementally show result of command
     listchars = "eol:↲,tab:∘\\ ,trail:•", -- set listchars
     mouse = "nv", -- enable mouse support
@@ -57,12 +57,12 @@ apply_options(
     -- spellfile = "Users/void/.config/word10k.txt",
     foldlevelstart = 99,
     laststatus = 2, -- always enable statusline
-    pumheight = 20, -- limit completion items
+    pumheight = 15, -- limit completion items
     re = 0, -- set regexp engine to auto
     scrolloff = 8, -- make scrolling better
     sidescroll = 2, -- make scrolling better
     sidescrolloff = 15, -- make scrolling better
-    synmaxcol = 500, -- set limit for syntax highlighting in a single line
+    -- synmaxcol = 500, -- set limit for syntax highlighting in a single line
     shiftwidth = 2, -- set indentation width
     tabstop = 2, -- tabsize
     softtabstop = 2,

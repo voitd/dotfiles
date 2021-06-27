@@ -7,9 +7,9 @@ local api = vim.api
 
 fn.setenv(
   "FZF_DEFAULT_OPTS",
-  "--reverse --keep-right --marker=+ --padding=1,1 --color=fg:#D8DEE9,bg:#2E3440,hl:#A3BE8C,fg+:#D8DEE9,bg+:#2E3440,hl+:#A3BE8C,pointer:#BF616A,info:#2E3440,spinner:#4C566A,header:#4C566A,prompt:#81A1C1,marker:#EBCB8B"
+  "--reverse --keep-right --marker=+ --padding=1,1"
+  -- "--reverse --keep-right --marker=+ --padding=1,1 --color=fg:#D8DEE9,bg:#2E3440,hl:#A3BE8C,fg+:#D8DEE9,bg+:#2E3440,hl+:#A3BE8C,pointer:#BF616A,info:#2E3440,spinner:#4C566A,header:#4C566A,prompt:#81A1C1,marker:#EBCB8B"
 )
--- "--reverse --keep-right --marker=+ --padding=1,1 --color=fg:#4d4d4c,bg:#eeeeee,hl:#d7005f,fg+:#4d4d4c,bg+:#e8e8e8,hl+:#d7005f,info:#eeeeee,prompt:#8959a8,pointer:#d7005f,marker:#4271ae,spinner:#4271ae,header:#4271ae"
 
 fn.setenv("FZF_DEFAULT_COMMAND", "rg --files --hidden --glob '!.git/**'")
 fn.setenv(
@@ -23,36 +23,12 @@ g.fzf_branch_actions = {
     required = {}
   }
 }
--- Customize fzf colors to match your color scheme
--- fzf#wrap translates this to a set of `--color` options
--- g.fzf_colors = {
---   fg = {"fg", "#4d4d4c"},
---   bg = {"bg", "#eeeeee"},
---   hl = {"fg", "#d7005f"},
---   ["fg+"] = {"fg", "#4d4d4c"},
---   ["bg+"] = {"bg", "#e8e8e8"},
---   ["hl+"] = {"fg", "#d7005f"},
---   info = {"bg", "Normal"},
---   prompt = {"fg", "#8959a8"},
---   pointer = {"fg", "#d7005f"},
---   marker = {"fg", "#4271ae"},
---   spinner = {"fg", "#4271ae"},
---   header = {"bg", "#4271ae"}
--- }
 -- Enable per-command history
 -- - History files will be stored in the specified directory
 -- - When set, CTRL-N and CTRL-P will be bound to 'next-history' and
 --   'previous-history' instead of 'down' and 'up'.
 g.fzf_history_dir = "~/.local/share/fzf-history"
 -- g.fzf_files_options = '--preview "(kitty +kitten icat --width 50 --true-color {} || cat {}) 2> /dev/null "'
---[[ g.fzf_layout = {
-  window = {
-    width = 0.9,
-    height = 0.6,
-    yoffset = 0.4,
-    xoffset = 0.5
-  }
-} ]]
 g.fzf_layout = {
   window = {
     width = 1,
@@ -62,8 +38,6 @@ g.fzf_layout = {
   }
 }
 
--- g.fzf_preview_window = {"right:+{2}-/2:hidden", "ctrl-\\"}
--- g.fzf_layout = { ['down'] = '30%' }
 vim.g.fzf_preview_window = "right:50%"
 
 cmd [[ command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, { "options": "--prompt '❯ '"}, <bang>0) ]]
@@ -86,7 +60,6 @@ function FZFOpen(cmd_str)
 end
 
 map("n", "<leader>rw", "<CMD>lua rg_word()<CR>")
-
 map("n", "<leader>st", "<CMD>lua FZFOpen(':RG')<CR>")
 
 -- map("n", "<leader>bb", "<CMD>lua FZFOpen(':Buffers')<CR>")
@@ -122,4 +95,4 @@ function _G.fzf_omni()
   end
 end
 print()
--- map("n", "<C-f>", ":lua FZFOpen(fzf_omni())<CR>")
+map("n", "<C-f>", ":lua FZFOpen(fzf_omni())<CR>")

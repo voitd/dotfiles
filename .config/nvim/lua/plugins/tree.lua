@@ -1,55 +1,48 @@
-vim.cmd[[packadd nvim-tree.lua]]
+local g = vim.g
+g.nvim_tree_side = "left"
+g.nvim_tree_width = 30
+g.nvim_tree_ignore = {".git", "node_modules", ".cache"}
+g.nvim_tree_auto_open = 0
+g.nvim_tree_auto_close = 0
+g.nvim_tree_quit_on_open = 0
+g.nvim_tree_follow = 1
+g.nvim_tree_indent_markers = 1
+g.nvim_tree_hide_dotfiles = 0
+g.nvim_tree_git_hl = 1
+g.nvim_tree_root_folder_modifier = ":t"
+g.nvim_tree_tab_open = 0
+g.nvim_tree_allow_resize = 1
 
--- Set some variables
-vim.g.nvim_tree_side = 'left'
-vim.g.nvim_tree_width = 30
-vim.g.nvim_tree_ignore = {
-  '.git', 'node_modules', 'dist', '.cache'
-}
-vim.g.nvim_tree_auto_open = 0
-vim.g.nvim_tree_auto_close = 0
-vim.g.nvim_tree_follow = 1
-vim.g.nvim_tree_indent_markers = 1
-vim.g.nvim_tree_hide_dotfiles = 1
-vim.g.nvim_tree_git_hl = 1
-vim.g.nvim_tree_root_folder_modifier = ':~'
-vim.g.nvim_tree_tab_open = 0
-vim.g.nvim_tree_show_icons = {git = 0, folders = 1, files = 1}
-
--- Mappings for nvimtree
-vim.g.nvim_tree_bindings = {
-  edit = {'<CR>', 'o'},
-  edit_vsplit = '<C-v>',
-  edit_split = '<C-x>',
-  edit_tab = '<C-t>',
-  toggle_ignored = 'I',
-  toggle_dotfiles = 'H',
-  refresh = 'R',
-  preview = '<Tab>',
-  cd = '<Leader>d',
-  create = 'a',
-  remove = 'd',
-  rename = 'r',
-  cut = 'x',
-  copy = 'c',
-  paste = 'p',
-  prev_git_item = '[c',
-  next_git_item = ']c'
+g.nvim_tree_show_icons = {
+  git = 1,
+  folders = 1,
+  files = 1
 }
 
--- default will show icon by default if no icon is provided
--- default shows no icon by default
 vim.g.nvim_tree_icons = {
-  default = '',
-  symlink = '',
-
+  default = "",
+  symlink = "",
   git = {
-    unstaged = "✗",
+    unstaged = "",
     staged = "✓",
     unmerged = "",
-    renamed = "➜",
-    untracked = "★"
+    renamed = "",
+    untracked = "",
+    deleted = "",
+    ignored = ""
   },
-
-  folder = {default = "", open = " "}
+  folder = {
+    default = "",
+    open = "",
+    empty = "",
+    empty_open = "",
+    symlink = "",
+    symlink_open = ""
+  },
+  lsp = {
+    hint = "",
+    info = "",
+    warning = "",
+    error = ""
+  }
 }

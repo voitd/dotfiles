@@ -6,12 +6,20 @@ local prettier = {
   formatStdin = true
 }
 
+local prettier_d = {
+  formatCommand = "prettier_d --stdin --stdin-filepath ${INPUT} --single-quote --arrow-parens 'avoid' --trailing-comma all",
+  formatStdin = true
+}
+
 local eslint_d = {
-  lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
+  lintCommand = "eslint_d -f visualstudio --stdin --stdin-filename ${INPUT}",
   lintStdin = true,
+  lintSource = "eslint_d",
   lintFormats = {"%f:%l:%c: %m"},
+  -- lintFormats = {"%f(%l,%c): %tarning %m", "%f(%l,%c): %rror %m"},
   lintIgnoreExitCode = true,
-  formatCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT} --fix-to-stdout",
+  -- formatCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT} --fix-to-stdout",
+  formatCommand = "eslint_d --fix-to-stdout --stdin --stdin-filename ${INPUT}",
   formatStdin = true
 }
 local luaFormat = {
@@ -27,6 +35,7 @@ lspconfig.efm.setup {
     documentFormatting = true,
     codeAction = true
   },
+  flags = {debounce_text_changes = 150},
   filetypes = {
     "javascript",
     "typescript",
@@ -37,23 +46,24 @@ lspconfig.efm.setup {
     "elixir",
     "css",
     "scss",
-    "html"
+    "html",
+    "json"
   },
   settings = {
-    rootMarkers = {"package.json", ".git"},
+    rootMarkers = {"package.json", ".git", ".git/"},
     lintDebounce = 500,
     languages = {
       typescript = {eslint_d},
       javascript = {eslint_d, prettier},
       typescriptreact = {eslint_d, prettier},
       javascriptreact = {eslint_d, prettier},
-      vue = {eslint_d, prettier},
+      vue = {prettier},
       lua = {luaFormat},
       html = {prettier},
       css = {prettier},
       scss = {eslint_d, prettier},
       json = {prettier},
-      conf = {prettier}
+      conf = {prettier_d}
     }
   }
 }

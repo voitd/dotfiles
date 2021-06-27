@@ -19,92 +19,94 @@ local init = {
 }
 
 local lsp = {
+  "glepnir/lspsaga.nvim",
   "nvim-telescope/telescope.nvim",
-  "nvim-telescope/telescope-fzy-native.nvim",
   "nvim-lua/popup.nvim",
   "nvim-lua/plenary.nvim",
   "neovim/nvim-lspconfig",
   "hrsh7th/nvim-compe",
-  "glepnir/lspsaga.nvim",
   "tsuyoshicho/vim-efm-langserver-settings", -- auto config efm lsp
-  {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
+  {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"},
+  {"nvim-telescope/telescope-fzf-native.nvim", run = "make"}
+  -- "nvim-telescope/telescope-fzy-native.nvim"
+  -- "JoosepAlviste/nvim-ts-context-commentstring",
 }
 
 local git = {
   "tpope/vim-fugitive",
-  "stsewd/fzf-checkout.vim",
   "tpope/vim-rhubarb",
   "rhysd/conflict-marker.vim", -- Highlight conflict markers.[x and ]x, ct for themselves, co for ourselves, cn for none and cb
   "lewis6991/gitsigns.nvim",
   "f-person/git-blame.nvim"
+  -- "TimUntersberger/neogit"
+  -- "stsewd/fzf-checkout.vim",
 }
 
 local misk = {
-  -- "b3nj5m1n/kommentary", -- comments like gcc
+  "andweeb/presence.nvim",
+  "editorconfig/editorconfig-vim",
   "tpope/vim-commentary",
+  "unblevable/quick-scope",
+  "windwp/nvim-spectre",
+  "Pocco81/AbbrevMan.nvim", -- dictionaries
   "tweekmonster/startuptime.vim", -- benchmark startup
   "oberblastmeister/rooter.nvim", -- root dir switcher
-  "AndrewRadev/tagalong.vim", -- Auto change html tags
   "AndrewRadev/splitjoin.vim", -- allows to split one liner to multi lines
   "mbbill/undotree", -- undo tree
-  "justinmk/vim-sneak",
   "machakann/vim-sandwich", -- Change surrounding arks
-  "alvan/vim-closetag",
-  "rrethy/vim-illuminate", -- highlight matching words when cursor on it
-  "mhartington/formatter.nvim",
   "metakirby5/codi.vim", --Repl
   "voldikss/vim-floaterm",
   "whatyouhide/vim-lengthmatters",
-  "mattn/emmet-vim",
   "andymass/vim-matchup",
-  {"rrethy/vim-hexokinase", run = "make hexokinase"}
-  -- "leafOfTree/vim-matchtag" --highlight matching tags html, xml, js, jsx, vue, svelte.
-  -- "windwp/nvim-autopairs"
+  {"rrethy/vim-hexokinase", run = "make hexokinase"},
+  "windwp/nvim-ts-autotag" -- Auto change html tags
+  -- "rrethy/vim-illuminate", -- highlight matching words when cursor on it
+  -- "windwp/nvim-spectre" -- search panel
+  -- "glepnir/indent-guides.nvim"
+  -- "p00f/nvim-ts-rainbow"
+  -- "mattn/emmet-vim",
+  -- "justinmk/vim-sneak",
+  -- "mhartington/formatter.nvim",
 }
 
 local fzf = {
   {"junegunn/fzf", run = "./install --all"}, -- Fuzzy Searcher
-  "junegunn/fzf.vim",
-  "gfanto/fzf-lsp.nvim"
+  "junegunn/fzf.vim"
+  -- "gfanto/fzf-lsp.nvim"
 }
 
-local test = {
-  "janko/vim-test",
-  "rcarriga/vim-ultest" -- pretty test output
-}
+-- local test = {
+--   "janko/vim-test",
+--   "rcarriga/vim-ultest" -- pretty test output
+-- }
 
-local langs = {
-  "Galooshi/vim-import-js",
-  "pangloss/vim-javascript",
-  "maxmellon/vim-jsx-pretty" -- because treesitter breaks jsx indentation
-  -- "leafOfTree/vim-vue-plugin"
-  -- use "styled-components/vim-styled-components"
-}
+local langs = {"vieira/vim-javascript"}
 
 local snippets = {
   "hrsh7th/vim-vsnip",
   "hrsh7th/vim-vsnip-integ",
+  "hollowtree/vscode-vue-snippets",
   "dsznajder/vscode-es7-javascript-react-snippets",
-  "sdras/vue-vscode-snippets"
-  -- use "hollowtree/vscode-vue-snippets"
+  "rafamadriz/friendly-snippets"
+  -- "sdras/vue-vscode-snippets",
 }
 
 local themes = {
-  "equt/paper.vim",
-  "embark-theme/vim",
-  "romgrk/github-light.vim",
-  "rktjmp/lush.nvim",
-  "npxbr/gruvbox.nvim",
-  "Rigellute/rigel",
-  "arcticicestudio/nord-vim"
+  "sainnhe/gruvbox-material",
+  "eddyekofo94/gruvbox-flat.nvim"
+  -- "equt/paper.vim",
+  -- "windwp/wind-colors",
+  -- "rafamadriz/neon"
+  -- "wojciechkepka/vim-github-dark"
 }
 
 local ui = {
   "mhinz/vim-startify", -- start screen
   "kyazdani42/nvim-web-devicons",
   "akinsho/nvim-bufferline.lua",
-  "glepnir/galaxyline.nvim"
-  -- "romgrk/barbar.nvim",
+  "glepnir/galaxyline.nvim",
+  "kyazdani42/nvim-tree.lua"
+  -- "folke/lsp-trouble.nvim",
 }
 
 local packer = require("packer")
@@ -115,11 +117,11 @@ packer.startup {
     git,
     misk,
     fzf,
-    -- test,
     langs,
     snippets,
     themes,
     ui
+    -- test,
   },
   config = {
     display = {

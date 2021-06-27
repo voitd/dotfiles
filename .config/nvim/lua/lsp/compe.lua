@@ -3,29 +3,36 @@
 -- vim.cmd [[packadd vim-vsnip-integ]]
 local map = require "settings.utils".map
 local protocol = require "vim.lsp.protocol"
--- vim.cmd "au BufEnter *.jsx set filetype=javascript"
 vim.o.completeopt = "menuone,noselect"
-
+-- require'compe'.register_source('words', require'compe_words')
 require "compe".setup {
   enabled = true,
+  autocomplete = true,
   debug = false,
   min_length = 1,
   preselect = "always",
   source_timeout = 200,
-  -- incomplete_delay = 400,
+  incomplete_delay = 400,
+  -- throttle_time = 80,
   allow_prefix_unmatch = false,
   documentation = true,
+  max_abbr_width = 100,
+  max_kind_width = 100,
+  max_menu_width = 100,
   source = {
-    path = {menu = " "},
-    buffer = {menu = " "},
-    vsnip = {menu = " "},
-    nvim_lsp = {menu = "  "},
-    nvim_lua = {menu = " "},
-    treesitter = {menu = " "},
-    spell = true,
-    calc = true,
-    tags = true
+    path = {menu = " ", priority = 500},
+    buffer = {menu = " ", priority = 500},
+    vsnip = {menu = " ", priority = 1000},
+    nvim_lsp = {menu = " ", priority = 500}
+    -- treesitter = {menu = " ",priority = 500;},
+    -- tags = true
     -- omni = true
+    -- calc = {menu = "  ", priority = 500},
+    -- nvim_lsp = {menu = " ", priority = 10, sort = false},
+    -- nvim_lua = {menu = "  ", priority = 500},
+    -- spell = {menu = "  ", priority = 500},
+    -- tags = true
+    -- emoji = {menu = " ﲃ ", filetype = {"gitcommit", "markdown"}}
   }
 }
 
@@ -74,7 +81,7 @@ map("s", "<Tab>", "v:lua.tab_complete()", {noremap = false, expr = true})
 map("i", "<S-Tab>", "v:lua.tab_complete()", {noremap = false, expr = true})
 map("s", "<S-Tab>", "v:lua.tab_complete()", {noremap = false, expr = true})
 
-map("i", "C-u", "compe#scroll({ 'delta': +4 })", {noremap = false, expr = true})
+map("i", "<C-u>", "compe#scroll({ 'delta': +4 })", {noremap = false, expr = true})
 map("i", "<C-d>", "compe#scroll({ 'delta': -4 })", {noremap = false, expr = true})
 
 protocol.CompletionItemKind = {
@@ -104,3 +111,20 @@ protocol.CompletionItemKind = {
   " [operator]",
   "⌂ [type]"
 }
+
+-- thanks to folke: https://github.com/hrsh7th/nvim-compe/issues/302#issuecomment-821100317
+local helper = require "compe.helper"
+helper.convert_lsp_orig = helper.convert_lsp
+helper.convert_lsp = function(args)
+  local response = args.response or {}
+  local items = response.items or response
+  for _, item in ipairs(items) do
+    if item.insertText == nil and (item.kind == 2 or item.kind == 3 or item.kind == 4) then
+      item.insertText = item.label .. "(${1})"
+      item.insertTextFormat = 2
+    end
+  end
+  return helper.convert_lsp_orig(args)
+end
+
+vim.cmd [[autocmd User CompeConfirmDone :Lspsaga signature_help]]

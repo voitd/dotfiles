@@ -27,11 +27,11 @@
 
   sw = checkout -
   # rebase
-  rb = rebase
-  rbi = rebase --interactive
-  rbc = rebase --continue            # continue rebase
-  rbs = rebase --skip                # skip rebase
-  rba = rebase --abort
+  r = rebase
+  ri = rebase --interactive
+  rc = rebase --continue            # continue rebase
+  rs = rebase --skip                # skip rebase
+  ra = rebase --abort
 
   m = merge
 	ma = merge --abort
@@ -42,8 +42,8 @@
 	ls = ls-files
 	lsf = !git ls-files | grep -i
 
-  ps = git push origin $(git rev-parse --abbrev-ref HEAD)
-  pl = git pull origin $(git rev-parse --abbrev-ref HEAD)
+  ps = push origin $(git rev-parse --abbrev-ref HEAD)
+  pl = pull origin $(git rev-parse --abbrev-ref HEAD)
 
   # emf: edit modified files
   # ecf: edit conflicted files

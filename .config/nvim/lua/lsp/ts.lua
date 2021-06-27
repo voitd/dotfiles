@@ -19,6 +19,7 @@ end
 -- lspconfig.tsserver.setup{on_attach = on_attach, capabilities = capabilities}
 lspconfig.tsserver.setup {
   on_attach = on_attach,
+  flags = {debounce_text_changes = 500},
   filetypes = {
     "javascript",
     "javascriptreact",
@@ -34,6 +35,18 @@ lspconfig.tsserver.setup {
           snippetSupport = true
         }
       }
+    }
+  },
+  commands = {
+    OrganizeImports = {
+      function()
+        local params = {
+          command = "_typescript.organizeImports",
+          arguments = {vim.api.nvim_buf_get_name(0)},
+          title = ""
+        }
+        vim.lsp.buf.execute_command(params)
+      end
     }
   }
 }

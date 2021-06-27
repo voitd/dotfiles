@@ -6,14 +6,13 @@ set -x LC_ALL en_US.UTF-8
 export TERM=xterm-256color
 export TERMINAL="kitty"
 export EDITOR="nvim"
-export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=YES
 export DOTBARE_DIR="$HOME/dotfiles"
 
 # sets vim as manpager
 export MANPAGER="/bin/sh -c \"col -b | vim --not-a-term -c 'set ft=man ts=8 nomod nolist noma' -\""
 
 # FZF settings {{{
- set -gx FZF_DEFAULT_COMMAND 'rg --files --ignore --smart-case --hidden --follow --no-messages --ignore-file ~/.gitignore'
+ # set -gx FZF_DEFAULT_COMMAND 'rg --files --ignore --smart-case --hidden --follow --no-messages --ignore-file ~/.gitignore'
 # }}}
 
 # Set the prompt
@@ -31,3 +30,8 @@ source $HOME/.aliases
 set -x PATH (pwd)"/git-fuzzy/bin:$PATH"
 set -g fish_user_paths "/usr/local/opt/python@3.8/bin" $fish_user_paths
 pyenv init - | source
+
+
+
+bind \ch peco_select_history # Bind for peco select history to Ctrl+R
+bind \cf peco_change_directory # Bind for peco change directory to Ctrl+F

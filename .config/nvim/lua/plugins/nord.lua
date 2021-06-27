@@ -73,7 +73,7 @@ hiLinks(
     LspDiagnosticsVirtualTextError = "LspDiagnosticsError",
     LspDiagnosticsVirtualTextWarning = "LspDiagnosticsWarning",
     LspDiagnosticsVirtualTextInformation = "LspDiagnosticsInformation",
-    LspDiagnosticsVirtualTextHint = "LspDiagnosticsHint",
+    LspDiagnosticsVirtualTextHint = "LspDiagnosticsHint"
   }
 )
 

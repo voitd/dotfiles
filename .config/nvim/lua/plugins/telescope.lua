@@ -1,4 +1,4 @@
-vim.cmd [[packadd telescope-fzy-native.nvim]]
+-- vim.cmd [[packadd telescope-fzy-native.nvim]]
 local map = require "settings.utils".map
 local finders = require "telescope.builtin"
 local actions = require "telescope.actions"
@@ -7,7 +7,8 @@ local sorters = require "telescope.sorters"
 local previewers = require "telescope.previewers"
 local transform_mod = require("telescope.actions.mt").transform_mod
 
-require("telescope").load_extension("fzy_native")
+-- require("telescope").load_extension("fzy_native")
+require("telescope").load_extension("fzf")
 
 vim.fn.setenv("FZF_DEFAULT_COMMAND", "rg --files --hidden --glob '!.git/**'")
 
@@ -16,35 +17,35 @@ telescope.setup {
     prompt_position = "top",
     prompt_prefix = " ❯ ",
     file_ignore_patterns = {".git/*", "node_modules"},
-    --[[ vimgrep_arguments = {
-      "rg",
-      "--glob",
-      "!{node_modules/*,.git/*,dist/*,build/*}"
-    }, ]]
     shorten_path = true,
     color_devicons = true,
     winblend = 20,
+    layout_config = {preview_width = 0.75},
+    preview_cutoff = 120,
     mappings = {
       i = {
         ["<esc>"] = actions.close,
         ["<C-q>"] = actions.send_to_qflist
-        -- ["<C-h>"] = actions.goto_file_selection_split,
-        -- ["<C-v>"] = actions.goto_file_selection_vsplit
       },
       n = {
         ["<esc>"] = actions.close
       }
     },
-    file_sorter = sorters.get_fzy_sorter,
+    -- file_sorter = sorters.get_fzy_sorter,
     file_previewer = previewers.vim_buffer_cat.new,
     grep_previewer = previewers.vim_buffer_vimgrep.new,
     qflist_previewer = previewers.vim_buffer_qflist.new
   },
   extensions = {
-    fzy_native = {
-      override_generic_sorter = false,
-      override_file_sorter = true
+    fzf = {
+      override_generic_sorter = true, -- override the generic sorter
+      override_file_sorter = true, -- override the file sorter
+      case_mode = "smart_case" -- "smart_case" | "ignore_case" | "respect_case"
     }
+    -- fzy_native = {
+    -- override_generic_sorter = false,
+    -- override_file_sorter = true
+    -- }
   }
 }
 
@@ -65,8 +66,10 @@ map("n", "<leader>bb", "<CMD>lua TelescopeOpen('buffers')<CR>")
 map("n", "<leader>bt", "<CMD>lua TelescopeOpenPrewiev('current_buffer_tags')<CR>")
 map("n", "<leader>cc", "<CMD>lua TelescopeOpen('commands')<CR>")
 map("n", "<leader>cb", "<CMD>lua TelescopeOpen('builtin')<CR>")
--- map("n", "<leader>sw", "<CMD>lua TelescopeOpenPrewiev('grep_string({ search = vim.fn.expand('<cword>')})')<CR>")
-map("n", "<leader>sw", "<CMD>lua TelescopeOpenPrewiev('grep_string')<CR>")
+map("n", "<leader>sw", "<CMD>lua require('telescope.builtin').grep_string { search = vim.fn.expand('<cword>')}<CR>")
+map("n", "<leader>st", "<CMD>lua require('telescope.builtin').grep_string({ search = vim.fn.input('Grep For > ')})<CR>")
+-- map("n", "<leader>sw", "<CMD>lua TelescopeOpenPrewiev('grep_string')<CR>")
+
 map("n", "<leader>sg", "<CMD>lua TelescopeOpenPrewiev('live_grep')<CR>")
 map("n", "<leader>cr", "<CMD>lua TelescopeOpenPrewiev('lsp_references')<CR>")
 map("n", "<leader>cs", "<CMD>lua TelescopeOpenPrewiev('symbols')<CR>")
@@ -94,10 +97,10 @@ map("n", "<C-f>", ":lua TelescopeOpenPrewiev(fzf_omni())<CR>")
 
 function _G.show_diagnostic(opts)
   opts = opts or {}
-  vim.lsp.diagnostic.set_loclist({open_loclist = false})
+  vim.lsp.diagnostic.set_loclist({open_loclis = false})
 
   require "settings.utils".move_cursor_from_tree()
   finders.loclist(require("telescope.themes").get_dropdown({}))
 end
 
-map("n", "<leader>cd", "<cmd>lua show_diagnostic()<CR>", {})
+map("n", "<leader>d", "<cmd>lua show_diagnostic()<CR>", {})

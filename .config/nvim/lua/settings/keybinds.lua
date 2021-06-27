@@ -27,10 +27,8 @@ map("n", "$", "g_")
 -- map("n", "yy", "^yg_")
 -- map("n", "dd", "^dg_")
 
---[[ map("i", '"', '""<left>', {})
-map("i", "'", "''<left>", {})
- ]]
 map("n", "<leader><leader>", ":FloatermNew ranger<cr>", {})
+map("n", "<leader>e", ":NvimTreeToggle<cr>", {})
 map("t", "<leader><leader>", [[<C-\><C-n>:FloatermKill]], {})
 
 -- Moves for colemak
@@ -62,8 +60,10 @@ map("n", "<A-Left>", "<C-W>5>", {})
 map("n", "<A-Up>", "<C-W>+5", {})
 map("n", "<A-Down>", "<C-W>-5", {})
 
--- map('v', '<leader>s', ':s//gcI<Left><Left><Left><Left>')
--- map('n', '<leader>s', ':%s//gcI<Left><Left><Left><Left>')
+-- map("v", "<leader>s", ":s//gcI<Left><Left><Left><Left>")
+-- map("n", "<leader>s", ":%s//gcI<Left><Left><Left><Left>")
+map("n", "<leader>s", ":lua require('spectre').open()<CR>")
+map("v", "<leader>s", ":lua require('spectre').open_visual()<CR>")
 
 map("n", "<leader>.", ":e $MYVIMRC<CR>", {})
 map("n", "<leader>,", ":Startify<CR>", {})
@@ -71,7 +71,7 @@ map("n", "<leader>bd", ":bp<BAR>bd#<CR>", {})
 map("n", "<leader>bo", ":w<BAR>%bd<BAR>e#<BAR>bd#<CR>", {})
 
 map("n", "<BS>", "<C-^>", {})
-map("n", "\\", "<cmd>BufferLinePick<CR>", {})
+map("n", "//", "<cmd>BufferLinePick<CR>", {})
 -- map("n", "\\", "<cmd>BufferPick<CR>", {})
 
 map("n", "[t", ":tabprevious<CR>", {})
@@ -117,7 +117,6 @@ map("o", "A", ":<C-U>normal! ggVG<CR>")
 
 map("n", "gJ", ":SplitjoinJoin<CR>", {})
 map("n", "gj", ":SplitjoinSplit<CR>", {})
-map("n", "g{", [[m`o}<esc><lt><lt>kkA<Space>{<esc>``]], {})
 
 -- Jump to definition in vertical split
 map("n", "<Leader>js", "<C-W>v<C-]>")
@@ -130,18 +129,18 @@ for _, char in ipairs({"_", ".", ":", ",", ";", "<bar>", "/", "<bslash>", "*", "
   map("o", "a" .. char, ":normal va" .. char .. "<CR>")
 end
 
-map("n", "<Leader>ap", "<Plug>(JsConsoleLog)", {noremap = false})
+map("n", "<Leader>pp", "<Plug>(JsConsoleLog)", {noremap = false})
 cmd [[nnoremap <silent><Plug>(JsConsoleLog) :lua console_log()<CR>]]
 
 -- Git
 map("n", "<Leader>gg", ":Gstatus<CR>", {})
-map("n", "<Leader>gb", ":GBranches<CR>", {})
+-- map("n", "<Leader>gb", ":GBranches<CR>", {})
 map("n", "<Leader>go", ":GBrowse<CR>", {})
 
 -- vim-import-js
-map("n", "<Leader>if", ":ImportJSFix<CR>", {})
-map("n", "<Leader>ii", ":ImportJSWord<CR>", {})
-map("n", "<Leader>iw", ":ImportJSWord<CR>", {})
+-- map("n", "<Leader>if", ":ImportJSFix<CR>", {})
+-- map("n", "<Leader>ii", ":ImportJSWord<CR>", {})
+-- map("n", "<Leader>iw", ":ImportJSWord<CR>", {})
 
 -- Searches
 -- when using * # ignore smart case
@@ -177,14 +176,14 @@ map("n", "<leader>bs", ":BLines<CR>", {}) ]]
 -- map("v", "<leader>ss", [["zy:%s/<C-r><C-o>"/]])
 
 -- Test
-map("n", "<leader>tf", "<cmd>TestFile<CR>", {})
-map("n", "<leader>tv", "<cmd>TestVisit<CR>", {})
-map("n", "<leader>jr", "<cmd>Jest<CR>", {})
-map("n", "<leader>jj", "<cmd>JestCurrent<CR>", {})
-map("n", "<leader>ut", "<Plug>(ultest-run-file)", {noremap = false})
+-- map("n", "<leader>tf", "<cmd>TestFile<CR>", {})
+-- map("n", "<leader>tv", "<cmd>TestVisit<CR>", {})
+-- map("n", "<leader>jr", "<cmd>Jest<CR>", {})
+-- map("n", "<leader>jj", "<cmd>JestCurrent<CR>", {})
+-- map("n", "<leader>ut", "<Plug>(ultest-run-file)", {noremap = false})
 
 -- Terminal
-map("n", "<leader>tt", "<cmd>FloatermNew --height=0.3 --wintype=normal --position=bottom<CR>", {})
+map("n", "<leader>th", "<cmd>FloatermNew --height=0.3 --wintype=normal --position=bottom<CR>", {})
 map("n", "<leader>tv", "<cmd>FloatermNew --width=0.4 --wintype=normal --position=right<CR>", {})
 
 -- Togglers
@@ -200,9 +199,7 @@ map("n", "<leader>tM", ":MatchTagToggle<CR>", {})
 map("n", "<Leader>nf", [[:e <C-R>=expand("%:p:h") . "/" <CR>]], {silent = false})
 map("n", "<Leader>of", ":lua open_file_or_create_new()", {silent = false})
 -- Kitty
-map("n", "<leader>kv", ":silent !kitty @ launch --copy-env --cwd=current nvim % <CR>", {})
-
-map("n", "<leader>cc", ":normal gcc<CR>", {})
+map("n", "<leader>c", ":normal gcc<CR>", {})
 
 map("n", "za", [[@=(foldlevel('.')?'za':"\<Space>")<CR>]], {})
 map("n", "zO", [[zCzO]], {})
@@ -210,3 +207,26 @@ map("n", "zO", [[zCzO]], {})
 map("n", "%", "<Plug>(matchup-%)", {})
 map("x", "%", "<Plug>(matchup-%)", {})
 map("o", "%", "<Plug>(matchup-%)", {})
+
+map("i", "'i", "''<left>", {})
+map("i", '"i', '""<left>', {})
+map("i", "`i", "``<left>", {})
+map("i", "(i", "()<left>", {})
+map("i", "{i", "{}<left>", {})
+map("i", "[i", "[]<left>", {})
+map("i", "<i", "<><left>", {})
+
+map("i", "'a", "''", {})
+map("i", '"a', '""', {})
+map("i", "`a", "``", {})
+map("i", "(a", "()", {})
+map("i", "{a", "{}", {})
+map("i", "[a", "[]", {})
+map("i", "<a", "<>", {})
+
+map("i", "'o", "'<cr>'<esc>O", {})
+map("i", '"o', '"<cr>"<esc>O', {})
+map("i", "`o", "`<cr>`<esc>O", {})
+map("i", "(o", "(<cr>)<esc>O", {})
+map("i", "{o", "{<cr>}<esc>O", {})
+map("i", "[o", "[<cr>]<esc>O", {})
