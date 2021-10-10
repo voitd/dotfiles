@@ -9,8 +9,8 @@ cmd "syntax enable"
 cmd "set termguicolors"
 
 -- inactive statuslines as thin splitlines
-cmd "hi! StatusLineNC gui=underline guibg=NONE guifg='#101010'"
 
+cmd "au VimEnter * hi! StatusLineNC gui=underline guibg=NONE guifg='#101010'"
 -- gruvbox
 cmd "colorscheme gruvbox-material"
 -- cmd "colorscheme gruvbox-flat"

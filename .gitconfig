@@ -20,7 +20,6 @@
 	undo = reset HEAD~1 --mixed
 	; clone = clone --template=/Users/void/.git-templates
   # push 
-  p = push
   pf = push --force-with-lease
 
   b = branch -a
@@ -42,8 +41,9 @@
 	ls = ls-files
 	lsf = !git ls-files | grep -i
 
-  ps = push origin $(git rev-parse --abbrev-ref HEAD)
-  pl = pull origin $(git rev-parse --abbrev-ref HEAD)
+  gp = "!f() { push origin $(git rev-parse --abbrev-ref HEAD); }; git add `f`"
+  gu = "!f() { pull --rebase origin $(git rev-parse --abbrev-ref HEAD); }; git add `f`"
+  pl = pull --rebase origin (git rev-parse --abbrev-ref HEAD)
 
   # emf: edit modified files
   # ecf: edit conflicted files

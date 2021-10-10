@@ -14,6 +14,9 @@ export MANPAGER="/bin/sh -c \"col -b | vim --not-a-term -c 'set ft=man ts=8 nomo
 # FZF settings {{{
  # set -gx FZF_DEFAULT_COMMAND 'rg --files --ignore --smart-case --hidden --follow --no-messages --ignore-file ~/.gitignore'
 # }}}
+export FZF_TMUX=1
+export FZF_TMUX_OPTS="-p"
+export FZF_CTRL_R_OPTS="--reverse --preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
 
 # Set the prompt
 # function fish_prompt
@@ -33,5 +36,5 @@ pyenv init - | source
 
 
 
-bind \ch peco_select_history # Bind for peco select history to Ctrl+R
+bind \cm peco_select_history # Bind for peco select history to Ctrl+R
 bind \cf peco_change_directory # Bind for peco change directory to Ctrl+F

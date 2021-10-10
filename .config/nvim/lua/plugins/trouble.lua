@@ -1,21 +1,10 @@
-local map = require "settings.utils".map
-
 require "trouble".setup {
+  auto_open = false, -- automatically open the list when you have diagnostics
+  auto_close = false, -- automatically close the list when you have no diagnostics
   fold_open = "▾",
   fold_closed = "▸",
   indent_lines = true,
-  signs = {
-    error = "",
-    warning = "",
-    hint = "",
-    information = "",
-    other = ""
-  },
-  action_keys = {jump = {"<cr>"}, toggle_fold = {"<tab>"}}
+  use_lsp_diagnostic_signs = true
 }
-local opts = {silent = true, noremap = true}
-map("n", "<space>j", "<cmd>TroubleToggle<CR>", opts)
-map("n", "<space>jw", "<cmd>TroubleToggle lsp_workspace_diagnostics<CR>", opts)
-map("n", "<space>jd", "<cmd>TroubleToggle lsp_document_diagnostics<CR>", opts)
-map("n", "<space>jq", "<cmd>TroubleToggle quickfix<CR>", opts)
+
 vim.cmd [[highlight link TroubleText CursorLineNr]]

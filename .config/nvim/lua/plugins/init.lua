@@ -1,24 +1,42 @@
 require "plugins.floaterm"
 require "plugins.sign"
 require "plugins.startify"
-require "plugins.statusline"
 require "plugins.rooter"
 require "plugins.tabbar"
 require "plugins.telescope"
 require "plugins.tsitter"
-require "plugins.abbrman"
-require "plugins.discord"
 require "plugins.tree"
-require "plugins.gruvbox"
+require "plugins.trouble"
+require "plugins.feline"
+--  require "plugins.statusline"
+require "plugins.commented"
+--  require "plugins.specs"
+--  require "plugins.whichkey"
 
--- require "plugins.trouble"
+-- require "plugins.discord"
+-- require "plugins.abbrman"
 -- require "plugins.indent"
 -- require "plugins.sneak"
--- require "plugins.rigel"
 -- require "plugins.ui"
 -- require "plugins.fzf"
 -- require "plugins.nord"
 -- require "plugins.pairs"
 
+--  require "plugins.gruvbox"
+--  require "plugins.rigel"
+--  require "plugins.gitcolor"
+
+--  require "floatline".setup()
 require "nvim-web-devicons".setup()
 require "nvim-ts-autotag".setup()
+require "mark-radar".setup()
+require "nvim-tree".setup {}
+require "focus".setup()
+--  require "wlsample.evil_line"
+--  require "surround".setup {}
+
+--  vim.cmd [[colorscheme zenbones]]
+--  vim.cmd [[colorscheme catppuccino]]
+--  vim.cmd [[colorscheme substrata]]
+--  vim.cmd [[colorscheme paper]]
+vim.cmd [[colorscheme wind]]

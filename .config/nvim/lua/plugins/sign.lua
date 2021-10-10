@@ -5,18 +5,53 @@ require("gitsigns").setup {
     -- delete = {text = "", numhl = "GitGutterDelete"},
     -- topdelete = {text = "", numhl = "GitGutterDelete"},
     -- changedelete = {text = "", numhl = "GitGutterDelete"}
-    add = {hl = "GitGutterAdd", text = "│", numhl = ""},
-    change = {hl = "GitGutterChange", text = "│", numhl = ""},
-    delete = {hl = "GitGutterDelete", text = "│", numhl = ""},
-    topdelete = {hl = "GitGutterDelete", text = "│", numhl = ""},
-    changedelete = {hl = "GitGutterDelete", text = "│", numhl = ""}
+    --  add = {hl = "GitGutterAdd", text = "│", numhl = ""},
+    --  change = {hl = "GitGutterChange", text = "│", numhl = ""},
+    --  delete = {hl = "GitGutterDelete", text = "│", numhl = ""},
+    --  topdelete = {hl = "GitGutterDelete", text = "│", numhl = ""},
+    --  changedelete = {hl = "GitGutterDelete", text = "│", numhl = ""}
+    add = {hl = "GitSignsAdd", text = "│", numhl = ""},
+    change = {hl = "GitSignsChange", text = "│", numhl = ""},
+    delete = {hl = "GitSignsDelete", text = "│", numhl = ""},
+    topdelete = {hl = "GitSignsDelete", text = "│", numhl = ""},
+    changedelete = {hl = "GitSignsDelete", text = "│", numhl = ""}
+    --[[ add = {
+      hl = "GitSignsAdd",
+      text = "│",
+      numhl = "GitSignsAddNr",
+      linehl = "GitSignsAddLn"
+    },
+    change = {
+      hl = "GitSignsChange",
+      text = "│",
+      numhl = "GitSignsChangeNr",
+      linehl = "GitSignsChangeLn"
+    },
+    delete = {
+      hl = "GitSignsDelete",
+      text = "│",
+      numhl = "GitSignsDeleteNr",
+      linehl = "GitSignsDeleteLn"
+    },
+    topdelete = {
+      hl = "GitSignsDelete",
+      text = "│",
+      numhl = "GitSignsDeleteNr",
+      linehl = "GitSignsDeleteLn"
+    },
+    changedelete = {
+      hl = "GitSignsChange",
+      text = "│",
+      numhl = "GitSignsChangeNr",
+      linehl = "GitSignsChangeLn"
+    } --]]
   },
   numhl = true,
   keymaps = {
     noremap = true,
     buffer = true,
-    ["n ]g"] = {expr = true, '&diff ? \']c\' : \'<cmd>lua require"gitsigns".next_hunk()<CR>\''},
-    ["n [g"] = {expr = true, '&diff ? \'[c\' : \'<cmd>lua require"gitsigns".prev_hunk()<CR>\''},
+    ["n ]g"] = {expr = true, '&diff ? \']g\' : \'<cmd>lua require"gitsigns".next_hunk()<CR>\''},
+    ["n [g"] = {expr = true, '&diff ? \'[g\' : \'<cmd>lua require"gitsigns".prev_hunk()<CR>\''},
     ["n <leader>hs"] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
     ["n <leader>hu"] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
     ["n <leader>hr"] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
@@ -25,14 +60,15 @@ require("gitsigns").setup {
     ["n <leader>ha"] = '<cmd>lua require"gitsigns".attach()<CR>',
     ["n <leader>hd"] = '<cmd>lua require"gitsigns".detach_all()<CR>'
   },
-  watch_index = {
+  watch_gitdir = {
     interval = 1000
+  },
+  current_line_blame_opts = {
+    virt_text_pos = "right_align" -- 'eol' | 'overlay' | 'right_align'
   },
   sign_priority = 6,
   status_formatter = nil,
-  update_debounce = 100,
-  use_decoration_api = true,
-  use_internal_diff = true,
+  update_debounce = 100
   -- yadm = {enable = true}
   -- status_formatter = function(status)
   -- local added = status.added > 0 and "  " .. status.added or ""

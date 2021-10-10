@@ -212,4 +212,16 @@ function _G.rg_word()
   cmd(join("RG ", word))
 end
 
+-- toggle mouse
+function _G.toggle_mouse()
+  if vim.o.mouse == "" then
+    vim.o.mouse = "a"
+    print("Mouse enabled")
+  else
+    vim.o.mouse = ""
+    print("Mouse disabled")
+  end
+end
+
+
 return U

@@ -1,17 +1,14 @@
-" Automatically generated packer.nvim plugin loader code
+-- Automatically generated packer.nvim plugin loader code
 
-if !has('nvim-0.5')
-  echohl WarningMsg
-  echom "Invalid Neovim version for packer.nvim!"
-  echohl None
-  finish
-endif
+if vim.api.nvim_call_function('has', {'nvim-0.5'}) ~= 1 then
+  vim.api.nvim_command('echohl WarningMsg | echom "Invalid Neovim version for packer.nvim! | echohl None"')
+  return
+end
 
-packadd packer.nvim
+vim.api.nvim_command('packadd packer.nvim')
 
-try
+local no_errors, error_msg = pcall(function()
 
-lua << END
   local time
   local profile_info
   local should_profile = false
@@ -72,13 +69,37 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
-  ["AbbrevMan.nvim"] = {
+  ["alternate-toggler"] = {
     loaded = true,
-    path = "/Users/void/.local/share/nvim/site/pack/packer/start/AbbrevMan.nvim"
+    path = "/Users/void/.local/share/nvim/site/pack/packer/start/alternate-toggler"
+  },
+  ["cmp-buffer"] = {
+    loaded = true,
+    path = "/Users/void/.local/share/nvim/site/pack/packer/start/cmp-buffer"
+  },
+  ["cmp-nvim-lsp"] = {
+    loaded = true,
+    path = "/Users/void/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp"
+  },
+  ["cmp-nvim-lua"] = {
+    loaded = true,
+    path = "/Users/void/.local/share/nvim/site/pack/packer/start/cmp-nvim-lua"
+  },
+  ["cmp-path"] = {
+    loaded = true,
+    path = "/Users/void/.local/share/nvim/site/pack/packer/start/cmp-path"
+  },
+  ["cmp-vsnip"] = {
+    loaded = true,
+    path = "/Users/void/.local/share/nvim/site/pack/packer/start/cmp-vsnip"
   },
   ["codi.vim"] = {
     loaded = true,
     path = "/Users/void/.local/share/nvim/site/pack/packer/start/codi.vim"
+  },
+  ["commented.nvim"] = {
+    loaded = true,
+    path = "/Users/void/.local/share/nvim/site/pack/packer/start/commented.nvim"
   },
   ["conflict-marker.vim"] = {
     loaded = true,
@@ -87,6 +108,14 @@ _G.packer_plugins = {
   ["editorconfig-vim"] = {
     loaded = true,
     path = "/Users/void/.local/share/nvim/site/pack/packer/start/editorconfig-vim"
+  },
+  ["feline.nvim"] = {
+    loaded = true,
+    path = "/Users/void/.local/share/nvim/site/pack/packer/start/feline.nvim"
+  },
+  ["focus.nvim"] = {
+    loaded = true,
+    path = "/Users/void/.local/share/nvim/site/pack/packer/start/focus.nvim"
   },
   ["friendly-snippets"] = {
     loaded = true,
@@ -100,45 +129,45 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/void/.local/share/nvim/site/pack/packer/start/fzf.vim"
   },
-  ["galaxyline.nvim"] = {
-    loaded = true,
-    path = "/Users/void/.local/share/nvim/site/pack/packer/start/galaxyline.nvim"
-  },
   ["git-blame.nvim"] = {
     loaded = true,
     path = "/Users/void/.local/share/nvim/site/pack/packer/start/git-blame.nvim"
+  },
+  ["github-nvim-theme"] = {
+    loaded = true,
+    path = "/Users/void/.local/share/nvim/site/pack/packer/start/github-nvim-theme"
   },
   ["gitsigns.nvim"] = {
     loaded = true,
     path = "/Users/void/.local/share/nvim/site/pack/packer/start/gitsigns.nvim"
   },
-  ["gruvbox-flat.nvim"] = {
+  ["lsp-trouble.nvim"] = {
     loaded = true,
-    path = "/Users/void/.local/share/nvim/site/pack/packer/start/gruvbox-flat.nvim"
-  },
-  ["gruvbox-material"] = {
-    loaded = true,
-    path = "/Users/void/.local/share/nvim/site/pack/packer/start/gruvbox-material"
+    path = "/Users/void/.local/share/nvim/site/pack/packer/start/lsp-trouble.nvim"
   },
   ["lspsaga.nvim"] = {
     loaded = true,
     path = "/Users/void/.local/share/nvim/site/pack/packer/start/lspsaga.nvim"
   },
+  ["mark-radar.nvim"] = {
+    loaded = true,
+    path = "/Users/void/.local/share/nvim/site/pack/packer/start/mark-radar.nvim"
+  },
   ["nvim-bufferline.lua"] = {
     loaded = true,
     path = "/Users/void/.local/share/nvim/site/pack/packer/start/nvim-bufferline.lua"
   },
-  ["nvim-compe"] = {
+  ["nvim-cmp"] = {
     loaded = true,
-    path = "/Users/void/.local/share/nvim/site/pack/packer/start/nvim-compe"
+    path = "/Users/void/.local/share/nvim/site/pack/packer/start/nvim-cmp"
+  },
+  ["nvim-lsp-ts-utils"] = {
+    loaded = true,
+    path = "/Users/void/.local/share/nvim/site/pack/packer/start/nvim-lsp-ts-utils"
   },
   ["nvim-lspconfig"] = {
     loaded = true,
     path = "/Users/void/.local/share/nvim/site/pack/packer/start/nvim-lspconfig"
-  },
-  ["nvim-spectre"] = {
-    loaded = true,
-    path = "/Users/void/.local/share/nvim/site/pack/packer/start/nvim-spectre"
   },
   ["nvim-tree.lua"] = {
     loaded = true,
@@ -152,9 +181,17 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/void/.local/share/nvim/site/pack/packer/start/nvim-ts-autotag"
   },
+  ["nvim-ts-context-commentstring"] = {
+    loaded = true,
+    path = "/Users/void/.local/share/nvim/site/pack/packer/start/nvim-ts-context-commentstring"
+  },
   ["nvim-web-devicons"] = {
     loaded = true,
     path = "/Users/void/.local/share/nvim/site/pack/packer/start/nvim-web-devicons"
+  },
+  ["nvim-window.git"] = {
+    loaded = true,
+    path = "/Users/void/.local/share/nvim/site/pack/packer/start/nvim-window.git"
   },
   ["packer.nvim"] = {
     loaded = false,
@@ -169,10 +206,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/void/.local/share/nvim/site/pack/packer/start/popup.nvim"
   },
-  ["presence.nvim"] = {
-    loaded = true,
-    path = "/Users/void/.local/share/nvim/site/pack/packer/start/presence.nvim"
-  },
   ["quick-scope"] = {
     loaded = true,
     path = "/Users/void/.local/share/nvim/site/pack/packer/start/quick-scope"
@@ -185,13 +218,17 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/void/.local/share/nvim/site/pack/packer/start/splitjoin.vim"
   },
-  ["startuptime.vim"] = {
-    loaded = true,
-    path = "/Users/void/.local/share/nvim/site/pack/packer/start/startuptime.vim"
-  },
   ["telescope-fzf-native.nvim"] = {
     loaded = true,
     path = "/Users/void/.local/share/nvim/site/pack/packer/start/telescope-fzf-native.nvim"
+  },
+  ["telescope-media-files.nvim"] = {
+    loaded = true,
+    path = "/Users/void/.local/share/nvim/site/pack/packer/start/telescope-media-files.nvim"
+  },
+  ["telescope-repo.nvim"] = {
+    loaded = true,
+    path = "/Users/void/.local/share/nvim/site/pack/packer/start/telescope-repo.nvim"
   },
   ["telescope.nvim"] = {
     loaded = true,
@@ -200,10 +237,6 @@ _G.packer_plugins = {
   undotree = {
     loaded = true,
     path = "/Users/void/.local/share/nvim/site/pack/packer/start/undotree"
-  },
-  ["vim-commentary"] = {
-    loaded = true,
-    path = "/Users/void/.local/share/nvim/site/pack/packer/start/vim-commentary"
   },
   ["vim-efm-langserver-settings"] = {
     loaded = true,
@@ -221,14 +254,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/void/.local/share/nvim/site/pack/packer/start/vim-hexokinase"
   },
-  ["vim-javascript"] = {
-    loaded = true,
-    path = "/Users/void/.local/share/nvim/site/pack/packer/start/vim-javascript"
-  },
-  ["vim-lengthmatters"] = {
-    loaded = true,
-    path = "/Users/void/.local/share/nvim/site/pack/packer/start/vim-lengthmatters"
-  },
   ["vim-matchup"] = {
     loaded = true,
     path = "/Users/void/.local/share/nvim/site/pack/packer/start/vim-matchup"
@@ -245,13 +270,17 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/void/.local/share/nvim/site/pack/packer/start/vim-startify"
   },
+  ["vim-test"] = {
+    loaded = true,
+    path = "/Users/void/.local/share/nvim/site/pack/packer/start/vim-test"
+  },
+  ["vim-ultest"] = {
+    loaded = true,
+    path = "/Users/void/.local/share/nvim/site/pack/packer/start/vim-ultest"
+  },
   ["vim-vsnip"] = {
     loaded = true,
     path = "/Users/void/.local/share/nvim/site/pack/packer/start/vim-vsnip"
-  },
-  ["vim-vsnip-integ"] = {
-    loaded = true,
-    path = "/Users/void/.local/share/nvim/site/pack/packer/start/vim-vsnip-integ"
   },
   ["vscode-es7-javascript-react-snippets"] = {
     loaded = true,
@@ -260,17 +289,18 @@ _G.packer_plugins = {
   ["vscode-vue-snippets"] = {
     loaded = true,
     path = "/Users/void/.local/share/nvim/site/pack/packer/start/vscode-vue-snippets"
+  },
+  ["wind-colors"] = {
+    loaded = true,
+    path = "/Users/void/.local/share/nvim/site/pack/packer/start/wind-colors"
   }
 }
 
 time([[Defining packer_plugins]], false)
 if should_profile then save_profiles() end
 
-END
+end)
 
-catch
-  echohl ErrorMsg
-  echom "Error in packer_compiled: " .. v:exception
-  echom "Please check your config for correctness"
-  echohl None
-endtry
+if not no_errors then
+  vim.api.nvim_command('echohl ErrorMsg | echom "Error in packer_compiled: '..error_msg..'" | echom "Please check your config for correctness" | echohl None')
+end

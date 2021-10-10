@@ -35,7 +35,6 @@ g.startify_commands = {
   {u = {"Update Plugin", ":PackerUpdate"}},
   {c = {"Clean Plugin", ":PackerClean"}},
   {s = {"Sync Plugin", ":PackerSync"}},
-  {s = {"Start Time", ":StartupTime"}},
   {o = {"Open GitHub repo", ":RepoEdit"}}
   -- { m = {'Coc marketplace'        , ':CocList marketplace'     }},
 }

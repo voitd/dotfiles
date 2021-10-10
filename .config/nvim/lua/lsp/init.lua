@@ -6,7 +6,7 @@
 
 local map = require "settings.utils".map
 
-require "lsp.compe"
+require "lsp.cmp"
 require "lsp.ts"
 require "lsp.html"
 require "lsp.css"
@@ -17,27 +17,20 @@ require "lsp.elixir"
 require "lsp.bash"
 require "lsp.efm"
 require "lsp.vue"
+require "lsp.diagnostics"
 -- require "lsp.saga"
 -- require "lsp.angular"
-require "lsp.diagnostics"
 -- require "lsp.js"
 -- require "lsp.dap"
 -- require "lsp.nlua"
-
+local opts = {noremap = true, silent = true}
 -- LSP
-map("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", {noremap = true, silent = true})
-map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", {noremap = true, silent = true})
-map("n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", {noremap = true, silent = true})
-map(
-  "n",
-  "<space>d",
-  '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({border = "single"})<CR>',
-  {noremap = true, silent = true}
-)
-map("n", "<leader>ff", ":lua vim.lsp.buf.formatting()<CR>", {})
--- map("n", "<leader>f",  ":LSPFormat<CR>", {})
--- map("n", "<leader>ff", ":Format<CR>", {})
-
+map("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
+map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+map("n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
+map("n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+map("n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
+map("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
 -- Handle formatting in a smarter way
 -- If the buffer has been edited before formatting has completed, do not try to
 -- apply the changes
@@ -59,22 +52,40 @@ vim.lsp.handlers["textDocument/formatting"] = function(err, _, result, _, bufnr)
   end
 end
 
--- Custom_capabilities = function()
---   local capabilities = vim.lsp.protocol.make_client_capabilities()
---   capabilities.textDocument.completion.completionItem.snippetSupport = true
---   return capabilities
--- end
+-- additional capabilities for autocompletion with nvim-cmp
+local capabilities = vim.lsp.protocol.make_client_capabilities()
 
--- vim.cmd([[
--- command! -range FormatRange  execute 'lua FormatRange()'
--- ]])
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.preselectSupport = true
+capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
+capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
+capabilities.textDocument.completion.completionItem.deprecatedSupport = true
+capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
+capabilities.textDocument.completion.completionItem.tagSupport = {valueSet = {1}}
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+  properties = {
+    "documentation",
+    "detail",
+    "additionalTextEdits"
+  }
+}
 
--- vim.cmd([[
--- command! LSPFormat  execute 'lua vim.lsp.buf.formatting()'
--- ]])
+function _G.formatDocument()
+  -- check if LSP is attached
+  if (#vim.lsp.buf_get_clients()) < 1 then
+    return
+  end
 
---[[ FormatRange = function()
-  local start_pos = vim.api.nvim_buf_get_mark(0, "<")
-  local end_pos = vim.api.nvim_buf_get_mark(0, ">")
-  vim.lsp.buf.range_formatting({}, start_pos, end_pos)
-end ]]
+  local ft = vim.bo.filetype
+  if ft == "javascript" or ft == "typescript" or ft == "javascriptreact" or ft == "typescriptreact" then
+    local params = {
+      command = "_typescript.organizeImports",
+      arguments = {vim.api.nvim_buf_get_name(0)},
+      title = ""
+    }
+    vim.lsp.buf_request_sync(vim.api.nvim_get_current_buf(), "workspace/executeCommand", params, 1000)
+  end
+  vim.lsp.buf.formatting_sync(nil, 1000)
+end
+
+vim.cmd("command! Format :lua formatDocument()")

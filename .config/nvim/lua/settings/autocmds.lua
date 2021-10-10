@@ -4,18 +4,15 @@ local exec = vim.api.nvim_exec
 
 -- Auto save files when focus is lost
 cmd "au FocusLost * silent! :wa!"
-cmd "au TextYankPost * silent! lua require'vim.highlight'.on_yank({timeout = 800})"
+cmd "au TextYankPost * silent! lua require'vim.highlight'.on_yank({higroup='Visual',timeout = 800})"
 cmd "au BufEnter * set fo-=c fo-=r fo-=o"
 cmd "au TermOpen * setlocal signcolumn=no nonumber norelativenumber"
 cmd "au BufNewFile,BufRead .eslintignore,.prettierignore,.aliases setf conf"
 cmd "au BufNewFile,BufRead .eslintrc,.prettierrc,tsconfig.json setf json"
 
--- cmd "au BufWritePost * FormatWrite"
-cmd "au BufWritePost * lua vim.lsp.buf.formatting()"
+cmd "au BufWritePre * Format"
+--  cmd "au BufWritePre * lua vim.lsp.buf.formatting_sync()"
 cmd "au BufWritePost * normal! zv"
-
--- cmd "au CursorHold * lua vim.defer_fn(function() require'lspsaga.signaturehelp'.signature_help() end, 5000)"
--- cmd "au CursorHold * lua vim.defer_fn(function() require'lspsaga.provider'.preview_definition() end, 5000)"
 
 cmd "au FileType gitcommit setl spell"
 -- cmd "au FileType html,css,scss,javascript,javascriptreact,vue,typescript,typescriptreact EmmetInstall"
@@ -31,10 +28,14 @@ cmd [[au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") && &filety
 -- cmd "au Filetype fzf setlocal winblend=7"
 cmd "au CmdlineLeave : echo ''"
 
+cmd "au FileType floaterm nnoremap <silent> <buffer> q :q<CR>"
+
 cmd "command! LSPReload lua reload_lsp()"
 cmd "command! LSPDebug lua print(vim.inspect(vim.lsp.get_active_clients()))"
 cmd "command! LSPLog lua open_lsp_log()"
 
+-- cmd "au VimEnter * hi! StatusLineNC gui=underline guibg=NONE guifg=NONE"
+cmd "au VimEnter * hi! MatchParen cterm=bold ctermbg=6 gui=underline guifg=NONE guibg=NONE"
 -- cmd [[command! -nargs=0 ImportJs execute "normal ggOimport { ".expand('<cword>')."} from '';"]]
 
 -- Startuptime

@@ -40,10 +40,11 @@ apply_options(
     complete = vim.o.complete .. ",k/Users/void/.config/word10k.txt",
     formatoptions = "1jcroql", -- improve editor formatting
     encoding = "UTF-8", -- set encoding
-    fillchars = "vert:│,fold:\\ ,diff:,msgsep:‾,eob:\\ ,foldopen:▾,foldsep:│,foldclose:▸", -- make vertical split sign better
+    fillchars = "stl:\\ ,stlnc:_,vert:│,fold:\\ ,diff:,msgsep:‾,eob:\\ ,foldopen:▾,foldsep:│,foldclose:▸", -- make vertical split sign better
     inccommand = "split", -- incrementally show result of command
     listchars = "eol:↲,tab:∘\\ ,trail:•", -- set listchars
-    mouse = "nv", -- enable mouse support
+    mouse = "", -- enable mouse support
+    --  mouse = "nv", -- enable mouse support
     shortmess = "filnxtToOFIWc", -- disable some stuff on shortmess
     signcolumn = "yes", -- enable sign column all the time, 4 column
     clipboard = "unnamedplus", -- use system clipboard
