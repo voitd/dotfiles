@@ -141,6 +141,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/void/.local/share/nvim/site/pack/packer/start/gitsigns.nvim"
   },
+  ["gruvbox-material"] = {
+    loaded = true,
+    path = "/Users/void/.local/share/nvim/site/pack/packer/start/gruvbox-material"
+  },
   ["lsp-trouble.nvim"] = {
     loaded = true,
     path = "/Users/void/.local/share/nvim/site/pack/packer/start/lsp-trouble.nvim"
@@ -253,6 +257,14 @@ _G.packer_plugins = {
   ["vim-hexokinase"] = {
     loaded = true,
     path = "/Users/void/.local/share/nvim/site/pack/packer/start/vim-hexokinase"
+  },
+  ["vim-javascript"] = {
+    loaded = true,
+    path = "/Users/void/.local/share/nvim/site/pack/packer/start/vim-javascript"
+  },
+  ["vim-jsx"] = {
+    loaded = true,
+    path = "/Users/void/.local/share/nvim/site/pack/packer/start/vim-jsx"
   },
   ["vim-matchup"] = {
     loaded = true,

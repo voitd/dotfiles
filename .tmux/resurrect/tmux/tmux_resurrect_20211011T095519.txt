@@ -1,0 +1,8 @@
+pane	0	1	1	:*Z	1	:/Users/void/CodeHub/work/salesbuddha-extension	0	make	:/Library/Developer/CommandLineTools/usr/bin/make start
+pane	0	1	1	:*Z	2	:/Users/void/CodeHub/work/salesbuddha-extension	0	fish	:
+pane	0	1	1	:*Z	3	:/Users/void/CodeHub/work/salesbuddha-extension	1	nvim	:nvim
+pane	0	1	1	:*Z	4	:/Users/void/CodeHub/work/salesbuddha-extension	0	Python	:/System/Library/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python -O /usr/local/bin/ranger
+pane	0	2	0	:-	1	:/Users/void/Downloads	1	fish	:
+window	0	1	:guidlines.js	1	:*Z	181e,209x69,0,0{107x69,0,0[107x37,0,0,0,107x31,0,38,3],101x69,108,0[101x37,108,0,2,101x31,108,38,4]}	off
+window	0	2	:fish	0	:-	d722,209x69,0,0,5	on
+state	0	

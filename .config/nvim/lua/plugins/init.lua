@@ -8,7 +8,6 @@ require "plugins.tsitter"
 require "plugins.tree"
 require "plugins.trouble"
 require "plugins.feline"
---  require "plugins.statusline"
 require "plugins.commented"
 --  require "plugins.specs"
 --  require "plugins.whichkey"
@@ -27,16 +26,16 @@ require "plugins.commented"
 --  require "plugins.gitcolor"
 
 --  require "floatline".setup()
+
 require "nvim-web-devicons".setup()
 require "nvim-ts-autotag".setup()
 require "mark-radar".setup()
 require "nvim-tree".setup {}
 require "focus".setup()
+
 --  require "wlsample.evil_line"
 --  require "surround".setup {}
 
 --  vim.cmd [[colorscheme zenbones]]
---  vim.cmd [[colorscheme catppuccino]]
---  vim.cmd [[colorscheme substrata]]
---  vim.cmd [[colorscheme paper]]
 vim.cmd [[colorscheme wind]]
+--  vim.cmd([[colorscheme gruvbox]])

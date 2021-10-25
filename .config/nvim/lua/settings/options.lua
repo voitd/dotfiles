@@ -19,7 +19,7 @@ apply_options(
     hidden = true, -- keep hidden buffers
     hlsearch = true, -- highlight matching search
     ignorecase = true, -- case insensitive on search
-    -- lazyredraw = true, -- lazyredraw to make macro faster
+    lazyredraw = true, -- lazyredraw to make macro faster
     list = false, -- display listchars
     number = true, -- enable number
     relativenumber = true, -- enable relativenumber
@@ -32,7 +32,7 @@ apply_options(
     wrap = false, -- dont wrap lines
     writebackup = false, -- disable backup
     wildignorecase = true,
-    -- ttyfast = true,
+    ttyfast = true,
     timeout = true,
     ttimeout = true,
     matchpairs = "(:),{:},[:],<:>", -- highlight match pairs
@@ -40,13 +40,29 @@ apply_options(
     complete = vim.o.complete .. ",k/Users/void/.config/word10k.txt",
     formatoptions = "1jcroql", -- improve editor formatting
     encoding = "UTF-8", -- set encoding
+    -- listchars = {
+      -- nbsp = "⦸",
+      -- extends = "»",
+      -- precedes = "«",
+      -- tab = "∘",
+      -- trail = "•",
+      -- space = " ",
+      -- eol = "↲"
+    -- },
+    -- fillchars = {
+      -- diff = "∙",
+      -- eob = "↲",
+      -- fold = " ",
+      -- vert = " ",
+      -- stl = " ",
+      -- stlnc = " "
+    -- },
+    listchars = "eol:↲,tab:∘\\ ,trail:•", -- set listchars
     fillchars = "stl:\\ ,stlnc:_,vert:│,fold:\\ ,diff:,msgsep:‾,eob:\\ ,foldopen:▾,foldsep:│,foldclose:▸", -- make vertical split sign better
     inccommand = "split", -- incrementally show result of command
-    listchars = "eol:↲,tab:∘\\ ,trail:•", -- set listchars
-    mouse = "", -- enable mouse support
     --  mouse = "nv", -- enable mouse support
     shortmess = "filnxtToOFIWc", -- disable some stuff on shortmess
-    signcolumn = "yes", -- enable sign column all the time, 4 column
+    signcolumn = "number", -- enable sign column all the time, 4 column
     clipboard = "unnamedplus", -- use system clipboard
     shell = "fish", -- fish as shell
     syntax = "on", -- syntax enable

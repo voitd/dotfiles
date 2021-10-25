@@ -88,7 +88,7 @@ local test = {
   "rcarriga/vim-ultest" -- pretty test output
 }
 
---  local langs = {"vieira/vim-javascript", "mxw/vim-jsx"}
+local langs = {"vieira/vim-javascript", "mxw/vim-jsx"}
 
 local snippets = {
   "hollowtree/vscode-vue-snippets",
@@ -97,6 +97,8 @@ local snippets = {
 }
 
 local themes = {
+  --  "sainnhe/gruvbox-material",
+  {"ellisonleao/gruvbox.nvim", requires = {"rktjmp/lush.nvim"}},
   "projekt0n/github-nvim-theme",
   "windwp/wind-colors"
 }
@@ -126,7 +128,7 @@ packer.startup {
     snippets,
     themes,
     ui,
-    --  langs
+    langs,
     test
   },
   config = {

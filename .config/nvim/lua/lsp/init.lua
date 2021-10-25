@@ -70,22 +70,22 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
   }
 }
 
-function _G.formatDocument()
-  -- check if LSP is attached
-  if (#vim.lsp.buf_get_clients()) < 1 then
-    return
-  end
+-- function _G.formatDocument()
+-- check if LSP is attached
+-- if (#vim.lsp.buf_get_clients()) < 1 then
+-- return
+-- end
 
-  local ft = vim.bo.filetype
-  if ft == "javascript" or ft == "typescript" or ft == "javascriptreact" or ft == "typescriptreact" then
-    local params = {
-      command = "_typescript.organizeImports",
-      arguments = {vim.api.nvim_buf_get_name(0)},
-      title = ""
-    }
-    vim.lsp.buf_request_sync(vim.api.nvim_get_current_buf(), "workspace/executeCommand", params, 1000)
-  end
-  vim.lsp.buf.formatting_sync(nil, 1000)
-end
+-- local ft = vim.bo.filetype
+-- if ft == "javascript" or ft == "typescript" or ft == "javascriptreact" or ft == "typescriptreact" then
+-- local params = {
+-- command = "_typescript.organizeImports",
+-- arguments = {vim.api.nvim_buf_get_name(0)},
+-- title = ""
+-- }
+-- vim.lsp.buf_request_sync(vim.api.nvim_get_current_buf(), "workspace/executeCommand", params, 1000)
+-- end
+-- vim.lsp.buf.formatting_sync(nil, 1000)
+-- end
 
-vim.cmd("command! Format :lua formatDocument()")
+-- vim.cmd("command! Format :lua formatDocument()")

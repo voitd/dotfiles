@@ -10,11 +10,11 @@ require("gitsigns").setup {
     --  delete = {hl = "GitGutterDelete", text = "│", numhl = ""},
     --  topdelete = {hl = "GitGutterDelete", text = "│", numhl = ""},
     --  changedelete = {hl = "GitGutterDelete", text = "│", numhl = ""}
-    add = {hl = "GitSignsAdd", text = "│", numhl = ""},
-    change = {hl = "GitSignsChange", text = "│", numhl = ""},
-    delete = {hl = "GitSignsDelete", text = "│", numhl = ""},
-    topdelete = {hl = "GitSignsDelete", text = "│", numhl = ""},
-    changedelete = {hl = "GitSignsDelete", text = "│", numhl = ""}
+    add = {hl = "SingAdd", text = "│", numhl = ""},
+    change = {hl = "SingChange", text = "│", numhl = ""},
+    delete = {hl = "SingDelete", text = "│", numhl = ""},
+    topdelete = {hl = "SignDelete", text = "│", numhl = ""},
+    changedelete = {hl = "SignDelete", text = "│", numhl = ""}
     --[[ add = {
       hl = "GitSignsAdd",
       text = "│",
@@ -61,14 +61,15 @@ require("gitsigns").setup {
     ["n <leader>hd"] = '<cmd>lua require"gitsigns".detach_all()<CR>'
   },
   watch_gitdir = {
-    interval = 1000
+    interval = 1000,
+    follow_files = true
   },
   current_line_blame_opts = {
     virt_text_pos = "right_align" -- 'eol' | 'overlay' | 'right_align'
   },
   sign_priority = 6,
   status_formatter = nil,
-  update_debounce = 100
+  update_debounce = 100,
   -- yadm = {enable = true}
   -- status_formatter = function(status)
   -- local added = status.added > 0 and "  " .. status.added or ""
@@ -76,4 +77,10 @@ require("gitsigns").setup {
   -- local removed = status.removed > 0 and "  " .. status.removed or ""
   -- return status.head .. added .. changed .. removed .. " "
   -- end
+  preview_config = {
+    -- Options passed to nvim_open_win
+    border = "single",
+    style = "minimal",
+    relative = "cursor"
+  }
 }

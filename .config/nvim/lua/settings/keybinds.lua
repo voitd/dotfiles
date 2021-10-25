@@ -35,8 +35,8 @@ map(
   ":lua if vim.api.nvim_buf_get_option(0, 'filetype') == 'NvimTree' then vim.cmd('NvimTreeClose') else vim.cmd('NvimTreeFindFile') end<cr>"
 )
 map("t", "<Esc>", [[<C-\><C-n>:FloatermKill<cr>]])
+map("t", "<Esc>", [[<C-\><C-n>]])
 
--- Moves for colemak
 map("n", "j", "h")
 map("n", "k", "j")
 map("n", "m", "k")
@@ -52,8 +52,8 @@ map("x", "m", "k")
 map("o", "j", "h")
 map("o", "k", "j")
 map("o", "m", "k")
--- Easier Moving between splits
 
+-- Easier Moving between splits
 map("n", "<S-Up>", "<C-W><C-J>")
 map("n", "<S-Down>", "<C-W><C-K>")
 map("n", "<S-Right>", "<C-W><C-L>")

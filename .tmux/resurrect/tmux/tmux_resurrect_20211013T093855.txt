@@ -1,0 +1,17 @@
+pane	buddha	1	1	:*Z	1	:/Users/void/CodeHub/work/salesbuddha-extension	0	make	:/Library/Developer/CommandLineTools/usr/bin/make start
+pane	buddha	1	1	:*Z	2	:/Users/void/CodeHub/work/salesbuddha-extension	0	fish	:
+pane	buddha	1	1	:*Z	3	:/Users	0	Python	:/System/Library/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python -O /usr/local/bin/ranger
+pane	buddha	1	1	:*Z	4	:/Users/void/CodeHub/work/salesbuddha-extension	1	nvim	:nvim
+pane	buddha	2	0	:-	1	:/Users/void/CodeHub/work/salesbuddha-extension	1	fish	:
+pane	dotfiles	1	1	:*	1	:/Users/void/.dotfiles	1	nvim	:nvim README.md
+pane	dotfiles	2	0	:-	1	:/Users/void	1	nvim	:nvim
+pane	poker-1	1	1	:*	1	:/Users/void/CodeHub/poker-room/backend/models	1	Python	:/System/Library/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python -O /usr/local/bin/ranger
+pane	poker-1	1	1	:*	2	:/Users/void/CodeHub/poker-room	0	fish	:
+pane	poker-1	1	1	:*	3	:/Users/void/CodeHub/poker-room	0	nvim	:nvim
+pane	poker-1	1	1	:*	4	:/Users/void/CodeHub/poker-room	0	fish	:
+window	buddha	1	:miscSlice.js	1	:*Z	0c36,272x69,0,0{115x69,0,0[115x20,0,0,0,115x48,0,21,3],156x69,116,0[156x20,116,0,21,156x48,116,21,32]}	off
+window	buddha	2	:fish	0	:-	d562,272x69,0,0,5	on
+window	dotfiles	1	:README.md	1	:*	eae4,272x69,0,0,25	off
+window	dotfiles	2	:.tmux.conf	0	:-	eae5,272x69,0,0,26	off
+window	poker-1	1	:userController.js	1	:*	487d,272x69,0,0[272x34,0,0{136x34,0,0,23,135x34,137,0,28},272x34,0,35{136x34,0,35,24,135x34,137,35,30}]	off
+state	buddha	dotfiles

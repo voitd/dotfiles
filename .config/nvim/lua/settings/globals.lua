@@ -1,4 +1,3 @@
-local g = vim.g
 local cmd = vim.cmd
 local apply_globals = require "settings.utils".apply_globals
 
@@ -52,10 +51,12 @@ apply_globals(
     matchup_motion_cursor_end = 0,
     matchup_mappings_enabled = 0
     --gruvbox
+    --  gruvbox_material_palette = "mix",
     --  gruvbox_material_palette = "material",
     --  gruvbox_material_sign_column_background = "none",
-    --  gruvbox_material_sign_column_background = "bg0",
-    --  gruvbox_material_background = "medium",
+    --  --  gruvbox_material_sign_column_background = "bg0",
+    --  gruvbox_material_background = "hard",
+    --  --  gruvbox_material_background = "medium",
     --  gruvbox_material_enable_italic = 1,
     --  gruvbox_material_enable_bold = 1,
     --  gruvbox_material_diagnostic_line_highlight = 0,

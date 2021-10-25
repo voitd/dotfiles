@@ -5,19 +5,21 @@ cmd "set termguicolors"
 cmd "syntax enable"
 cmd "syntax sync fromstart"
 
+cmd "au VimEnter * hi! MatchParen cterm=bold ctermbg=6 gui=underline guifg=NONE guibg=NONE"
+
 local icons = {
   diagnostic = {
-    error = "  ",
-    warn = "  ",
-    hint = "  ",
-    info = "   "
+    error = " ",
+    warn = " ",
+    hint = " ",
+    info = " "
   },
   diff = {
     added = " ",
     changed = "柳",
     removed = " "
   },
-  main = "   "
+  main = "    "
 }
 
 local colors = {
@@ -272,14 +274,13 @@ require("feline").setup(
     force_inactive = {
       filetypes = {
         "NvimTree",
-        "dbui",
+        "floaterm",
+        "Trouble",
         "packer",
         "startify",
         "fugitive",
         "fugitiveblame"
-      },
-      buftypes = {"terminal"},
-      bufnames = {}
+      }
     }
   }
 )

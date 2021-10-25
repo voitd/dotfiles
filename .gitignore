@@ -48,6 +48,9 @@ terms/tmux/tmux/resurrect/*
 terms/tmux/tmux/resurrect/last
 terms/tmux/tmux/plugins/*
 
+.tmux/resurrect/*
+.tmux/resurrect/last
+.tmux/plugins/*
 #########
 # MacOS #
 #########
