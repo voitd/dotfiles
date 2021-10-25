@@ -18,9 +18,6 @@ local eslint_d = {
   lintSource = "eslint_d",
   lintFormats = {"%f:%l:%c: %m"},
   lintIgnoreExitCode = true
-  -- formatCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT} --fix-to-stdout",
-  -- formatCommand = "eslint_d --fix-to-stdout --stdin --stdin-filename ${INPUT}",
-  -- formatStdin = true
 }
 local luaFormat = {
   formatCommand = "npx luafmt --indent-count 2 --stdin",
@@ -52,6 +49,7 @@ lspconfig.efm.setup {
   },
   settings = {
     rootMarkers = {"package.json", ".git", ".git/"},
+    lintDebounce = 200,
     languages = {
       typescript = {eslint_d},
       javascript = {eslint_d, prettier_d},
