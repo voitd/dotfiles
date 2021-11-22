@@ -6,8 +6,8 @@ cmd "filetype plugin indent on"
 
 apply_globals(
   {
-    gitblame_enabled = 0,
-    gitblame_message_template = "     <author> • <summary> • <date>",
+    --  gitblame_enabled = 0,
+    --  gitblame_message_template = "     <author> • <summary> • <date>",
     clipboard = {
       name = "macOS-clipboard",
       copy = {
@@ -29,16 +29,16 @@ apply_globals(
       typescriptreact = {"typescript", "html"},
       vue = {"vue", "javascript", "html"}
     },
-    -- vim-test
-    ultest_use_pty = 1,
-    --  ["test#strategy"] = "neovim",
-    --  ["test#neovim#term_position"] = "vert botright 80",
-    ["test#strategy"] = "kitty",
-    --  ["test#elixir#exunit#executable"] = "MIX_ENV=test mix test",
-    ["test#javascript#runner"] = "jest",
-    ["test#javascript#jest#executable"] = "CI=true yarn test",
-    ["test#javascript#jest#options"] = "--color=always --watch",
-    ["test#javascript#jest#file_pattern"] = [[\v(__tests__/.*|(spec|test))\.(js|jsx|ts|tsx)$]],
+    --  -- vim-test
+    --  ultest_use_pty = 1,
+    --  --  ["test#strategy"] = "neovim",
+    --  --  ["test#neovim#term_position"] = "vert botright 80",
+    --  ["test#strategy"] = "kitty",
+    --  --  ["test#elixir#exunit#executable"] = "MIX_ENV=test mix test",
+    --  ["test#javascript#runner"] = "jest",
+    --  ["test#javascript#jest#executable"] = "CI=true yarn test",
+    --  ["test#javascript#jest#options"] = "--color=always --watch",
+    --  ["test#javascript#jest#file_pattern"] = [[\v(__tests__/.*|(spec|test))\.(js|jsx|ts|tsx)$]],
     -- matchup
     matchup_matchparen_timeout = 100,
     matchup_matchparen_deferred = 1,

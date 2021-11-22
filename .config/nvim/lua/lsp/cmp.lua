@@ -1,95 +1,90 @@
 local cmp = require "cmp"
 local types = require "cmp.types"
---  require("cmp_nvim_lsp").setup {}
-local compare = require("cmp.config.compare")
 local fn = vim.fn
 
-local function check_back_space()
+local WIDE_HEIGHT = 40
+
+local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-  -- local col = fn.col(".") - 1
-  -- return col == 0 or fn.getline("."):sub(col, col):match("%s") ~= nil
+end
+
+local feedkey = function(key, mode)
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
 end
 
 cmp.setup {
+  experimental = {
+    ghost_text = true,
+    native_menu = false
+  },
   snippet = {
     expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body)
+      fn["vsnip#anonymous"](args.body)
     end
   },
   sorting = {
-    priority_weight = 2,
-    comparators = {
-      compare.exact,
-      compare.offset,
-      compare.score,
-      compare.kind,
-      compare.sort_text,
-      compare.length,
-      compare.order
-    }
+    priority_weight = 2
   },
   completion = {
     autocomplete = {
       types.cmp.TriggerEvent.InsertEnter,
       types.cmp.TriggerEvent.TextChanged
     },
-    completeopt = "menuone,noselect"
+    completeopt = "menu,menuone,noselect"
   },
+  preselect = types.cmp.PreselectMode.Item,
   documentation = {
-    border = "rounded",
-    winhighlight = "NormalFloat:CmpDocumentation,FloatBorder:CmpDocumentationBorder"
+    winhighlight = "NormalFloat:CmpDocumentation,FloatBorder:CmpDocumentationBorder",
+    maxwidth = math.floor((WIDE_HEIGHT * 2) * (vim.o.columns / (WIDE_HEIGHT * 2 * 16 / 9))),
+    maxheight = math.floor(WIDE_HEIGHT * (WIDE_HEIGHT / vim.o.lines))
   },
   sources = {
+    {name = "path"},
     {name = "nvim_lsp"},
     {name = "vsnip"},
-    {name = "path"},
-    {
-      name = "buffer",
-      opts = {
-        get_bufnrs = function()
-          local bufs = {}
-          for _, win in ipairs(vim.api.nvim_list_wins()) do
-            bufs[vim.api.nvim_win_get_buf(win)] = true
-          end
-          return vim.tbl_keys(bufs)
-        end
-      }
-    }
+    {name = "buffer"}
   },
   mapping = {
-    ["<Up>"] = cmp.mapping.select_prev_item(),
-    ["<Down>"] = cmp.mapping.select_next_item(),
-    ["<C-Space>"] = cmp.mapping.complete(),
-    ["<Esc>"] = cmp.mapping.close(),
-    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-    ["<C-u>"] = cmp.mapping.scroll_docs(4),
-    ["<CR>"] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true
-    },
-    ["<Tab>"] = function(fallback)
-      if vim.fn.pumvisible() == 1 then
-        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-n>", true, true, true), "n")
-      elseif vim.fn["vsnip#available"]() == 1 then
-        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>(vsnip-expand-or-jump)", true, true, true), "")
-      elseif check_back_space() then
-        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, true, true), "")
-      else
-        fallback()
-      end
-    end,
-    ["<S-Tab>"] = function(fallback)
-      if vim.fn.pumvisible() == 1 then
-        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-p>", true, true, true), "n")
-      elseif vim.fn["vsnip#available"]() == 1 then
-        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>(vsnip-jump-prev)", true, true, true), "")
-      else
-        fallback()
-      end
-    end
+    ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), {"i", "s"}),
+    ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(4), {"i", "s"}),
+    ["<Esc>"] = cmp.mapping(
+      {
+        i = cmp.mapping.abort(),
+        c = cmp.mapping.close()
+      }
+    ),
+    ["<CR>"] = cmp.mapping.confirm({select = true}),
+    ["<Up>"] = cmp.mapping(cmp.mapping.select_prev_item(), {"i", "c"}),
+    ["<Down>"] = cmp.mapping(cmp.mapping.select_next_item(), {"i", "c"}),
+    ["<Tab>"] = cmp.mapping(
+      function(fallback)
+        if cmp.visible() then
+          cmp.select_next_item()
+        elseif vim.fn["vsnip#available"](1) == 1 then
+          feedkey("<Plug>(vsnip-expand-or-jump)", "")
+        elseif has_words_before() then
+          cmp.complete()
+        else
+          fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
+        end
+      end,
+      {"i", "s"}
+    ),
+    ["<S-Tab>"] = cmp.mapping(
+      function()
+        if cmp.visible() then
+          cmp.select_prev_item()
+        elseif vim.fn["vsnip#jumpable"](-1) == 1 then
+          feedkey("<Plug>(vsnip-jump-prev)", "")
+        end
+      end,
+      {"i", "s"}
+    )
   },
   formatting = {
+    deprecated = true,
+    fields = {"kind", "abbr", "menu"},
     format = function(entry, vim_item)
       local menu = {
         nvim_lsp = " ",
@@ -98,39 +93,78 @@ cmp.setup {
         buffer = " "
       }
       local kind = {
-        Text = "ﮜ [text] ",
-        Method = " [method] ",
-        Function = " [function] ",
-        Constructor = " [constructor] ",
-        Field = "ﰠ [field] ",
-        Variable = " [variable] ",
-        Class = " [class] ",
-        Interface = " [interface] ",
-        Module = " [module] ",
-        Property = " [property] ",
-        Unit = " [unit] ",
-        Value = " [value] ",
-        Enum = " [enum] ",
-        Keyword = " [key] ",
-        Snippet = " [snippet] ",
-        Color = " [color] ",
-        File = " [file] ",
-        Reference = " [reference] ",
-        Folder = " [folder] ",
-        EnumMember = " [enum member] ",
-        Constant = " [constant] ",
-        Struct = " [struct] ",
-        Event = "⌘ [event] ",
-        Operator = " [operator] ",
-        TypeParameter = "⌂ [type] "
+        Text = "",
+        Method = "",
+        Function = "",
+        Constructor = " ",
+        Field = "ﰠ",
+        Variable = " ",
+        Class = " ",
+        Interface = "",
+        Module = " ",
+        Property = "",
+        Unit = "塞",
+        Value = "",
+        Enum = "",
+        Keyword = "",
+        Snippet = "",
+        Color = "",
+        File = "",
+        Reference = "",
+        Folder = "",
+        EnumMember = "",
+        Constant = "",
+        Struct = "",
+        Event = "",
+        Operator = "",
+        TypeParameter = "<>"
       }
-
       vim_item.menu = menu[entry.source.name]
       vim_item.kind = kind[vim_item.kind]
       return vim_item
     end
   }
 }
+
+-- Use buffer source for `/`.
+cmp.setup.cmdline(
+  "/",
+  {
+    sources = cmp.config.sources(
+      {
+        {name = "fuzzy_buffer"}
+      },
+      {
+        {name = "nvim_lsp_document_symbol"}
+      }
+    )
+  }
+)
+
+cmp.setup.cmdline(
+  "?",
+  {
+    sources = {
+      {name = "buffer"}
+    }
+  }
+)
+
+-- Use cmdline & path source for ':'.
+cmp.setup.cmdline(
+  ":",
+  {
+    sources = cmp.config.sources(
+      {
+        {name = "path"}
+      },
+      {
+        {name = "cmdline", keyword_length = 2}
+      }
+    )
+  }
+)
+
 vim.cmd(
   [[
 augroup NvimCmp
@@ -139,3 +173,8 @@ au FileType TelescopePrompt lua require('cmp').setup.buffer { enabled = false }
 augroup END
 ]]
 )
+
+vim.cmd "au VimEnter * hi! CmpItemAbbrMatch guifg=#AA82E0 guibg=NONE"
+vim.cmd "au VimEnter * hi! CmpItemAbbrMatchFzzy guifg=Purple guibg=NONE"
+vim.cmd "au VimEnter * hi! CmpItemKind guifg=#AA82E0 guibg=NONE"
+vim.cmd "au VimEnter * hi! CmpItemMenu guifg=#82E0AA guibg=NONE"

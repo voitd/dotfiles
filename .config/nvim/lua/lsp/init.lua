@@ -28,7 +28,7 @@ local opts = {noremap = true, silent = true}
 map("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
 map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
 map("n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-map("n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+--  map("n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 map("n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
 map("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
 -- Handle formatting in a smarter way
@@ -54,7 +54,7 @@ end
 
 -- additional capabilities for autocompletion with nvim-cmp
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-
+capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.completion.completionItem.preselectSupport = true
 capabilities.textDocument.completion.completionItem.insertReplaceSupport = true

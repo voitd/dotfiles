@@ -35,7 +35,11 @@ cmd "command! LSPDebug lua print(vim.inspect(vim.lsp.get_active_clients()))"
 cmd "command! LSPLog lua open_lsp_log()"
 
 -- cmd "au VimEnter * hi! StatusLineNC gui=underline guibg=NONE guifg=NONE"
-cmd "au VimEnter * hi! MatchParen cterm=bold ctermbg=6 gui=underline guifg=NONE guibg=NONE"
+cmd "au VimEnter * hi! MatchParen guifg=NONE guibg=NONE"
+
+
+--  cmd "au VimEnter * hi! CmpItemAbbrDeprecated gui = "strikethrough", guibg=NONE"
+
 -- cmd [[command! -nargs=0 ImportJs execute "normal ggOimport { ".expand('<cword>')."} from '';"]]
 
 -- Startuptime

@@ -77,6 +77,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/void/.local/share/nvim/site/pack/packer/start/cmp-buffer"
   },
+  ["cmp-cmdline"] = {
+    loaded = true,
+    path = "/Users/void/.local/share/nvim/site/pack/packer/start/cmp-cmdline"
+  },
   ["cmp-nvim-lsp"] = {
     loaded = true,
     path = "/Users/void/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp"
@@ -109,10 +113,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/void/.local/share/nvim/site/pack/packer/start/editorconfig-vim"
   },
-  ["feline.nvim"] = {
-    loaded = true,
-    path = "/Users/void/.local/share/nvim/site/pack/packer/start/feline.nvim"
-  },
   ["focus.nvim"] = {
     loaded = true,
     path = "/Users/void/.local/share/nvim/site/pack/packer/start/focus.nvim"
@@ -141,9 +141,9 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/void/.local/share/nvim/site/pack/packer/start/gitsigns.nvim"
   },
-  ["gruvbox-material"] = {
+  ["gruvbox.nvim"] = {
     loaded = true,
-    path = "/Users/void/.local/share/nvim/site/pack/packer/start/gruvbox-material"
+    path = "/Users/void/.local/share/nvim/site/pack/packer/start/gruvbox.nvim"
   },
   ["lsp-trouble.nvim"] = {
     loaded = true,
@@ -152,6 +152,10 @@ _G.packer_plugins = {
   ["lspsaga.nvim"] = {
     loaded = true,
     path = "/Users/void/.local/share/nvim/site/pack/packer/start/lspsaga.nvim"
+  },
+  ["lush.nvim"] = {
+    loaded = true,
+    path = "/Users/void/.local/share/nvim/site/pack/packer/start/lush.nvim"
   },
   ["mark-radar.nvim"] = {
     loaded = true,
@@ -164,6 +168,10 @@ _G.packer_plugins = {
   ["nvim-cmp"] = {
     loaded = true,
     path = "/Users/void/.local/share/nvim/site/pack/packer/start/nvim-cmp"
+  },
+  ["nvim-lsp-installer"] = {
+    loaded = true,
+    path = "/Users/void/.local/share/nvim/site/pack/packer/start/nvim-lsp-installer"
   },
   ["nvim-lsp-ts-utils"] = {
     loaded = true,
@@ -305,6 +313,10 @@ _G.packer_plugins = {
   ["wind-colors"] = {
     loaded = true,
     path = "/Users/void/.local/share/nvim/site/pack/packer/start/wind-colors"
+  },
+  ["windline.nvim"] = {
+    loaded = true,
+    path = "/Users/void/.local/share/nvim/site/pack/packer/start/windline.nvim"
   }
 }
 

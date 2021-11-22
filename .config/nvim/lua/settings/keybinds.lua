@@ -27,7 +27,7 @@ map("n", "$", "g_")
 -- map("n", "yy", "^yg_")
 -- map("n", "dd", "^dg_")
 
-map("n", "<leader>tr", ":FloatermNew ranger<cr>")
+--  map("n", "<leader>tr", ":FloatermNew ranger<cr>")
 --  map("n", "<leader>e", ":NvimTreeToggle<cr>")
 map(
   "n",
@@ -126,7 +126,7 @@ map("n", "gJ", ":SplitjoinJoin<CR>")
 map("n", "gj", ":SplitjoinSplit<CR>")
 
 -- Jump to definition in vertical split
-map("n", "gs", "<C-W>v<C-]>")
+map("n", "gv", "<C-W>v<C-]>")
 
 -- Taken from https://gist.github.com/romainl/c0a8b57a36aec71a986f1120e1931f20
 for _, char in ipairs({"_", ".", ":", ",", ";", "<bar>", "/", "<bslash>", "*", "+", "-", "#"}) do
@@ -194,8 +194,8 @@ map("n", "<leader>tg", ":GitBlameToggle<CR>")
 map("n", "<leader>xx", ":TroubleToggle<CR>")
 map("n", "<leader>tc", ":HexokinaseToggle<CR>")
 map("n", "<leader>u", ":UndotreeToggle<CR>")
-map("n", "<leader>tc", ":Codi<CR>")
-map("n", "<leader>tC", ":Codi!<CR>")
+map("n", "<leader>tr", ":Codi<CR>")
+map("n", "<leader>tR", ":Codi!<CR>")
 map("n", "<leader>tm", ":lua toggle_mouse()<CR>")
 -- map("n", "<leader>tm", ":MatchTagToggleBoth<CR>")
 -- map("n", "<leader>tM", ":MatchTagToggle<CR>")
@@ -204,7 +204,7 @@ map("n", "<leader>tm", ":lua toggle_mouse()<CR>")
 map("n", "<Leader>nf", [[:e <C-R>=expand("%:p:h") . "/" <CR>]], {silent = false})
 --  map("n", "<Leader>of", ":lua open_file_or_create_new()<CR>", {silent = false})
 
-map("n", "a", "len(getline('.')) == 0 ? 'S' : 'a'", {expr = true})
+map("n", "a", "empty(getline('.')) ? 'S' : 'a'", {expr = true})
 
 map("n", "za", [[@=(foldlevel('.')?'za':"\<Space>")<CR>]])
 map("n", "zO", [[zCzO]])
@@ -238,3 +238,5 @@ map("i", "[o", "[<cr>]<esc>O")
 
 -- Important: Revert back to previous cursor position
 map("i", "<esc>", "<esc>`^")
+
+map("n", "<space>rn", "<cmd>lua require('renamer').rename()<CR>")

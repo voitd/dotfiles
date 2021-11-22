@@ -24,7 +24,8 @@ local lsp = {
   "nvim-lua/popup.nvim",
   "nvim-lua/plenary.nvim",
   "neovim/nvim-lspconfig",
-  "jose-elias-alvarez/nvim-lsp-ts-utils",
+  "williamboman/nvim-lsp-installer",
+  --  "jose-elias-alvarez/nvim-lsp-ts-utils",
   "JoosepAlviste/nvim-ts-context-commentstring",
   "tsuyoshicho/vim-efm-langserver-settings", -- auto config efm lsp
   {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"},
@@ -39,32 +40,34 @@ local cmp = {
   "hrsh7th/cmp-nvim-lsp",
   "hrsh7th/cmp-path",
   "hrsh7th/cmp-vsnip",
-  "hrsh7th/vim-vsnip"
+  "hrsh7th/vim-vsnip",
+  "hrsh7th/cmp-cmdline",
+  --  {"tzachar/cmp-fuzzy-buffer", requires = {"hrsh7th/nvim-cmp", "tzachar/fuzzy.nvim"}}
 }
 
 local git = {
-  "cljoly/telescope-repo.nvim",
+  --  "cljoly/telescope-repo.nvim",
   "tpope/vim-fugitive",
   "tpope/vim-rhubarb",
   "rhysd/conflict-marker.vim", -- Highlight conflict markers.[x and ]x, ct for themselves, co for ourselves, cn for none and cb
-  "lewis6991/gitsigns.nvim",
-  "f-person/git-blame.nvim"
+  "lewis6991/gitsigns.nvim"
+  --  "f-person/git-blame.nvim"
 }
 
 local misk = {
-  "editorconfig/editorconfig-vim",
+  --  "editorconfig/editorconfig-vim",
   "winston0410/commented.nvim",
-  "winston0410/mark-radar.nvim", -- highlight marks by `
-  "unblevable/quick-scope",
+  --  "winston0410/mark-radar.nvim", -- highlight marks by `
+  --  "unblevable/quick-scope",
   "oberblastmeister/rooter.nvim", -- root dir switcher
   "AndrewRadev/splitjoin.vim", -- allows to split one liner to multi lines
   "mbbill/undotree", -- undo tree
   "machakann/vim-sandwich", -- Change surrounding arks
   "metakirby5/codi.vim", --Repl
-  "voldikss/vim-floaterm",
+  --  "voldikss/vim-floaterm",
   "windwp/nvim-ts-autotag", -- Auto change html tags
   {"rrethy/vim-hexokinase", run = "make hexokinase"},
-  "rmagatti/alternate-toggler", --toggling alternate "boolean" values.
+  --  "rmagatti/alternate-toggler", --toggling alternate "boolean" values.
   "andymass/vim-matchup"
   -- "rrethy/vim-illuminate", -- highlight matching words when cursor on it
   -- "windwp/nvim-spectre" -- search panel
@@ -83,40 +86,54 @@ local fzf = {
   -- "gfanto/fzf-lsp.nvim"
 }
 
-local test = {
-  "janko/vim-test",
-  "rcarriga/vim-ultest" -- pretty test output
-}
+--  local test = {
+--  "janko/vim-test",
+--  "rcarriga/vim-ultest" -- pretty test output
+--  }
 
-local langs = {"vieira/vim-javascript", "mxw/vim-jsx"}
+--  local langs = {"vieira/vim-javascript", "mxw/vim-jsx"}
 
 local snippets = {
-  "hollowtree/vscode-vue-snippets",
-  "dsznajder/vscode-es7-javascript-react-snippets",
+  --  "hollowtree/vscode-vue-snippets",
+  --  "dsznajder/vscode-es7-javascript-react-snippets",
   "rafamadriz/friendly-snippets"
 }
 
 local themes = {
   --  "sainnhe/gruvbox-material",
-  {"ellisonleao/gruvbox.nvim", requires = {"rktjmp/lush.nvim"}},
-  "projekt0n/github-nvim-theme",
   "windwp/wind-colors"
 }
 
 local ui = {
+  "noib3/cokeline.nvim",
+  "filipdutescu/renamer.nvim",
   "beauwilliams/focus.nvim",
   "mhinz/vim-startify", -- start screen
   "kyazdani42/nvim-web-devicons",
-  "akinsho/nvim-bufferline.lua",
+  --  "akinsho/nvim-bufferline.lua",
   "kyazdani42/nvim-tree.lua",
-  "folke/lsp-trouble.nvim",
-  "https://gitlab.com/yorickpeterse/nvim-window.git",
-  {"famiu/feline.nvim", branch = "develop"}
+  --  "folke/lsp-trouble.nvim",
+  --  "https://gitlab.com/yorickpeterse/nvim-window.git",
+  "windwp/windline.nvim"
   --  "folke/which-key.nvim",
-  -- "gelguy/wilder.nvim"
 }
 
 local packer = require("packer")
+packer.init {
+  compile_path = vim.fn.stdpath("config") .. "/lua/packer_compiled.lua",
+  git = {
+    clone_timeout = 350
+  },
+  display = {
+    title = "Packer",
+    done_sym = "",
+    error_syn = "×",
+    keybindings = {
+      toggle_info = "o"
+    }
+  }
+}
+
 packer.startup {
   {
     init,
@@ -127,9 +144,9 @@ packer.startup {
     fzf,
     snippets,
     themes,
-    ui,
-    langs,
-    test
+    ui
+    --  langs,
+    --  test
   },
   config = {
     display = {
