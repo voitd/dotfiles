@@ -1,8 +1,0 @@
-pane	0	1	1	:*	1	:/Users/void/CodeHub/work/salesbuddha-extension	0	make	:/Library/Developer/CommandLineTools/usr/bin/make start
-pane	0	1	1	:*	2	:/Users/void/CodeHub/work/salesbuddha-extension	0	fish	:
-pane	0	1	1	:*	3	:/Users/void/CodeHub/work/salesbuddha-extension	1	nvim	:nvim
-pane	0	1	1	:*	4	:/Users/void/CodeHub/work/salesbuddha-extension	0	Python	:/System/Library/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python -O /usr/local/bin/ranger
-pane	0	2	0	:-	1	:/Users/void/Downloads	1	aria2c	:aria2c [NNMClub.to]_Moom 3.2.23 MAS [TNT].dmg.torrent
-window	0	1	:salesbuddha	1	:*	55bd,197x44,0,0{101x44,0,0[101x25,0,0,0,101x18,0,26,3],95x44,102,0[95x25,102,0,2,95x18,102,26,4]}	off
-window	0	2	:aria2c	0	:-	d2e2,210x69,0,0,5	on
-state	0	

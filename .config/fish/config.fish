@@ -6,7 +6,6 @@ set -x LC_ALL en_US.UTF-8
 export TERM=xterm-256color
 export TERMINAL="kitty"
 export EDITOR="nvim"
-export DOTBARE_DIR="$HOME/dotfiles"
 # sets vim as manpager
 export MANPAGER="/bin/sh -c \"col -b | vim --not-a-term -c 'set ft=man ts=8 nomod nolist noma' -\""
 
@@ -25,15 +24,16 @@ export FZF_CTRL_R_OPTS="--reverse --preview 'echo {}' --preview-window down:3:hi
 #     echo -n " "
 # end
 
-starship init fish | source
 
 source $HOME/.aliases
 
-set -x PATH (pwd)"/git-fuzzy/bin:$PATH"
-set -g fish_user_paths "/usr/local/opt/python@3.8/bin" $fish_user_paths
+set -g -x PATH /opt/homebrew/bin $PATH 
+set -g fish_user_paths /opt/homebrew/sbin $fish_user_paths
+
+starship init fish | source
 pyenv init - | source
 
 
 
-bind \cm peco_select_history # Bind for peco select history to Ctrl+R
-bind \cf peco_change_directory # Bind for peco change directory to Ctrl+F
+# bind \cm peco_select_history # Bind for peco select history to Ctrl+R
+# bind \cf peco_change_directory # Bind for peco change directory to Ctrl+F

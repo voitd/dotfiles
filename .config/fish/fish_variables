@@ -182,7 +182,7 @@ SETUVAR fish_pager_color_completion:normal
 SETUVAR fish_pager_color_description:B3A06D\x1eyellow
 SETUVAR fish_pager_color_prefix:white\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
 SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
-SETUVAR fish_user_paths:/usr/local/opt/python\x403\x2e8/bin\x1e/usr/local/opt/python\x403\x2e8/bin\x1e/Users/void/\x2efzf/bin\x1e/Users/void/\x2eyarn/bin\x1e/Users/void/\x2elocal/share/nvim/site/pack/packer/start/fzf/bin\x1e/usr/local/opt/fzf/bin
+SETUVAR fish_user_paths:/opt/homebrew/bin\x1e/usr/local/opt/python\x403\x2e8/bin\x1e/usr/local/opt/python\x403\x2e8/bin\x1e/usr/local/opt/python\x403\x2e8/bin\x1e/Users/void/\x2efzf/bin\x1e/Users/void/\x2eyarn/bin\x1e/Users/void/\x2elocal/share/nvim/site/pack/packer/start/fzf/bin\x1e/usr/local/opt/fzf/bin
 SETUVAR pure_begin_prompt_with_current_directory:true
 SETUVAR pure_color_command_duration:pure_color_warning
 SETUVAR pure_color_current_directory:pure_color_primary
