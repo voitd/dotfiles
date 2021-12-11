@@ -18,7 +18,6 @@ function M.setup()
         "neovim/nvim-lspconfig",
         config = function()
           require("config.lsp").setup()
-          require("config.dap").setup()
         end,
       }
   
@@ -226,14 +225,6 @@ use {
         config = function()
           require("twilight").setup {}
         end,
-      }
-  
-      -- tests
-      use {
-        "rcarriga/vim-ultest",
-        config = "require('config.test').setup()",
-        run = ":UpdateRemotePlugins",
-        requires = { "vim-test/vim-test" },
       }
   
       -- telescope

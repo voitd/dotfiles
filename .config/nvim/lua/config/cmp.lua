@@ -64,7 +64,6 @@ function M.setup()
       { name = "vsnip", max_item_count = 10 },
       { name = "buffer", max_item_count = 5 },
       { name = "path" },
-,
     },
     completion = { completeopt = "menu,menuone,noinsert", keyword_length = 1 },
     experimental = { native_menu = false, ghost_text = false },

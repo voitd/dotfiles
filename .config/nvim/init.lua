@@ -1,3 +1,7 @@
+-- inspired by  https://github.com/alpha2phi/dotfiles
+vim.g.mapleader = " "
+vim.g.maplocalleader = ","
+  
 local fn = vim.fn
 local execute = vim.api.nvim_command
 
@@ -16,15 +20,15 @@ end
 
 -- sys_init()
 
--- require "packer_compiled"
+require "packer_compiled"
 
 packer_init()
 
--- require("defaults").setup()
+require("defaults").setup()
 
--- require("settings").setup()
+require("settings").setup()
 
--- require("keymappings").setup()
+require("keymappings").setup()
 
 vim.defer_fn(function()
   require("plugins").setup()
