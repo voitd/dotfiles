@@ -31,7 +31,6 @@ set -g -x PATH /opt/homebrew/bin $PATH
 set -g fish_user_paths /opt/homebrew/sbin $fish_user_paths
 
 starship init fish | source
-pyenv init - | source
 
 
 
